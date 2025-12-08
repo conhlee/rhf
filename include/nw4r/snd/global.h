@@ -11,8 +11,15 @@
  * types
  */
 
-namespace nw4r { namespace snd
-{
+namespace nw4r { namespace snd {
+	enum OutputLineFlag {
+		OUTPUT_LINE_MAIN = (1 << 0),
+		OUTPUT_LINE_REMOTE_1 = (1 << 1),
+		OUTPUT_LINE_REMOTE_2 = (1 << 2),
+		OUTPUT_LINE_REMOTE_3 = (1 << 3),
+		OUTPUT_LINE_REMOTE_4 = (1 << 4),
+	};
+
 	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x26bd0
 	enum AuxBus
 	{

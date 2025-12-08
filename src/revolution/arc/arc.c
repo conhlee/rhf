@@ -6,7 +6,7 @@
  * Modified from decompilation by riidefi in WiiCore
  */
 
-#define ARC_FILE_MAGIC 0x55AA382D
+#define ARC_FILE_MAGIC (0x55AA382D)
 
 #define ARCNodeIsFolder(node) ((node).packed_type_name & 0xFF000000)
 #define ARCNodeGetName(node) ((node).packed_type_name & 0x00FFFFFF)

@@ -17,7 +17,7 @@ inline f32 FSqrt(f32 x) {
     return (x <= 0) ? 0.0f : x * FrSqrt(x);
 }
 
-}
-}
+} // namespace math
+} // namespace nw4r
 
 #endif

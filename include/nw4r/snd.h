@@ -12,6 +12,7 @@
 #include <nw4r/snd/DisposeCallbackManager.h>
 #include <nw4r/snd/DvdSoundArchive.h>
 #include <nw4r/snd/EnvGenerator.h>
+#include <nw4r/snd/ExternalSoundPlayer.h>
 #include <nw4r/snd/FrameHeap.h>
 #include <nw4r/snd/FxBase.h>
 #include <nw4r/snd/FxReverbHi.h>
@@ -26,11 +27,14 @@
 #include <nw4r/snd/NandSoundArchive.h>
 #include <nw4r/snd/NoteOnCallback.h>
 #include <nw4r/snd/PlayerHeap.h>
+#include <nw4r/snd/RemoteSpeaker.h>
+#include <nw4r/snd/RemoteSpeakerManager.h>
 #include <nw4r/snd/SeqPlayer.h>
 #include <nw4r/snd/SeqSound.h>
 #include <nw4r/snd/SeqSoundHandle.h>
 #include <nw4r/snd/SeqTrack.h>
 #include <nw4r/snd/SeqTrackAllocator.h>
+#include <nw4r/snd/SoundActor.h>
 #include <nw4r/snd/SoundArchive.h>
 #include <nw4r/snd/SoundArchiveFile.h>
 #include <nw4r/snd/SoundArchivePlayer.h>
@@ -51,6 +55,7 @@
 #include <nw4r/snd/Voice.h>
 #include <nw4r/snd/WaveFile.h>
 #include <nw4r/snd/WaveSound.h>
+#include <nw4r/snd/WaveSoundHandle.h>
 #include <nw4r/snd/WsdPlayer.h>
 
 #endif

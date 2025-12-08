@@ -1,12 +1,10 @@
 #ifndef RVL_SDK_OS_INTERRUPT_H
 #define RVL_SDK_OS_INTERRUPT_H
 #include <revolution/types.h>
+#include <revolution/OS/OSContext.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// Forward declarations
-typedef struct OSContext;
 
 // Create mask from interrupt ID
 #define OS_INTR_MASK(intr) (1 << (31 - intr))

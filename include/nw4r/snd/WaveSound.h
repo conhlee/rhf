@@ -31,13 +31,6 @@ namespace nw4r { namespace snd { namespace detail
 {
 	class WaveSound : public BasicSound
 	{
-	// typedefs
-	public:
-		/* redeclare with this class instead of BasicSound for
-		 * SoundInstanceManager
-		 */
-		typedef ut::LinkList<WaveSound, 0xe0> PriorityLinkList;
-
 	// methods
 	public:
 		// cdtors

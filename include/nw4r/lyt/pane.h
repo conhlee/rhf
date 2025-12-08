@@ -13,20 +13,30 @@ namespace nw4r {
 namespace lyt {
 
 namespace detail {
+
 class PaneBase {
 public:
-
     PaneBase();
     virtual ~PaneBase();
+
+public:
     ut::LinkListNode mLink;
 };
-}
+
+} // namespace detail
 
 class Pane : public detail::PaneBase {
 public:
-
     NW4R_UT_RUNTIME_TYPEINFO;
 
+private:
+    enum {
+        BIT_VISIBLE,
+        BIT_INFLUENCED_ALPHA,
+        BIT_LOCATION_ADJUST,
+    };
+
+public:
     Pane();
     virtual ~Pane();
     virtual void CalculateMtx(const DrawInfo &drawInfo);
@@ -35,28 +45,6 @@ public:
     virtual void Animate(u32 option);
     virtual void AnimateSelf(u32 option);
 
-    bool IsVisible() const {
-        return detail::TestBit(mFlag, 0);
-    }
-    void SetVisible(bool bVisible) {
-        detail::SetBit(&mFlag, 0, bVisible);
-    }
-    const math::VEC3 &GetTranslate() const {
-        return mTranslate;
-    }
-    void SetTranslate(const math::VEC3 &value) {
-        mTranslate = value;
-    }
-    void SetTranslate(const math::VEC2 &value) {
-        mTranslate = nw4r::math::VEC3(value.x, value.y, 0.0f);
-    }
-    void SetScale(const math::VEC2 &value) {
-        mScale = value;
-    }
-    void SetSize(const Size &value) {
-        mSize = value;
-    }
-    
     virtual const ut::Color GetVtxColor(u32 idx) const;
     virtual void SetVtxColor(u32 idx, ut::Color value);
     virtual u8 GetColorElement(u32 idx) const;
@@ -76,10 +64,47 @@ public:
     virtual u8 GetMaterialNum() const;
     virtual Material *GetMaterial() const;
     virtual Material *GetMaterial(u32 idx) const;
-protected:
 
+    bool IsVisible() const {
+        return detail::TestBit(mFlag, 0);
+    }
+    void SetVisible(bool bVisible) {
+        detail::SetBit(&mFlag, 0, bVisible);
+    }
+
+    bool IsLocationAdjust() const {
+        return detail::TestBit(mFlag, BIT_LOCATION_ADJUST);
+    }
+    void SetLocationAdjust(bool bAdjust) {
+        detail::SetBit(&mFlag, BIT_LOCATION_ADJUST, bAdjust);
+    }
+
+    const math::VEC3 &GetTranslate() const {
+        return mTranslate;
+    }
+    void SetTranslate(const math::VEC3 &value) {
+        mTranslate = value;
+    }
+    void SetTranslate(const math::VEC2 &value) {
+        mTranslate = nw4r::math::VEC3(value.x, value.y, 0.0f);
+    }
+
+    void SetScale(const math::VEC2 &value) {
+        mScale = value;
+    }
+
+    void SetSize(const Size &value) {
+        mSize = value;
+    }
+
+    Pane *GetParent() const {
+        return mpParent;
+    }
+    
+protected:
     virtual void LoadMtx(const DrawInfo &drawInfo);
 
+protected:
     Pane *mpParent;
     ut::LinkList<Pane, offsetof(detail::PaneBase, mLink)> mChildList;
     ut::LinkList<AnimationLink, offsetof(AnimationLink, mLink)> mAnimList;
@@ -101,7 +126,7 @@ protected:
     u8 mPadding;
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

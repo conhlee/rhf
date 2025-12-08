@@ -259,6 +259,21 @@ cflags_gameutil = [
     "-func_align 4",
 ]
 
+# Revolution library flags
+cflags_rvl = [
+    *cflags_base,
+    "-func_align 16",
+    "-i src/revolution",
+]
+
+# HBM library flags
+cflags_hbm = [
+    *cflags_base,
+    "-func_align 16",
+    "-i src/revolution",
+    "-sdata2 0",
+]
+
 config.linker_version = "Wii/1.0"
 
 # Helper function for Revolution libraries
@@ -266,7 +281,7 @@ def RevolutionLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
         "mw_version": "Wii/1.0",
-        "cflags": cflags_base,
+        "cflags": cflags_rvl,
         "progress_category": "sdk",
         "objects": objects,
     }
@@ -276,7 +291,7 @@ def Nw4rLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
         "mw_version": "Wii/1.0",
-        "cflags": cflags_base,
+        "cflags": [*cflags_base, "-fp_contract off", "-func_align 16"],
         "progress_category": "nw4r",
         "objects": objects,
     }
@@ -847,9 +862,12 @@ config.libs = [
             Object(NonMatching, "revolution/esp/esp.c"),
         ]
     ),
-    RevolutionLib(
-        "hbm", 
-        [
+    {
+        "lib": "hbm",
+        "mw_version": "Wii/1.0",
+        "cflags": cflags_hbm,
+        "progress_category": "sdk",
+        "objects": [
             Object(NonMatching, "revolution/hbm/HBMFrameController.cpp"),
             Object(NonMatching, "revolution/hbm/HBMAnmController.cpp"),
             Object(NonMatching, "revolution/hbm/HBMGUIManager.cpp"),
@@ -891,8 +909,8 @@ config.libs = [
             Object(NonMatching, "revolution/hbm/synsample.cpp"),
             Object(NonMatching, "revolution/hbm/synvoice.cpp"),
             Object(NonMatching, "revolution/hbm/seq.cpp"), 
-        ]
-    ),
+        ],
+    },
     Nw4rLib(
         "db",
         [
@@ -999,7 +1017,7 @@ config.libs = [
             Object(NonMatching, "nw4r/snd/snd_VoiceManager.cpp"),
             Object(NonMatching, "nw4r/snd/snd_Util.cpp"),
             Object(NonMatching, "nw4r/snd/snd_WaveArchive.cpp"),
-            Object(NonMatching, "nw4r/snd/snd_WavePlayer.cpp"),
+            Object(NonMatching, "nw4r/snd/snd_WaveFile.cpp"),
             Object(NonMatching, "nw4r/snd/snd_WaveSound.cpp"),
             Object(NonMatching, "nw4r/snd/snd_WaveSoundHandle.cpp"),
             Object(NonMatching, "nw4r/snd/snd_WsdFile.cpp"),

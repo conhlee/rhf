@@ -77,9 +77,28 @@ inline T Min(T a, T b)
 }
 
 template <typename T>
+inline T Max(T a, T b)
+{
+    return a > b ? a : b;
+}
+
+template <typename T>
 inline T Clamp(T x, T low, T high)
 {
     return x > high ? high : x < low ? low : x;
+}
+
+template <typename T>
+inline T RoundDown(T x, unsigned int base)
+{
+    return x & ~(base - 1);
+}
+
+template <typename T>
+inline void *RoundDown(T *x, unsigned int base)
+{
+    return reinterpret_cast<void *>(
+        (reinterpret_cast<u32>(x)) & ~(base - 1));
 }
 
 template <typename T>
@@ -95,7 +114,7 @@ inline void *RoundUp(T *x, unsigned int base)
         (reinterpret_cast<u32>(x) + (base - 1)) & ~(base - 1));
 }
 
-}
-}
+} // namespace ut
+} // namespace nw4r
 
 #endif

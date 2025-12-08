@@ -20,7 +20,6 @@ enum TextColor {
 
 class TextBox : public Pane {
 public:
-
     NW4R_UT_RUNTIME_TYPEINFO;
 
 public:
@@ -128,7 +127,7 @@ protected:
     } mBits; // at 0xFD
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

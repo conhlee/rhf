@@ -7,6 +7,8 @@
 
 #include <types.h>
 
+#include <nw4r/snd/RemoteSpeakerManager.h>
+
 /*******************************************************************************
  * classes and functions
  */
@@ -70,6 +72,11 @@ namespace nw4r { namespace snd
 		}
 		static void SetMasterVolume(f32 volume, int frame) {
 			detail::AxManager::GetInstance().SetMasterVolume(volume, frame);
+		}
+
+		static RemoteSpeaker& GetRemoteSpeaker(int idx) {
+			return detail::RemoteSpeakerManager::GetInstance().GetRemoteSpeaker(
+				idx);
 		}
 
         static void AppendEffect(AuxBus bus, FxBase* pFx) {

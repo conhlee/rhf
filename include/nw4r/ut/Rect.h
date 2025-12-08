@@ -38,6 +38,7 @@ struct Rect {
     }
 };
 
-}
-}
+} // namespace ut
+} // namespace nw4r
+
 #endif

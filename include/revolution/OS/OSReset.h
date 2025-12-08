@@ -7,6 +7,7 @@ extern "C" {
 
 void OSShutdownSystem(void);
 void OSReturnToMenu(void);
+void OSRestart(u32 resetCode);
 
 #ifdef __cplusplus
 }

@@ -9,18 +9,19 @@ namespace nw4r {
 namespace lyt {
 
 namespace detail {
+
 struct PaneLink {
     ut::LinkListNode mLink;
     Pane *mTarget;
 };
-}
+
+} // namespace detail
 
 class Group {
 public:
     ut::LinkListNode mLink;
 
 protected:
-
     ut::LinkList<detail::PaneLink, offsetof(detail::PaneLink, mLink)> mPaneLinkList;
     char mName[16 + 1];
     u8 mbUserAllocated;
@@ -28,13 +29,11 @@ protected:
 };
 
 class GroupContainer {
-
 protected:
-
     ut::LinkList<Group, offsetof(Group, mLink)> mGroupList;
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

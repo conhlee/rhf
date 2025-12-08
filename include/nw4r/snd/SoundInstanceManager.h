@@ -7,6 +7,8 @@
 
 #include <new>
 
+#include <cstddef> // offsetof
+
 #include <macros.h>
 #include <types.h>
 
@@ -29,6 +31,9 @@ namespace nw4r { namespace snd { namespace detail
 	template <class Sound>
 	class SoundInstanceManager
 	{
+	private:
+		typedef ut::LinkList<Sound, offsetof(Sound, mPriorityLink)> PriorityLinkList;
+
 	// methods
 	public:
 		// cdtors
@@ -37,8 +42,6 @@ namespace nw4r { namespace snd { namespace detail
 		// methods
 		u32 Create(void *buffer, u32 size)
 		{
-			NW4R_ASSERT_PTR_NULL(buffer, 67);
-
 			ut::detail::AutoLock<OSMutex> lock(mMutex);
 
 			return mPool.Create(buffer, size);
@@ -46,8 +49,6 @@ namespace nw4r { namespace snd { namespace detail
 
 		void Destroy(void *buffer, u32 size)
 		{
-			NW4R_ASSERT_PTR_NULL(buffer, 86);
-
 			ut::detail::AutoLock<OSMutex> lock(mMutex);
 
 			mPool.Destroy(buffer, size);
@@ -79,15 +80,6 @@ namespace nw4r { namespace snd { namespace detail
 
 				OSUnlockMutex(&mMutex);
 
-				NW4RCheckMessage_Line(133,
-					!Debug_GetWarningFlag(
-						Debug_GetDebugWarningFlagFromSoundType(
-							sound->GetSoundType())),
-					"Sound (id:%d) is stopped for not enough %s sound "
-					"instance.",
-					sound->GetId(),
-					Debug_GetSoundTypeString(sound->GetSoundType()));
-
 				sound->Stop(0);
 
 				OSLockMutex(&mMutex);
@@ -99,8 +91,6 @@ namespace nw4r { namespace snd { namespace detail
 
 		void Free(Sound *sound)
 		{
-			NW4R_ASSERT_PTR_NULL(sound, 158);
-
 			ut::detail::AutoLock<OSMutex> lock(mMutex);
 
 			if (mPriorityList.IsEmpty())
@@ -123,8 +113,7 @@ namespace nw4r { namespace snd { namespace detail
 
 		void InsertPriorityList(Sound *sound, int priority)
 		{
-			decltype(mPriorityList.GetBeginIter()) itr =
-				mPriorityList.GetBeginIter();
+			PriorityLinkList::Iterator itr = mPriorityList.GetBeginIter();
 
 			for (; itr != mPriorityList.GetEndIter(); ++itr)
 			{
@@ -144,7 +133,7 @@ namespace nw4r { namespace snd { namespace detail
 
 			ut::detail::AutoLock<OSMutex> lock(mMutex);
 
-			typename Sound::PriorityLinkList tmpList[TMP_NUM];
+			PriorityLinkList tmpList[TMP_NUM];
 
 			while (!mPriorityList.IsEmpty())
 			{
@@ -179,7 +168,7 @@ namespace nw4r { namespace snd { namespace detail
 	// members
 	private:
 		MemoryPool<Sound>					mPool;			// size 0x04, offset 0x00
-		typename Sound::PriorityLinkList	mPriorityList;	// size 0x0c, offset 0x04
+		PriorityLinkList	        		mPriorityList;	// size 0x0c, offset 0x04
 		mutable OSMutex						mMutex;			// size 0x18, offset 0x10
 	}; // size 0x28
 }}} // namespace nw4r::snd::detail

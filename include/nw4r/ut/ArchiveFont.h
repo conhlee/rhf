@@ -19,7 +19,7 @@ private:
 
 };
 
-}
-}
+} // namespace ut
+} // namespace nw4r
 
 #endif

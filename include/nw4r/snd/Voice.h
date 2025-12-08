@@ -14,6 +14,8 @@
 
 #include "nw4r/ut/LinkList.h"
 
+#include <revolution/WPAD.h>
+
 /*******************************************************************************
  * types
  */
@@ -98,6 +100,9 @@ namespace nw4r { namespace snd { namespace detail
 		{
 			return mChannelCount * mVoiceOutCount;
 		}
+
+		void SetRemoteOutVolume(int remoteIndex, float volume);
+    	f32 GetRemoteOutVolume(int remoteIndex) const;
 
 		void SetVoiceType(AxVoice::VoiceType type);
 		void SetLoopFlag(bool loopFlag);
@@ -204,7 +209,7 @@ namespace nw4r { namespace snd { namespace detail
 		bool				mPauseFlag;						// size 0x01, offset 0x9f
 		bool				mPausingFlag;					// size 0x01, offset 0xa0
 		bool				mVoiceOutParamPitchDisableFlag;	// size 0x01, offset 0xa1
-		u16				mSyncFlag;						// size 0x02, offset 0xa2
+		u16					mSyncFlag;						// size 0x02, offset 0xa2
 		u8					mRemoteFilter;					// size 0x01, offset 0xa4
 		u8					mBiquadType;					// size 0x01, offset 0xa5
 		/* 2 bytes padding */
@@ -217,6 +222,7 @@ namespace nw4r { namespace snd { namespace detail
 		f32					mMainOutVolume;					// size 0x04, offset 0xc0
 		f32					mMainSend;						// size 0x04, offset 0xc4
 		f32					mFxSend[AUX_BUS_NUM];			// size 0x0c, offset 0xc8
+		f32 				mRemoteOutVolume[WPAD_MAX_CONTROLLERS];
 		f32					mPitch;							// size 0x04, offset 0xd4
 		f32					mVolume;						// size 0x04, offset 0xd8
 		f32					mVeInitVolume;					// size 0x04, offset 0xdc

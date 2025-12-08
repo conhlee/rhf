@@ -2,6 +2,8 @@
 #define RVL_SDK_WPAD_INTERNAL_H
 #include <types.h>
 
+#include <revolution/OS.h>
+
 // Public API
 #include <revolution/WPAD/WPAD.h>
 #include <revolution/WPAD/WPADHIDParser.h>

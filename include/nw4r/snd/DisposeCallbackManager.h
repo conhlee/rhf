@@ -18,10 +18,6 @@ namespace nw4r { namespace snd { namespace detail
 	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x26773
 	class DisposeCallback
 	{
-	// typedefs
-	public:
-		typedef ut::LinkList<DisposeCallback, 0x00> LinkList;
-
 	// methods
 	public:
 		// cdtors
@@ -45,6 +41,9 @@ namespace nw4r { namespace snd { namespace detail
 	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x2bb987
 	class DisposeCallbackManager
 	{
+	private:
+		typedef ut::LinkList<DisposeCallback, offsetof(DisposeCallback, mDisposeLink)> DisposeCallbackLinkList;
+
 	// methods
 	public:
 		// instance accessors
@@ -63,7 +62,7 @@ namespace nw4r { namespace snd { namespace detail
 
 	// members
 	private:
-		DisposeCallback::LinkList	mCallbackList;	// size 0x0c, offset 0x00
+		DisposeCallbackLinkList		mCallbackList;	// size 0x0c, offset 0x00
 	}; // size 0x0c
 }}} // namespace nw4r::snd::detail
 

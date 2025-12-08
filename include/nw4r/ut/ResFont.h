@@ -9,18 +9,16 @@ namespace ut {
 
 class ResFont : public detail::ResFontBase {
 public:
-
     ResFont();
     virtual ~ResFont();
 
     bool SetResource(void *);
     void *RemoveResource();
+
 private:
-
-
 };
 
-}
-}
+} // namespace ut
+} // namespace nw4r
 
 #endif

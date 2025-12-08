@@ -77,7 +77,7 @@ public:
     // clang-format on
 };
 
-}
-}
+} // namespace ut
+} // namespace nw4r
 
 #endif

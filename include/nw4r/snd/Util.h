@@ -87,9 +87,6 @@ namespace nw4r { namespace snd { namespace detail
 	static inline T ## index_ const *GetDataRefAddress ## index_(			\
 		Util::DataRef<T0, T1, T2, T3> const &ref, void const *baseAddress)	\
 	{																		\
-		/* specifically not the header variant */							\
-		NW4R_ASSERT(ref.dataType == index_, line_);						\
-																			\
 		return static_cast<T ## index_ const *>(GetDataRefAddressImpl(		\
 			static_cast<RefType>(ref.refType), ref.value, baseAddress));	\
 	}																		\

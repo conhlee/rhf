@@ -89,7 +89,7 @@ protected:
     } mFlag; // at 0x50
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

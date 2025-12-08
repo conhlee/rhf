@@ -39,32 +39,33 @@ private:
      * Block
      ******************************************************************************/
     struct Block {
-        nw4r::ut::LinkListNode node; // at 0x0
+        nw4r::ut::LinkListNode mLink; // at 0x0
+        void *mBuffer;
         u32 mSize;                    // at 0x8
         FreeCallback mCallback;       // at 0xC
         void* mCallbackArg;           // at 0x10
 
-        Block(u32 size, FreeCallback pCallback, void* pCallbackArg)
-            : mSize(size), mCallback(pCallback), mCallbackArg(pCallbackArg) {}
-
+        Block(void *buffer, u32 size, FreeCallback pCallback, void* pCallbackArg) :
+            mBuffer(buffer), mSize(size), mCallback(pCallback), mCallbackArg(pCallbackArg)
+        {}
         ~Block() {
             if (mCallback != NULL) {
-                mCallback(GetBufferAddr(), mSize, mCallbackArg);
+                mCallback(mBuffer, mSize, mCallbackArg);
             }
         }
 
         void* GetBufferAddr() {
-            return ut::AddOffsetToPtr(this, BLOCK_BUFFER_SIZE);
+            return mBuffer;
         }
     };
 
-    typedef nw4r::ut::LinkList<Block, offsetof(Block, node)> BlockList;
+    typedef nw4r::ut::LinkList<Block, offsetof(Block, mLink)> BlockList;
 
     /******************************************************************************
      * Section
      ******************************************************************************/
     struct Section {
-        nw4r::ut::LinkListNode node; // at 0x0
+        nw4r::ut::LinkListNode mLink; // at 0x0
         BlockList mBlockList;         // at 0x8
 
         ~Section() {
@@ -80,7 +81,7 @@ private:
         }
     };
 
-    typedef nw4r::ut::LinkList<Section, offsetof(Section, node)> SectionList;
+    typedef nw4r::ut::LinkList<Section, offsetof(Section, mLink)> SectionList;
 
     static const int BLOCK_BUFFER_SIZE = ROUND_UP(sizeof(Block), 32);
     static const int HEAP_ALIGN = 32;

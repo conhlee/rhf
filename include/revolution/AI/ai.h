@@ -1,12 +1,10 @@
 #ifndef RVL_SDK_AI_H
 #define RVL_SDK_AI_H
-#include <types.h>
+#include <revolution/types.h>
+#include <revolution/OS/OSContext.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// Forward declarations
-typedef struct OSContext OSContext;
 
 typedef void (*AIDMACallback)(void);
 

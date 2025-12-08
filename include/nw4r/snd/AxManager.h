@@ -70,14 +70,10 @@ namespace nw4r { namespace snd { namespace detail
 		void const *GetZeroBufferAddress();
 		bool CheckInit() { return mInitialized; }
 		f32 GetOutputVolume() const;
-        /* TODO: replace that assert macro
 		FxBase::LinkList &GetEffectList(AuxBus bus)
 		{
-			NW4RAssertHeaderClampedLValue_Line(173, bus, AUX_A, AUX_BUS_NUM);
-
 			return mFxList[bus];
 		}
-            */
 		BiquadFilterCallback const *GetBiquadFilterCallback(int index)
 		{
 			return sBiquadFilterCallbackTable[static_cast<u8>(index)];

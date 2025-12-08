@@ -13,6 +13,8 @@
 #include "nw4r/ut/inlines.h" // ut::Clamp
 #include "nw4r/ut/LinkList.h"
 
+#include <revolution/WPAD/WPAD.h>
+
 /*******************************************************************************
  * types
  */
@@ -29,7 +31,6 @@ namespace nw4r { namespace ut { namespace detail { class RuntimeTypeInfo; }}}
 
 namespace nw4r { namespace snd
 {
-	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x27a05
 	struct SoundParam
 	{
 	// methods
@@ -44,7 +45,8 @@ namespace nw4r { namespace snd
 			lpf					(0.0f),
 			biquadFilterValue	(0.0f),
 			biquadFilterType	(0),
-			priority			(0)
+			priority			(0),
+			userData            (0)
 		{
 		}
 
@@ -59,9 +61,9 @@ namespace nw4r { namespace snd
 		f32	biquadFilterValue;	// size 0x04, offset 0x18
 		int	biquadFilterType;	// size 0x04, offset 0x1c
 		int	priority;			// size 0x04, offset 0x20
-	}; // size 0x24
+		u32 userData;           // size 0x04, offset 0x24
+	}; // size 0x28
 
-	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x27514
 	struct SoundAmbientParam
 	{
 	// methods
@@ -76,7 +78,8 @@ namespace nw4r { namespace snd
 			lpf					(0.0f),
 			biquadFilterValue	(0.0f),
 			biquadFilterType	(0),
-			priority			(0)
+			priority			(0),
+            userData            (0)
 		{
 		}
 
@@ -91,8 +94,9 @@ namespace nw4r { namespace snd
 		f32				biquadFilterValue;	// size 0x04, offset 0x18
 		int				biquadFilterType;	// size 0x04, offset 0x1c
 		int				priority;			// size 0x04, offset 0x20
-		VoiceOutParam	voiceOutParam[4];	// size 0x60, offset 0x24
-	}; // size 0x84
+        u32             userData;           // size 0x04, offset 0x24
+		VoiceOutParam	voiceOutParam[4];	// size 0x60, offset 0x28
+	}; // size 0x88
 
 	namespace detail
 	{
@@ -125,7 +129,6 @@ namespace nw4r { namespace snd
 namespace nw4r { namespace snd { namespace detail
 {
 	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x28177
-	// NOTE: different from ketteiban: no remote fields. something else instead
 	class BasicSound
 	{
 	// enums
@@ -138,13 +141,6 @@ namespace nw4r { namespace snd { namespace detail
 			PAUSE_STATE_PAUSED,
 			PAUSE_STATE_UNPAUSING,
 		};
-
-	// typedefs
-	public:
-		typedef ut::LinkList<BasicSound, 0xe0> PriorityLinkList;
-		typedef ut::LinkList<BasicSound, 0xe8> SoundPlayerPlayLinkList;
-		typedef ut::LinkList<BasicSound, 0xf0> SoundPlayerPriorityLinkList;
-		typedef ut::LinkList<BasicSound, 0xf8> ExtSoundPlayerPlayLinkList;
 
 	// nested types
 	public:
@@ -251,6 +247,7 @@ namespace nw4r { namespace snd { namespace detail
 		void SetVolume(f32 volume, int frames);
 		void SetPitch(f32 pitch);
 		void SetPan(f32 pan);
+		void SetOutputLine(int lineFlag);
 		void SetFxSend(AuxBus bus, f32 send);
 		void SetRemoteFilter(int filter);
 		void SetPanMode(PanMode mode);
@@ -330,8 +327,7 @@ namespace nw4r { namespace snd { namespace detail
 		f32					mMainOutVolume;				// size 0x04, offset 0xc8
 		f32					mMainSend;					// size 0x04, offset 0xcc
 		f32					mFxSend[AUX_BUS_NUM];		// size 0x0c, offset 0xd0
-		// NOTE: Name is not from DWARF; derived from usage and other nearby names
-		u32					mPauseNestCounter;			// size 0x04, offset 0xdc
+		f32 				mRemoteOutVolume[WPAD_MAX_CONTROLLERS];
 	public:
 		ut::LinkListNode	mPriorityLink;				// size 0x08, offset 0xe0
 		ut::LinkListNode	mSoundPlayerPlayLink;		// size 0x08, offset 0xe8

@@ -21,19 +21,19 @@ class Layout {
 public:
     Layout();
     virtual ~Layout();
-    virtual bool Build(const void *, ResourceAccessor *);
+    virtual bool Build(const void *lytResBuf, ResourceAccessor *pResAcsr);
     virtual AnimTransform *CreateAnimTransform();
-    virtual AnimTransform *CreateAnimTransform(const void *, ResourceAccessor *);
-    virtual AnimTransform *CreateAnimTransform(const AnimResource &, ResourceAccessor *);
-    virtual void BindAnimation(AnimTransform *);
-    virtual void UnbindAnimation(AnimTransform *);
+    virtual AnimTransform *CreateAnimTransform(const void *animResBuf, ResourceAccessor *pResAcsr);
+    virtual AnimTransform *CreateAnimTransform(const AnimResource &animRes, ResourceAccessor *pResAcsr);
+    virtual void BindAnimation(AnimTransform *pAnimTrans);
+    virtual void UnbindAnimation(AnimTransform *pAnimTrans);
     virtual void UnbindAllAnimation();
-    virtual bool BindAnimationAuto(const AnimResource &, ResourceAccessor *);
-    virtual void SetAnimationEnable(AnimTransform *, bool);
-    virtual void CalculateMtx(const DrawInfo &);
-    virtual void Draw(const DrawInfo &);
-    virtual void Animate(unsigned long);
-    virtual void SetTagProcessor(ut::WideTagProcessor* pProcessor);
+    virtual bool BindAnimationAuto(const AnimResource &animRes, ResourceAccessor *pResAcsr);
+    virtual void SetAnimationEnable(AnimTransform *pAnimTrans, bool bEnable);
+    virtual void CalculateMtx(const DrawInfo &drawInfo);
+    virtual void Draw(const DrawInfo &drawInfo);
+    virtual void Animate(unsigned long option);
+    virtual void SetTagProcessor(ut::WideTagProcessor *pProcessor);
 
     ut::Rect GetLayoutRect() const;
     Pane *GetRootPane() {
@@ -48,7 +48,6 @@ public:
     }
 
 protected:
-
     ut::LinkList<AnimTransform, offsetof(AnimTransform, mLink)> mAnimTransList;
     Pane *mpRootPane;
     GroupContainer *mpGroupContainer;
@@ -57,7 +56,7 @@ protected:
     static MEMAllocator *mspAllocator;
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

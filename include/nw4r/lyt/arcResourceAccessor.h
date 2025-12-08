@@ -12,38 +12,35 @@ namespace lyt {
 
 class FontRefLink {
 public:
-
     FontRefLink();
     ~FontRefLink() {}
+
     void Set(const char *name, ut::Font *pFont);
 
+public:
     ut::LinkListNode mLink;
 
 protected:
-
     char mFontName[128];
     ut::Font *mpFont;
 };
 
 class ArcResourceLink {
 public:
+    ArcResourceLink() {}
 
-    ArcResourceLink() {
-
-    }
     bool Set(void *archiveStart, const char *resourceRootDirectory);
 
+public:
     ut::LinkListNode mLink;
 
 protected:
-
     ARCHandle mArcHandle;
     char mResRootDir[128];
 };
 
 class MultiArcResourceAccessor : public ResourceAccessor {
 public:
-
     MultiArcResourceAccessor();
     virtual ~MultiArcResourceAccessor();
     virtual void *GetResource(u32 resType, const char *name, u32 *pSize = 0);
@@ -58,7 +55,7 @@ private:
     u8 pad04[0x18];
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

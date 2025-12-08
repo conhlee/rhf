@@ -25,13 +25,10 @@ struct BitGXNums {
     u32 blendMode:1;
 };
 
-}
-
+} // namespace detail
 
 class Material {
-
 protected:
-
     ut::LinkList<AnimationLink, offsetof(AnimationLink, mLink)> mAnimList;
     GXColorS10 mTevCols[3];
     ut::Color mTevKCols[4];
@@ -43,7 +40,7 @@ protected:
     u8 mPadding[2];
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

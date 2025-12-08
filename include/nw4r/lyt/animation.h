@@ -8,7 +8,8 @@ namespace lyt {
 
 namespace res {
 struct AnimationBlock;
-}
+
+} // namespace res
 
 class AnimTransform {
 public:
@@ -30,15 +31,15 @@ public:
         return static_cast<f32>(GetFrameSize());
     }
 
+public:
     ut::LinkListNode mLink;
 
 protected:
-
     res::AnimationBlock *mpRes;
     f32 mFrame;
 };
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

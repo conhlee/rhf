@@ -25,7 +25,7 @@ private:
     u8 pad04[0xc];
 };
 
-}
-}
+} // namespace ut
+} // namespace nw4r
 
 #endif

@@ -287,9 +287,6 @@ namespace nw4r { namespace ut
 			{
 				T *p = this->operator->();
 
-				// specifically not the header variant
-				NW4R_ASSERT_PTR_NULL(p, 403);
-
 				return *p;
 			}
 
@@ -394,17 +391,11 @@ namespace nw4r { namespace ut
 
 		T &GetFront()
 		{
-			// specifically not the header variant
-			NW4R_ASSERT(!IsEmpty(), 497);
-
 			return *GetBeginIter();
 		}
 
 		T &GetBack()
 		{
-			// specifically not the header variant
-			NW4R_ASSERT(!IsEmpty(), 507);
-
 			return *--GetEndIter();
 		}
 
@@ -444,26 +435,17 @@ namespace nw4r { namespace ut
 
 		static LinkListNode *GetNodeFromPointer(T *p)
 		{
-			// specifically not the header variant
-			NW4R_ASSERT_PTR_NULL(p, 563);
-
 			return reinterpret_cast<LinkListNode *>(reinterpret_cast<u32>(p)
 			                                        + I);
 		}
 
 		static T *GetPointerFromNode(LinkListNode *p)
 		{
-			// specifically not the header variant
-			NW4R_ASSERT_PTR_NULL(p, 573);
-
 			return reinterpret_cast<T *>(reinterpret_cast<u32>(p) - I);
 		}
 
 		static T const *GetPointerFromNode(LinkListNode const *p)
 		{
-			// specifically not the header variant
-			NW4R_ASSERT_PTR_NULL(p, 578);
-
 			return reinterpret_cast<T *>(reinterpret_cast<u32>(p) - I);
 		}
 

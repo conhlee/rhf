@@ -8,18 +8,17 @@ namespace nw4r {
 namespace ut {
 namespace detail {
 
-
 class ResFontBase : public Font {
 public:
     ResFontBase();
     virtual ~ResFontBase();
-private:
 
+private:
     u8 pad10[0xc];
 };
 
-}
-}
-}
+} // namespace detail
+} // namespace ut
+} // namespace nw4r
 
 #endif

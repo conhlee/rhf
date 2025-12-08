@@ -18,8 +18,8 @@ private:
 
 };
 
-}
-}
-}
+} // namespace detail
+} // namespace ut
+} // namespace nw4r
 
 #endif

@@ -50,7 +50,7 @@ struct VEC3 : public _VEC3 {
     }
 };
 
-}
-}
+} // namespace math
+} // namespace nw4r
 
 #endif

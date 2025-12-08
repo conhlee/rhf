@@ -8,7 +8,7 @@ namespace lyt {
 
 void LytInit(void);
 
-}
-}
+} // namespace lyt
+} // namespace nw4r
 
 #endif

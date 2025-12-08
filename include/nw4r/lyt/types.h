@@ -9,15 +9,15 @@ namespace nw4r {
 namespace lyt {
 
 struct Size {
-    Size() : width(0), height(0) {
-
-    }
-    Size(f32 aWidth, f32 aHeight) : width(aWidth), height(aHeight) {
-
-    }
-    Size(const Size &other) : width(other.width), height(other.height) {
-
-    }
+    Size() :
+        width(0), height(0)
+    {}
+    Size(f32 aWidth, f32 aHeight) :
+        width(aWidth), height(aHeight)
+    {}
+    Size(const Size &other) :
+        width(other.width), height(other.height)
+    {}
     
     f32 width;
     f32 height;
@@ -25,10 +25,9 @@ struct Size {
 
 class AnimationLink {
 public:
-
     ut::LinkListNode mLink;
-private:
 
+private:
     AnimTransform *mAnimTrans;
     u16 mIdx;
     bool mbDisable;
@@ -48,9 +47,10 @@ inline bool TestBit(T bits, int pos) {
     const T mask = T(1 << pos);
     return 0 != (bits & mask);
 }
-}
 
-}
-}
+} // namespace detail
+
+} // namespace lyt
+} // namespace nw4r
 
 #endif

@@ -20,6 +20,8 @@
 
 #include "nw4r/db.h"
 
+#include <revolution/WPAD.h>
+
 /*******************************************************************************
  * types
  */
@@ -62,8 +64,6 @@ namespace nw4r { namespace snd { namespace detail
 		typedef void Callback(Channel *dropChannel,
 		                      ChannelCallbackStatus status,
 		                      u32 userData);
-
-		typedef ut::LinkList<Channel, 0xc8> LinkList;
 
 	// methods
 	public:
@@ -120,6 +120,7 @@ namespace nw4r { namespace snd { namespace detail
 		void SetMainOutVolume(f32 volume) { mMainOutVolume = volume; }
 		void SetMainSend(f32 send) { mMainSend = send; }
 		void SetFxSend(AuxBus bus, f32 send) { mFxSend[bus] = send; }
+		void SetRemoteOutVolume(int remoteIndex, f32 volume) { mRemoteOutVolume[remoteIndex] = volume; }
 		void SetUserPitch(f32 pitch) { mUserPitch = pitch; }
 		void SetSweepParam(f32 sweepPitch, int sweepTime, bool autoUpdate);
 		void SetInitVolume(f32 volume) { mInitVolume = volume; }
@@ -129,16 +130,12 @@ namespace nw4r { namespace snd { namespace detail
 			mInitSurroundPan = surroundPan;
 		}
 		void SetTune(f32 tune) { mTune = tune; }
-        /* TODO: replace that assert macro
 		void SetSilence(bool silenceFlag, int fadeTimes)
 		{
-			NW4RAssertHeaderClampedLRValue_Line(138, fadeTimes, 0, USHRT_MAX);
-
 			mSilenceVolume.SetTarget(silenceFlag ? SILENCE_VOLUME_MIN
 		                                         : SILENCE_VOLUME_MAX,
 		                             fadeTimes);
 		}
-        */
 		void SetKey(int key) { mKey = key; }
 		void SetOriginalKey(int key) { mOriginalKey = key; }
 		void SetLength(s32 length) { mLength = length; }
@@ -210,6 +207,7 @@ namespace nw4r { namespace snd { namespace detail
 		f32							mMainOutVolume;				// size 0x04, offset 0x5c
 		f32							mMainSend;					// size 0x04, offset 0x60
 		f32							mFxSend[AUX_BUS_NUM];		// size 0x0c, offset 0x64
+		f32 						mRemoteOutVolume[WPAD_MAX_CONTROLLERS];
 		f32							mUserPitch;					// size 0x04, offset 0x70
 		f32							mSweepPitch;				// size 0x04, offset 0x74
 		s32							mSweepCounter;				// size 0x04, offset 0x78
@@ -227,7 +225,7 @@ namespace nw4r { namespace snd { namespace detail
 		PanCurve					mPanCurve;					// size 0x04, offset 0xa8
 		int							mAlternateAssign;			// size 0x04, offset 0xac
 		Callback					*mCallback;					// size 0x04, offset 0xb0
-		u32					mCallbackData;				// size 0x04, offset 0xb4
+		u32							mCallbackData;				// size 0x04, offset 0xb4
 		WaveDataLocationCallback	*mWaveDataLocationCallback;	// size 0x04, offset 0xb8
 		WaveInfo					const *mWaveInfo;			// size 0x04, offset 0xbc
 		Voice						*mVoice;					// size 0x04, offset 0xc0
@@ -244,6 +242,9 @@ namespace nw4r { namespace snd { namespace detail
 	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x2b895c
 	class ChannelManager
 	{
+	private:
+		typedef ut::LinkList<Channel, offsetof(Channel, mLink)> ChannelLinkList;
+
 	// methods
 	public:
 		// instance accessors
@@ -266,7 +267,7 @@ namespace nw4r { namespace snd { namespace detail
 	// members
 	private:
 		InstancePool<Channel>	mPool;			// size 0x04, offset 0x00
-		Channel::LinkList		mChannelList;	// size 0x0c, offset 0x04
+		ChannelLinkList			mChannelList;	// size 0x0c, offset 0x04
 		bool					mInitialized;	// size 0x01, offset 0x10
 		/* 3 bytes padding */
 		u32						mChannelCount;	// size 0x04, offset 0x14
