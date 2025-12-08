@@ -29,6 +29,6 @@ private:
     CSceneLogo *mScene;
 };
 
-}
+} // namespace Logo
 
 #endif

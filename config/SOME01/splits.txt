@@ -35,8 +35,10 @@ Game/FaderFlash.cpp:
 Game/ExScene.cpp:
 	.text       start:0x80008160 end:0x8000ABC0
 	.ctors      start:0x801F74E4 end:0x801F74E8
+	.rodata     start:0x801F8B88 end:0x801F8D58
 	.data       start:0x802E5870 end:0x802E58C0
-	.sbss       start:0x80320198 end:0x803201CC
+	.sbss       start:0x80320198 end:0x80320238
+	.sdata2     start:0x80321168 end:0x803211F8
 	.bss        start:0x8032A1A0 end:0x8032A278
 
 Game/ExChecker.cpp:
@@ -62,6 +64,9 @@ Game/Script/Prologue.cpp:
 
 Game/MyTagProcessor.cpp:
 	.text       start:0x8002494C end:0x80026814
+
+Game/Rocket/SceneRocket.cpp:
+	.text       start:0x8002A560 end:0x8002CF84
 
 Game/main.cpp:
 	.text       start:0x800380CC end:0x800399E4
@@ -222,6 +227,9 @@ Game/Pseudo3D.cpp:
 	.sdata      start:0x8031F358 end:0x8031F360
 	.sdata2     start:0x80324920 end:0x80324928
 
+Game/Rap/MyLayout.cpp:
+	.text       start:0x80072AAC end:0x80073254
+
 Game/Prologue/MyLayout.cpp:
 	.text       start:0x800777C0 end:0x80077908
 	.rodata     start:0x80253E58 end:0x80253E90
@@ -264,6 +272,19 @@ Game/SNDHeap.cpp:
 	.sbss       start:0x80320440 end:0x80320448
 	.bss        start:0x8032B3B0 end:0x8032B3E0
 
+Game/EndlessCounter.cpp:
+	.text       start:0x800836E8 end:0x80083F10
+
+Game/HBMManager.cpp:
+	.text       start:0x80085FC0 end:0x80087534
+	.rodata     start:0x80255528 end:0x80255658
+	.data       start:0x802ECAF8 end:0x802ECB70
+	.sdata      start:0x8031F4B0 end:0x8031F4C8
+	.sdata2     start:0x803250F0 end:0x80325130
+
+Game/MessageManager.cpp:
+	.text       start:0x80087534 end:0x800898D4
+
 Game/SceneManager.cpp:
 	.text       start:0x80089DF0 end:0x8008B844
 	.rodata     start:0x80255710 end:0x80255888
@@ -298,6 +319,9 @@ Game/Logo/SceneLogo.cpp:
 	.sdata      start:0x8031F738 end:0x8031F740
 	.sbss       start:0x803204E8 end:0x803204F0
 	.sdata2     start:0x80325C18 end:0x80325C20
+
+Game/Script/AgbTap.cpp:
+	.rodata     start:0x80263C90 end:0x8026483C
 
 Game/AgbGhost/MyFlow.cpp:
 	.text       start:0x800A7208 end:0x800A75DC
@@ -373,6 +397,15 @@ Game/Credit/SceneCredit.cpp:
 	.sbss       start:0x80320578 end:0x80320580
 	.sdata2     start:0x80327AD0 end:0x80327B30
 	.bss        start:0x8034C860 end:0x8034C878
+
+Game/Metroman/MyChecker.cpp:
+	.text       start:0x800D77E0 end:0x800D79CC
+
+Game/Metroman/MyFlow.cpp:
+	.text       start:0x800D79CC end:0x800D7EBC
+
+Game/Metroman/SceneMetroman.cpp:
+	.text       start:0x800D7EBC end:0x800D8DC8
 
 revolution/base/PPCArch.c:
 	.text       start:0x800D8DD0 end:0x800D8FF0
@@ -2047,7 +2080,7 @@ nw4r/snd/snd_BasicSound.cpp:
 	.text       start:0x801AD460 end:0x801AEAB0
 	.ctors      start:0x801F7538 end:0x801F753C
 	.data       start:0x80315440 end:0x80315478
-	.sbss       start:0x80320EC0 end:0x80320EC8
+	.sbss       start:0x80320EC0 end:0x80320EC4
 	.sdata2     start:0x803292C8 end:0x803292D8
 
 nw4r/snd/snd_BiquadFilterPreset.cpp:
@@ -2258,7 +2291,7 @@ nw4r/snd/snd_Util.cpp:
 nw4r/snd/snd_WaveArchive.cpp:
 	.text       start:0x801C5D80 end:0x801C5E90
 
-nw4r/snd/snd_WavePlayer.cpp:
+nw4r/snd/snd_WaveFile.cpp:
 	.text       start:0x801C5E90 end:0x801C6100
 
 nw4r/snd/snd_WaveSound.cpp:
@@ -2419,7 +2452,7 @@ GameUtil/FaderFlash.cpp:
 	.text       start:0x801D859C end:0x801D85BC
 
 GameUtil/Layout.cpp:
-	.text       start:0x801D9A2C end:0x801D9E40
+	.text       start:0x801D85BC end:0x801D9E40
 	.ctors      start:0x801F7568 end:0x801F756C
 	.data       start:0x803162F8 end:0x803163E0
 	.sbss       start:0x80320FA0 end:0x80320FA8
@@ -2507,8 +2540,11 @@ GameUtil/DebugPrint.cpp:
 GameUtil/VarParamManager.cpp:
 	.text       start:0x801ECEC4 end:0x801ED6A8
 
-GameUtil/code_801ed6a8.cpp:
-	.text       start:0x801ED6A8 end:0x801ED7EC
+GameUtil/code_801ED6A8.cpp:
+	.text       start:0x801ED6A8 end:0x801ED7D4
+
+GameUtil/code_801ED7D4.cpp:
+	.text       start:0x801ED7D4 end:0x801ED7EC
 
 GameUtil/DebugConsole.cpp:
 	.text       start:0x801ED7EC end:0x801EDA30

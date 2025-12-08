@@ -21,10 +21,10 @@ extern s32 sceneVer;
 } // namespace AgbGhost
 
 class CSceneAgbGhost : public CExScene {
-public:
     friend class AgbGhost::CMyFlow;
     friend class AgbGhost::CMyChecker;
-
+    
+public:
     virtual ~CSceneAgbGhost(void) {}
     virtual void _10(void);
     virtual void _14(void);

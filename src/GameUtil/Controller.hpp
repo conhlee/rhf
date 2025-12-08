@@ -96,6 +96,10 @@ public:
         return unk136C && !unk136D;
     }
 
+    u32 getUnk1338(void) {
+        return unk1338;
+    }
+
     Vec2 getCorePos(void) {
         return mCoreStatus[0].pos;
     }
@@ -211,7 +215,7 @@ public:
     CGCController *fn_801D6000(s32 channel);
 
     void *doAlloc(u32 size) {
-        // TODO: doesn't match when using Lock..
+        // TODO: doesn't match when using AutoInterruptLock..
         BOOL inter = OSDisableInterrupts();
         void *alloc = MEMAllocFromAllocator(&mAllocator, size);
         OSRestoreInterrupts(inter);

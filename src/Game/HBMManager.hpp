@@ -3,6 +3,11 @@
 
 #include <revolution/types.h>
 
+#include <revolution/HBM.h>
+
+#include <revolution/TPL.h>
+#include <revolution/KPAD.h>
+
 #include "Singleton.hpp"
 
 class CHBMManager : public TSingleton<CHBMManager> {
@@ -17,9 +22,6 @@ public:
 
     CHBMManager(void);
 
-    void setUnk412(bool value) {
-        mUnk412 = value;
-    }
     void setUnk416(bool value) {
         mUnk416 = value;
     }
@@ -27,13 +29,54 @@ public:
     bool getUnk414(void) const { return mUnk414; }
 
 private:
-    u8 _pad04[0x412-4];
-    bool mUnk412;
-    u8 _pad413;
-    bool mUnk414;
-    u8 _pad415;
-    bool mUnk416;
-    u8 _pad417[0x20];
+    void fn_80086B90(void);
+    void fn_80086CCC(void);
+    void fn_800870BC(void);
+    void fn_80087314(void);
+
+    static void powercallback(void);
+    static void resetcallback(void);
+
+private:
+    enum EProhibitIconStage {
+        eProhibitIconStage_FadeIn,
+        eProhibitIconStage_Fixed,
+        eProhibitIconStage_FadeOut,
+
+        eProhibitIconStage_Null
+    };
+
+private:
+    void *mHBMWorkMem;
+    HBMDataInfo mHBMInfo;
+    TPLPalette *mHBMIconPal;
+
+    u32 mUnk4C;
+
+    KPADStatus mKPADState[4];
+
+    u8 mUnk260[432];
+
+    s32 mHBMSelectedButton;
+
+    u8 mUnk414;
+    u8 mUnk415;
+    u8 mUnk416;
+
+    bool mPowerCalled;
+    bool mResetCalled;
+
+    u8 mUnk419;
+
+    EProhibitIconStage mProhibitIconStage;
+    s32 mUnk420;
+
+    u8 mProhibitIconAlpha;
+
+    void *mHBMSoundData;
+    void *mHBMSoundMem;
+
+    u8 mUnk430[8];
 };
 
 extern CHBMManager *gHBMManager;

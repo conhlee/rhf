@@ -19,10 +19,10 @@ extern s32 sceneVer;
 } // namespace Credit
 
 class CSceneCredit : public CExScene {
-public:
     friend class Credit::CMyFlow;
     friend class Credit::CMyChecker;
-
+    
+public:
     virtual ~CSceneCredit(void) {}
     virtual void _10(void);
     virtual void _14(void);

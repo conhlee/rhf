@@ -29,6 +29,6 @@ private:
     CSceneAgbGhost *mScene;
 };
 
-}
+} // namespace AgbGhost
 
 #endif

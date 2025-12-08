@@ -30,6 +30,7 @@ public:
 
     void fn_801E1E4C(void);
     void fn_801E1CC0(const TickFlowCode *code, f32 initRest = 0.0f);
+    void fn_801E2490(s32 category);
     void fn_801E2540(CTickFlow *);
     f32 fn_801E2698(void);
     void fn_801E26A8(void);
@@ -40,6 +41,10 @@ public:
     f32 fn_801E2CA8(void);
     void fn_801E3E2C(f32, u32);
     f32 fn_801E3EA8(s32);
+    void fn_801E4048(bool);
+    bool fn_801E4078(void);
+    bool fn_801E40A8(void);
+    bool fn_801E40D8(void);
     s32 fn_801E4124(void);
     void fn_801E4134(s32, u16);
     u16 fn_801E4144(s32);
@@ -57,6 +62,13 @@ public:
 
     void setUnkF8(const TickFlowCode *code) { mUnkF8 = code; }
 
+    bool getUnkFC(void) const { return mUnkFC; }
+    void setUnkFC(bool flag) { mUnkFC = flag; }
+
+    void setUnkFD(u8 value) { mUnkFD = value; }
+
+    void setUnk100(u32 value) { mUnk100 = value; }
+
 private:
     u8 pad04[0x1c-0x04];
     s32 unk1C;
@@ -65,6 +77,9 @@ private:
     u8 unk6D;
     u8 pad6E[0xF8-0x6E];
     const TickFlowCode *mUnkF8;
+    bool mUnkFC;
+    u8 mUnkFD;
+    u32 mUnk100;
 };
 
 

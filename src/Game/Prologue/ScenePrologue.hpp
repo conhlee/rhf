@@ -18,9 +18,9 @@ u32 fn_8000B188(void);
 } // namespace Prologue
 
 class CScenePrologue : public CExScene {
-public:
     friend class Prologue::CMyFlow;
-
+    
+public:
     virtual void _10(void);
     virtual void _14(void);
     virtual void _18(void);

@@ -75,14 +75,15 @@ bool CCellAnim::update(void) {
         else {
             f32 speed;
             if (mTempoUpdate) {
-                f32 currTempo = gTickFlowManager->fn_801E2CA8();
+                f32 curTempo = gTickFlowManager->fn_801E2CA8();
                 f32 myTempo = mTempo;
-                f32 d = (currTempo - myTempo);
-                if ((-2.0 < d) && (d < 2.0)) {
+            
+                f32 delta = (curTempo - myTempo);
+                if ((-2.0 < delta) && (delta < 2.0)) {
                     speed = mSpeed;
                 }
                 else {
-                    speed = (mSpeed * currTempo) / myTempo;
+                    speed = (mSpeed * curTempo) / myTempo;
                 }
             }
             else {
@@ -194,7 +195,7 @@ void CCellAnim::makeMtx(BOOL defMtx, Mtx baseMtx) {
                 }
             }
             if (hasBasePart) {
-                CellAnimSpritePart *part = sprite->parts + i;
+                CellAnimSpritePart *part = &sprite->parts[i];
 
                 f32 width = part->regionW * part->scaleX;
                 f32 height = part->regionH * part->scaleY;
@@ -243,7 +244,7 @@ void CCellAnim::draw(BOOL forceDraw) {
         f32 texH = gCellAnimManager->fn_801DBE14(mID);
 
         for (s32 i = 0; i < sprite->partCount; i++) {
-            CellAnimSpritePart *part = sprite->parts + i;
+            CellAnimSpritePart *part = &sprite->parts[i];
             gCellAnimManager->fn_801DB3D8(mID, part, mLinearFiltering, mTextureIndex);
 
             f32 sizeX = part->regionW * part->scaleX;

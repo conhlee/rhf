@@ -46,6 +46,12 @@ public:
     bool getLoop(void) const { return mLoop; }
     void setLoop(bool loop) { mLoop = loop; }
 
+    void playFromBeginning(void) {
+        fn_801DA20C();
+        setIsPlaying(true);
+        setSkipNextUpdate(true);
+    }
+
 private:
     nw4r::lyt::Layout *mLayout;
     nw4r::lyt::Pane *mPane;

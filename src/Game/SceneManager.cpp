@@ -1,5 +1,9 @@
 #include "SceneManager.hpp"
+
+#include <revolution/OS.h>
+
 #include "GameManager.hpp"
+
 #include "TickFlowManager.hpp"
 
 #include "Menu/SceneMenu.hpp"
@@ -10,6 +14,7 @@
 #include "AgbGhost/SceneAgbGhost.hpp"
 #include "Error/SceneError.hpp"
 #include "AgbTap/SceneAgbTap.hpp"
+#include "Rap/SceneRap.hpp"
 
 CSceneManager::CSceneManager(void) {}
 
@@ -53,7 +58,6 @@ extern "C" void fn_80059D3C(void);
 extern "C" void fn_8003BE58(void);
 extern "C" void fn_800454B0(void);
 extern "C" void fn_80056CF0(void);
-extern "C" void fn_8005029C(void);
 extern "C" void fn_80057D58(void);
 extern "C" void fn_8004BE50(void);
 extern "C" void fn_80047AEC(void);
@@ -229,7 +233,7 @@ void CSceneManager::fn_80089FE0(ESceneID sceneID, const TickFlowCode *tickFlowCo
         fn = (CScene::CreateFn)fn_80056CF0;
         break;
     case eScene_Rap:
-        fn = (CScene::CreateFn)fn_8005029C;
+        fn = CSceneRap::create;
         break;
     case eScene_Seal:
         fn = (CScene::CreateFn)fn_80057D58;
@@ -410,7 +414,6 @@ extern s32 lbl_80320538;
 extern s32 lbl_80320388;
 extern s32 lbl_803202D8;
 extern s32 lbl_803202B0;
-extern s32 lbl_80320348;
 extern s32 lbl_80320350;
 extern s32 lbl_80320390;
 extern s32 lbl_803202C0;
@@ -506,7 +509,7 @@ void CSceneManager::fn_8008A4DC(ESceneID sceneID, s32 ver) {
         lbl_803202B0 = ver;
         break;
     case eScene_Rap:
-        lbl_80320348 = ver;
+        Rap::sceneVer = ver;
         break;
     case eScene_Receive:
         lbl_80320350 = ver;
@@ -672,7 +675,6 @@ extern "C" void fn_800B5508(void);
 extern "C" void fn_80069878(void);
 extern "C" void fn_800344C0(void);
 extern "C" void fn_80022F74(void);
-extern "C" void fn_80050340(void);
 extern "C" void fn_8005380C(void);
 extern "C" void fn_8006C740(void);
 extern "C" void fn_8002A770(void);
@@ -767,7 +769,7 @@ void CSceneManager::fn_8008A704(ESceneID sceneID) {
         fn_80022F74();
         break;
     case eScene_Rap:
-        fn_80050340();
+        CSceneRap::fn_80050340();
         break;
     case eScene_Receive:
         fn_8005380C();
@@ -933,7 +935,6 @@ extern "C" void fn_800B5624(void);
 extern "C" void fn_800699C0(void);
 extern "C" void fn_80034618(void);
 extern "C" void fn_800230B8(void);
-extern "C" void fn_800504DC(void);
 extern "C" void fn_80053994(void);
 extern "C" void fn_8006C8DC(void);
 extern "C" void fn_8002A88C(void);
@@ -1003,7 +1004,7 @@ void CSceneManager::fn_8008A82C(ESceneID sceneID) {
         fn_800230B8();
         break;
     case eScene_Rap:
-        fn_800504DC();
+        CSceneRap::fn_800504DC();
         break;
     case eScene_Receive:
         fn_80053994();
@@ -1072,8 +1073,6 @@ void CSceneManager::fn_8008A82C(ESceneID sceneID) {
     }
 }
 
-extern "C" bool fn_80009FB4(void);
-
 // TODO: migrate tickflow into respective files
 TFD_EXTERN(lbl_80253E18)
 TFD_EXTERN(lbl_8027C3E8)
@@ -1116,7 +1115,7 @@ void CSceneManager::fn_8008A8D8(void) {
         temp_r28 = true;
     }
     else {
-        if (fn_80009FB4()) {
+        if (CExScene::fn_80009FB4()) {
             temp_r29 = true;
         }
         else {

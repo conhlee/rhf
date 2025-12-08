@@ -96,7 +96,7 @@ void CLayoutAnimation::fn_801DA354(void) {
                 }
                 else {
                     frame = fn_801DA600() - 1.0;
-                    mIsPlaying = 0;
+                    mIsPlaying = false;
                 }
             }
             fn_801DA66C(frame);

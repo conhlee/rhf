@@ -14,12 +14,18 @@ public:
         setAnimationCount(3);
     }
 
-    void setUnk1D(u8 unk) { mUnk1D = unk; }
+    bool getUnk1C(void) const { return mUnk1C; }
+
+    void setUnk1D(bool unk) { mUnk1D = unk; }
+
+    s32 getUnk24(void) const { return mUnk24; }
 
 private:
-    u8 mUnk1C;
+    bool mUnk1C;
     u8 mUnk1D;
-    u8 pad[0x2C - 0x1C - 2]; // temp
+    s32 mUnk20;
+    s32 mUnk24;
+    s32 mUnk28;
 };
 
 #endif

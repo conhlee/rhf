@@ -16,11 +16,11 @@ extern s32 sceneVer;
 } // namespace Error
 
 class CSceneError : public CExScene {
-public:
     friend class Error::CMyFlow;
     friend class Error::CMyChecker;
     friend class Error::CMyLayout;
-
+    
+public:
     virtual ~CSceneError(void) {}
     virtual void _10(void);
     virtual void _14(void);

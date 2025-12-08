@@ -30,10 +30,16 @@
 
 #include "SNDHeap.hpp"
 
-CGameManager::DVDMessageData CGameManager::sDVDMessageData;
+struct DVDMessageData {
+    nw4r::ut::ResFont font;
+    wchar_t *messageStr;
 
-bool CGameManager::sIsPowerOff;
-bool CGameManager::sIsReset;
+    ~DVDMessageData(void);
+
+    void fn_801D77A4();
+    void DONT_INLINE fn_801D7A74();
+};
+static DVDMessageData sDVDMessageData;
 
 CGameManager::CGameManager(void) {}
 
@@ -127,11 +133,14 @@ void CGameManager::_20(CScene::CreateFn sceneCreateFn, u16 heapGroup) {
     mCurrentScene->fn_801D8578();
 }
 
-void CGameManager::osPowerCallback(void) {
-    sIsPowerOff = true;
+static bool sDVDMesgIsPowerOff;
+static void dvdMesgPowerCallback(void) {
+    sDVDMesgIsPowerOff = true;
 }
-void CGameManager::osResetCallback(void) {
-    sIsReset = true;
+
+static bool sDVDMesgIsReset;
+static void dvdMesgResetCallback(void) {
+    sDVDMesgIsReset = true;
 }
 
 // Display the DVD error screen & wait for the issue to be resolved.
@@ -150,11 +159,11 @@ void CGameManager::fn_801D7538(s32 driveStatus) {
         break;
     }
 
-    sIsPowerOff = false;
-    sIsReset = false;
+    sDVDMesgIsPowerOff = false;
+    sDVDMesgIsReset = false;
 
-    OSStateCallback prevResetCallback = OSSetResetCallback(osResetCallback);
-    OSStateCallback prevPowerCallback = OSSetPowerCallback(osPowerCallback);
+    OSStateCallback prevResetCallback = OSSetResetCallback(dvdMesgResetCallback);
+    OSStateCallback prevPowerCallback = OSSetPowerCallback(dvdMesgPowerCallback);
 
     while (driveStatus == static_cast<s32>(DVDGetDriveStatus())) {
         gGraphicManager->fn_801D63B4();
@@ -165,14 +174,14 @@ void CGameManager::fn_801D7538(s32 driveStatus) {
 
         sDVDMessageData.fn_801D77A4();
 
-        if (sIsReset) {
+        if (sDVDMesgIsReset) {
             VISetBlack(TRUE);
             VIFlush();
             VIWaitForRetrace();
             VIWaitForRetrace();
             OSReturnToMenu();
         }
-        else if (sIsPowerOff) {
+        else if (sDVDMesgIsPowerOff) {
             VISetBlack(TRUE);
             VIFlush();
             VIWaitForRetrace();
@@ -195,14 +204,14 @@ void CGameManager::fn_801D7538(s32 driveStatus) {
 
         sDVDMessageData.fn_801D77A4();
 
-        if (sIsReset) {
+        if (sDVDMesgIsReset) {
             VISetBlack(TRUE);
             VIFlush();
             VIWaitForRetrace();
             VIWaitForRetrace();
             OSReturnToMenu();
         }
-        else if (sIsPowerOff) {
+        else if (sDVDMesgIsPowerOff) {
             VISetBlack(TRUE);
             VIFlush();
             VIWaitForRetrace();
@@ -217,9 +226,9 @@ void CGameManager::fn_801D7538(s32 driveStatus) {
     OSSetPowerCallback(prevPowerCallback);
 }
 
-CGameManager::DVDMessageData::~DVDMessageData(void) {}
+DVDMessageData::~DVDMessageData(void) {}
 
-void CGameManager::DVDMessageData::fn_801D77A4(void) {
+void DVDMessageData::fn_801D77A4(void) {
     u32 sc[4];
     f32 vp[GX_VIEWPORT_SZ];
 
@@ -297,7 +306,7 @@ void CGameManager::DVDMessageData::fn_801D77A4(void) {
     GXSetScissor(sc[0], sc[1], sc[2], sc[3]);
 }
 
-void CGameManager::DVDMessageData::fn_801D7A74(void) {
+void DVDMessageData::fn_801D7A74(void) {
     nw4r::ut::WideTextWriter textWriter;
 
     textWriter.SetFont(this->font);

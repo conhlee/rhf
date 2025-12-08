@@ -95,7 +95,7 @@ struct SoundCooldown {
     };
 
 class CSoundManager : public TSingleton<CSoundManager> {
-    friend class SNDHandle; // end_sound_handle is private
+    friend class SNDHandle; // SNDHandle needs access to end_sound_handle
 
 private:
     struct DelaySound {
@@ -137,6 +137,13 @@ private:
         s32 pauseFadeFrames;
     };
 
+    struct LoadData {
+        nw4r::snd::SoundHeap *soundHeap;
+        u16 groupID;
+        char soundArchivePath[256];
+        bool loaded;
+    };
+
     enum ETuneType {
         eTuneType_Volume,
         eTuneType_Pitch,
@@ -144,6 +151,18 @@ private:
         eTuneType_TempoRatio,
         eTuneType_Stop,
         eTuneType_Pause
+    };
+    
+    enum ESoundArchiveType {
+        eSoundArchiveType_Mem,
+        eSoundArchiveType_DVD,
+        eSoundArchiveType_Nand,
+    };
+
+    enum ESoundType {
+        eSoundType_None,
+        eSoundType_Direct,
+        eSoundType_Delayed
     };
 
 public:
@@ -201,6 +220,11 @@ public:
 
     static bool fn_801E4D4C(void);
     static void fn_801E4D54(void);
+
+    u16 get_wave_tempo(u16 soundID) {
+        WaveInfo *waveInfo = fn_801E73D4(soundID);
+        return fn_801E74EC(waveInfo); 
+    }
 
 private:
     void fn_801E4988(const char *soundArchivePath);
@@ -275,6 +299,8 @@ private:
             case eSoundType_Delayed:
                 tune_delay_sound(type, value, fadeFrames, mLastDelaySound);
                 break;
+            case eSoundType_None:
+                break;
             }
         }
     }
@@ -304,25 +330,6 @@ private:
     }
 
 private:
-    struct LoadData {
-        nw4r::snd::SoundHeap *soundHeap;
-        u16 groupID;
-        char soundArchivePath[256];
-        bool loaded;
-    };
-    
-    enum ESoundArchiveType {
-        eSoundArchiveType_Mem,
-        eSoundArchiveType_DVD,
-        eSoundArchiveType_Nand,
-    };
-
-    enum ESoundType {
-        eSoundType_None,
-        eSoundType_Direct,
-        eSoundType_Delayed
-    };
-
     LoadData mLoadData;
 
     OSThread mThread;
@@ -377,7 +384,7 @@ private:
 
     SNDHandle mSoundHandle[16];
 
-    u32 _pad3374; // NOTE: this field is never used / referenced
+    u32 mUnk3374; // NOTE: This field is never referenced.
 };
 
 extern CSoundManager *gSoundManager;

@@ -101,7 +101,7 @@ RFLErrcode CRFLManager::fn_800C2E44(u16 dataIndex, BOOL favorite) {
             return err;
         }
 
-        if ((favorite && info.favorite == 0) || (!favorite && info.favorite == 1)) {
+        if ((favorite && info.favorite == FALSE) || (!favorite && info.favorite == TRUE)) {
             return err;
         }
 

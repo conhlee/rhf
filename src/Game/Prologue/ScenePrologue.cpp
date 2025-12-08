@@ -16,6 +16,8 @@
 
 #include "Mem.hpp"
 
+#include "code_801ED7D4.hpp"
+
 #include "cellanim/prologue/rcad_prologue_labels.h"
 
 static char lbl_8032A278[0x100];
@@ -46,29 +48,25 @@ bool CScenePrologue::_24(void) {
     return gFileManager->fn_801D42FC(51) && gFileManager->fn_801D42FC(91);
 }
 
-extern "C" u32 fn_80009E1C(void);
-extern "C" bool fn_80009FB4(void);
-extern "C" void fn_80084FC8(u32);
 extern "C" void fn_8000C5F4(u8);
 
-extern "C" void fn_801ED7D4(void *);
-
 void CScenePrologue::_14(void) {
-    fn_8000818C();
+    this->CExScene::_14();
 
-    char *fake;
-    if (gSceneManager->fn_8008B27C() && 
-        !fn_80009FB4() && 
-        (fake = "nightWalk", !strstr(lbl_8032A278, fake))) {
-        if (gSaveData->fn_80078F4C()->fn_80077E08()) {
-            gSaveData->fn_80078F4C()->fn_800786E4();
-            gSaveData->fn_80078F68();
-            if (fn_80009E1C() && gBackupManager) {
-                gBackupManager->fn_80084FC8(1);
-            } 
-            fn_8000C5F4(0);
-        } else {
-            fn_8000C5F4(1);
+    if (gSceneManager->fn_8008B27C() && !fn_80009FB4()) {
+        const char *nightWalkName = "nightWalk";
+        if (strstr(lbl_8032A278, nightWalkName) == NULL) {
+            if (gSaveData->fn_80078F4C()->fn_80077E08() != 0) {
+                gSaveData->fn_80078F4C()->fn_800786E4();
+                gSaveData->fn_80078F68();
+                if (fn_80009E1C() && (gBackupManager != NULL)) {
+                    gBackupManager->fn_80084FC8(1);
+                } 
+                fn_8000C5F4(0);
+            }
+            else {
+                fn_8000C5F4(1);
+            }
         }
     }
 
@@ -76,6 +74,7 @@ void CScenePrologue::_14(void) {
 
     u32 tplLen = gFileManager->fn_801D422C(51, "./cellanim.tpl");
     void *tplAddr = gFileManager->fn_801D4270(51, "./cellanim.tpl");
+
     fn_801ED7D4(tplAddr);
     DCStoreRange(tplAddr, tplLen);
 
@@ -105,9 +104,11 @@ void CScenePrologue::_1C(void) {
 void CScenePrologue::_20(void) {
     gCellAnimManager->fn_801DBA98(0);
     gCellAnimManager->fn_801DC068(0);
+
     gFileManager->fn_801D41CC(51);
     gFileManager->fn_801D41CC(91);
-    fn_80008A20();
+
+    this->CExScene::_20();
 }
 
 void Prologue::fn_8000B13C(char *name, u32 ver) {

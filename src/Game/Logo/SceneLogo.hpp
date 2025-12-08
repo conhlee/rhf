@@ -17,10 +17,10 @@ extern s32 sceneVer;
 } // namespace Logo
 
 class CSceneLogo : public CExScene {
-public:
     friend class Logo::CMyFlow;
     friend class Logo::CMyChecker;
-
+    
+public:
     virtual ~CSceneLogo(void) {}
     virtual void _10(void);
     virtual void _14(void);

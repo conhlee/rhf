@@ -26,6 +26,7 @@ public:
 
     void fn_801D3C2C(const char *localeDir);
     const char *fn_801D3C44(void);
+
     // NOTE: alignment must be a multiple of 32, or DVD read will fail!
     void *fn_801D3C4C(const char *path, EHeapMEM heap = eHeap_MEM2, s32 alignment = 32);
     bool fn_801D3D58(void);
@@ -69,7 +70,7 @@ public:
     }
 
 private:
-    s32 getFileInfoIdx(DVDFileInfo* fileInfo) {
+    s32 getFileInfoIdx(DVDFileInfo *fileInfo) {
         s32 index = -1;
         for (s32 i = 0; i < mMaxFileCount; i++) {
             if (&mDVDFileInfo[i] == fileInfo) {
@@ -113,14 +114,12 @@ public:
         u8 _pad00[0x44];
     };
 
-    static char sDVDPathBuffer[64];
-
     char mLocaleDir[4];
 
     s32 mMaxFileCount;
     DVDFileInfo *mDVDFileInfo; // DVDFileInfo[mMaxFileCount]
     UnusedFileSub *mUnusedFileSub; // UnusedFileSub[mMaxFileCount]
-    bool* mDVDFileInfoActive; // bool[mMaxFileCount]; describes if a mDVDFileInfo slot at the specified index is in use
+    bool *mDVDFileInfoActive; // bool[mMaxFileCount]; describes if a mDVDFileInfo slot at the specified index is in use
 
     s32 mMaxArchiveCount;
     ArchiveInfo *mArchiveInfo; // ArchiveInfo[mMaxArchiveCount]

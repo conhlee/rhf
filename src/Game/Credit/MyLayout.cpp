@@ -37,7 +37,7 @@ void Credit::CMyLayout::_10(void) {
         CTickFlow::fn_801DEF58(i + 1, mPanesT[i], NULL);
     }
 
-    fn_801D9B10();
+    this->CLayout::_10();
 }
 
 void Credit::CMyLayout::_14(void) {

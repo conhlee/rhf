@@ -17,10 +17,10 @@ extern s32 sceneVer;
 } // namespace Strap
 
 class CSceneStrap : public CExScene {
-public:
     friend class Strap::CMyFlow;
     friend class Strap::CMyChecker;
-
+    
+public:
     virtual ~CSceneStrap(void) {}
     virtual void _10(void);
     virtual void _14(void);
@@ -41,7 +41,7 @@ public:
     static void fn_8007B2D8(void);
 
 private:
-    CCellAnim *mCellAnim;
+    CCellAnim *mStrapAnim;
     s32 mFrameCounter;
     s32 mFadeOpacity;
 };

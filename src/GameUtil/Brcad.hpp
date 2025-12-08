@@ -16,7 +16,7 @@ struct CellAnimSpritePart {
 
 struct CellAnimSprite {
     u16 partCount;
-    CellAnimSpritePart* parts;
+    CellAnimSpritePart *parts;
 };
 
 struct CellAnimAnimationKey {

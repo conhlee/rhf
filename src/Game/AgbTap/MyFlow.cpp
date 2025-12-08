@@ -25,22 +25,22 @@ bool AgbTap::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     } break;
 
     case TF_AGBTAP_SET_ANIME_MONKEY: {
-        mScene->fn_800A9988(static_cast<CSceneAgbTap::EAnimeType>(args[0]));
+        mScene->fn_800A9988(static_cast<EAgbTapMove>(args[0]));
     } break;
 
     case TF_AGBTAP_SET_ANIME_GIRL: {
-        mScene->fn_800A97DC(static_cast<CSceneAgbTap::EAnimeType>(args[0]));
+        mScene->fn_800A97DC(static_cast<EAgbTapMove>(args[0]));
     } break;
 
-    case TF_AGBTAP_204: {
+    case TF_AGBTAP_RESET_PERFORMANCE: {
         mScene->fn_800A9758();
     } break;
 
-    case TF_AGBTAP_205: {
+    case TF_AGBTAP_GIRAFFE_MOVE: {
         mScene->fn_800A9B20(static_cast<bool>(args[0]));
     } break;
 
-    case TF_AGBTAP_206: {
+    case TF_AGBTAP_GIRAFFE_ANIM: {
         if (arg0 == 0) {
             mScene->fn_800A9C3C();
         }
@@ -52,7 +52,7 @@ bool AgbTap::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         }
     } break;
 
-    case TF_AGBTAP_207: {
+    case TF_AGBTAP_SET_BALLOON_TARGET: {
         if (arg0 == 0) {
             mScene->fn_800A9D90();
         }

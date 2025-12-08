@@ -7,6 +7,8 @@
 
 #include "SNDHeap.hpp"
 
+#include "CellAnimRenderEff.hpp"
+
 enum {
     /*   ExFlow opcodes (0x100 to 0x141)  */
 
@@ -64,7 +66,7 @@ enum {
     TF_12F,
     TF_130,
     TF_131,
-    TF_132,
+    TF_CELLANIM_RENDER_EFF,
     TF_133,
     TF_134,
     TF_135,
@@ -84,61 +86,67 @@ enum {
 
 // command macros
 
-#define TFC_SET_SCENE(sceneId, tfLabel) TFD_CMD(TF_SET_SCENE, 2, 0), (TickFlowCode)(sceneId), TFD_PTR(tfLabel),
+#define TFC_SET_SCENE(sceneId, tfLabel) TFD_CMD(TF_SET_SCENE, 2, 0), TFD_CAST(sceneId), TFD_PCAST(tfLabel),
 #define TFC_100_1() TFD_CMD(TF_SET_SCENE, 0, 1), // TODO: rename
 
-#define TFC_SET_SCENE_VER(sceneId, ver) TFD_CMD(TF_SET_SCENE_VER, 2, 0), (TickFlowCode)(sceneId), (TickFlowCode)(ver),
+#define TFC_SET_SCENE_VER(sceneId, ver) TFD_CMD(TF_SET_SCENE_VER, 2, 0), TFD_CAST(sceneId), TFD_CAST(ver),
+
+#define TFC_LOAD_SCENE_ASSETS(sceneId) TFD_CMD(TF_SCENE_ASSETS, 1, 0), TFD_CAST(sceneId),
 
 #define TFC_GET_SCENE_RUNNING() TFD_CMD(TF_GET_SCENE_RUNNING, 0, 0),
 
-#define TFC_SET_EPILOGUE(nameStr, ver) TFD_CMD(TF_SET_EPILOGUE, 2, 0), TFD_PTR(nameStr), (TickFlowCode)(ver),
+#define TFC_SET_PROLOGUE(nameStr, ver) TFD_CMD(TF_SET_PROLOGUE, 2, 0), TFD_PCAST(nameStr), TFD_CAST(ver),
 
-#define TFC_SET_EPILOGUE_MSG_OK(mesgIdStr) TFD_CMD(TF_SET_EPILOGUE_MSG, 1, 0), TFD_PTR(mesgIdStr),
-#define TFC_SET_EPILOGUE_MSG_TRYAGAIN(mesgIdStr) TFD_CMD(TF_SET_EPILOGUE_MSG, 1, 1), TFD_PTR(mesgIdStr),
-#define TFC_SET_EPILOGUE_MSG_SUPERB(mesgIdStr) TFD_CMD(TF_SET_EPILOGUE_MSG, 1, 2), TFD_PTR(mesgIdStr),
+#define TFC_SET_EPILOGUE(nameStr, ver) TFD_CMD(TF_SET_EPILOGUE, 2, 0), TFD_PCAST(nameStr), TFD_CAST(ver),
 
-#define TFC_SET_GRADING_CAPTION(mesgIdStr) TFD_CMD(TF_SET_GRADING_CAPTION, 1, 0), TFD_PTR(mesgIdStr),
+#define TFC_SET_EPILOGUE_MSG_OK(mesgIdStr) TFD_CMD(TF_SET_EPILOGUE_MSG, 1, 0), TFD_PCAST(mesgIdStr),
+#define TFC_SET_EPILOGUE_MSG_TRYAGAIN(mesgIdStr) TFD_CMD(TF_SET_EPILOGUE_MSG, 1, 1), TFD_PCAST(mesgIdStr),
+#define TFC_SET_EPILOGUE_MSG_SUPERB(mesgIdStr) TFD_CMD(TF_SET_EPILOGUE_MSG, 1, 2), TFD_PCAST(mesgIdStr),
 
-#define TFC_SET_PROLOGUE_JINGLE(jingleNum) TFD_CMD(TF_PROLOGUE_JINGLE, 0, 0), (TickFlowCode)(jingleNum),
+#define TFC_SET_GRADING_CAPTION(mesgIdStr) TFD_CMD(TF_SET_GRADING_CAPTION, 1, 0), TFD_PCAST(mesgIdStr),
+
+#define TFC_SET_PROLOGUE_JINGLE(jingleNum) TFD_CMD(TF_PROLOGUE_JINGLE, 1, 0), TFD_CAST(jingleNum),
 #define TFC_GET_PROLOGUE_JINGLE() TFD_CMD(TF_PROLOGUE_JINGLE, 0, 1),
 
 #define TFC_UI_PAUSE_SHOW() TFD_CMD(TF_UI_PAUSE, 0, 0),
 #define TFC_UI_PAUSE_HIDE() TFD_CMD(TF_UI_PAUSE, 0, 1),
 
-#define TFC_FADE_IN_FRAMES(frames) TFD_CMD(TF_FADE, 2, 1), (TickFlowCode)(1), (TickFlowCode)(frames),
-#define TFC_FADE_OUT_FRAMES(frames) TFD_CMD(TF_FADE, 2, 0), (TickFlowCode)(1), (TickFlowCode)(frames),
+#define TFC_FADE_IN_FRAMES(frames) TFD_CMD(TF_FADE, 2, 1), TFD_CAST(1), TFD_CAST(frames),
+#define TFC_FADE_OUT_FRAMES(frames) TFD_CMD(TF_FADE, 2, 0), TFD_CAST(1), TFD_CAST(frames),
 
-#define TFC_FADE_IN_TICKS(frames) TFD_CMD(TF_FADE, 2, 1), (TickFlowCode)(0), (TickFlowCode)(frames),
-#define TFC_FADE_OUT_TICKS(frames) TFD_CMD(TF_FADE, 2, 0), (TickFlowCode)(0), (TickFlowCode)(frames),
+#define TFC_FADE_IN_TICKS(frames) TFD_CMD(TF_FADE, 2, 1), TFD_CAST(0), TFD_CAST(frames),
+#define TFC_FADE_OUT_TICKS(frames) TFD_CMD(TF_FADE, 2, 0), TFD_CAST(0), TFD_CAST(frames),
 
 #define TFC_UI_SKIP_POS(pos) TFD_CMD(TF_UI_SKIP_POS, 0, pos),
 
-#define TFC_UI_SKIP_ANIM() TFD_CMD(TF_UI_SKIP_ANIM, 1, 0), (TickFlowCode)(0),
-#define TFC_UI_SKIP_ANIM_PRACTICE() TFD_CMD(TF_UI_SKIP_ANIM, 1, 0), (TickFlowCode)(1),
+#define TFC_UI_SKIP_ANIM() TFD_CMD(TF_UI_SKIP_ANIM, 1, 0), TFD_CAST(0),
+#define TFC_UI_SKIP_ANIM_PRACTICE() TFD_CMD(TF_UI_SKIP_ANIM, 1, 0), TFD_CAST(1),
 
-#define TFC_MASK01_VISIBLE(isVisible) TFD_CMD(TF_MASK01_VISIBLE, 1, 0), (TickFlowCode)((isVisible) ? 1 : 0),
-#define TFC_MASK01_OPACITY(opacity) TFD_CMD(TF_MASK01_OPACITY, 1, 0), (TickFlowCode)(opacity),
-#define TFC_MASK01_COLOR(r, g, b) TFD_CMD(TF_MASK01_COLOR, 3, 0), (TickFlowCode)(r), (TickFlowCode)(g), (TickFlowCode)(b),
-#define TFC_MASK01_LAYER(layer) TFD_CMD(TF_MASK01_LAYER, 1, 0), (TickFlowCode)(layer),
-#define TFC_MASK01_FADE(targetOpacity, ticks) TFD_CMD(TF_MASK01_FADE, 2, 1), (TickFlowCode)(targetOpacity), (TickFlowCode)(ticks),
+#define TFC_MASK01_VISIBLE(isVisible) TFD_CMD(TF_MASK01_VISIBLE, 1, 0), TFD_CAST((isVisible) ? 1 : 0),
+#define TFC_MASK01_OPACITY(opacity) TFD_CMD(TF_MASK01_OPACITY, 1, 0), TFD_CAST(opacity),
+#define TFC_MASK01_COLOR(r, g, b) TFD_CMD(TF_MASK01_COLOR, 3, 0), TFD_CAST(r), TFD_CAST(g), TFD_CAST(b),
+#define TFC_MASK01_LAYER(layer) TFD_CMD(TF_MASK01_LAYER, 1, 0), TFD_CAST(layer),
+#define TFC_MASK01_FADE(targetOpacity, ticks) TFD_CMD(TF_MASK01_FADE, 2, 1), TFD_CAST(targetOpacity), TFD_CAST(ticks),
 
-// TODO: replace usage of this with TFC_RESET_SND_GROUP_HEAP_0 and friends?
-#define TFC_RESET_SND_GROUP_HEAP(type) TFD_CMD(TF_RESET_SND_GROUP_HEAP, 0, type),
+#define TFC_MESG_PANE_SET_TEXT(accessIdx, mesgIdStr) TFD_CMD(TF_MESG_PANE_SET_TEXT, 1, (accessIdx)), TFD_PCAST(mesgIdStr),
 
-#define TFC_MESG_PANE_SET_TEXT(accessIdx, mesgIdStr) TFD_CMD(TF_MESG_PANE_SET_TEXT, 1, accessIdx), TFD_PTR(mesgIdStr),
-
-#define TFC_LOAD_SND_GROUP_0(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_0), (TickFlowCode)(sid),
-#define TFC_LOAD_SND_GROUP_1(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_1), (TickFlowCode)(sid),
-#define TFC_LOAD_SND_GROUP_2(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_2), (TickFlowCode)(sid),
-#define TFC_LOAD_SND_GROUP_3(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_3), (TickFlowCode)(sid),
+#define TFC_LOAD_SND_GROUP_0(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_0), TFD_CAST(sid),
+#define TFC_LOAD_SND_GROUP_1(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_1), TFD_CAST(sid),
+#define TFC_LOAD_SND_GROUP_2(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_2), TFD_CAST(sid),
+#define TFC_LOAD_SND_GROUP_3(sid) TFD_CMD(TF_LOAD_SND_GROUP, 1, eSoundHeap_3), TFD_CAST(sid),
 
 #define TFC_RESET_SND_GROUP_HEAP_0() TFD_CMD(TF_RESET_SND_GROUP_HEAP, 0, eSoundHeap_0),
 #define TFC_RESET_SND_GROUP_HEAP_1() TFD_CMD(TF_RESET_SND_GROUP_HEAP, 0, eSoundHeap_1),
 #define TFC_RESET_SND_GROUP_HEAP_2() TFD_CMD(TF_RESET_SND_GROUP_HEAP, 0, eSoundHeap_2),
 #define TFC_RESET_SND_GROUP_HEAP_3() TFD_CMD(TF_RESET_SND_GROUP_HEAP, 0, eSoundHeap_3),
 
+#define TFC_CELLANIM_RENDER_EFF_RESET() TFD_CMD(TF_CELLANIM_RENDER_EFF, 1, 0), TFD_CAST(eCellAnimRenderEff_None),
+#define TFC_CELLANIM_RENDER_EFF_GRAYSCALE() TFD_CMD(TF_CELLANIM_RENDER_EFF, 1, 0), TFD_CAST(eCellAnimRenderEff_Grayscale),
+#define TFC_CELLANIM_RENDER_EFF_INVERT() TFD_CMD(TF_CELLANIM_RENDER_EFF, 1, 0), TFD_CAST(eCellAnimRenderEff_Invert),
+#define TFC_CELLANIM_RENDER_EFF_SHOW_EDGE() TFD_CMD(TF_CELLANIM_RENDER_EFF, 1, 0), TFD_CAST(eCellAnimRenderEff_ShowEdge),
+
 // TODO
-#define TFC_11A(value) TFD_CMD(TF_11A, 1, 0), (TickFlowCode)(value),
+#define TFC_11A(value) TFD_CMD(TF_11A, 1, 0), TFD_CAST(value),
 
 // TODO
 #define TFC_11D() TFD_CMD(TF_11D, 0, 0),

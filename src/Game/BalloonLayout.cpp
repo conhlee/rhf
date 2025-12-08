@@ -42,7 +42,7 @@ void CBalloonLayout::fn_800399E4(void) {
 
     gMessageManager->fn_80088474(getLayout()->GetRootPane());
     
-    fn_801D9B10();
+    this->CLayout::_10();
 
     mBoxPaneAccessIdx = -1;
     mOverlayPaneAccessIdx = -1;

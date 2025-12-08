@@ -20,22 +20,22 @@ public:
     virtual void _14(void);
     virtual void _18(void);
     virtual void _1C(void);
-    virtual void _20(s32);
+    virtual void _20(s32 resCount);
     virtual void _24(s32 arcIndex, const char *rootDir);
     virtual void _28(void);
 
-    void fn_801D6AEC(u8);
-    void fn_801D6B2C(CLayout *);
+    void fn_801D6AEC(u8 layoutCount);
+    void fn_801D6B2C(CLayout *layout);
     void fn_801D6BB0(void);
-    CLayout *fn_801D6C50(u8);
+    CLayout *fn_801D6C50(u8 index);
     void fn_801D6D78(void);
-    void fn_801D6DAC(u8);
-    bool fn_801D6E2C(void *, const char *);
+    void fn_801D6DAC(u8 fontCount);
+    bool fn_801D6E2C(void *resAddr, const char *resName);
     void fn_801D705C(void);
-    void fn_801D717C(f32, f32);
+    void fn_801D717C(f32 x, f32 y);
     f32 fn_801D7188(void);
     f32 fn_801D7190(void);
-    void fn_801D7198(s32);
+    void fn_801D7198(u32 size);
 
     template <typename T>
     void registerLayout(void) {
@@ -47,13 +47,17 @@ public:
         return static_cast<T *>(fn_801D6C50(index));
     }
 
-    nw4r::lyt::MultiArcResourceAccessor *getResAccessor(void) {
+    nw4r::lyt::MultiArcResourceAccessor *getResAccessor(void) const {
         return mResAccessor;
     }
+    nw4r::lyt::DrawInfo *getDrawInfo(void) const {
+        return mDrawInfo;
+    }
+
 private:
     enum EFontType {
-        eFontType_ResFont = 0,      // nw4r::ut::ResFont
-        eFontType_ArchiveFont = 1,  // nw4r::ut::ArchiveFont
+        eFontType_ResFont,      // nw4r::ut::ResFont
+        eFontType_ArchiveFont,  // nw4r::ut::ArchiveFont
     };
 
     class CFontInfo {
@@ -71,6 +75,7 @@ private:
         }
     };
 
+private:
     u8 *mHeapStart;
     MEMiHeapHead *mHeap;
     MEMAllocator mAllocator;

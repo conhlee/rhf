@@ -30,6 +30,8 @@
 #include "CursorLayout.hpp"
 #include "BalloonLayout.hpp"
 
+#include "code_801ED7D4.hpp"
+
 #include "rev_tengoku.rsid"
 
 #include "cellanim/agbTap/ver0/rcad_agb_tap_labels.h"
@@ -97,10 +99,8 @@ bool CSceneAgbTap::_24(void) {
     return gFileManager->fn_801D42FC(2);
 }
 
-extern "C" void fn_801ED7D4(void *); // TODO tplbind wrapper
-
 void CSceneAgbTap::_14(void) {
-    fn_8000818C();
+    this->CExScene::_14();
 
     gInputCheckManager->setUnk418(fn_800A8FA4);
 
@@ -170,7 +170,7 @@ void CSceneAgbTap::_14(void) {
     gLayoutManager->getLayout<CPauseLayout>(0)->setDrawEnable(false);
     gLayoutManager->getLayout<CCursorLayout>(1)->setDrawEnable(false);
 
-    mLastAnimeType = eAnimeType_Tap_0L;
+    mLastAnimeType = eAgbTapMove_Tap_0L;
 
     mGirlAnimeTimer = 0;
     mMonkeyAnimeTimer = 0;
@@ -183,12 +183,12 @@ void CSceneAgbTap::_14(void) {
 
 TFD_BEGIN(lbl_80267290)
     TFC_REST(12)
-    TFC_AGBTAP_SET_ANIME_GIRL(CSceneAgbTap::eAnimeType_Round)
+    TFC_AGBTAP_SET_ANIME_GIRL(eAgbTapMove_Round)
 TFD_STOP()
 
 TFD_BEGIN(lbl_802672A0)
     TFC_REST(12)
-    TFC_AGBTAP_SET_ANIME_MONKEY(CSceneAgbTap::eAnimeType_Round)
+    TFC_AGBTAP_SET_ANIME_MONKEY(eAgbTapMove_Round)
 TFD_STOP()
 
 TFD_BEGIN(lbl_802672B0)
@@ -247,7 +247,7 @@ void CSceneAgbTap::_20(void) {
 
     gFileManager->fn_801D41CC(2);
 
-    fn_80008A20();
+    this->CExScene::_20();
 }
 
 void CSceneAgbTap::fn_800A9698(u32 button, s32 type) {
@@ -260,25 +260,25 @@ void CSceneAgbTap::fn_800A9698(u32 button, s32 type) {
             fn_800A9924();
             gSoundManager->play(SE_AGB_TAP_OSII);
 
-            mUnk15C++;
+            mMissTapCount++;
         }
         else if (type == 2) {
             if (
-                (mLastAnimeType != eAnimeType_Crouch) && (mLastAnimeType != eAnimeType_Jump) &&
-                (mLastAnimeType != eAnimeType_Jump_Last) && (mLastAnimeType != eAnimeType_Pause) && 
-                (mLastAnimeType != eAnimeType_Round) && (mLastAnimeType != eAnimeType_Land)
+                (mLastAnimeType != eAgbTapMove_Crouch) && (mLastAnimeType != eAgbTapMove_Jump) &&
+                (mLastAnimeType != eAgbTapMove_Jump_Last) && (mLastAnimeType != eAgbTapMove_Pause) && 
+                (mLastAnimeType != eAgbTapMove_Round) && (mLastAnimeType != eAgbTapMove_Land)
             ) {
                 fn_800A9924();
                 gSoundManager->play(SE_AGB_TAP_OSII);
             }
-            mUnk158++;
+            mThroughTapCount++;
         }
     }
 }
 
 void CSceneAgbTap::fn_800A9758(void) {
-    mUnk158 = 0;
-    mUnk15C = 0;
+    mThroughTapCount = 0;
+    mMissTapCount = 0;
 }
 
 void CSceneAgbTap::fn_800A9768(void) {
@@ -293,26 +293,26 @@ void CSceneAgbTap::fn_800A9768(void) {
 }
 
 GIRL_ANIME_DATA_BEGIN(sGirlAnimeData)
-    /* eAnimeType_Ready_L */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_ready_L, 0, false, false, 30)
-    /* eAnimeType_Ready_R */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_ready_R, 0, false, false, 30)
-    /* eAnimeType_Tap_1L_NG */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1L, 3, false, false, 30)
-    /* eAnimeType_Tap_1R_NG */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1R, 3, false, false, 30)
-    /* eAnimeType_Tap_0L */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_0L, 0, false, false, 20)
-    /* eAnimeType_Tap_0R */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_0R, 0, false, false, 20)
-    /* eAnimeType_Tap_1L */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1L, 0, false, false, 20)
-    /* eAnimeType_Tap_1R */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1R, 0, false, false, 20)
-    /* eAnimeType_Charge */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_charge, 0, false, false, 30)
-    /* eAnimeType_Crouch */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_crouch, 1, false, false, 30)
-    /* eAnimeType_Jump */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_jump, 0, false, false, 30)
-    /* eAnimeType_Jump_Last */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_jump, 0, false, false, 30)
-    /* eAnimeType_Pause */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_pause, 0, false, false, 20)
-    /* eAnimeType_Round */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_round, 0, false, false, 30)
-    /* eAnimeType_Land */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_land, 0, false, false, 20)
-    /* eAnimeType_Ready_2 */ GIRL_ANIME_DATA_ENTRY(-1, 0, false, false, 30)
-    /* eAnimeType_Ready_3_2 */ GIRL_ANIME_DATA_ENTRY(-1, 0, false, false, 30)
+    /* eAgbTapMove_Ready_L */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_ready_L, 0, false, false, 30)
+    /* eAgbTapMove_Ready_R */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_ready_R, 0, false, false, 30)
+    /* eAgbTapMove_Tap_1L_NG */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1L, 3, false, false, 30)
+    /* eAgbTapMove_Tap_1R_NG */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1R, 3, false, false, 30)
+    /* eAgbTapMove_Tap_0L */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_0L, 0, false, false, 20)
+    /* eAgbTapMove_Tap_0R */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_0R, 0, false, false, 20)
+    /* eAgbTapMove_Tap_1L */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1L, 0, false, false, 20)
+    /* eAgbTapMove_Tap_1R */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_tap_1R, 0, false, false, 20)
+    /* eAgbTapMove_Charge */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_charge, 0, false, false, 30)
+    /* eAgbTapMove_Crouch */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_crouch, 1, false, false, 30)
+    /* eAgbTapMove_Jump */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_jump, 0, false, false, 30)
+    /* eAgbTapMove_Jump_Last */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_jump, 0, false, false, 30)
+    /* eAgbTapMove_Pause */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_pause, 0, false, false, 20)
+    /* eAgbTapMove_Round */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_round, 0, false, false, 30)
+    /* eAgbTapMove_Land */ GIRL_ANIME_DATA_ENTRY(agb_tap_girl_land, 0, false, false, 20)
+    /* eAgbTapMove_Ready_2 */ GIRL_ANIME_DATA_ENTRY(-1, 0, false, false, 30)
+    /* eAgbTapMove_Ready_3_2 */ GIRL_ANIME_DATA_ENTRY(-1, 0, false, false, 30)
 GIRL_ANIME_DATA_END()
 
-void CSceneAgbTap::fn_800A97DC(EAnimeType type) {
+void CSceneAgbTap::fn_800A97DC(EAgbTapMove type) {
     mLastAnimeType = type;
 
     GirlAnimeData *animeData = &sGirlAnimeData[static_cast<s32>(type)];
@@ -327,11 +327,11 @@ void CSceneAgbTap::fn_800A97DC(EAnimeType type) {
 
     bool doJumping = false;
     
-    if (type == eAnimeType_Jump) {
+    if (type == eAgbTapMove_Jump) {
         doJumping = true;
         gTickFlowManager->fn_801E1CC0(lbl_80267290);
     }
-    if (type == eAnimeType_Jump_Last) {
+    if (type == eAgbTapMove_Jump_Last) {
         doJumping = true;
     }
 
@@ -345,42 +345,42 @@ void CSceneAgbTap::fn_800A97DC(EAnimeType type) {
 }
 
 void CSceneAgbTap::fn_800A9924(void) {
-    EAnimeType nextType = eAnimeType_Null;
+    EAgbTapMove nextType = eAgbTapMove_Null;
     switch (mLastAnimeType) {
-    case eAnimeType_Ready_L:
-    case eAnimeType_Tap_1L_NG:
-    case eAnimeType_Tap_0L:
-        nextType = eAnimeType_Tap_0L;
+    case eAgbTapMove_Ready_L:
+    case eAgbTapMove_Tap_1L_NG:
+    case eAgbTapMove_Tap_0L:
+        nextType = eAgbTapMove_Tap_0L;
         break;
 
-    case eAnimeType_Ready_R:
-    case eAnimeType_Tap_1R_NG:
-    case eAnimeType_Tap_0R:
-        nextType = eAnimeType_Tap_0R;
+    case eAgbTapMove_Ready_R:
+    case eAgbTapMove_Tap_1R_NG:
+    case eAgbTapMove_Tap_0R:
+        nextType = eAgbTapMove_Tap_0R;
         break;
 
-    case eAnimeType_Tap_1R:
-    case eAnimeType_Charge:
-        nextType = eAnimeType_Tap_1L;
+    case eAgbTapMove_Tap_1R:
+    case eAgbTapMove_Charge:
+        nextType = eAgbTapMove_Tap_1L;
         break;
 
-    case eAnimeType_Tap_1L:
-        nextType = eAnimeType_Tap_1R;
+    case eAgbTapMove_Tap_1L:
+        nextType = eAgbTapMove_Tap_1R;
         break;
 
-    case eAnimeType_Round:
-        nextType = eAnimeType_Land;
+    case eAgbTapMove_Round:
+        nextType = eAgbTapMove_Land;
         break;
 
-    case eAnimeType_Jump_Last:
-        nextType = eAnimeType_Pause;
+    case eAgbTapMove_Jump_Last:
+        nextType = eAgbTapMove_Pause;
         break;
     
     default:
         break;
     }
 
-    if (nextType == eAnimeType_Null) {
+    if (nextType == eAgbTapMove_Null) {
         return;
     }
 
@@ -388,26 +388,26 @@ void CSceneAgbTap::fn_800A9924(void) {
 }
 
 MONKEY_ANIME_DATA_BEGIN(sMonkeyAnimeData)
-    /* eAnimeType_Ready_L */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_ready_L, 0, false, false, 30, SE_AGB_TAP_READY_1)
-    /* eAnimeType_Ready_R */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_ready_R, 0, false, false, 30, SE_AGB_TAP_READY_2)
-    /* eAnimeType_Tap_1L_NG */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1L, 3, false, false, 30, -1)
-    /* eAnimeType_Tap_1R_NG */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1R, 3, false, false, 30, -1)
-    /* eAnimeType_Tap_0L */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_0L, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
-    /* eAnimeType_Tap_0R */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_0R, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
-    /* eAnimeType_Tap_1L */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1L, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
-    /* eAnimeType_Tap_1R */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1R, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
-    /* eAnimeType_Charge */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_charge, 0, false, false, 30, SE_AGB_TAP_READY_3_1)
-    /* eAnimeType_Crouch */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_crouch, 1, false, false, 30, -1)
-    /* eAnimeType_Jump */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_jump, 0, false, false, 30, SE_AGB_TAP_READY_JUMP)
-    /* eAnimeType_Jump_Last */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_jump, 0, false, false, 30, SE_AGB_TAP_READY_JUMP_LAST)
-    /* eAnimeType_Pause */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_pause, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
-    /* eAnimeType_Round */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_round, 0, false, false, 30, -1)
-    /* eAnimeType_Land */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_land, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
-    /* eAnimeType_Ready_2 */ MONKEY_ANIME_DATA_ENTRY(-1, 0, false, false, 30, SE_AGB_TAP_READY_2)
-    /* eAnimeType_Ready_3_2 */ MONKEY_ANIME_DATA_ENTRY(-1, 0, false, false, 30, SE_AGB_TAP_READY_3_2)
+    /* eAgbTapMove_Ready_L */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_ready_L, 0, false, false, 30, SE_AGB_TAP_READY_1)
+    /* eAgbTapMove_Ready_R */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_ready_R, 0, false, false, 30, SE_AGB_TAP_READY_2)
+    /* eAgbTapMove_Tap_1L_NG */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1L, 3, false, false, 30, -1)
+    /* eAgbTapMove_Tap_1R_NG */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1R, 3, false, false, 30, -1)
+    /* eAgbTapMove_Tap_0L */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_0L, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
+    /* eAgbTapMove_Tap_0R */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_0R, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
+    /* eAgbTapMove_Tap_1L */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1L, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
+    /* eAgbTapMove_Tap_1R */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_tap_1R, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
+    /* eAgbTapMove_Charge */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_charge, 0, false, false, 30, SE_AGB_TAP_READY_3_1)
+    /* eAgbTapMove_Crouch */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_crouch, 1, false, false, 30, -1)
+    /* eAgbTapMove_Jump */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_jump, 0, false, false, 30, SE_AGB_TAP_READY_JUMP)
+    /* eAgbTapMove_Jump_Last */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_jump, 0, false, false, 30, SE_AGB_TAP_READY_JUMP_LAST)
+    /* eAgbTapMove_Pause */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_pause, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
+    /* eAgbTapMove_Round */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_round, 0, false, false, 30, -1)
+    /* eAgbTapMove_Land */ MONKEY_ANIME_DATA_ENTRY(agb_tap_monkey_land, 0, false, false, 20, SE_AGB_TAP_KICK_MONKEY)
+    /* eAgbTapMove_Ready_2 */ MONKEY_ANIME_DATA_ENTRY(-1, 0, false, false, 30, SE_AGB_TAP_READY_2)
+    /* eAgbTapMove_Ready_3_2 */ MONKEY_ANIME_DATA_ENTRY(-1, 0, false, false, 30, SE_AGB_TAP_READY_3_2)
 MONKEY_ANIME_DATA_END()
 
-void CSceneAgbTap::fn_800A9988(EAnimeType type) {
+void CSceneAgbTap::fn_800A9988(EAgbTapMove type) {
     MonkeyAnimeData *animeData = &sMonkeyAnimeData[static_cast<s32>(type)];
     
     if (animeData->animID >= 0) {
@@ -422,11 +422,11 @@ void CSceneAgbTap::fn_800A9988(EAnimeType type) {
 
     bool doJumping = false;
     
-    if (type == eAnimeType_Jump) {
+    if (type == eAgbTapMove_Jump) {
         doJumping = true;
         gTickFlowManager->fn_801E1CC0(lbl_802672A0);
     }
-    if (type == eAnimeType_Jump_Last) {
+    if (type == eAgbTapMove_Jump_Last) {
         doJumping = true;
     }
 
@@ -443,9 +443,9 @@ void CSceneAgbTap::fn_800A9988(EAnimeType type) {
     }
 
     if (
-        (type != eAnimeType_Tap_0L) && (type != eAnimeType_Tap_0R) && (type != eAnimeType_Tap_1L) &&
-        (type != eAnimeType_Tap_1R) && (type != eAnimeType_Pause) && (type != eAnimeType_Land) &&
-        (type != eAnimeType_Ready_2) && (type != eAnimeType_Ready_3_2)
+        (type != eAgbTapMove_Tap_0L) && (type != eAgbTapMove_Tap_0R) && (type != eAgbTapMove_Tap_1L) &&
+        (type != eAgbTapMove_Tap_1R) && (type != eAgbTapMove_Pause) && (type != eAgbTapMove_Land) &&
+        (type != eAgbTapMove_Ready_2) && (type != eAgbTapMove_Ready_3_2)
     ) {
         fn_800A97DC(type);
     }
@@ -513,9 +513,9 @@ const TickFlowCode *lbl_802EF840[] = {
     lbl_8026730C,
 };
 
-void CSceneAgbTap::fn_800A9C84(u32 param_1) {
+void CSceneAgbTap::fn_800A9C84(u32 maxMissTapCount) {
     if (mGiraffeAnimeTimer == 0) {
-        if ((mUnk158 != 0) || (mUnk15C > param_1)) {
+        if ((mThroughTapCount != 0) || (mMissTapCount > maxMissTapCount)) {
             return;
         }
 

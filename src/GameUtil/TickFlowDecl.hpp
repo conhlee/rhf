@@ -21,7 +21,7 @@ enum {
     TF_00A,
     TF_REST_FRAMES, ///< Arg0: frames to rest for
     TF_UNREST, ///< Arg0: ticks to decrement the current rest by
-    TF_00D,
+    TF_RESET_TICK_PASS,
     TF_LABEL, ///< Arg0: label identifier
     TF_JUMP, ///< Arg0: identifier of label to jump to
     TF_IF, ///< TODO Multiple variations depending on arg0. Args: value to compare to condvar
@@ -66,7 +66,7 @@ enum {
     TF_PREPARE_WAVE, ///< Prepare WSD (wave sound data) for playback. Arg0: SID of WSD
     TF_038,
     TF_PLAY_WAVE, ///< Start WSD (wave sound data) playback.
-    TF_03A,
+    TF_STOP_WAVE,
     TF_03B,
     TF_GET_WAVE_READY, ///< Set condvar to 1 if WSD (wave sound data) is ready, and 0 if not.
     TF_03D,
@@ -85,7 +85,7 @@ enum {
     TF_SET_SKIP_HANDLER, ///< Set the TickFlow that runs when a skip is triggered. Args: TickFlowCode *
     TF_04B,
     TF_04C,
-    TF_04D,
+    TF_ICI_CTRL,
     TF_04E,
     TF_RANDOM, ///< Set the condvar to a random value. Arg0: upper bound of random value
 
@@ -108,37 +108,40 @@ enum {
     TF_RETURN        \
     TFD_END()
 
-#define TFD_CMD(command, argc, arg0) (               \
+#define TFD_CMD(command, argc, arg0) (                        \
     (((TickFlowCode)(command) & 0x3FFu)  <<  0) | /* 10bit */ \
     (((TickFlowCode)(argc)    & 0xFu)    << 10) | /* 4bit  */ \
     (((TickFlowCode)(arg0)    & 0x3FFFu) << 14)   /* 14bit */ \
 )
 
-#define TFD_PTR(ptr) ((TickFlowCode)(const void *)(ptr))
+#define TFD_CAST(value) ((TickFlowCode)(value))
+#define TFD_PCAST(ptr) ((TickFlowCode)(const void *)(ptr))
 
 // command macros
 
-#define TFC_ASYNC_CALL(tfLabel, delay) TFD_CMD(TF_ASYNC_CALL, 2, 0), TFD_PTR(tfLabel), (TickFlowCode)(delay),
-#define TFC_CALL(tfLabel) TFD_CMD(TF_CALL, 1, 0), TFD_PTR(tfLabel),
+#define TFC_ASYNC_CALL(tfLabel, delayTicks) TFD_CMD(TF_ASYNC_CALL, 2, 0), TFD_PCAST(tfLabel), TFD_CAST(delayTicks),
+#define TFC_CALL(tfLabel) TFD_CMD(TF_CALL, 1, 0), TFD_PCAST(tfLabel),
 
-#define TFC_CATEGORY(category) TFD_CMD(TF_CATEGORY, 1, 0), (TickFlowCode)(category),
+#define TFC_CATEGORY(category) TFD_CMD(TF_CATEGORY, 1, 0), TFD_CAST(category),
 
 #define TFC_REST(ticks) TFD_CMD(TF_REST, 0, (ticks)),
 #define TFC_REST_FRAMES(frames) TFD_CMD(TF_REST_FRAMES, 0, (frames)),
 
+#define TFC_RESET_TICK_PASS() TFD_CMD(TF_RESET_TICK_PASS, 0, 0),
+
 #define TFC_LABEL(labelID) TFD_CMD(TF_LABEL, 0, (labelID)),
 #define TFC_JUMP(labelID) TFD_CMD(TF_JUMP, 0, (labelID)),
 
-#define TFC_IF_EQU(value) TFD_CMD(TF_IF, 1, 0), (TickFlowCode)(value),
-#define TFC_IF_NEQ(value) TFD_CMD(TF_IF, 1, 1), (TickFlowCode)(value),
-#define TFC_IF_LT(value) TFD_CMD(TF_IF, 1, 2), (TickFlowCode)(value),
-#define TFC_IF_LEQ(value) TFD_CMD(TF_IF, 1, 3), (TickFlowCode)(value),
-#define TFC_IF_GT(value) TFD_CMD(TF_IF, 1, 4), (TickFlowCode)(value),
-#define TFC_IF_GEQ(value) TFD_CMD(TF_IF, 1, 5), (TickFlowCode)(value),
+#define TFC_IF_EQU(value) TFD_CMD(TF_IF, 1, 0), TFD_CAST(value),
+#define TFC_IF_NEQ(value) TFD_CMD(TF_IF, 1, 1), TFD_CAST(value),
+#define TFC_IF_LT(value) TFD_CMD(TF_IF, 1, 2), TFD_CAST(value),
+#define TFC_IF_LEQ(value) TFD_CMD(TF_IF, 1, 3), TFD_CAST(value),
+#define TFC_IF_GT(value) TFD_CMD(TF_IF, 1, 4), TFD_CAST(value),
+#define TFC_IF_GEQ(value) TFD_CMD(TF_IF, 1, 5), TFD_CAST(value),
 
 #define TFC_ELSE() TFD_CMD(TF_ELSE, 0, 0),
 
-#define TFC_ENDIF(value) TFD_CMD(TF_ENDIF, 0, 0),
+#define TFC_ENDIF() TFD_CMD(TF_ENDIF, 0, 0),
 
 #define TFC_SWITCH_BEGIN() TFD_CMD(TF_SWITCH_BEGIN, 0, 0),
 #define TFC_SWITCH_CASE(value) TFD_CMD(TF_SWITCH_CASE, 0, (value)),
@@ -150,17 +153,21 @@ enum {
 
 #define TFC_TEMPO_WAVE(sid) TFD_CMD(TF_TEMPO_WAVE, 0, (sid)),
 
-#define TFC_SPEED(speed) TFD_CMD(TF_SPEED, 0, speed),
+#define TFC_SPEED(speed) TFD_CMD(TF_SPEED, 0, (speed)),
 
-#define TFC_PLAY_SFX(sid) TFD_CMD(TF_PLAY_SFX, 1, 0), (TickFlowCode)(sid),
+#define TFC_PLAY_SFX(sid) TFD_CMD(TF_PLAY_SFX, 1, 0), TFD_CAST(sid),
 
 #define TFC_PREPARE_WAVE(sid) TFD_CMD(TF_PREPARE_WAVE, 0, (sid)),
 #define TFC_PLAY_WAVE() TFD_CMD(TF_PLAY_WAVE, 0, 0),
+#define TFC_STOP_WAVE(fadeFrames) TFD_CMD(TF_STOP_WAVE, 0, (fadeFrames)),
 
-#define TFC_MESG_PANE_VISIBLE(accessIdx, isVisible) TFD_CMD(TF_MESG_PANE_VISIBLE, 1, (accessIdx)), (TickFlowCode)((isVisible) ? 1 : 0),
+#define TFC_MESG_PANE_VISIBLE(accessIdx, isVisible) TFD_CMD(TF_MESG_PANE_VISIBLE, 1, (accessIdx)), TFD_CAST((isVisible) ? 1 : 0),
 
 #define TFC_SET_SKIPPABLE(isSkippable) TFD_CMD(TF_SET_SKIPPABLE, 0, (isSkippable) ? 1 : 0),
 
-#define TFC_SET_SKIP_HANDLER(tfLabel) TFD_CMD(TF_SET_SKIP_HANDLER, 1, 0), TFD_PTR(tfLabel),
+#define TFC_SET_SKIP_HANDLER(tfLabel) TFD_CMD(TF_SET_SKIP_HANDLER, 1, 0), TFD_PCAST(tfLabel),
+
+#define TFC_ICI_START() TFD_CMD(TF_ICI_CTRL, 0, 0),
+#define TFC_ICI_END(nameStr, ver) TFD_CMD(TF_ICI_CTRL, 2, 1), TFD_PCAST(nameStr), TFD_CAST(ver),
 
 #endif

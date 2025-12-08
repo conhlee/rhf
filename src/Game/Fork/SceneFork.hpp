@@ -19,10 +19,10 @@ extern s32 sceneVer;
 } // namespace Fork
 
 class CSceneFork : public CExScene {
-public:
     friend class Fork::CMyFlow;
     friend class Fork::CMyChecker;
-
+    
+public:
     virtual ~CSceneFork(void) {}
     virtual void _10(void);
     virtual void _14(void);

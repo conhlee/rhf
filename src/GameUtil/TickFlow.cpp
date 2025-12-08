@@ -8,9 +8,9 @@
 
 #include "TickFlowDecl.hpp"
 
-#define TF_BYTEC_GET_OPCODE(instruction) (((u32)(instruction) >>  0) & 0x3FF)
-#define TF_BYTEC_GET_ARGC(instruction)   (((u32)(instruction) >> 10) & 0xF)
-#define TF_BYTEC_GET_ARG0(instruction)   (((u32)(instruction) >> 14))
+#define BYTECODE_GET_OPCODE(instruction) (((u32)(instruction) >>  0) & 0x3FF)
+#define BYTECODE_GET_ARGC(instruction)   (((u32)(instruction) >> 10) & 0xF)
+#define BYTECODE_GET_ARG0(instruction)   (((u32)(instruction) >> 14))
 
 nw4r::lyt::TextBox *lbl_803D5D38[8];
 nw4r::lyt::Pane *lbl_803D5D58[8];
@@ -63,18 +63,17 @@ bool CTickFlow::fn_801DD9E8(void) {
         mExecPaused = true;
 
         while (mCurrentRest < 0.0f) {
-            const u32 *instructionPtr = mCode + mNextInstructionPos;
-            const u32 *argsPtr = instructionPtr + 1;
+            const u32 *pInstruction = mCode + mNextInstructionPos;
+            const s32 *pArg = reinterpret_cast<const s32 *>(pInstruction + 1);
 
-            u32 instruction  = *instructionPtr;
-            u32 instruction_ = *(argsPtr - 1); // ????
+            u32 instruction = *pInstruction;
 
-            u32 opcode = TF_BYTEC_GET_OPCODE(instruction);
-            u32 argc   = TF_BYTEC_GET_ARGC(instruction);
-            u32 arg0   = TF_BYTEC_GET_ARG0(instruction_);
+            u32 opcode = BYTECODE_GET_OPCODE(instruction);
+            u32 argc   = BYTECODE_GET_ARGC(instruction);
+            s32 arg0   = BYTECODE_GET_ARG0(*(pArg - 1)); // What!
 
             mNextInstructionPos += 1 + argc;
-            if (_1C(opcode, arg0, (const s32 *)argsPtr)) {
+            if (_1C(opcode, arg0, pArg)) {
                 return true;
             }
         }
@@ -84,12 +83,12 @@ bool CTickFlow::fn_801DD9E8(void) {
 
 bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     switch (opcode) {
-    case TF_ASYNC_CALL:
+    case TF_ASYNC_CALL: {
         gTickFlowManager->fn_801E1CC0(
             reinterpret_cast<const TickFlowCode *>(args[0]),
             args[1] + mCurrentRest + gTickFlowManager->fn_801E2698()
         );
-        break;
+    } break;
     case TF_CALL:
         mExecStack[mExecStackPos].code = mCode;
         mExecStack[mExecStackPos].instructionPos = mNextInstructionPos;
@@ -136,7 +135,7 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     case TF_UNREST:
         mCurrentRest -= arg0;
         break;
-    case TF_00D:
+    case TF_RESET_TICK_PASS:
         if (arg0 == 0) {
             gTickFlowManager->fn_801E26A8();
         }
@@ -145,30 +144,33 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         mNextInstructionPos = fn_801DECFC(mCode, arg0);
         break;
     case TF_IF: {
+        s32 value = args[0];
+        s32 condvar = mCondvar;
+        
         bool condPass = false;
         switch (arg0) {
         case 0:
-            condPass = args[0] == mCondvar;
+            condPass = value == condvar;
             break;
         case 1:
-            condPass = args[0] != mCondvar;
+            condPass = value != condvar;
             break;
         case 2:
-            condPass = args[0] < mCondvar;
+            condPass = value < condvar;
             break;
         case 3:
-            condPass = args[0] <= mCondvar;
+            condPass = value <= condvar;
             break;
         case 4:
-            condPass = args[0] > mCondvar;
+            condPass = value > condvar;
             break;
         case 5:
-            condPass = args[0] >= mCondvar;
+            condPass = value >= condvar;
             break;
         }
 
-        if (condPass) {
-            fn_801DEDFC(mCode,
+        if (!condPass) {
+            mNextInstructionPos = fn_801DEDFC(mCode,
                 TF_ELSE, 0,
                 TF_ENDIF, 0,
                 TF_ENDIF, 0,
@@ -222,41 +224,54 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
             }
         }
         break;
-    case TF_TEMPO:
+    case TF_TEMPO: {
         gTickFlowManager->fn_801E2B9C((u16)arg0);
-        break;
+    } break;
     case TF_TEMPO_SEQ: {
         f32 seqTempo = gSoundManager->fn_801E75C0(arg0);
-        u32 setTempo = seqTempo;
-        if ((u16)setTempo == 0) {
-            setTempo = 120;
+        u16 seqTempoInt = seqTempo;
+        if (seqTempoInt == 0) {
+            seqTempoInt = 120;
 
             // "TFC_TEMPO_SEQ( %d ) : no tempo data was found\n"
             OSReport("TFC_TEMPO_SEQ( %d ) : テンポデータがありませんでした\n", arg0);
         }
-        gTickFlowManager->fn_801E2B9C((u16)setTempo);
+        gTickFlowManager->fn_801E2B9C(seqTempoInt);
     } break;
-    case TF_TEMPO_WAVE:
-        gTickFlowManager->fn_801E2B9C(
-            gSoundManager->fn_801E74EC(gSoundManager->fn_801E73D4(arg0))
-        );
-        break;
-    case TF_SPEED:
-        gTickFlowManager->fn_801E2C04(arg0 * (1.0f / 256.0f));
-        break;
-    case TF_01E:
-        break;
-    case TF_01F:
-        break;
-    
+    case TF_TEMPO_WAVE: {
+        WaveInfo *waveInfo = gSoundManager->fn_801E73D4(arg0);
+        f32 waveTempo = gSoundManager->fn_801E74EC(waveInfo);
+        gTickFlowManager->fn_801E2B9C(waveTempo);
+    } break;
+    case TF_SPEED: {
+        gTickFlowManager->fn_801E2C04(arg0 / 256.0f);
+    } break;
+    case TF_01E: {
+        
+    } break;
+    case TF_01F: {
+    } break;
+        
+    case TF_020: {
+        
+    } break;
+    case TF_SPAWN_CELLANIM: {
+        
+    } break;
+    case TF_PLAY_SFX_VOL: {
+        
+    } break;
     }
     return false;
 }
 
+/*
 u32 CTickFlow::fn_801DECFC(const TickFlowCode *code, u32 labelId) {
-    return u32();
-}
 
+}
+*/
+
+/*
 u32 CTickFlow::fn_801DEDFC(
     const TickFlowCode *code,
     u32 elseOp, u32 elseArg0,
@@ -266,8 +281,9 @@ u32 CTickFlow::fn_801DEDFC(
     u32 instrOffs,
     bool skipOneInstr
 ) {
-    return u32();
+
 }
+*/
 
 void CTickFlow::finalInsert(void) {}
 

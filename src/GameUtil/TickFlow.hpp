@@ -60,7 +60,7 @@ private:
 
 protected:
     struct ExecutionFrame {
-        const TickFlowCode* code;
+        const TickFlowCode *code;
         u32 instructionPos;
     };
 

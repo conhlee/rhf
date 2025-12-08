@@ -26,8 +26,6 @@ private:
     void fn_801D6514(GXRenderModeObj *renderMode);
 
 private:
-    static GXRenderModeObj sRenderModeObj;
-
     bool mScreenBlack;
 
     void *mFifoMem;

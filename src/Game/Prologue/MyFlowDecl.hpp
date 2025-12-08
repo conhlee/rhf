@@ -13,6 +13,6 @@ enum {
 
 // command macros
 
-#define TFC_PROLOGUE_START_ANIM(animIdx) TFD_CMD(TF_PROLOGUE_START_ANIM, 1, 0), (TickFlowCode)(animIdx),
+#define TFC_PROLOGUE_START_ANIM(animID) TFD_CMD(TF_PROLOGUE_START_ANIM, 1, 0), TFD_CAST(animID),
 
 #endif

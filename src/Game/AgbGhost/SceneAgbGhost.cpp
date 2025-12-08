@@ -22,6 +22,8 @@
 
 #include "Random.hpp"
 
+#include "code_801ED7D4.hpp"
+
 #include "cellanim/agbGhost/ver0/rcad_ghost_labels.h"
 
 #include "rev_tengoku.rsid"
@@ -45,7 +47,7 @@ void CSceneAgbGhost::fn_800A75DC(u32 button) {
             arrowMissAnim->setPos(-147.0f, -70.0f);
             arrowMissAnim->fn_801DD184(5);
 
-            gSoundManager->play(SE_AGB_AIM_DOOR, 0.0f, NULL);
+            gSoundManager->play(SE_AGB_AIM_DOOR);
         }
     }
 }
@@ -68,10 +70,8 @@ bool CSceneAgbGhost::_24(void) {
     return gFileManager->fn_801D42FC(2);
 }
 
-extern "C" void fn_801ED7D4(void *); // TODO tplbind wrapper
-
 void CSceneAgbGhost::_14(void) {
-    fn_8000818C();
+    this->CExScene::_14();
 
     gInputCheckManager->setUnk418(fn_800A75DC);
 
@@ -236,7 +236,7 @@ void CSceneAgbGhost::_20(void) {
 
     gFileManager->fn_801D41CC(2);
 
-    fn_80008A20();
+    this->CExScene::_20();
 }
 
 void CSceneAgbGhost::fn_800A7FA8(u32 button, u32 type) {
@@ -252,7 +252,7 @@ void CSceneAgbGhost::fn_800A7FA8(u32 button, u32 type) {
                 arrowMissAnim->setPos(-147.0f, -70.0f);
                 arrowMissAnim->fn_801DD184(5);
 
-                gSoundManager->play(SE_AGB_AIM_DOOR, 0.0f, NULL);
+                gSoundManager->play(SE_AGB_AIM_DOOR);
             }
         }
     }
@@ -294,7 +294,7 @@ void CSceneAgbGhost::fn_800A81A8(u32 pos) {
     );
     mGhostAnim->fn_801DD118(6);
 
-    gSoundManager->play(SE_AGB_AIM_WALK, 0.0f);
+    gSoundManager->play(SE_AGB_AIM_WALK);
     gSoundManager->fn_801E65F4((mGhostHeight / 2.13333333f) * (1.0f / 256.0f));
 }
 

@@ -14,6 +14,8 @@ public:
     CExFlow(const TickFlowCode *code, f32 initRest);
 
     TICKFLOW_DECL_CREATE_FN()
+
+    static void fn_8008E724(bool);
 };
 
 #endif

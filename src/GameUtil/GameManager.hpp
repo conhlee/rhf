@@ -6,8 +6,6 @@
 
 #include "Singleton.hpp"
 
-#include <nw4r/ut.h>
-
 #include "Scene.hpp"
 
 #include "FaderFlash.hpp"
@@ -48,28 +46,11 @@ public:
         return static_cast<T *>(getCurrentScene());
     }
 
+    CFaderFlash *getFader(void) const { return mFader; }
+
     static void fn_801D7538(s32 driveStatus);
 
 private:
-    struct DVDMessageData {
-        nw4r::ut::ResFont font;
-        wchar_t *messageStr;
-
-        ~DVDMessageData(void);
-
-        void fn_801D77A4();
-        void DONT_INLINE fn_801D7A74();
-    };
-    static DVDMessageData sDVDMessageData;
-
-    // TODO: rename, these are specifically for DVD mesg screen
-    static bool sIsPowerOff;
-    static void osPowerCallback(void);
-
-    // TODO: rename, these are specifically for DVD mesg screen
-    static bool sIsReset;
-    static void osResetCallback(void);
-
     CScene *mCurrentScene;
     CScene::CreateFn mNextSceneCreateFunc;
     u16 mNextSceneHeapGroup;

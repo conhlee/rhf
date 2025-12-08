@@ -19,6 +19,8 @@
 
 #include "Controller.hpp"
 
+#include "code_801ED7D4.hpp"
+
 #include "cellanim/credit/ver0/rcad_chara_00_labels.h"
 #include "cellanim/credit/ver0/rcad_title_labels.h"
 #include "cellanim/credit/ver0/rcad_wipe_labels.h"
@@ -39,7 +41,7 @@ void CSceneCredit::fn_800C42AC(void) {
     if (
         gFileManager->fn_801D42E0(2) && gFileManager->fn_801D42E0(3) &&
         gFileManager->fn_801D42E0(55) &&
-        Credit::sceneVer == 0
+        (Credit::sceneVer == 0)
     ) {
         gFileManager->fn_801D3F94(2, "content2/cellanim/credit/ver0/cellanim.szs");
         gFileManager->fn_801D3F94(3, "content2/cellanim/navi/ver0/cellanim.szs");
@@ -57,12 +59,10 @@ bool CSceneCredit::_24(void) {
            gFileManager->fn_801D42FC(55);
 }
 
-extern "C" void fn_801ED7D4(void *); // TODO tplbind wrapper
-
 char lbl_8034C860[24];
 
 void CSceneCredit::_14(void) {
-    fn_8000818C();
+    this->CExScene::_14();
 
     gInputCheckManager->setUnk418(fn_800C421C);
 
@@ -182,7 +182,7 @@ void CSceneCredit::_14(void) {
     gLayoutManager->getLayout<CBalloonLayout>(3)->fn_8003A074(bgColor, fgColor);
 
     mPauseLayout = gLayoutManager->getLayout<CPauseLayout>(1);
-    mPauseLayout->setUnk1D(0);
+    mPauseLayout->setUnk1D(false);
 
     gLayoutManager->getLayout<CPauseLayout>(1)->setDrawEnable(0);
     gLayoutManager->getLayout<CCursorLayout>(2)->setDrawEnable(0);
@@ -224,7 +224,7 @@ void CSceneCredit::_20(void) {
     gFileManager->fn_801D41CC(3);
     gFileManager->fn_801D41CC(55);
 
-    fn_80008A20();
+    this->CExScene::_20();
 }
 
 void CSceneCredit::fn_800C4C70(u32, u32) {}

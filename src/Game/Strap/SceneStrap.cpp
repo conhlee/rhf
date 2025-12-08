@@ -19,6 +19,8 @@
 
 #include "Controller.hpp"
 
+#include "code_801ED7D4.hpp"
+
 #include "cellanim/strap/verE/rcad_strap_labels.h"
 
 namespace Strap {
@@ -59,10 +61,8 @@ bool CSceneStrap::_24(void) {
     return gFileManager->fn_801D42FC(2);
 }
 
-extern "C" void fn_801ED7D4(void *); // TODO tplbind wrapper
-
 void CSceneStrap::_14(void) {
-    fn_8000818C();
+    this->CExScene::_14();
 
     gInputCheckManager->setUnk418(fn_8007B270);
 
@@ -77,10 +77,10 @@ void CSceneStrap::_14(void) {
 
     gCellAnimManager->fn_801DB568(brcadAddr, tplAddr, 0);
 
-    mCellAnim = gCellAnimManager->fn_801DBE7C(0, strap_fade_in);
+    mStrapAnim = gCellAnimManager->fn_801DBE7C(0, strap_fade_in);
 
-    mCellAnim->fn_801DCEE8(strap_show_a, NULL);
-    mCellAnim->fn_801DCF18();
+    mStrapAnim->fn_801DCEE8(strap_show_a, NULL);
+    mStrapAnim->fn_801DCF18();
 
     gHBMManager->setUnk416(false);
 
@@ -98,13 +98,13 @@ void CSceneStrap::_28(void) {
     mFrameCounter++;
     if (mFadeOpacity > 0) {
         mFadeOpacity -= 8;
-        mCellAnim->setOpacity(mFadeOpacity);
+        mStrapAnim->setOpacity(mFadeOpacity);
         if (mFadeOpacity == 0) {
             gTickFlowManager->fn_801E1CC0(lbl_80256044);
         }
     }
     else if (mFadeOpacity != 0) {
-        if (!mCellAnim->getPlaying()) {
+        if (!mStrapAnim->getPlaying()) {
             mFadeOpacity = 0x100;
         }
         else if ((mFrameCounter >= 90) && (controller->getUnk133C() & 0x1F1F)) {
@@ -131,7 +131,7 @@ void CSceneStrap::_20(void) {
 
     gFileManager->fn_801D41CC(2);
 
-    fn_80008A20();
+    this->CExScene::_20();
 }
 
 void CSceneStrap::fn_8007B6C4(u32, u32) {}

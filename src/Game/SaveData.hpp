@@ -4,14 +4,33 @@
 #include <revolution/types.h>
 #include "Singleton.hpp"
 
+struct SaveDataFile_Sub00 {
+    u32 unk00;
+    u32 unk04;
+};
+
 struct SaveDataFile {
     u8 pad00[0x280];
 
+    
     void fn_80077C0C(s8);
+
+    void fn_80077C5C(s32, s32);
+
+    void fn_80777C6C(s32, s8);
+    void fn_80077C78(s32, s8);
+
+    void fn_80077C84(s32);
+    void fn_80077C94(s32);
+
+    void fn_80077CA4(s32, SaveDataFile_Sub00 *);
+    void fn_80077CC0(s32, SaveDataFile_Sub00 *);
 
     s8 fn_80077DF8(void);
     u8 fn_80077E08(void);
     void fn_800786E4(void);
+
+    s32 fn_80077E40(s32);
 };
 
 class CSaveData : public TSingleton<CSaveData> {

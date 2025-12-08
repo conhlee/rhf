@@ -17,7 +17,7 @@ void Prologue::CMyLayout::_10(void) {
     CLayoutAnimation *animation = getAnimation(0);
     animation->fn_801D9E70(getLayout(), NULL, "prologue_anim_00", resAccessor, true);
 
-    fn_801D9B10();
+    this->CLayout::_10();
 }
 
 void Prologue::CMyLayout::fn_8007785C(u32 animIndex) {

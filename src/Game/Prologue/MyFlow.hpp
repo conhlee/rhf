@@ -29,6 +29,6 @@ private:
     CScenePrologue *mScene;
 };
 
-}
+} // namespace Prologue
 
 #endif

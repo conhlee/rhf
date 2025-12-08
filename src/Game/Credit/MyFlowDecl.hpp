@@ -32,10 +32,10 @@ enum {
 
 #define TFC_CREDIT_INPUT() TFD_CMD(TF_CREDIT_INPUT, 0, 0),
 
-#define TFC_CREDIT_NEXT_CHARA(timeTicks) TFD_CMD(TF_CREDIT_NEXT_CHARA, 1, 0), (TickFlowCode)(timeTicks),
+#define TFC_CREDIT_NEXT_CHARA(timeTicks) TFD_CMD(TF_CREDIT_NEXT_CHARA, 1, 0), TFD_CAST(timeTicks),
 
 #define TFC_CREDIT_SET_TEXT_POS(line, x, y) TFD_CMD(TF_CREDIT_SET_TEXT_POS, 3, 0), \
-                                            (TickFlowCode)(line), (TickFlowCode)(x), (TickFlowCode)(y),
+                                            TFD_CAST(line), TFD_CAST(x), TFD_CAST(y),
 
 #define TFC_CREDIT_CHARA_BEAT() TFD_CMD(TF_CREDIT_CHARA_BEAT, 0, 0),
 
@@ -45,10 +45,10 @@ enum {
 #define TFC_CREDIT_MASTER_BEAT_LOOK_MASCOT() TFD_CMD(TF_CREDIT_MASTER_ANIM, 1, 0), 2,
 
 #define TFC_CREDIT_MASCOT_APPEAR(mascotIndex, startY, endY, timeTicks) TFD_CMD(TF_CREDIT_MASCOT_ANIM, 4, 0), \
-                                              (TickFlowCode)(mascotIndex), (TickFlowCode)(startY), (TickFlowCode)(endY), \
-                                              (TickFlowCode)(timeTicks),
+                                              TFD_CAST(mascotIndex), TFD_CAST(startY), TFD_CAST(endY), \
+                                              TFD_CAST(timeTicks),
 #define TFC_CREDIT_MASCOT_BEAT(mascotIndex, repeatCount) TFD_CMD(TF_CREDIT_MASCOT_ANIM, 2, 1), \
-                                                         (TickFlowCode)(mascotIndex), (TickFlowCode)(repeatCount),
+                                                         TFD_CAST(mascotIndex), TFD_CAST(repeatCount),
 #define TFC_CREDIT_MASCOT_ALL_BEAT() TFD_CMD(TF_CREDIT_MASCOT_ANIM, 0, 2),
 
 #define TFC_CREDIT_WIPE_SHOW() TFD_CMD(TF_CREDIT_WIPE_ANIM, 1, 0), 0,
@@ -56,7 +56,7 @@ enum {
 
 #define TFC_CREDIT_WIPE_SHOW_MASCOT() TFD_CMD(TF_CREDIT_WIPE_ANIM, 1, 0), 1,
 #define TFC_CREDIT_WIPE_HIDE_MASCOT() TFD_CMD(TF_CREDIT_WIPE_ANIM, 1, 1), 1,
-#define TFC_CREDIT_WIPE_SPEAK_MASCOT(repeatCount) TFD_CMD(TF_CREDIT_WIPE_ANIM, 1, 2), (TickFlowCode)(repeatCount),
+#define TFC_CREDIT_WIPE_SPEAK_MASCOT(repeatCount) TFD_CMD(TF_CREDIT_WIPE_ANIM, 1, 2), TFD_CAST(repeatCount),
 
 #define TFC_CREDIT_CHECK_NIGHTWALK_VER() TFD_CMD(TF_CREDIT_CHECK_NIGHTWALK_VER, 0, 0),
 

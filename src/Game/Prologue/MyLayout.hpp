@@ -19,6 +19,6 @@ public:
     void fn_8007785C(u32 animIndex);
 };
 
-}
+} // namespace Prologue
 
 #endif

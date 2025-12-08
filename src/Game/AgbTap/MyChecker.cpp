@@ -24,22 +24,22 @@ u32 AgbTap::CMyChecker::_28(u32 button) {
 }
 
 u32 AgbTap::CMyChecker::_2C(void) {
-    mScene->mUnk158++;
+    mScene->mThroughTapCount++;
 
     CExScene::fn_80009ABC();
 
     switch (mScene->mLastAnimeType) {
-    case CSceneAgbTap::eAnimeType_Round: {
+    case eAgbTapMove_Round: {
         mScene->mGirlAnim->fn_801DD0AC(agb_tap_girl_land_miss);
-        mScene->mLastAnimeType = CSceneAgbTap::eAnimeType_Land;
+        mScene->mLastAnimeType = eAgbTapMove_Land;
         mScene->mGirlAnimeTimer = gTickFlowManager->fn_801E26B4(72.0f);
         
         gSoundManager->play(SE_AGB_TAP_MISS_OH);
     } break;
 
-    case CSceneAgbTap::eAnimeType_Jump_Last: {
+    case eAgbTapMove_Jump_Last: {
         mScene->mGirlAnim->fn_801DD0AC(agb_tap_girl_pause_miss);
-        mScene->mLastAnimeType = CSceneAgbTap::eAnimeType_Jump_Last;
+        mScene->mLastAnimeType = eAgbTapMove_Jump_Last;
         mScene->mGirlAnimeTimer = gTickFlowManager->fn_801E26B4(72.0f);
         
         gSoundManager->play(SE_AGB_TAP_MISS_IYAN);

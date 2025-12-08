@@ -2,7 +2,6 @@
 #define GAMEUTIL_SCENEMANAGER_HPP
 
 #include <revolution/types.h>
-#include <revolution/OS/OSError.h>
 
 #include "Singleton.hpp"
 

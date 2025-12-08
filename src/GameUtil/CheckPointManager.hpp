@@ -24,9 +24,9 @@ public:
     u8 getUnk78(void) {
         return unk78;
     }
-    u8 getUnkDD(void) {
-        return unkDD;
-    }
+
+    void setUnkDD(u8 unk) { unkDD = unk; }
+    u8 getUnkDD(void) const { return unkDD; }
 private:
 
     u8 pad04[0x78 - 4];

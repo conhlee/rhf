@@ -36,11 +36,10 @@ public:
     virtual void _1C(void); // draw
     virtual void _20(void); // unloadAssets
     virtual bool _24(void); // areAssetsReady
-    virtual void _28(void); // update
 
     CScene(void) {
         mState = eState_Unprepared;
-        unk04 = 1;
+        mUnk04 = true;
     }
 
     void fn_801D83BC(void);
@@ -53,11 +52,14 @@ public:
     u16 getHeapGroup(void) const { return mHeapGroup; }
     void setHeapGroup(u16 heapGroup) { mHeapGroup = heapGroup; }
 
+    bool getUnk0E(void) const { return mUnk0E; }
+    void setUnk0E(bool flag) { mUnk0E = flag; }
+
 private:
-    u8 unk04;
+    bool mUnk04;
     EState mState;
     u16 mHeapGroup;
-    u8 unk0E;
+    bool mUnk0E;
 };
 
 #endif

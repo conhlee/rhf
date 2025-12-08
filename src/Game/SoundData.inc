@@ -1,3 +1,7 @@
+#include "SoundManager.hpp"
+
+#include "rev_tengoku.rsid"
+
 // Sound Cooldown Table
 
 SOUND_COOLDOWN_TABLE_BEGIN(lbl_802E7370)

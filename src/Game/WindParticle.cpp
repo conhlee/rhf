@@ -2,14 +2,14 @@
 
 #include "Random.hpp"
 
-CWindParticle::CWindParticle(CExScene *scene, CCellAnim *cellAnim) {
+CWindParticle::CWindParticle(CExScene *scene, CCellAnim *anim) {
     mParentScene = scene;
-    mCellAnim = cellAnim;
+    mAnim = anim;
 
-    mCellAnim->setEnabled(false);
+    mAnim->setEnabled(false);
 
-    mCellAnim->setLooping(true);
-    mCellAnim->setSpeed(0.5 + sRandom.nextF32(0.5));
+    mAnim->setLooping(true);
+    mAnim->setSpeed(0.5 + sRandom.nextF32(0.5));
 
     mVelocityX = 0.0f;
     mSpeedY = 0.0f;
@@ -23,7 +23,7 @@ CWindParticle::CWindParticle(CExScene *scene, CCellAnim *cellAnim) {
     mStopTimer = 0;
     mInvisibleTimer = -1;
 
-    mNewAnimIndex = -1;
+    mNewAnimID = -1;
 
     mDisableWindResist = false;
 }
@@ -31,8 +31,8 @@ CWindParticle::CWindParticle(CExScene *scene, CCellAnim *cellAnim) {
 CWindParticle::~CWindParticle(void) {}
 
 void CWindParticle::fn_800C3168(void) {
-    f32 newPosY = mCellAnim->getPosY() + mSpeedY;
-    f32 newPosX = mCellAnim->getPosX() + mVelocityX;
+    f32 newPosY = mAnim->getPosY() + mSpeedY;
+    f32 newPosX = mAnim->getPosX() + mVelocityX;
 
     if (newPosY <= (mAreaHeight * 0.5f)) {
         if (newPosX >= -(mAreaWidth * 0.5f)) {
@@ -60,16 +60,16 @@ void CWindParticle::fn_800C3168(void) {
         }
 
         if (mInvisibleTimer == 0) {
-            mCellAnim->setEnabled(false);
+            mAnim->setEnabled(false);
         }
-        else if (mNewAnimIndex != -1) {
-            mCellAnim->fn_801DCE9C(mNewAnimIndex);
-            mCellAnim->fn_801DCF18();
-            mNewAnimIndex = -1;
+        else if (mNewAnimID != -1) {
+            mAnim->fn_801DCE9C(mNewAnimID);
+            mAnim->fn_801DCF18();
+            mNewAnimID = -1;
         }
     }
 
-    mCellAnim->setPos(newPosX, newPosY);
+    mAnim->setPos(newPosX, newPosY);
 
     if (mStopTimer < 1) {
         if (mVelocityX < mTargetVelocityX) {
@@ -92,7 +92,7 @@ void CWindParticle::fn_800C351C(void) {
     f32 x = sRandom.nextF32(mAreaWidth) - (mAreaWidth / 2);
     f32 y = sRandom.nextF32(mAreaHeight) - (mAreaHeight / 2);
 
-    mCellAnim->setPos(x, y);
+    mAnim->setPos(x, y);
 }
 
 void CWindParticle::fn_800C366C(f32 targetVel, s32 stopTimer) {
@@ -115,12 +115,12 @@ void CWindParticle::fn_800C372C(s32 timer) {
     mInvisibleTimer = timer;
 }
 
-void CWindParticle::fn_800C3734(u16 animIdx, BOOL queue) {
-    if (queue || !mCellAnim->getEnabled()) {
-        mCellAnim->fn_801DCE9C(animIdx);
-        mCellAnim->fn_801DCF18();
+void CWindParticle::fn_800C3734(u16 animID, BOOL queue) {
+    if (queue || !mAnim->getEnabled()) {
+        mAnim->fn_801DCE9C(animID);
+        mAnim->fn_801DCF18();
     }
     else {
-        mNewAnimIndex = animIdx;
+        mNewAnimID = animID;
     }
 }

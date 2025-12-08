@@ -33,6 +33,7 @@ public:
     u16 getAnimID(void) const { return mAnimID; }
 
     f32 getFrame(void) const { return mFrame; }
+    void setFrame(f32 frame) { mFrame = frame; }
 
     u16 getTotalFrames(void) const { return mTotalFrames; }
 
@@ -65,6 +66,12 @@ public:
 
     f32 getAngle(void) const { return mAngle; }
     void setAngle(f32 angle) { mAngle = angle; }
+
+    void setBackColor(u8 r, u8 g, u8 b) {
+        mBgColorR = r;
+        mBgColorG = g;
+        mBgColorB = b;
+    }
 
     u8 getOpacity(void) const { return mOpacity; }
     void setOpacity(u8 opacity) { mOpacity = opacity; }

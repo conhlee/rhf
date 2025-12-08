@@ -50,10 +50,6 @@
 #include "SoundData.inc"
 
 extern "C" {
-    void fn_80009028(void);
-    void fn_8000966C(void);
-    void fn_80009F70(s32);
-
     void fn_8008E430(void);
 
     bool lbl_803202E8;
@@ -95,6 +91,9 @@ void funcDVDErrorB(void) {
 }
 
 void main(int argc, char **argv) {
+#pragma unused(argc)
+#pragma unused(argv)
+
     fn_80038350();
 
     OSInit();
@@ -110,22 +109,25 @@ void main(int argc, char **argv) {
 
     OSReport("Init Process Took %d msecs\n", OS_TICKS_TO_MSEC(tickAfterInit - tickBeforeInit));
 
-    fn_80009F70(0);
+    CExScene::fn_80009F70(false);
 
     lbl_803202E8 = true;
 
-    if (!gBackupManager->getUnk4C()) {
+    if (gBackupManager->getUnk4C() == 0) {
         gGameManager->startMainLoop<CSceneStrap>();
     }
     else {
         gGameManager->startMainLoop<CSceneError>();
     }
 
+    // End all managers
     fn_800393DC();
 
+    // @bug gFileManager is used directly after destruction ..
     gFileManager->fn_801D41CC(0);
 
-    fn_8000966C();
+    // @bug This call requires gCellAnimManager and gFileManager, which are gone by now ..
+    CExScene::fn_8000966C();
 }
 
 extern GXRenderModeObj sRenderModeObj;
@@ -629,7 +631,7 @@ void fn_80039900(void) {
     void *fontData = gFileManager->fn_801D3C4C(fontPath, eHeap_MEM2, -32);
     gFileManager->fn_801D3D94();
 
-    if (std::strstr(fontPath, ".szs") != NULL) {
+    if (strstr(fontPath, ".szs") != NULL) {
         fontData = gFileManager->fn_801D461C(fontData, TRUE, eHeap_MEM2, 32);
     }
 
@@ -640,7 +642,7 @@ void fn_80039900(void) {
     gMessageManager->fn_80088034();
     gMessageManager->fn_80088088();
 
-    fn_80009028();
+    CExScene::fn_80009028();
 
     fn_801D3644();
 }

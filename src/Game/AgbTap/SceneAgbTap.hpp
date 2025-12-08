@@ -18,32 +18,31 @@ extern s32 sceneVer;
 
 } // namespace AgbTap
 
+enum EAgbTapMove {
+    eAgbTapMove_Ready_L,
+    eAgbTapMove_Ready_R,
+    eAgbTapMove_Tap_1L_NG, // ?
+    eAgbTapMove_Tap_1R_NG, // ?
+    eAgbTapMove_Tap_0L,
+    eAgbTapMove_Tap_0R,
+    eAgbTapMove_Tap_1L,
+    eAgbTapMove_Tap_1R,
+    eAgbTapMove_Charge,
+    eAgbTapMove_Crouch,
+    eAgbTapMove_Jump,
+    eAgbTapMove_Jump_Last,
+    eAgbTapMove_Pause,
+    eAgbTapMove_Round,
+    eAgbTapMove_Land,
+    eAgbTapMove_Ready_2, // SFX only
+    eAgbTapMove_Ready_3_2, // SFX only
+
+    eAgbTapMove_Null = 18
+};
+
 class CSceneAgbTap : public CExScene {
     friend class AgbTap::CMyFlow;
     friend class AgbTap::CMyChecker;
-
-public:
-    enum EAnimeType {
-        eAnimeType_Ready_L,
-        eAnimeType_Ready_R,
-        eAnimeType_Tap_1L_NG, // ?
-        eAnimeType_Tap_1R_NG, // ?
-        eAnimeType_Tap_0L,
-        eAnimeType_Tap_0R,
-        eAnimeType_Tap_1L,
-        eAnimeType_Tap_1R,
-        eAnimeType_Charge,
-        eAnimeType_Crouch,
-        eAnimeType_Jump,
-        eAnimeType_Jump_Last,
-        eAnimeType_Pause,
-        eAnimeType_Round,
-        eAnimeType_Land,
-        eAnimeType_Ready_2, // SFX only
-        eAnimeType_Ready_3_2, // SFX only
-
-        eAnimeType_Null = 18
-    };
 
 public:
     virtual ~CSceneAgbTap(void) {}
@@ -65,17 +64,17 @@ public:
 
     void fn_800A9768(void);
     
-    void fn_800A97DC(EAnimeType type);
+    void fn_800A97DC(EAgbTapMove type);
 
     void fn_800A9924(void);
 
-    void fn_800A9988(EAnimeType type);
+    void fn_800A9988(EAgbTapMove type);
 
-    void fn_800A9B20(bool param_1);
+    void fn_800A9B20(bool out);
 
     void fn_800A9C3C(void);
 
-    void fn_800A9C84(u32 param_1);
+    void fn_800A9C84(u32 maxMissTapCount);
 
     void fn_800A9D20(void);
 
@@ -92,7 +91,7 @@ private:
     CCellAnim *mMonkeyAnim[2];
     CCellAnim *mGiraffeAnim;
 
-    EAnimeType mLastAnimeType;
+    EAgbTapMove mLastAnimeType;
     u16 mGirlAnimeTimer;
     u16 mMonkeyAnimeTimer;
     u16 mGiraffeAnimeTimer;
@@ -101,8 +100,8 @@ private:
     CTRParabola mMonkeyPos;
     CTRParabola mGiraffePos;
 
-    s32 mUnk158;
-    s32 mUnk15C;
+    s32 mThroughTapCount;
+    s32 mMissTapCount;
 };
 
 #endif

@@ -28,6 +28,6 @@ private:
     CSceneStrap *mScene;
 };
 
-}
+} // namespace Strap
 
 #endif

@@ -6,7 +6,7 @@
 
 #include <nw4r/g3d.h>
 
-GXRenderModeObj CGraphicManager::sRenderModeObj;
+static GXRenderModeObj sRenderModeObj;
 
 CGraphicManager::CGraphicManager(void) {}
 

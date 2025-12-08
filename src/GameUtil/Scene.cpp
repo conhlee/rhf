@@ -18,9 +18,9 @@ void CScene::fn_801D83DC(void) {
     case eState_Preparing:
         if (_24()) {
             _14();
-            if (unk04) {
+            if (mUnk04) {
                 _18();
-                unk04 = 0;
+                mUnk04 = false;
             }
             mState = eState_Prepared;
             fn_801D3634();

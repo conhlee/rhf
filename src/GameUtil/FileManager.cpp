@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdio.h>
 
-char CFileManager::sDVDPathBuffer[64];
+static char sDVDPathBuffer[64];
 
 void CFileManager::fn_801D392C(s32 result, DVDFileInfo *fileInfo) {
     s32 index = gFileManager->getFileInfoIdx(fileInfo);
@@ -209,6 +209,8 @@ bool CFileManager::fn_801D42FC(s32 arcIndex) {
 
 bool CFileManager::fn_801D431C(void) {
     bool isIdle = true;
+
+    // @bug mMaxArchiveCount should be used instead of mMaxFileCount
     for (s32 i = 0; i < mMaxFileCount; i++) {
         if (
             (mArchiveInfo[i].state != eArchiveInfoState_Free) &&
@@ -239,10 +241,10 @@ void CFileManager::fn_801D4544(void) {
 
         if (archiveInfo->state == eArchiveInfoState_Loaded) {
             if (archiveInfo->compressed) {
-                // NOTE: this gets the decompressed buffer before the decompression is actually finished.
+                // NOTE: this returns the decompressed buffer before the decompression is actually finished.
                 //       if NULL is returned, the decompression thread is still busy; we'll try again next time.
                 void *decompDst = fn_801D46A4(archiveInfo->data, TRUE, i, archiveInfo->heapType, -32);
-                if (decompDst) {
+                if (decompDst != NULL) {
                     archiveInfo->data = static_cast<u8 *>(decompDst);
                     archiveInfo->state = eArchiveInfoState_Decompressing;
                 }

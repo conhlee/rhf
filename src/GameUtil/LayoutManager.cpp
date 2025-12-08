@@ -1,10 +1,11 @@
+#include "LayoutManager.hpp"
+
 #include <revolution/GX.h>
 #include <revolution/SC.h>
 
-#include "Mem.hpp"
-
-#include "LayoutManager.hpp"
 #include "FileManager.hpp"
+
+#include "Mem.hpp"
 
 const char lbl_80329968[] = "\0";
 
@@ -43,6 +44,7 @@ void CLayoutManager::_10(void) {
 void CLayoutManager::_08(void) {
     fn_801D705C();
     MEMDestroyExpHeap(mHeap);
+
     delete mResAccessor;
     delete[] mHeapStart;
 }
@@ -50,12 +52,14 @@ void CLayoutManager::_08(void) {
 void CLayoutManager::_14(void) {
     mMaxLayoutCount = 0;
     mLayoutCount = 0;
+
     mScaleX = 1.0f;
     mScaleY = 1.0f;
 }
 
 void CLayoutManager::_20(s32 resCount) {
     mResLink = new nw4r::lyt::ArcResourceLink[resCount];
+
     mMaxResLinkCount = resCount;
     mResLinkCount = 0;
 }
@@ -65,21 +69,27 @@ void CLayoutManager::_20(s32 resCount) {
 void CLayoutManager::_24(s32 arcIndex, const char *rootDir) {
     mResLink[mResLinkCount].Set(gFileManager->fn_801D42CC(arcIndex), rootDir);
     mResAccessor->Attach(&mResLink[mResLinkCount]);
+
     mResLinkCount++;
 }
 
 void CLayoutManager::_28(void) {
     mResAccessor->DetachAll();
+
     if (mResLink) {
         delete[] mResLink;
         mResLink = NULL;
     }
+
     mMaxResLinkCount = 0;
     mResLinkCount = 0;
+
     if (mUseTempHeap) {
         mUseTempHeap = false;
+
         MEMDestroyExpHeap(mTempHeap);
         delete[] mTempHeapStart;
+
         nw4r::lyt::Layout::SetAllocator(&mAllocator);
     }
 }
@@ -101,16 +111,18 @@ void CLayoutManager::fn_801D6BB0(void) {
     for (s32 i = 0; i < mLayoutCount; i++) {
         delete mLayout[i];
     }
-    if (mLayout) {
+
+    if (mLayout != NULL) {
         delete[] mLayout;
         mLayout = NULL;
     }
+
     mMaxLayoutCount = 0;
     mLayoutCount = 0;
 }
 
-CLayout *CLayoutManager::fn_801D6C50(u8 layoutIndex) {
-    return mLayout[layoutIndex];
+CLayout *CLayoutManager::fn_801D6C50(u8 index) {
+    return mLayout[index];
 }
 
 void CLayoutManager::_18(void) {
@@ -138,6 +150,7 @@ void CLayoutManager::fn_801D6D78(void) {
 void CLayoutManager::fn_801D6DAC(u8 fontCount) {
     mFontCount = 0;
     mMaxFontCount = fontCount;
+
     mFontInfo = new CFontInfo *[fontCount];
     for (s32 i = 0; i < mMaxFontCount; i++) {
         mFontInfo[i] = new CFontInfo;
@@ -220,7 +233,7 @@ f32 CLayoutManager::fn_801D7190(void) {
     return mScaleY;
 }
 
-void CLayoutManager::fn_801D7198(s32 size) {
+void CLayoutManager::fn_801D7198(u32 size) {
     mUseTempHeap = true;
 
     mTempHeapStart = new (eHeap_MEM2, 32) u8[size];

@@ -9,11 +9,13 @@ public:
     CBackupManager();
 
     void fn_80084054(void);
+    void fn_8008414C(void);
     s32 fn_800843E4(void);
 
     s32 fn_8008452C(void);
     s32 fn_80084A20(void);
     s32 fn_80084D1C(void);
+    void waitAsync(void);
     s32 fn_8008516C(void);
 
     //TODO

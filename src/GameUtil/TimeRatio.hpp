@@ -45,6 +45,9 @@ public:
 
     void fn_801EA550(f32 newTime, f32 newMaxTime, bool stopAtMaxTime);
 
+    void setEasingType(s32 type) { mEasingType = type; }
+    void setEasingPower(s32 power) { mEasingPower = power; }
+
     void setEasing(s32 type, s32 power) {
         mEasingType = type;
         mEasingPower = power;
@@ -58,6 +61,10 @@ public:
 
     f32 getLinearTime(void) const { return mLinearT; }
     f32 getMaxTime(void) const { return mMaxT; }
+
+    bool hasEnded(void) const {
+        return !mTicking && (mLinearT == mMaxT);
+    }
 
 protected:
     // Easing function parameters.

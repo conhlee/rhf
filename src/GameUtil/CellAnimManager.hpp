@@ -48,7 +48,7 @@ public:
     void fn_801DB3D8(u8, CellAnimSpritePart *, BOOL, s32);
     CCellAnim *fn_801DBE7C(u8, u16);
     void DONT_INLINE fn_801DBFA0(CCellAnim *cellAnim);
-    void fn_801DC068(u32 id);
+    void fn_801DC068(u32 id); // TODO: id is u8
     void fn_801DC0D4(CCellAnim *cellAnim);
     void fn_801DC164(CCellAnim *baseCell);
     CCellAnim* fn_801DC16C(void);

@@ -21,6 +21,8 @@
 
 #include "Mem.hpp"
 
+#include "code_801ED7D4.hpp"
+
 #include "cellanim/fork/ver0/rcad_fork_labels.h"
 #include "cellanim/fork/2play/rcad_fork2_labels.h"
 
@@ -79,15 +81,13 @@ bool CSceneFork::_24(void) {
     return gFileManager->fn_801D42FC(19);
 }
 
-extern "C" void fn_801ED7D4(void *); // TODO tplbind wrapper
-
 extern "C" void fn_800D2920(u16, u16, u16, BOOL, BOOL, SNDHandle *);
 
 extern CCellAnim *lbl_80320204; // gPermanentAnimP1
 extern CCellAnim *lbl_80320208; // gPermanentAnimP2
 
 void CSceneFork::_14(void) {
-    fn_8000818C();
+    this->CExScene::_14();
 
     mActiveFork = 0;
 
@@ -302,7 +302,7 @@ void CSceneFork::_20(void) {
         gCellAnimManager->fn_801DC068(1);
     }
 
-    fn_80008A20();
+    this->CExScene::_20();
 }
 
 void CSceneFork::fn_8004C91C(u32 arg1, s32 arg2) {

@@ -128,7 +128,7 @@ void CSoundManager::fn_801E4988(const char *soundArchivePath) {
 void CSoundManager::_18(void) {
     mSoundArchiveType = eSoundArchiveType_Nand;
 
-    // Not implemented ..
+    // NOTE: NAND Sound Archive init impl is mysteriously missing
 }
 
 void CSoundManager::_08(void) {
@@ -187,6 +187,7 @@ void CSoundManager::_1C(void) {
     nw4r::snd::SoundSystem::SetMasterVolume(0.7f, 0);
 }
 
+// TODO: rename to reflect purpose better (see usage of fn_801E4D4C)
 static bool sEnableSoundUpdate;
 
 bool CSoundManager::fn_801E4D4C(void) {
@@ -267,7 +268,7 @@ void CSoundManager::play(u16 soundID, f32 start, SNDHandle *soundHandle) {
         startInfo.seqSoundInfo.startLocationLabel = NULL;
         startInfo.enableFlag = nw4r::snd::SoundStartable::StartInfo::ENABLE_START_OFFSET;
         startInfo.startOffsetType = nw4r::snd::SoundStartable::StartInfo::START_OFFSET_TYPE_TICK;
-        startInfo.startOffset = static_cast<s32>(start);
+        startInfo.startOffset = static_cast<s32>(start); // NOTE: Decimal precision is lost.
 
         nw4r::snd::SoundStartable::StartResult result =
             mSoundArchivePlayer->StartSound(soundHandle, soundID, &startInfo);
@@ -547,8 +548,8 @@ void CSoundManager::fn_801E71C0(void) {
 void CSoundManager::fn_801E71CC(u16 groupID, nw4r::snd::SoundHeap *soundHeap) {
     mLoadData.soundHeap = soundHeap;
     mLoadData.groupID = groupID;
-
     mLoadData.loaded = false;
+
     OSCreateThread(
         &mThread, fn_801E72E8, &mLoadData,
         &mThreadStack[ARRAY_LENGTH(mThreadStack)], sizeof(mThreadStack),

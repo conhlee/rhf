@@ -24,6 +24,6 @@ private:
     nw4r::lyt::TextBox *mPanesT[4];
 };
 
-}
+} // namespace Credit
 
 #endif

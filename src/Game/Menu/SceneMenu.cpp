@@ -92,7 +92,7 @@ void CSceneMenu::_14(void) {
     gSceneManager->fn_8008B068();
     lbl_80320274 = false;
     memset(mUnk34, '\0', sizeof(mUnk34));
-    fn_8000818C();
+    this->CExScene::_14();
     gMyCanvasManager->fn_8007BE0C();
     gLayoutManager->_20(1);
     gLayoutManager->_24(55, "");
@@ -116,8 +116,9 @@ void CSceneMenu::_28(void) {
     // TODO: regswap in unkInputCheck
     if ((controller->getUnk1340() & 0x800) || (gcController->unkInputCheck(0x100))) {
         const TickFlowCode *tickFlowCode = lbl_801F8460[lbl_80320143].tickFlowCode;
-        if (tickFlowCode) {
+        if (tickFlowCode != NULL) {
             if (tickFlowCode == lbl_80320FE0) {
+                // 0 : HI, 1 : OK, 2 : NG
                 if (lbl_80320142 == 0) {
                     gCheckPointManager->setUnk2FC(0);
                 }
@@ -150,7 +151,8 @@ void CSceneMenu::_28(void) {
                 (tickFlowCode == lbl_8026F248) || (tickFlowCode == lbl_80276C90) || 
                 (tickFlowCode == lbl_80278AF8) || (tickFlowCode == lbl_8027A4D8) || 
                 (tickFlowCode == lbl_8026D3F0) || (tickFlowCode == lbl_80273A50) || 
-                (tickFlowCode == lbl_80284530) || (tickFlowCode == lbl_802BA4BC)) {
+                (tickFlowCode == lbl_80284530) || (tickFlowCode == lbl_802BA4BC)
+            ) {
                 lbl_80320274 = true;
             }
             gTickFlowManager->fn_801E1E4C();
@@ -203,7 +205,7 @@ void CSceneMenu::_28(void) {
 
 void CSceneMenu::_20(void) {
     gFileManager->fn_801D41CC(55);
-    fn_80008A20();
+    this->CExScene::_20();
 }
 
 void CSceneMenu::fn_800077A8(u8 arg1) {
@@ -219,7 +221,7 @@ void CSceneMenu::fn_800077A8(u8 arg1) {
     wcscat(sTextBuffer, L"\n");
 
     for (s32 i = 0; i < entriesInThisPage; i++) {
-        s32 entryNum = (pageIdx * 20) + i;
+        s32 entryNum = (pageIdx * entriesPerPage) + i;
         swprintf(sEntryNumTextBuffer, ARRAY_LENGTH(sEntryNumTextBuffer), L"%03d : ", entryNum);
         wcscat(sTextBuffer, (entryNum == lbl_80320143) ? L"→" : L"　");
         wcscat(sTextBuffer, sEntryNumTextBuffer);
@@ -228,7 +230,7 @@ void CSceneMenu::fn_800077A8(u8 arg1) {
     }
 
     CMenuLayout *menuLayout = gLayoutManager->getLayout<CMenuLayout>(0);
-    if (!sTextBuffer) {
+    if (sTextBuffer == NULL) {
         menuLayout->getTitlePane()->SetVisible(false);
     }
     else {
@@ -240,7 +242,7 @@ void CSceneMenu::fn_800077A8(u8 arg1) {
     wcscat(sTextBuffer, lbl_801F8460[lbl_80320143].commentText);
 
     menuLayout = gLayoutManager->getLayout<CMenuLayout>(0);
-    if (!sTextBuffer) {
+    if (sTextBuffer == NULL) {
         menuLayout->getCommentPane()->SetVisible(false);
     }
     else {
@@ -251,7 +253,7 @@ void CSceneMenu::fn_800077A8(u8 arg1) {
 }
 
 void CMenuLayout::_14(void) {
-    CLayout::_14();
+    this->CLayout::_14();
 }
 
 void CMenuLayout::_10(void) {
@@ -269,6 +271,7 @@ void CMenuLayout::_10(void) {
 
     nw4r::math::VEC3 titleTranslate = mPaneTitle->GetTranslate();
     nw4r::math::VEC3 commentTranslate = mPaneComment->GetTranslate();
+
     titleTranslate.y -= 25.0f;
     commentTranslate.y -= 25.0f;
 
@@ -278,7 +281,7 @@ void CMenuLayout::_10(void) {
     mPaneTitle->SetTranslate(titleTranslate);
     mPaneComment->SetTranslate(commentTranslate);
 
-    fn_801D9B10();
+    this->CLayout::_10();
 
     mPaneTitle->SetVisible(false);
     mPaneComment->SetVisible(false);

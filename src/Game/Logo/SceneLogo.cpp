@@ -42,7 +42,7 @@ bool CSceneLogo::_24(void) {
 }
 
 void CSceneLogo::_14(void) {
-    fn_8000818C();
+    this->CExScene::_14();
 
     gInputCheckManager->setUnk418(fn_800A0B5C);
 
@@ -77,7 +77,7 @@ void CSceneLogo::_1C(void) {
 
 void CSceneLogo::_20(void) {
     gHBMManager->setUnk416(true);
-    fn_80008A20();
+    this->CExScene::_20();
 }
 
 void CSceneLogo::fn_800A0D64(u32, u32) {}

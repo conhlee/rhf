@@ -35,7 +35,7 @@ public:
 private:
     CExScene *mParentScene;
 
-    CCellAnim *mCellAnim;
+    CCellAnim *mAnim;
 
     f32 mVelocityX;
     f32 mSpeedY;
@@ -48,7 +48,7 @@ private:
     s32 mStopTimer;
     s32 mInvisibleTimer;
 
-    s32 mNewAnimIndex;
+    s32 mNewAnimID;
 
     bool mDisableWindResist;
 };

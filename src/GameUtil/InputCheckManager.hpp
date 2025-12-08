@@ -49,6 +49,8 @@ public:
     void fn_801E9D88(void);
     void fn_801E9D8C(void);
 
+    static void fn_801E8560(void);
+
     u8 getUnk42E(void) {
         return unk42E;
     }
@@ -60,11 +62,28 @@ public:
         unk418 = func;
     }
 
+    void setUnk41C(u8 value) {
+        unk41C = value;
+    }
+
     void setUnk429(bool value) {
         unk429 = value;
     }
+
+    void setUnk484(u8 value) {
+        unk484 = value;
+    }
+    void setUnk42A(u8 value) {
+        unk42A = value;
+    }
     void setUnk42B(bool value) {
         unk42B = value;
+    }
+    void setUnk42C(u8 value) {
+        unk42C = value;
+    }
+    void setUnk42D(u8 value) {
+        unk42D = value;
     }
 
     template <typename T>
@@ -114,7 +133,6 @@ private:
     u32 unk8AC;
 
     static void fn_801E8118(void);
-    static void fn_801E8560(void);
     static s32 fn_801E85AC(u32);
 
     void resetUnk0C(void) {

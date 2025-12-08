@@ -29,6 +29,6 @@ private:
     CSceneCredit *mScene;
 };
 
-}
+} // namespace Credit
 
 #endif

@@ -104,7 +104,7 @@ void CCellAnimManager::fn_801DB568(void *data, void *tplAddr, u32 id) {
 }
 
 void CCellAnimManager::fn_801DB86C(GXTexObj *texObj, s32 texWidth, s32 texHeight, f32 scaleX, f32 scaleY, u8 id) {
-    CellAnimData *cellAnimData = mCellAnimData + id;
+    CellAnimData *cellAnimData = &mCellAnimData[id];
 
     cellAnimData->texObj = texObj;
     cellAnimData->isLoaded = true;
@@ -191,7 +191,7 @@ u16 CCellAnimManager::fn_801DBB58(CCellAnim *cellAnim) {
     return 0;
 }
 
-CellAnimAnimation* CCellAnimManager::fn_801DBC5C(CCellAnim *cellAnim) {
+CellAnimAnimation *CCellAnimManager::fn_801DBC5C(CCellAnim *cellAnim) {
     return mCellAnimData[cellAnim->getID()].anims + cellAnim->getAnimID();
 }
 
@@ -265,7 +265,7 @@ void CCellAnimManager::fn_801DB3D8(u8 id, CellAnimSpritePart *part, BOOL linearF
     }
 }
 
-CCellAnim *CCellAnimManager::fn_801DBE7C(u8 id, u16 animId) {
+CCellAnim *CCellAnimManager::fn_801DBE7C(u8 id, u16 animID) {
     void *alloc = MEMAllocFromExpHeap(mHeap, sizeof(CCellAnim));
     CCellAnim *cellAnim;
     if (alloc == NULL) {
@@ -279,7 +279,7 @@ CCellAnim *CCellAnimManager::fn_801DBE7C(u8 id, u16 animId) {
         return NULL;
     }
 
-    cellAnim->init(id, animId);
+    cellAnim->init(id, animID);
 
     insertCellAnim(cellAnim);
 
@@ -293,7 +293,7 @@ CCellAnim *CCellAnimManager::fn_801DBE7C(u8 id, u16 animId) {
     return cellAnim;
 }
 
-void CCellAnimManager::fn_801DBFA0(CCellAnim* cellAnim) {
+void CCellAnimManager::fn_801DBFA0(CCellAnim *cellAnim) {
     if (containsCellAnim(cellAnim)) {
         if (cellAnim->getBaseAnim() != NULL) {
             cellAnim->setBase(NULL, 0, false);

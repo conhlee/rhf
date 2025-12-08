@@ -4,6 +4,25 @@
 
 #include "LayoutManager.hpp"
 
+// TODO: match https://decomp.me/scratch/EEu7e
+bool CBtnPane::fn_801D85BC(nw4r::lyt::Pane *pane, nw4r::lyt::DrawInfo *drawInfo) {
+    if (!drawInfo->IsLocationAdjust()) {
+        return false;
+    }
+    else {
+        nw4r::lyt::Pane *parent = pane->GetParent();
+        if (parent == NULL) {
+            return pane->IsLocationAdjust();
+        }
+        else {
+            if (!pane->IsLocationAdjust()) {
+                return fn_801D85BC(parent, drawInfo);
+            }
+            return false;
+        }
+    }
+}
+
 CLayout::CLayout(void) {
     mAnimationCount = 0;
     mLayout = NULL;
@@ -12,14 +31,13 @@ CLayout::CLayout(void) {
 
 void CLayout::_0C(void) {
     mLayout = new nw4r::lyt::Layout;
-
     mAnimations = new CLayoutAnimation[mAnimationCount];
 
     mUpdateEnable = true;
     mDrawEnable = true;
 }
 
-void CLayout::fn_801D9B10(void) {
+void CLayout::_10(void) {
     mApplyManagerScale = true;
     mScaleX = 1.0f;
     mScaleY = 1.0f;
