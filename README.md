@@ -53,7 +53,7 @@ Building
 
 - Clone the repository:
   ```
-  git clone https://github.com/conhlee/rhf-dtk.git
+  git clone https://github.com/conhlee/rhf.git
   ```
 - Using [Dolphin Emulator](https://dolphin-emu.org/), extract your game to `orig/SOME01`.
 ![](assets/dolphin-extract.png)
