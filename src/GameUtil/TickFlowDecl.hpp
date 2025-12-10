@@ -67,7 +67,7 @@ enum {
     TF_038,
     TF_PLAY_WAVE, ///< Start WSD (wave sound data) playback.
     TF_STOP_WAVE,
-    TF_03B,
+    TF_SET_WAVE_VOLUME,
     TF_GET_WAVE_READY, ///< Set condvar to 1 if WSD (wave sound data) is ready, and 0 if not.
     TF_03D,
     TF_03E,
@@ -160,6 +160,7 @@ enum {
 #define TFC_PREPARE_WAVE(sid) TFD_CMD(TF_PREPARE_WAVE, 0, (sid)),
 #define TFC_PLAY_WAVE() TFD_CMD(TF_PLAY_WAVE, 0, 0),
 #define TFC_STOP_WAVE(fadeFrames) TFD_CMD(TF_STOP_WAVE, 0, (fadeFrames)),
+#define TFC_SET_WAVE_VOLUME(volume, fadeFrames) TFD_CMD(TF_SET_WAVE_VOLUME, 2, 0), TFD_CAST(volume), TFD_CAST(fadeFrames),
 
 #define TFC_MESG_PANE_VISIBLE(accessIdx, isVisible) TFD_CMD(TF_MESG_PANE_VISIBLE, 1, (accessIdx)), TFD_CAST((isVisible) ? 1 : 0),
 
@@ -169,5 +170,8 @@ enum {
 
 #define TFC_ICI_START() TFD_CMD(TF_ICI_CTRL, 0, 0),
 #define TFC_ICI_END(nameStr, ver) TFD_CMD(TF_ICI_CTRL, 2, 1), TFD_PCAST(nameStr), TFD_CAST(ver),
+
+
+#define TFC_NOP() TFC_REST(0)
 
 #endif

@@ -322,6 +322,8 @@ Game/Logo/SceneLogo.cpp:
 
 Game/Script/AgbTap.cpp:
 	.rodata     start:0x80263C90 end:0x8026483C
+	.data       start:0x802EF268 end:0x802EF2B8
+	.sdata2     start:0x80325C58 end:0x80325D00
 
 Game/AgbGhost/MyFlow.cpp:
 	.text       start:0x800A7208 end:0x800A75DC

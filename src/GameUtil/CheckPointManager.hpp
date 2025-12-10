@@ -4,6 +4,31 @@
 #include <revolution/types.h>
 #include "Singleton.hpp"
 
+// TODO: horribly underdocumented! macros are also kinda trashy
+struct GradingCriteria {
+    const void *mesgPositive; // either char * for message ID, or wchar_t * for string
+    const void *mesgNegative; // either char * for message ID, or wchar_t * for string
+    u16 unk08;
+    u16 unk0A;
+    u16 unk0C;
+    u16 flags;
+};
+
+#define GRADE_CRITERIA_FLAG_NONE ((u16)(0))
+#define GRADE_CRITERIA_FLAG_UNK0 ((u16)(1 << 0))
+#define GRADE_CRITERIA_FLAG_UNK1 ((u16)(1 << 1))
+#define GRADE_CRITERIA_FLAG_END ((u16)(1 << 15))
+
+#define GRADE_CRITERIA_TABLE_BEGIN(tableName) \
+    GradingCriteria tableName[] = {
+
+#define GRADE_CRITERIA_TABLE_ENTRY(unk00, unk04, unk08, unk0A, unk0C, flags) \
+    { (unk00), (unk04), (unk08), (unk0A), (unk0C), (flags) },
+
+#define GRADE_CRITERIA_TABLE_END()                   \
+    { NULL, NULL, 0, 0, 0, GRADE_CRITERIA_FLAG_END } \
+    };
+
 class CCheckPointManager : public TSingleton<CCheckPointManager> {
 public:
 

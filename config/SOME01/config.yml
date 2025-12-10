@@ -4,3 +4,8 @@ symbols: config/SOME01/symbols.txt
 splits: config/SOME01/splits.txt
 write_asm: true
 ldscript_template: assets/ldscript.lcf
+
+# Block any relocation pointing to these addresses ..
+block_relocations:
+- target: .bss:0x803C0000
+- source: .data:0x802EF294
