@@ -7,7 +7,7 @@ static bool lbl_80320F88; // sHeapInitialized
 static u8 lbl_80320F89; // sHeapGroupIDStackPos
 static u16 lbl_803D5C28[16]; // sHeapGroupIDStack
 
-static void *fn_801D3784(size_t, EHeapMEM, s32); // doAlloc
+static void *fn_801D3784(size_t size, EHeapMEM heap, s32 align); // doAlloc
 
 void *operator new(size_t size) {
     if (!lbl_80320F88) {
@@ -132,9 +132,9 @@ u16 fn_801D363C(void) {
 }
 
 void fn_801D3644(void) {
-    u16 id = lbl_803D5C28[--lbl_80320F89];
-    MEMSetGroupIDForExpHeap(lbl_80320F80, id);
-    MEMSetGroupIDForExpHeap(lbl_80320F84, id);
+    u16 groupID = lbl_803D5C28[--lbl_80320F89];
+    MEMSetGroupIDForExpHeap(lbl_80320F80, groupID);
+    MEMSetGroupIDForExpHeap(lbl_80320F84, groupID);
 }
 
 void fn_801D369C(u16 groupID) {
@@ -143,9 +143,9 @@ void fn_801D369C(u16 groupID) {
     MEMSetGroupIDForExpHeap(lbl_80320F84, groupID);
 }
 
-static void fn_801D3700(void *mem, MEMiHeapHead *heap, u32 groupID) {
-    if (groupID == MEMGetGroupIDForMBlockExpHeap(mem)) {
-        MEMFreeToExpHeap(heap, mem);
+static void fn_801D3700(void *ptr, MEMiHeapHead *heap, u32 groupID) {
+    if (groupID == MEMGetGroupIDForMBlockExpHeap(ptr)) {
+        MEMFreeToExpHeap(heap, ptr);
     }
 }
 
