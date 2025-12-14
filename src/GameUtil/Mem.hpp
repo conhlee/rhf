@@ -22,12 +22,12 @@ enum EHeapGroup {
 extern MEMiHeapHead *lbl_80320F80; // gHeapMEM1
 extern MEMiHeapHead *lbl_80320F84; // gHeapMEM2
 
-void *operator new(size_t);
-void *operator new(size_t, EHeapMEM, s32);
-void *operator new[](size_t);
-void *operator new[](size_t, EHeapMEM, s32);
-void operator delete(void *);
-void operator delete[](void *);
+void *operator new(size_t size);
+void *operator new(size_t size, EHeapMEM heap, s32 align);
+void *operator new[](size_t size);
+void *operator new[](size_t size, EHeapMEM heap, s32 align);
+void operator delete(void *ptr);
+void operator delete[](void *ptr);
 
 void fn_801D3564(void);
 void fn_801D3568(void);

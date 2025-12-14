@@ -57,32 +57,32 @@ void *operator new[](size_t size, EHeapMEM heap, s32 align) {
     return fn_801D3784(size, heap, align);
 }
 
-void operator delete(void *mem) {
+void operator delete(void *ptr) {
     BOOL interrupt = OSDisableInterrupts();
 
-    if (mem != NULL) {
-        MEMiHeapHead *found = MEMFindContainHeap(mem);
+    if (ptr != NULL) {
+        MEMiHeapHead *found = MEMFindContainHeap(ptr);
         if (found == lbl_80320F80) {
-            MEMFreeToExpHeap(lbl_80320F80, mem);
+            MEMFreeToExpHeap(lbl_80320F80, ptr);
         }
         else if (found == lbl_80320F84) {
-            MEMFreeToExpHeap(lbl_80320F84, mem);
+            MEMFreeToExpHeap(lbl_80320F84, ptr);
         }
     }
 
     OSRestoreInterrupts(interrupt);
 }
 
-void operator delete[](void *mem) {
+void operator delete[](void *ptr) {
     BOOL interrupt = OSDisableInterrupts();
 
-    if (mem != NULL) {
-        MEMiHeapHead *found = MEMFindContainHeap(mem);
+    if (ptr != NULL) {
+        MEMiHeapHead *found = MEMFindContainHeap(ptr);
         if (found == lbl_80320F80) {
-            MEMFreeToExpHeap(lbl_80320F80, mem);
+            MEMFreeToExpHeap(lbl_80320F80, ptr);
         }
         else if (found == lbl_80320F84) {
-            MEMFreeToExpHeap(lbl_80320F84, mem);
+            MEMFreeToExpHeap(lbl_80320F84, ptr);
         }
     }
 
