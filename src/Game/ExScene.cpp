@@ -160,7 +160,7 @@ void CExScene::_18(void) {
     }
 
     if (
-        (mPauseLayout != NULL) && mPauseLayout->getUnk1C() &&
+        (mPauseLayout != NULL) && mPauseLayout->getPaused() &&
         !gHBMManager->getUnk414()
     ) {
         mPauseLayout->_18(gLayoutManager->getDrawInfo());
@@ -306,7 +306,7 @@ void CExScene::_08(void) {
     if (!gHBMManager->getUnk414()) {
         gCellAnimManager->_24(-299, NULL, NULL);
 
-        if (mPauseLayout != NULL && (mPauseLayout->getUnk1C() || mPauseLayout->getUnk24() == 2)) {
+        if (mPauseLayout != NULL && (mPauseLayout->getPaused() || mPauseLayout->getUnk24() == 2)) {
             gLayoutManager->fn_801D6D78();
             mPauseLayout->_1C(gLayoutManager->getDrawInfo());
         }
@@ -722,7 +722,7 @@ void CExScene::fn_80009A9C(void) {}
 
 bool CExScene::fn_80009AA0(void) {
     if (mPauseLayout != NULL) {
-        return mPauseLayout->getUnk1C();
+        return mPauseLayout->getPaused();
     }
     return false;
 }

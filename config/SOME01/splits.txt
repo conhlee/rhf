@@ -80,6 +80,10 @@ Game/CursorLayout.cpp:
 
 Game/PauseLayout.cpp:
 	.text       start:0x8003A93C end:0x8003ADEC
+	.rodata     start:0x8021AFE0 end:0x8021B030
+	.data       start:0x802E9BD0 end:0x802E9C10
+	.sdata      start:0x8031F160 end:0x8031F170
+	.sdata2     start:0x803229B8 end:0x803229C0
 
 Game/Batting/MyChecker.cpp:
 	.text       start:0x8003ADEC end:0x8003B7D4

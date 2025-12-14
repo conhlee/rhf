@@ -103,6 +103,9 @@ public:
     Vec2 getCorePos(void) {
         return mCoreStatus[0].pos;
     }
+    u32 getCoreTrig(void) {
+        return mCoreStatus[0].trig;
+    }
 
 private:
     enum { MOTOR_SEQ_OFF = 0, MOTOR_SEQ_ON = 1, MOTOR_SEQ_END = 0xFF };

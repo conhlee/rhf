@@ -9,20 +9,23 @@ class CPauseLayout : public CLayout {
 public:
     virtual ~CPauseLayout(void);
     virtual void _10(void);
+    virtual void _14(void);
+    virtual void _18(nw4r::lyt::DrawInfo *drawInfo);
+    virtual void _1C(nw4r::lyt::DrawInfo *drawInfo);
 
     CPauseLayout(void) {
         setAnimationCount(3);
     }
 
-    bool getUnk1C(void) const { return mUnk1C; }
+    bool getPaused(void) const { return mIsPaused; }
 
-    void setUnk1D(bool unk) { mUnk1D = unk; }
+    void setUnk1D(bool unk) { mIsEnabled = unk; }
 
     s32 getUnk24(void) const { return mUnk24; }
 
 private:
-    bool mUnk1C;
-    u8 mUnk1D;
+    bool mIsPaused;
+    bool mIsEnabled;
     s32 mUnk20;
     s32 mUnk24;
     s32 mUnk28;

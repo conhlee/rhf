@@ -330,7 +330,7 @@ config.libs = [
             Object(NonMatching, "Game/main.cpp"),
             Object(NonMatching, "Game/BalloonLayout.cpp"),
             Object(NonMatching, "Game/CursorLayout.cpp"),
-            Object(NonMatching, "Game/PauseLayout.cpp"),
+            Object(Matching, "Game/PauseLayout.cpp"),
             Object(NonMatching, "Game/Batting/MyChecker.cpp"),
             Object(NonMatching, "Game/Batting/MyFlow.cpp"),
             Object(NonMatching, "Game/Batting/SceneBatting.cpp"),
