@@ -1111,7 +1111,7 @@ config.libs = [
             Object(NonMatching, "GameUtil/VarParamManager.cpp"),
             Object(Matching, "GameUtil/code_801ED6A8.cpp"),
             Object(Matching, "GameUtil/code_801ED7D4.cpp"),
-            Object(NonMatching, "GameUtil/DebugConsole.cpp"),
+            Object(Matching, "GameUtil/DebugFont.cpp"),
         ],
     },
 ]
