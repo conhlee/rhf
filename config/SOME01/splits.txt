@@ -2557,8 +2557,11 @@ GameUtil/code_801ED6A8.cpp:
 GameUtil/code_801ED7D4.cpp:
 	.text       start:0x801ED7D4 end:0x801ED7EC
 
-GameUtil/DebugConsole.cpp:
+GameUtil/DebugFont.cpp:
 	.text       start:0x801ED7EC end:0x801EDA30
+	.rodata     start:0x802E5258 end:0x802E52A8
+	.data       start:0x8031ED48 end:0x8031EDA8
+	.sdata      start:0x80320108 end:0x80320128
 
 RVLFaceLibrary/RFL_System.c:
 	extab       start:0x800067B8 end:0x800067E0
