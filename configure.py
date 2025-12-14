@@ -393,6 +393,7 @@ config.libs = [
             Object(Matching, "Game/Logo/MyFlow.cpp"),
             Object(Matching, "Game/Logo/SceneLogo.cpp"),
             Object(Matching, "Game/Script/AgbTap.cpp"),
+            Object(Matching, "Game/Script/AgbGhost.cpp"),
             Object(NonMatching, "Game/AgbGhost/MyFlow.cpp"),
             Object(NonMatching, "Game/AgbGhost/SceneAgbGhost.cpp"),
             Object(Matching, "Game/AgbTap/MyChecker.cpp"),

@@ -155,7 +155,7 @@ void CSceneAgbGhost::_14(void) {
     mUnk110.setEasing(0, 1);
     mUnk168.setEasing(3, 2);
 
-    gSoundManager->play(SE_AGB_AIM_KANKYO, 0.0f, &mUnk19C);
+    gSoundManager->play(SE_AGB_AIM_KANKYO, 0.0f, &mRainSound);
 
     mGhostHeight = 0x100;
 
@@ -163,7 +163,7 @@ void CSceneAgbGhost::_14(void) {
     mRainRippleNext = 0;
 
     mIsRainSlow = false;
-    mUnk1B1 = false;
+    mRainMotion = false;
     mUnk1B2 = true;
 }
 
@@ -182,7 +182,7 @@ void CSceneAgbGhost::_28(void) {
         mBowArrowAnim->setPosX(mUnk168.getCurrent());
     }
 
-    if (!mUnk19C.IsPause() && mUnk1B2) {
+    if (!mRainSound.IsPause() && mUnk1B2) {
         f32 volume = 0.0f;
         if (
             (0.0f < ((256.0f - mGhostHeight) / 2.0f)) &&
@@ -190,7 +190,7 @@ void CSceneAgbGhost::_28(void) {
         ) {
             volume = (256.0f - mGhostHeight) / 2.0f;
         }
-        gSoundManager->fn_801E65F4((volume + 64.0f) / 256.0f, 15, &mUnk19C);
+        gSoundManager->fn_801E65F4((volume + 64.0f) / 256.0f, 15, &mRainSound);
         mUnk1B2 = false;
     }
 
@@ -229,7 +229,7 @@ void CSceneAgbGhost::_1C(void) {
 }
 
 void CSceneAgbGhost::_20(void) {
-    gSoundManager->fn_801E62B8(0, &mUnk19C);
+    gSoundManager->fn_801E62B8(0, &mRainSound);
 
     gCellAnimManager->fn_801DBA98(0);
     gCellAnimManager->fn_801DC068(0);
@@ -392,7 +392,7 @@ void CSceneAgbGhost::fn_800A8788(bool fallSlow) {
         if (fallSlow) {
             for (s32 i = 0; i < (s32)ARRAY_LENGTH(mRainAnim); i++) {
                 f32 speed;
-                if (mUnk1B1) {
+                if (mRainMotion) {
                     speed = 2.0f / (1.0f + sRandom.nextF32(3.0f));
                 }
                 else {

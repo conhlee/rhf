@@ -9,3 +9,4 @@ ldscript_template: assets/ldscript.lcf
 block_relocations:
 - target: .bss:0x803C0000
 - source: .data:0x802EF294
+- source: .data:0x802EF2D0

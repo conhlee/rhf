@@ -40,7 +40,7 @@ bool AgbGhost::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         gInputCheckManager->fn_801E9158(checker, true);
     } break;
 
-    case TF_AGBGHOST_ARROW: {
+    case TF_AGBGHOST_BOWARROW: {
         if (arg0 == 0) {
             mScene->fn_800A8080();
         }
@@ -67,7 +67,7 @@ bool AgbGhost::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         }
     } break;
 
-    case TF_AGBGHOST_204: {
+    case TF_AGBGHOST_GHOST_HEIGHT: {
         mScene->mGhostHeight = args[0];
 
         if (gTickFlowManager->getUnk1C() == 3) {
@@ -76,15 +76,15 @@ bool AgbGhost::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         mScene->mUnk1B2 = true;
     } break;
 
-    case TF_AGBGHOST_205: {
+    case TF_AGBGHOST_RAIN: {
         if (arg0 == 0) {
-            mScene->mUnk19C.Pause(args[0], 30);
+            mScene->mRainSound.Pause(args[0], 30);
         }
         else if (arg0 == 1) {
             mScene->fn_800A8788(args[0]);
         }
         else if (arg0 == 2) {
-            mScene->mUnk1B1 = args[0];
+            mScene->mRainMotion = args[0];
         }
     } break;
     

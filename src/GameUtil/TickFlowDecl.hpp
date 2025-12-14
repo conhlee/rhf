@@ -151,13 +151,13 @@ enum {
 
 #define TFC_TEMPO(tempo) TFD_CMD(TF_TEMPO, 0, (tempo)),
 
-#define TFC_TEMPO_WAVE(sid) TFD_CMD(TF_TEMPO_WAVE, 0, (sid)),
+#define TFC_TEMPO_WAVE(soundID) TFD_CMD(TF_TEMPO_WAVE, 0, (soundID)),
 
 #define TFC_SPEED(speed) TFD_CMD(TF_SPEED, 0, (speed)),
 
-#define TFC_PLAY_SFX(sid) TFD_CMD(TF_PLAY_SFX, 1, 0), TFD_CAST(sid),
+#define TFC_PLAY_SFX(soundID) TFD_CMD(TF_PLAY_SFX, 1, 0), TFD_CAST(soundID),
 
-#define TFC_PREPARE_WAVE(sid) TFD_CMD(TF_PREPARE_WAVE, 0, (sid)),
+#define TFC_PREPARE_WAVE(soundID) TFD_CMD(TF_PREPARE_WAVE, 0, (soundID)),
 #define TFC_PLAY_WAVE() TFD_CMD(TF_PLAY_WAVE, 0, 0),
 #define TFC_STOP_WAVE(fadeFrames) TFD_CMD(TF_STOP_WAVE, 0, (fadeFrames)),
 #define TFC_SET_WAVE_VOLUME(volume, fadeFrames) TFD_CMD(TF_SET_WAVE_VOLUME, 2, 0), TFD_CAST(volume), TFD_CAST(fadeFrames),

@@ -325,6 +325,11 @@ Game/Script/AgbTap.cpp:
 	.data       start:0x802EF268 end:0x802EF2B8
 	.sdata2     start:0x80325C58 end:0x80325D00
 
+Game/Script/AgbGhost.cpp:
+	.rodata     start:0x80264840 end:0x802653D4
+	.data       start:0x802EF2B8 end:0x802EF308
+	.sdata2     start:0x80325D00 end:0x80325D90
+
 Game/AgbGhost/MyFlow.cpp:
 	.text       start:0x800A7208 end:0x800A75DC
 

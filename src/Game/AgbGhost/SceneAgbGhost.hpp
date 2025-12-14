@@ -71,7 +71,7 @@ private:
     CTRParabola mUnk110;
     CTRFloat mUnk168;
 
-    SNDHandle mUnk19C;
+    SNDHandle mRainSound;
 
     s32 mGhostHeight;
     
@@ -79,7 +79,7 @@ private:
     s32 mRainRippleNext;
 
     bool mIsRainSlow;
-    bool mUnk1B1;
+    bool mRainMotion;
     bool mUnk1B2;
 };
 
