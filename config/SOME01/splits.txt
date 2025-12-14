@@ -240,6 +240,18 @@ Game/Prologue/MyLayout.cpp:
 	.data       start:0x802EC308 end:0x802EC338
 	.sdata      start:0x8031F3A0 end:0x8031F3B0
 
+Game/Error/SceneError.cpp:
+	.text       start:0x80079568 end:0x80079D14
+
+Game/Error/MyChecker.cpp:
+	.text       start:0x80079D14 end:0x80079E50
+
+Game/Error/MyFlow.cpp:
+	.text       start:0x80079E50 end:0x80079FA4
+
+Game/Error/MyLayout.cpp:
+	.text       start:0x80079FA4 end:0x8007B270
+
 Game/Strap/SceneStrap.cpp:
 	.text       start:0x8007B270 end:0x8007B70C
 	.rodata     start:0x80254648 end:0x802546F0
