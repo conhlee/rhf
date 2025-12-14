@@ -90,7 +90,10 @@ void CLayout::_20(nw4r::lyt::DrawInfo *drawInfo) {
     f32 farField = 500.0f;
     
     Mtx44 projMtx;
-    C_MTXOrtho(projMtx, viewRect.top, viewRect.bottom, viewRect.left, viewRect.right, nearField, farField);
+    C_MTXOrtho(projMtx,
+        viewRect.top, viewRect.bottom, viewRect.left, viewRect.right,
+        nearField, farField
+    );
 
     GXSetProjection(projMtx, GX_ORTHOGRAPHIC);
 
