@@ -11,3 +11,4 @@ orig/*/*
 /*.txt
 ctx.c
 compile_commands.json
+.DS_Store
