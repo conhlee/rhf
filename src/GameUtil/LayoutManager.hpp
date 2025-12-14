@@ -62,17 +62,18 @@ private:
 
     class CFontInfo {
     public:
-        u8 fontType; // EFontType
-        nw4r::lyt::FontRefLink *refLink;
-        nw4r::ut::Font *font;
-        u8 *buffer;
-
         nw4r::ut::ResFont *getResFont(void) {
             return static_cast<nw4r::ut::ResFont *>(font);
         }
         nw4r::ut::ArchiveFont *getArchiveFont(void) {
             return static_cast<nw4r::ut::ArchiveFont *>(font);
         }
+
+    public:
+        u8 fontType; // EFontType
+        nw4r::lyt::FontRefLink *refLink;
+        nw4r::ut::Font *font;
+        u8 *buffer;
     };
 
 private:
