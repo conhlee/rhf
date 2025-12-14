@@ -26,7 +26,6 @@
 #include "SDManager.hpp"
 #include "VarParam.hpp"
 #include "DebugFont.hpp"
-#include "DebugConsole.hpp"
 #include "DebugPrint.hpp"
 #include "DummyManager.hpp"
 
