@@ -82,7 +82,7 @@ void CSoundManager::_14(const char *soundArchivePath) {
 }
 
 void *CSoundManager::fn_801E4948(void *arg) {
-    CSoundManager::LoadData *data = static_cast<CSoundManager::LoadData *>(arg);
+    LoadData *data = static_cast<LoadData *>(arg);
 
     gSoundManager->fn_801E4988(data->soundArchivePath);
     data->loaded = true;
@@ -567,7 +567,7 @@ void CSoundManager::fn_801E7230(u16 groupID, nw4r::snd::SoundHeap *soundHeap) {
 }
 
 void *CSoundManager::fn_801E72E8(void *arg) {
-    CSoundManager::LoadData *data = static_cast<CSoundManager::LoadData *>(arg);
+    LoadData *data = static_cast<LoadData *>(arg);
 
     gSoundManager->mSoundArchivePlayer->LoadGroup(
         data->groupID, data->soundHeap, 0
