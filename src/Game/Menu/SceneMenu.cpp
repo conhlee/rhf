@@ -34,11 +34,9 @@ s32 sceneVer;
 
 SCENE_IMPL_CREATE_FN(CSceneMenu)
 
-// TODO: move this
-extern "C" void fn_80008EFC(void); 
-
 void CSceneMenu::fn_80006FA4(void) {
     fn_80008EFC();
+
     fn_801D369C(eHeapGroup_SceneAsset);
     if (gFileManager->fn_801D42E0(55)) {
         gFileManager->fn_801D3F94(55, "content2/layout/layout_msg.szs");
@@ -68,7 +66,6 @@ public:
     virtual ~CMenuLayout(void);
     virtual void _10(void);
     virtual void _14(void);
-    virtual void _20(void);
 
     CMenuLayout(void) {
         setAnimationCount(0);
@@ -90,18 +87,25 @@ private:
 
 void CSceneMenu::_14(void) {
     gSceneManager->fn_8008B068();
+
     lbl_80320274 = false;
-    memset(mUnk34, '\0', sizeof(mUnk34));
+
+    memset(mUnk34, 0x00, sizeof(mUnk34));
+
     this->CExScene::_14();
+
     gMyCanvasManager->fn_8007BE0C();
+
     gLayoutManager->_20(1);
     gLayoutManager->_24(55, "");
     gLayoutManager->fn_801D6AEC(1);
     gLayoutManager->registerLayout<CMenuLayout>();
 
     gSoundManager->fn_801E6ECC(1.0f);
+
     fn_800077A8(lbl_80320143);
     mUnkB4 = false;
+
     fn_801D3638(300);
 }
 
@@ -205,6 +209,7 @@ void CSceneMenu::_28(void) {
 
 void CSceneMenu::_20(void) {
     gFileManager->fn_801D41CC(55);
+
     this->CExScene::_20();
 }
 
@@ -212,16 +217,19 @@ void CSceneMenu::fn_800077A8(u8 arg1) {
     lbl_80320143 = arg1;
 
     s32 entriesPerPage = 20;
-    s32 pageIdx = (lbl_80320143 / entriesPerPage);
+    s32 pageIndex = (lbl_80320143 / entriesPerPage);
+
+    s32 lastPageIndex = ARRAY_LENGTH(lbl_801F8460) / entriesPerPage;
+    s32 lastPageEntries = ARRAY_LENGTH(lbl_801F8460) - (lastPageIndex * entriesPerPage);
     
-    s32 entriesInThisPage = (pageIdx == 5) ? 6 : entriesPerPage;
+    s32 entriesInThisPage = (pageIndex == lastPageIndex) ? lastPageEntries : entriesPerPage;
 
     swprintf(sTextBuffer, ARRAY_LENGTH(sTextBuffer), L"");
     wcscat(sTextBuffer, mUnk34);
     wcscat(sTextBuffer, L"\n");
 
     for (s32 i = 0; i < entriesInThisPage; i++) {
-        s32 entryNum = (pageIdx * entriesPerPage) + i;
+        s32 entryNum = (pageIndex * entriesPerPage) + i;
         swprintf(sEntryNumTextBuffer, ARRAY_LENGTH(sEntryNumTextBuffer), L"%03d : ", entryNum);
         wcscat(sTextBuffer, (entryNum == lbl_80320143) ? L"→" : L"　");
         wcscat(sTextBuffer, sEntryNumTextBuffer);
@@ -237,8 +245,9 @@ void CSceneMenu::fn_800077A8(u8 arg1) {
         menuLayout->getTitlePane()->SetString(sTextBuffer);
         menuLayout->getTitlePane()->SetVisible(true);
     }
+
     swprintf(sTextBuffer, ARRAY_LENGTH(sTextBuffer), L"");
-    wcscat(sTextBuffer, L"<操作説明、コメント>\n");
+    wcscat(sTextBuffer, L"<操作説明、コメント>\n"); // "<Operation Instructions, Comments>"
     wcscat(sTextBuffer, lbl_801F8460[lbl_80320143].commentText);
 
     menuLayout = gLayoutManager->getLayout<CMenuLayout>(0);
@@ -249,6 +258,7 @@ void CSceneMenu::fn_800077A8(u8 arg1) {
         menuLayout->getCommentPane()->SetString(sTextBuffer);
         menuLayout->getCommentPane()->SetVisible(true);
     }
+
     gSoundManager->play(SE_CURSOR);
 }
 
