@@ -89,6 +89,13 @@ public:
         mTranslate = nw4r::math::VEC3(value.x, value.y, 0.0f);
     }
 
+    const math::VEC3 &GetRotate() const {
+        return mRotate;
+    }
+    void SetRotate(const math::VEC3 &rRotate) {
+        mRotate = rRotate;
+    }
+
     void SetScale(const math::VEC2 &value) {
         mScale = value;
     }
