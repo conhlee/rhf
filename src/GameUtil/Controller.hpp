@@ -95,6 +95,9 @@ public:
     bool unk136CCheck(void) {
         return unk136C && !unk136D;
     }
+    bool unk136CCheck1(void) {
+        return !unk136C && unk136D;
+    }
 
     u32 getUnk1338(void) {
         return unk1338;
