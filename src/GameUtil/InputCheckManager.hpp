@@ -33,7 +33,7 @@ public:
     void fn_801E923C(u32);
     bool fn_801E93E0(u32, f32, f32);
     void fn_801E9474(void);
-    void fn_801E9488(u32);
+    void fn_801E9488(u8);
     u32 fn_801E94D4(void);
     void fn_801E94E8(u32);
     void fn_801E9604(bool);
@@ -41,8 +41,8 @@ public:
     void fn_801E9C30(bool);
     void fn_801E9C38(f32);
     void fn_801E9C40(void);
-    void fn_801E9D58(u32);
-    void fn_801E9D68(u32);
+    void fn_801E9D58(u32, u32);
+    s32 fn_801E9D68(u32);
     void fn_801E9D7C(CInputChecker *);
     void fn_801E9D80(char *);
     void fn_801E9D84(void);
@@ -50,6 +50,10 @@ public:
     void fn_801E9D8C(void);
 
     static void fn_801E8560(void);
+
+    CInputChecker *getUnk0C(void) {
+        return unk0C;
+    }
 
     u8 getUnk42E(void) {
         return unk42E;
@@ -69,21 +73,36 @@ public:
     void setUnk429(bool value) {
         unk429 = value;
     }
-
     void setUnk484(u8 value) {
         unk484 = value;
     }
     void setUnk42A(u8 value) {
-        unk42A = value;
+        unk42A[0] = value;
     }
     void setUnk42B(bool value) {
-        unk42B = value;
+        unk42A[1] = value;
     }
     void setUnk42C(u8 value) {
-        unk42C = value;
+        unk42A[2] = value;
     }
     void setUnk42D(u8 value) {
-        unk42D = value;
+        unk42A[3] = value;
+    }
+    u8 getUnk498(void) {
+        return unk498;
+    }
+    u8 getUnk499(void) {
+        return unk499;
+    }
+    u8 getUnk49A(void) {
+        return unk49A;
+    }
+    u8 getUnk49B(void) {
+        return unk49B;
+    }
+
+    u32 getUnk4A4(u32 i) {
+        return unk4A4[i];
     }
 
     template <typename T>
@@ -111,20 +130,21 @@ private:
     u32 unk424;
     u8 unk428;
     u8 unk429;
-    u8 unk42A;
-    u8 unk42B;
-    u8 unk42C;
-    u8 unk42D;
+    u8 unk42A[4];
     u8 unk42E;
     u8 unk42F;
-    u32 unk430[16];
+    s32 unk430[16];
     f32 unk470;
     f32 unk474[4];
     u8 unk484;
     u8 pad485[7];
     u8 unk48C;
     u8 unk48D;
-    u8 pad48E[0xe];
+    u8 pad48E[0xa];
+    u8 unk498;
+    u8 unk499;
+    u8 unk49A;
+    u8 unk49B;
     u8 unk49C;
     f32 unk4A0;
     u32 unk4A4[256];
@@ -135,7 +155,12 @@ private:
     static void fn_801E8118(void);
     static s32 fn_801E85AC(u32);
 
+    UnkSub *getUnk10(u32 i) {
+        return &unk10[i];
+    }
+
     void resetUnk0C(void) {
+        // not matching: regswap cur/next
         for (CInputChecker *cur = unk0C, *next; cur != NULL; cur = next) {
             next = cur->getNext();
             if (!cur->_18()) {
@@ -146,7 +171,7 @@ private:
             }
             cur->removeCurrent();
         }
-        for (s32 i = 0; i < 4; i++) {
+        for (s32 i = 0; i < (s32)ARRAY_LENGTH(unk474); i++) {
             if (unk474[i] > 0.0) {
                 unk474[i] -= gTickFlowManager->fn_801E2698();
                 if (unk474[i] <= 0.0) {
@@ -180,12 +205,6 @@ private:
         }
     }
 
-    void resetUnk4A4(void) {
-        for (int i = 0; i < (s32)ARRAY_LENGTH(unk4A4); i++) {
-            unk4A4[i] = i;
-        }
-    }
-
     u32 checkUnk430(u32 arg0) {
         for (int i = 0; i < (s32)ARRAY_LENGTH(unk430); i++) {
             if (unk430[i] == arg0) {
@@ -196,21 +215,27 @@ private:
     }
 
     u32 unkCheck(u32 arg0) {
-        if (unk42F) {
-            return 1;
+        if (!unk42F) {
+            return 0;
         }
         return checkUnk430(arg0);
     }
 
-    void unkInline(u8 arg0) {
-        if (gCheckPointManager->getUnkDD()) {
-            if (!arg0) {
-                arg0 = unk428 * 5;
+    void doUnk430(u32 arg0) {
+        for (int i = 0; i < (s32)ARRAY_LENGTH(unk430); i++) {
+            if (unk430[i] == arg0) {
+                return;
             }
-            unk428 = 0;
-            unk420 += arg0;
-            unk424++;
         }
+
+        for (int i = 0; i < (s32)ARRAY_LENGTH(unk430); i++) {
+            if (unk430[i] == -1) {
+                unk430[i] = arg0;
+                return;
+            }
+        }
+
+        
     }
 };
 
