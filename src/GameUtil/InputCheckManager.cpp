@@ -354,7 +354,7 @@ void CInputCheckManager::fn_801E923C(u32 arg0) {
 
 bool CInputCheckManager::fn_801E93E0(u32 arg0, f32 arg1, f32 arg2) {
     for (CInputChecker *check = unk0C; check != 0; check = check->getNext()) {
-        if (check->fn_801E7D5C(arg0) && 
+        if (check->fn_801E7E5C(arg0) && 
             check->fn_801E8018(arg1, arg2)) {
                 return true;
             }

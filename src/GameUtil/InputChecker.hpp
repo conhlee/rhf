@@ -35,6 +35,7 @@ public:
     void fn_801E7DD4(f32 *delay, f32 *justEarly, f32 *early, f32 *late, f32 *justLate);
 
     u32 fn_801E7E28(u32);
+    bool fn_801E7E5C(u32);
     u32 fn_801E7E70(u32);
 
     u32 fn_801E8018(f32, f32);
