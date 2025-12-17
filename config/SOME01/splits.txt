@@ -22,6 +22,9 @@ Game/Menu/SceneMenu.cpp:
 	.sdata2     start:0x80320FE0 end:0x80321138
 	.bss        start:0x80329980 end:0x8032A1A0
 
+Game/Global.cpp:
+	.sbss       start:0x80320148 end:0x80320198
+
 Game/data_802E57E0.cpp:
 	.data       start:0x802E57E0 end:0x802E57F0
 
