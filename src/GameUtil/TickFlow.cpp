@@ -1,5 +1,7 @@
 #include "TickFlow.hpp"
 
+#include <revolution/OS.h>
+
 #include "TickFlowManager.hpp"
 
 #include "SoundManager.hpp"
