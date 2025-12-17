@@ -71,10 +71,8 @@ struct WaveInfo {
 #define WAVE_INFO_TABLE_BEGIN(tableName) \
     WaveInfo tableName[] = {
 
-#define WAVE_INFO_TABLE_ENTRY_EX(soundName, sampleRate) \
+#define WAVE_INFO_TABLE_ENTRY(soundName, sampleRate) \
     { soundName, (sampleRate), waveTempo_##soundName },
-#define WAVE_INFO_TABLE_ENTRY(soundName) \
-    WAVE_INFO_TABLE_ENTRY_EX(soundName, 32000)
 
 #define WAVE_INFO_TABLE_END() \
     };
