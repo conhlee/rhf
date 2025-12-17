@@ -1191,14 +1191,19 @@ bool CSceneManager::fn_8008B27C(void) {
     if (gSceneManager->findSceneInHist(eScene_GameSelect) < 0) {
         return false;
     }
-    s32 i = findSceneInHist(eScene_GameSelect);
-    s32 j = findSceneInHist(eScene_BonusSelect);
-    if ((j != -1) && (j < i)) {
+
+    s32 gameSelectPosInHist = findSceneInHist(eScene_GameSelect);
+    s32 bonusSelectPosInHist = findSceneInHist(eScene_BonusSelect);
+
+    if (
+        (bonusSelectPosInHist != -1) &&
+        (bonusSelectPosInHist < gameSelectPosInHist)
+    ) {
         return false;
     }
 
-    s32 k = findSceneInHist(eScene_Credit);
-    if ((k != -1) && (k < i)) {
+    s32 creditPosInHist = findSceneInHist(eScene_Credit);
+    if ((creditPosInHist != -1) && (creditPosInHist < gameSelectPosInHist)) {
         return false;
     }
 
