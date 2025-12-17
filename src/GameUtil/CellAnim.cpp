@@ -40,22 +40,22 @@ void CCellAnim::init(u8 id, u16 animID) {
     mTempo = 120;
 
     mPos = nw4r::math::VEC2(0.0f, 0.0f);
-    mSize = nw4r::math::VEC2(1.0f, 1.0f);
+    mScale = nw4r::math::VEC2(1.0f, 1.0f);
     mAngle = 0.0f;
 
     mLayer = 0;
 
     mTextureIndex = -1;
 
-    mFgColorR = 0;
-    mFgColorG = 0;
-    mFgColorB = 0;
+    mFgColorR = 0x00;
+    mFgColorG = 0x00;
+    mFgColorB = 0x00;
 
-    mBgColorR = 0xff;
-    mBgColorG = 0xff;
-    mBgColorB = 0xff;
+    mBgColorR = 0xFF;
+    mBgColorG = 0xFF;
+    mBgColorB = 0xFF;
 
-    mOpacity = 0xff;
+    mOpacity = 0xFF;
 
     setNext(NULL);
     setPrev(NULL);
@@ -64,6 +64,7 @@ void CCellAnim::init(u8 id, u16 animID) {
     mBaseLinkedHead = NULL;
     mBaseLinkedNext = NULL;
     mBaseLinkedPrev = NULL;
+
     mBaseAnimDraw = false;
 }
 
@@ -164,8 +165,8 @@ void CCellAnim::makeMtx(BOOL defMtx, Mtx baseMtx) {
         MTXRotDeg(rotMtx, 'z', mAngle);
         MTXConcat(mMtx, rotMtx, mMtx);
     }
-    if ((mSize.x != 1.0) || (mSize.y != 1.0)) {
-        MTXScale(scaleMtx, mSize.x, mSize.y, 1.0f);
+    if ((mScale.x != 1.0) || (mScale.y != 1.0)) {
+        MTXScale(scaleMtx, mScale.x, mScale.y, 1.0f);
         MTXConcat(mMtx, scaleMtx, mMtx);
     }
 

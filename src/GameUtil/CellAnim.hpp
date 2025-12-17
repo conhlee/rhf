@@ -58,11 +58,11 @@ public:
     void setPos(nw4r::math::VEC2 &pos) { mPos = pos; }
     void setPos(f32 x, f32 y) { mPos = nw4r::math::VEC2(x, y); }
 
-    f32 getScaleX(void) const { return mSize.x; }
-    f32 getScaleY(void) const { return mSize.y; }
+    f32 getScaleX(void) const { return mScale.x; }
+    f32 getScaleY(void) const { return mScale.y; }
 
-    nw4r::math::VEC2 getScale(void) { return mSize; }
-    void setScale(f32 x, f32 y) { mSize = nw4r::math::VEC2(x, y); }
+    nw4r::math::VEC2 getScale(void) { return mScale; }
+    void setScale(f32 x, f32 y) { mScale = nw4r::math::VEC2(x, y); }
 
     f32 getAngle(void) const { return mAngle; }
     void setAngle(f32 angle) { mAngle = angle; }
@@ -157,7 +157,7 @@ private:
 
     Mtx mMtx;
     nw4r::math::VEC2 mPos;
-    nw4r::math::VEC2 mSize;
+    nw4r::math::VEC2 mScale;
     f32 mAngle;
 
     s32 mLayer;
@@ -181,6 +181,7 @@ private:
     CCellAnim *mBaseLinkedHead;
     CCellAnim *mBaseLinkedNext;
     CCellAnim *mBaseLinkedPrev;
+
     u16 mBasePartIndex;
     bool mBaseAnimDraw;
 };
