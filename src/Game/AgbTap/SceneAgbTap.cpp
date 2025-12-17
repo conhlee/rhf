@@ -436,7 +436,7 @@ void CSceneAgbTap::fn_800A9988(EAgbTapMove type) {
     }
 
     f32 frames = gTickFlowManager->fn_801E26B4(animeData->ticks);
-    mMonkeyAnimeTimer = frames;
+    mMonkeyAnimeTimer = static_cast<u16>(frames);
 
     if (animeData->sfxID >= 0) {
         gSoundManager->play(animeData->sfxID);
@@ -521,7 +521,7 @@ void CSceneAgbTap::fn_800A9C84(u32 maxMissTapCount) {
 
         mGiraffeAnim->fn_801DD0AC(agb_tap_giraffe_nice);
 
-        s32 i = sRandom.nextU32(5);
+        s32 i = sRandom.nextU32(ARRAY_LENGTH(lbl_802EF840));
         if (i < 0) { // ???
             gTickFlowManager->fn_801E1CC0(lbl_802672B0);
         }
@@ -543,14 +543,18 @@ void CSceneAgbTap::fn_800A9D20(void) {
 void CSceneAgbTap::fn_800A9D90(void) {
     f32 x = (mMonkeyAnim[0]->getPos().x + mMonkeyAnim[1]->getPos().x) / 2.0f;
 
-    gLayoutManager->getLayout<CBalloonLayout>(2)->fn_8003A1D0(0, x, 20.0f, 480.0f, 80.0f, false, 0.0f, 0.0f, false);
+    gLayoutManager->getLayout<CBalloonLayout>(2)->fn_8003A1D0(
+        0, x, 20.0f, 480.0f, 80.0f, false, 0.0f, 0.0f, false
+    );
     gLayoutManager->getLayout<CBalloonLayout>(2)->fn_80039E00(0, FALSE);
 }
 
 void CSceneAgbTap::fn_800A9E24(void) {
     f32 x = mGiraffeAnim->getPos().x + 240.0f;
 
-    gLayoutManager->getLayout<CBalloonLayout>(2)->fn_8003A1D0(0, x, -170.0f, 400.0f, 80.0f, true, -130.0f, 35.0f, false);
+    gLayoutManager->getLayout<CBalloonLayout>(2)->fn_8003A1D0(
+        0, x, -170.0f, 400.0f, 80.0f, true, -130.0f, 35.0f, false
+    );
 }
 
 void CSceneAgbTap::_18(void) {
