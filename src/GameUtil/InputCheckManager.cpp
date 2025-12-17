@@ -309,15 +309,15 @@ void CInputCheckManager::fn_801E9150(void *ptr) {
 
 void CInputCheckManager::fn_801E9158(CInputChecker *checker, bool arg1) {
     if (unk49C) {
-        f32 delay, justEarly, early, late, justLate;
-        checker->fn_801E7DD4(&delay, &justEarly, &early, &late, &justLate);
+        f32 tickJust, rangeMissF, rangeJustF, rangeJustB, rangeMissB;
+        checker->fn_801E7DD4(&tickJust, &rangeMissF, &rangeJustF, &rangeJustB, &rangeMissB);
         
         f32 leniency = unk4A0;
-        early *= leniency;
-        justEarly *= leniency;
-        justLate *= leniency;
-        late *= leniency;
-        checker->fn_801E7DBC(delay, justEarly, early, late, justLate);
+        rangeJustF *= leniency;
+        rangeMissF *= leniency;
+        rangeMissB *= leniency;
+        rangeJustB *= leniency;
+        checker->fn_801E7DBC(tickJust, rangeMissF, rangeJustF, rangeJustB, rangeMissB);
     }
     checker->insertBefore(unk0C);
     unk0C = checker;
