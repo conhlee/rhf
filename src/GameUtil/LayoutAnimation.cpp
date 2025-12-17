@@ -1,6 +1,6 @@
 #include "LayoutAnimation.hpp"
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "TickFlowManager.hpp"
 

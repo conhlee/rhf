@@ -1,6 +1,6 @@
 #include "Controller.hpp"
 
-#include <string.h>
+#include <cstring>
 
 #include <revolution/PAD.h>
 #include <revolution/KPAD.h>

@@ -2,8 +2,8 @@
 
 #include "GameManager.hpp"
 
-#include <string.h>
-#include <stdio.h>
+#include <cstring>
+#include <cstdio>
 
 static char sDVDPathBuffer[64];
 

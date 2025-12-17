@@ -6,7 +6,7 @@
 
 #include "TickFlow.hpp"
 
-#include <stdio.h>
+#include <cstdio>
 
 const char layoutFile_credit[] = "credit.brlyt";
 

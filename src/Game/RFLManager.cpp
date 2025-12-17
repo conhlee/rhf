@@ -4,7 +4,7 @@
 
 #include "Mem.hpp"
 
-#include <string.h> // for memcmp
+#include <cstring> // for memcmp
 
 CRFLManager::CRFLManager(void) {
     mIconsInitialized = false;

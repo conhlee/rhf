@@ -8,7 +8,7 @@
 #include "CursorLayout.hpp"
 #include "BalloonLayout.hpp"
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "Mem.hpp"
 

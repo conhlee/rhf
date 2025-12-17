@@ -1,5 +1,5 @@
 #include "Menu/SceneMenu.hpp"
-#include <string.h>
+#include <cstring>
 #include <nw4r/lyt/textBox.h>
 #include "Mem.hpp"
 #include "FileManager.hpp"

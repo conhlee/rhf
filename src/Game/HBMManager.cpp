@@ -1,6 +1,6 @@
 #include "HBMManager.hpp"
 
-#include <string.h>
+#include <cstring>
 
 #include <revolution/OS.h>
 #include <revolution/SC.h>

@@ -4,7 +4,7 @@
 
 #include "Mem.hpp"
 
-#include <string.h> // for memset
+#include <cstring> // for memset
 
 #define MY_TEX_FORMAT (GX_TF_RGBA8)
 

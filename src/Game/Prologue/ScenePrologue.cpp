@@ -3,7 +3,7 @@
 #include "Prologue/MyLayout.hpp"
 #include "Prologue/MyFlow.hpp"
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "FileManager.hpp"
 #include "SceneManager.hpp"
