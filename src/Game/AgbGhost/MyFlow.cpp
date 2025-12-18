@@ -18,7 +18,7 @@ bool AgbGhost::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     case TF_AGBGHOST_INPUT: {
         CMyChecker *checker = gInputCheckManager->makeNew<CMyChecker>();
 
-        checker->fn_801E7D5C(4);
+        checker->fn_801E7D5C(eInputType_TriggerA);
 
         switch (args[0]) {
         case 0:

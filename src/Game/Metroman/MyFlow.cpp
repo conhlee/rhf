@@ -19,7 +19,7 @@ bool Metroman::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     case TF_METROMAN_INPUT: {
         CMyChecker *checker = gInputCheckManager->makeNew<CMyChecker>();
 
-        checker->fn_801E7D5C(4);
+        checker->fn_801E7D5C(eInputType_TriggerA);
 
         checker->fn_801E7DBC(args[0], -6.0f, -4.0f, 4.0f, 6.0f);
 

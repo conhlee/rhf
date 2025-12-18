@@ -13,6 +13,40 @@
 
 #include "Mem.hpp"
 
+enum EInputType {
+    eInputType_TriggerUp = 0,
+    eInputType_TriggerDown,
+    eInputType_TriggerLeft,
+    eInputType_TriggerRight,
+    eInputType_TriggerA,
+    eInputType_TriggerB,
+    eInputType_Trigger_6,
+    eInputType_TriggerHome,
+    eInputType_TriggerPlus,
+    eInputType_TriggerMinus,
+    eInputType_Trigger1,
+    eInputType_Trigger2,
+    eInputType_TriggerZ,
+    eInputType_TriggerC,
+    
+    eInputType_ReleaseUp,
+    eInputType_ReleaseDown,
+    eInputType_ReleaseLeft,
+    eInputType_ReleaseRight,
+    eInputType_ReleaseA,
+    eInputType_ReleaseB,
+    eInputType_Release_20,
+    eInputType_ReleaseHome,
+    eInputType_ReleasePlus,
+    eInputType_ReleaseMinus,
+    eInputType_Release1,
+    eInputType_Release2,
+    eInputType_ReleaseZ,
+    eInputType_ReleaseC,
+
+    eInputType_Num,
+};
+
 class CInputCheckManager : public TSingleton<CInputCheckManager> {
 public:
     typedef void (*FuncUnk414)(void);
@@ -159,7 +193,7 @@ private:
         return &unk10[i];
     }
 
-    void resetUnk0C(void) {
+    void updateUnk0C(void) {
         // not matching: regswap cur/next
         for (CInputChecker *cur = unk0C, *next; cur != NULL; cur = next) {
             next = cur->getNext();
@@ -181,7 +215,7 @@ private:
         }
     }
 
-    void resetUnk10(void) {
+    void updateUnk10(void) {
         for (int i = 0; i < (s32)ARRAY_LENGTH(unk10); i++) {
             if (!unk10[i].unk0) {
                 continue;
