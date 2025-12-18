@@ -6,23 +6,30 @@ static u8 lbl_803D5D78[16];
 // regswaps
 void CInputCheckManager::fn_801E8118(void) {
     static const u32 lbl_802E4FE0[] = {
-        0x8, 0x4, 0x1, 0x2,
-        0x8000, 0x10, 0x1000, 0x200,
-        0x100, 0x2000, 0x4000,
+        WPAD_BUTTON_UP, WPAD_BUTTON_DOWN, WPAD_BUTTON_LEFT, WPAD_BUTTON_RIGHT,
+        WPAD_BUTTON_HOME, 
+        WPAD_BUTTON_PLUS, WPAD_BUTTON_MINUS, 
+        WPAD_BUTTON_1, WPAD_BUTTON_2, 
+        WPAD_BUTTON_FS_Z, WPAD_BUTTON_FS_C,
     };
     static const u32 lbl_802E500C[] = {
-        0, 1, 2, 3, 7, 8, 9, 0xa,
-        0xb, 0xc, 0xd,
+        eInputType_TriggerUp, eInputType_TriggerDown, eInputType_TriggerLeft, eInputType_TriggerRight,
+        eInputType_TriggerHome,
+        eInputType_TriggerPlus, eInputType_TriggerMinus,
+        eInputType_Trigger1, eInputType_Trigger2,
+        eInputType_TriggerZ, eInputType_TriggerC,
     };
     static const u32 lbl_802E5038[] = {
-        0xe, 0xf, 0x10, 0x11, 0x15,
-        0x16, 0x17, 0x18, 0x19, 0x1a,
-        0x1b,
+        eInputType_ReleaseUp, eInputType_ReleaseDown, eInputType_ReleaseLeft, eInputType_ReleaseRight,
+        eInputType_ReleaseHome,
+        eInputType_ReleasePlus, eInputType_ReleaseMinus,
+        eInputType_Release1, eInputType_Release2,
+        eInputType_ReleaseZ, eInputType_ReleaseC,
     };
     
     for (int i = 0; i < 4; i++) {
         u32 tempUnk4A4;
-        int i1C = i * 0x1C;
+        int i1C = i * eInputType_Num;
         CController *controller = gControllerManager->fn_801D5FF0(i);
         
         for (int j = 0; j < 11; j++) {
@@ -34,23 +41,23 @@ void CInputCheckManager::fn_801E8118(void) {
         }
 
         if (controller->unk136CCheck() && gInputCheckManager->getUnk42E()) {
-            gInputCheckManager->fn_801E923C(i1C + 6);
+            gInputCheckManager->fn_801E923C(i1C + eInputType_Trigger_6);
             lbl_803D5D78[i + 0] = 0;
             lbl_803D5D78[i + 8] = 0;
         } else {
-            tempUnk4A4 = gInputCheckManager->getUnk4A4(6 + i * 0x1c);
+            tempUnk4A4 = gInputCheckManager->getUnk4A4(eInputType_Trigger_6 + i * eInputType_Num);
             if (lbl_803D5D78[i + 0] != 0) {
                 lbl_803D5D78[i + 0]--;
                 if (lbl_803D5D78[i + 0] == 0) {
-                    gInputCheckManager->fn_801E923C(i1C + 4);
+                    gInputCheckManager->fn_801E923C(i1C + eInputType_TriggerA);
                 }
             } else {
-                if ((controller->getUnk133C() & 0x800) != 0) {
+                if ((controller->getUnk133C() & WPAD_BUTTON_A) != 0) {
                     if (gInputCheckManager->getUnk498() || 
                         gInputCheckManager->fn_801E93E0(tempUnk4A4, -12.0f, 12.0f)) {
                         lbl_803D5D78[i + 0] = 3;
                     } else {
-                        gInputCheckManager->fn_801E923C(i1C + 4);
+                        gInputCheckManager->fn_801E923C(i1C + eInputType_TriggerA);
                     }
                 }
             }
@@ -58,38 +65,38 @@ void CInputCheckManager::fn_801E8118(void) {
             if (lbl_803D5D78[i + 8] != 0) {
                 lbl_803D5D78[i + 8]--;
                 if (lbl_803D5D78[i + 8] == 0) {
-                    gInputCheckManager->fn_801E923C(i1C + 5);
+                    gInputCheckManager->fn_801E923C(i1C + eInputType_TriggerB);
                 }
             } else {
-                if ((controller->getUnk133C() & 0x400) != 0) {
+                if ((controller->getUnk133C() & WPAD_BUTTON_B) != 0) {
                     if (gInputCheckManager->getUnk499() || 
                         gInputCheckManager->fn_801E93E0(tempUnk4A4, -12.0f, 12.0f)) {
                         lbl_803D5D78[i + 8] = 3;
                     } else {
-                        gInputCheckManager->fn_801E923C(i1C + 5);
+                        gInputCheckManager->fn_801E923C(i1C + eInputType_TriggerB);
                     }
                 }
             }
         }
 
         if (controller->unk136CCheck1() && gInputCheckManager->getUnk42E()) {
-            gInputCheckManager->fn_801E923C(i1C + 0x14);
+            gInputCheckManager->fn_801E923C(i1C + eInputType_Release_20);
             lbl_803D5D78[i + 4] = 0;
             lbl_803D5D78[i + 12] = 0;
         } else {
-            tempUnk4A4 = gInputCheckManager->getUnk4A4(6 + i * 0x1c + 0xe);
+            tempUnk4A4 = gInputCheckManager->getUnk4A4(eInputType_Release_20 + i * eInputType_Num);
             if (lbl_803D5D78[i + 4] != 0) {
                 lbl_803D5D78[i + 4]--;
                 if (lbl_803D5D78[i + 4] == 0) {
-                    gInputCheckManager->fn_801E923C(i1C + 0x12);
+                    gInputCheckManager->fn_801E923C(i1C + eInputType_ReleaseA);
                 }
             } else {
-                if ((controller->getUnk1340() & 0x800) != 0) {
+                if ((controller->getUnk1340() & WPAD_BUTTON_A) != 0) {
                     if (gInputCheckManager->getUnk49A() || 
                         gInputCheckManager->fn_801E93E0(tempUnk4A4, -12.0f, 12.0f)) {
                         lbl_803D5D78[i + 4] = 3;
                     } else {
-                        gInputCheckManager->fn_801E923C(i1C + 0x12);
+                        gInputCheckManager->fn_801E923C(i1C + eInputType_ReleaseA);
                     }
                 }
             }
@@ -97,15 +104,15 @@ void CInputCheckManager::fn_801E8118(void) {
             if (lbl_803D5D78[i + 12] != 0) {
                 lbl_803D5D78[i + 12]--;
                 if (lbl_803D5D78[i + 12] == 0) {
-                    gInputCheckManager->fn_801E923C(i1C + 0x13);
+                    gInputCheckManager->fn_801E923C(i1C + eInputType_ReleaseB);
                 }
             } else {
-                if ((controller->getUnk1340() & 0x400) != 0) {
+                if ((controller->getUnk1340() & WPAD_BUTTON_B) != 0) {
                     if (gInputCheckManager->getUnk49B() || 
                         gInputCheckManager->fn_801E93E0(tempUnk4A4, -12.0f, 12.0f)) {
                         lbl_803D5D78[i + 12] = 3;
                     } else {
-                        gInputCheckManager->fn_801E923C(i1C + 0x13);
+                        gInputCheckManager->fn_801E923C(i1C + eInputType_ReleaseB);
                     }
                 }
             }
@@ -120,16 +127,16 @@ void CInputCheckManager::fn_801E8560(void) {
 }
 
 s32 CInputCheckManager::fn_801E85AC(u32 arg0) {
-    if (0x1b >= arg0) {
+    if (((eInputType_Num * 0) <= arg0) && (((eInputType_Num * 1) - 1) >= arg0)) {
         return 0;
     }
-    if ((0x1c <= arg0) && (0x37 >= arg0)) {
+    if (((eInputType_Num * 1) <= arg0) && (((eInputType_Num * 2) - 1) >= arg0)) {
         return 1;
     }
-    if ((0x38 <= arg0) && (0x53 >= arg0)) {
+    if (((eInputType_Num * 2) <= arg0) && (((eInputType_Num * 3) - 1) >= arg0)) {
         return 2;
     }
-    if ((0x54 <= arg0) && (0x6f >= arg0)) {
+    if (((eInputType_Num * 3) <= arg0) && (((eInputType_Num * 4) - 1) >= arg0)) {
         return 3;
     }
     return -1;
@@ -190,9 +197,9 @@ void CInputCheckManager::fn_801E8A08(void) {
         unk414();
     }
     fn_801E8BD0();
-    resetUnk10();
-    // not matching in resetUnk0C
-    resetUnk0C();
+    updateUnk10();
+    // not matching in updateUnk0C
+    updateUnk0C();
 }
 
 
@@ -219,7 +226,7 @@ void CInputCheckManager::fn_801E8BD0(void) {
                 }
                 s32 temp_r27 = unkCheck(temp_r20) && (unk474[unk8A4(temp_r20)] > 0.0);
                 u8 sp8 = 0;
-                s32 temp_r27_1 = cur->_20(&sp8, temp_r27, sub->unk8);
+                s32 temp_r27_1 = cur->_20(sp8, temp_r27, sub->unk8);
                 switch (temp_r27_1) {
                     case 0:
                         temp_r23 = 1;

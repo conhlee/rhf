@@ -2535,6 +2535,8 @@ GameUtil/SoundManager.cpp:
 
 GameUtil/InputChecker.cpp:
 	.text       start:0x801E7B40 end:0x801E8118
+	.data       start:0x8031E948 end:0x8031E980
+	.sdata2     start:0x80329718 end:0x80329740
 
 GameUtil/InputCheckManager.cpp:
 	.text       start:0x801E8118 end:0x801E9D90
