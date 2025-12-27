@@ -20,6 +20,10 @@ public:
 
     void fn_8003A898(s32 cursorIndex, bool visible);
 
+    void setEnabled(bool enable) {
+        mCursorDrawEnable = enable;
+    }
+
 private:
     enum { CURSOR_COUNT = 2 };
 
@@ -28,7 +32,13 @@ private:
     nw4r::lyt::Pane *mPaneSRot[CURSOR_COUNT];
     nw4r::lyt::Pane *mPaneRot[CURSOR_COUNT];
 
-    u8 mUnk34[7];
+    // NOTE: technically useless; the base class already has the
+    // property mDrawEnable
+    bool mCursorDrawEnable;
+
+    bool mEnableTrans[CURSOR_COUNT];
+    bool mEnableRot[CURSOR_COUNT];
+    bool mEnableScale[CURSOR_COUNT];
 };
 
 #endif

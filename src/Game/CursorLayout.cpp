@@ -36,13 +36,13 @@ void CCursorLayout::_10(void) {
 
     this->CLayout::_10();
 
-    mUnk34[0] = 1; // 34
-    mUnk34[1] = 1; // 35
-    mUnk34[3] = 1; // 37
-    mUnk34[5] = 1; // 39
-    mUnk34[2] = 1; // 36
-    mUnk34[4] = 1; // 38
-    mUnk34[6] = 1; // 3A
+    mCursorDrawEnable = true;
+
+    for (s32 i = 0; i < CURSOR_COUNT; i++) {
+        mEnableTrans[i] = true;
+        mEnableRot[i] = true;
+        mEnableScale[i] = true;
+    }
 
     mPaneTrans[0]->SetVisible(true);
     for (s32 i = 1; i < CURSOR_COUNT; i++) {
@@ -57,7 +57,7 @@ void CCursorLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
         if (mPaneTrans[i]->IsVisible()) {
             CController *controller = gControllerManager->fn_801D5FF0(i);
 
-            if (mUnk34[1 + i]) {
+            if (mEnableTrans[i]) {
                 if (controller->fn_801D52D4()) {
                     mPaneTrans[i]->SetTranslate(nw4r::math::VEC2(
                         controller->fn_801D523C(this).x,
@@ -71,7 +71,7 @@ void CCursorLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 }
             }
 
-            if (mUnk34[3 + i]) {
+            if (mEnableRot[i]) {
                 if (controller->fn_801D52D4()) {
                     f32 rot = controller->fn_801D547C();
 
@@ -84,7 +84,7 @@ void CCursorLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 }
             }
 
-            if (mUnk34[5 + i]) {
+            if (mEnableScale[i]) {
                 mPaneTrans[i]->SetScale(nw4r::math::VEC2(1.0f, 1.0f));
             }
         }
@@ -98,7 +98,7 @@ void CCursorLayout::_1C(nw4r::lyt::DrawInfo *drawInfo) {
         return;
     }
 
-    if (!mUnk34[0]) {
+    if (!mCursorDrawEnable) {
         return;
     }
 
