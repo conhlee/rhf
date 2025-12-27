@@ -11,37 +11,37 @@ void CScene::fn_801D83DC(void) {
     fn_801D369C(mHeapGroup);
 
     switch (mState) {
-    case eState_Unprepared:
+    case eState_Initial:
         _10();
-        mState = eState_Preparing;
+        mState = eState_Loading;
         break;
-    case eState_Preparing:
+    case eState_Loading:
         if (_24()) {
             _14();
             if (mUnk04) {
                 _18();
                 mUnk04 = false;
             }
-            mState = eState_Prepared;
+            mState = eState_Ready;
             fn_801D3634();
         }
         break;
-    case eState_Prepared:
+    case eState_Ready:
         if (gGameManager->_30()) {
-            mState = eState_3;
+            mState = eState_Active;
         }
         break;
-    case eState_3:
+    case eState_Active:
         _18();
         break;
-    case eState_4:
+    case eState_ScheduleDown:
         if (gGameManager->_2C()) {
-            mState = eState_5;
+            mState = eState_Down;
         }
         break;
-    case eState_5:
+    case eState_Down:
         _20();
-        mState = eState_Final;
+        mState = eState_Dead;
         break;
     }
 
@@ -49,14 +49,13 @@ void CScene::fn_801D83DC(void) {
 }
 
 void CScene::fn_801D8554(void) {
-    if (!((mState == eState_Prepared) || (mState == eState_3) || (mState == eState_4))) {
-        return;
+    if (((mState == eState_Ready) || (mState == eState_Active) || (mState == eState_ScheduleDown))) {
+        _1C();
     }
-    _1C();
 }
 
 void CScene::fn_801D8578(void) {
-    mState = eState_4;
+    mState = eState_ScheduleDown;
     gGameManager->_28();
 }
 

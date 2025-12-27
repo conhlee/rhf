@@ -64,14 +64,14 @@ void CGameManager::_14(void) {
 void CGameManager::_18(void) {}
 
 void CGameManager::_1C(CScene::CreateFn initSceneCreateFn, CFaderFlash *fader, u16 initSceneHeapGroup) {
-    MEMGetTotalFreeSizeForExpHeap(lbl_80320F80); // Unused
-    MEMGetTotalFreeSizeForExpHeap(lbl_80320F84); // Unused
+    u32 freeInMEM1 = MEMGetTotalFreeSizeForExpHeap(lbl_80320F80); // Unused
+    u32 freeInMEM2 = MEMGetTotalFreeSizeForExpHeap(lbl_80320F84); // Unused
 
     mCurrentScene = initSceneCreateFn(initSceneHeapGroup);
     mFader = fader;
 
     while (TRUE) {
-        if (mCurrentScene->getState() == CScene::eState_3) {
+        if (mCurrentScene->getState() == CScene::eState_Active) {
             gControllerManager->_18();
         }
 
@@ -84,7 +84,7 @@ void CGameManager::_1C(CScene::CreateFn initSceneCreateFn, CFaderFlash *fader, u
 
         gCheckPointManager->fn_801EAE20();
 
-        if (mCurrentScene->getState() == CScene::eState_Final) {
+        if (mCurrentScene->getState() == CScene::eState_Dead) {
             u16 heapGroup = mCurrentScene->getHeapGroup();
             mCurrentScene->fn_801D83BC();
 
@@ -94,7 +94,7 @@ void CGameManager::_1C(CScene::CreateFn initSceneCreateFn, CFaderFlash *fader, u
             mCurrentScene = mNextSceneCreateFunc(mNextSceneHeapGroup);
         }
 
-        bool wasPreparing = mCurrentScene->getState() == CScene::eState_Preparing;
+        bool wasLoading = mCurrentScene->getState() == CScene::eState_Loading;
 
         mCurrentScene->fn_801D83DC();
 
@@ -102,9 +102,9 @@ void CGameManager::_1C(CScene::CreateFn initSceneCreateFn, CFaderFlash *fader, u
 
         gSoundManager->fn_801E4D60();
         
-        bool nowPrepared = mCurrentScene->getState() == CScene::eState_Prepared;
+        bool nowReady = mCurrentScene->getState() == CScene::eState_Ready;
 
-        if (wasPreparing && nowPrepared && mNextTickFlowCode != NULL) {
+        if (wasLoading && nowReady && (mNextTickFlowCode != NULL)) {
             gTickFlowManager->fn_801E1CC0(mNextTickFlowCode);
             mNextTickFlowCode = NULL;
         }
@@ -121,7 +121,7 @@ void CGameManager::_1C(CScene::CreateFn initSceneCreateFn, CFaderFlash *fader, u
 
         gGraphicManager->fn_801D6478();
 
-        if (mCurrentScene->getState() == CScene::eState_3) {
+        if (mCurrentScene->getState() == CScene::eState_Active) {
             gControllerManager->_1C();
         }
     }

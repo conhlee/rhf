@@ -19,13 +19,13 @@ class CScene {
 public:
     typedef CScene *(*CreateFn)(u16 heapGroup);
     enum EState {
-        eState_Unprepared = 0,
-        eState_Preparing = 1,
-        eState_Prepared = 2,
-        eState_3 = 3,
-        eState_4 = 4,
-        eState_5 = 5,
-        eState_Final = 6
+        eState_Initial = 0, // Scene object was just created
+        eState_Loading = 1, // Scene object is busy preparing
+        eState_Ready = 2, /// Scene object has finished preparing and is ready to become active
+        eState_Active = 3, // Scene object is active (running)
+        eState_ScheduleDown = 4, // Scene object has been requested to go down
+        eState_Down = 5, // Scene object is down, busy deconstructing
+        eState_Dead = 6 // Scene object has been deconstructed, will now be freed
     };
 
     virtual void _08(void); // deinit
@@ -38,7 +38,7 @@ public:
     virtual bool _24(void); // areAssetsReady
 
     CScene(void) {
-        mState = eState_Unprepared;
+        mState = eState_Initial;
         mUnk04 = true;
     }
 
