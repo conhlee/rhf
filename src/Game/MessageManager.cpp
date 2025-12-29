@@ -2,92 +2,6 @@
 
 #include "FileManager.hpp"
 
-struct BMGBlockHeader {
-    u32 type;
-    u32 dataSize;
-
-    BMGBlockHeader *getNext(void) {
-        return reinterpret_cast<BMGBlockHeader *>(
-            reinterpret_cast<u8 *>(this) + dataSize
-        );
-    }
-};
-
-enum {
-    BMG_BLOCK_INF1 = 0x494e4631,
-    BMG_BLOCK_DAT1 = 0x44415431,
-    BMG_BLOCK_STR1 = 0x53545231,
-    BMG_BLOCK_MID1 = 0x4d494431,
-};
-
-struct BMGFileHeader {
-    enum EEncoding {
-        ENCODING_1BYTE,
-        ENCODING_2BYTE,
-        ENCODING_SJIS,
-        ENCODING_UTF8,
-    };
-
-    u32 signature;
-    u32 type;
-    u32 dataSize;
-    u32 numBlocks;
-
-    u8 mEncoding; // EEncoding
-
-    u8 mUnk11[0x20 - 0x11];
-
-    BMGBlockHeader mFirstBlock[1];
-};
-
-struct BMGMessageInfo {
-    struct Entry {
-        u32 dataOffset;
-        u32 attribute;
-    };
-
-    u16 numEntries;
-    u16 entrySize;
-    u16 groupID;
-    Entry entries[1];
-};
-
-struct BMGMessageData {
-    wchar_t data[1];
-};
-
-struct BMGStringAttributeInfo {};
-
-struct BMGMessageIDInfo {
-    u16 numEntries;
-    u8 form;
-    u8 formSupplement;
-    u8 reserved[4];
-    u32 entries[];
-};
-
-enum {
-    ID_INVALID = 10000001
-};
-
-class CBMGRes {
-public:
-    CBMGRes(void);
-    ~CBMGRes(void);
-
-    void init(u32 arcIndex, const char *pathInArc);
-    wchar_t *getString(u32 id);
-
-private:
-    void *mData;
-
-    BMGFileHeader *mFileHeader;
-    BMGMessageInfo *mMessageInfo;
-    BMGMessageData *mMessageData;
-    BMGStringAttributeInfo *mStrAttributeInfo;
-    BMGMessageIDInfo *mMessageIDInfo;
-};
-
 CBMGRes::CBMGRes(void) {
     mData = NULL;
 
@@ -131,7 +45,7 @@ void CBMGRes::init(u32 arcIndex, const char *pathInArc) {
 
 // TODO: match (regswaps)
 wchar_t *CBMGRes::getString(u32 id) {
-    if (id == ID_INVALID) {
+    if (id == MESG_ID_INVALID) {
         return L"???";
     }
     else {
@@ -158,41 +72,41 @@ wchar_t *CBMGRes::getString(u32 id) {
 }
 
 // TODO: match (logic issues)
-s32 fn_80087708(const char *string) {
+s32 CMessageManager::fn_80087708(const char *string) {
     s32 finalValue = 0;
 
     if (string[0] < '0' || string[0] > '9') {
-        return ID_INVALID;
+        return MESG_ID_INVALID;
     }
     finalValue = (string[0] - '0') * 1000000;
 
     if (string[1] < '0' || string[1] > '9') {
-        return ID_INVALID;
+        return MESG_ID_INVALID;
     }
     finalValue += (string[1] - '0') * 100000;
 
     if (string[2] < '0' || string[2] > '9') {
-        return ID_INVALID;
+        return MESG_ID_INVALID;
     }
     finalValue += (string[2] - '0') * 10000;
     
     if (string[3] < '0' || string[3] > '9') {
-        return ID_INVALID;
+        return MESG_ID_INVALID;
     }
     finalValue += (string[3] - '0') * 1000;
 
     if (string[4] < '0' || string[4] > '9') {
-        return ID_INVALID;
+        return MESG_ID_INVALID;
     }
     finalValue += (string[4] - '0') * 100;
 
     if (string[5] < '0' || string[5] > '9') {
-        return ID_INVALID;
+        return MESG_ID_INVALID;
     }
     finalValue += (string[5] - '0') * 10;
 
     if (string[6] < '0' || string[6] > '9') {
-        return ID_INVALID;
+        return MESG_ID_INVALID;
     }
     finalValue += (string[6] - '0');
 
