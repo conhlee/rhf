@@ -13,10 +13,10 @@
 
 struct SeqTempo {
     enum EType {
-        eType_Immediate, // tempoOrSID represents the tempo.
-        eType_WaveInfoRef, // tempoOrSID represents a wave sound ID; the wave info table is consulted for the tempo.
-        eType_Alias, // tempoOrSID is the sound ID of another SeqTempo entry; that entry is consulted for the tempo.
-        eType_FromPrev // tempoOrSID is unused; the last entry (without the type FromPrev) is consulted for the tempo.
+        eType_Immediate,    // tempoOrSID represents the tempo.
+        eType_WaveInfoRef,  // tempoOrSID represents a wave sound ID; the wave info table is consulted for the tempo.
+        eType_Alias,        // tempoOrSID is the sound ID of another SeqTempo entry; that entry is consulted for the tempo.
+        eType_FromPrev      // tempoOrSID is unused; the last entry (without the type FromPrev) is consulted for the tempo.
     };
 
     u16 soundID;
