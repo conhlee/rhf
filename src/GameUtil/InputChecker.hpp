@@ -28,8 +28,6 @@ public:
 
     CInputChecker(void);
 
-    // TODO
-
     void fn_801E7D5C(u32);
     void fn_801E7D6C(u32);
     void fn_801E7D8C(void);
@@ -70,15 +68,15 @@ private:
     u32 unk30[8];
     u8 unk50;
     u8 unk51;
-    f32 unk54;
-    f32 unk58;
-    f32 unk5C;
-    f32 unk60;
-    f32 unk64;
-    f32 unk68;
-    f32 unk6C;
-    u8 unk70;
-    u8 unk71;
+    f32 mTickPass;
+    f32 mTickJust;
+    f32 mRangeMissF;
+    f32 mRangeJustF;
+    f32 mRangeJustB;
+    f32 mRangeMissB;
+    f32 mLag;
+    bool unk70;
+    bool unk71;
     bool unk72;
     u32 unk74;
     u8 unk78;

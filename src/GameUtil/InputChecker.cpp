@@ -7,24 +7,22 @@ CInputChecker::CInputChecker() {
     unk2C = 0;
     unk50 = 0;
     unk51 = 0;
-    unk54 = 0.0f;
-    unk71 = 0;
-    unk72 = 0;
+    mTickPass = 0.0f;
+    unk71 = false;
+    unk72 = false;
     unk74 = 2;
-    unk70 = 1;
+    unk70 = true;
     unk78 = gCheckPointManager->getUnkC5();
 }
 
-CInputChecker::~CInputChecker() {
-
-}
+CInputChecker::~CInputChecker() {}
 
 void CInputChecker::_14(void) {
     this->~CInputChecker();
 }
 
 u32 CInputChecker::_18(void) {
-    unk54 += gTickFlowManager->fn_801E2698();
+    mTickPass += gTickFlowManager->fn_801E2698();
     if (unk71 && !unk72 && unk50 && (unk74 <= 1) && unk51 && !(--unk51)) {
         unk72 = true;
         _34();
@@ -33,8 +31,8 @@ u32 CInputChecker::_18(void) {
         }
     }
 
-    if (!unk71 && (unk54 > (unk58 + unk68))) {
-        unk71 = 1;
+    if (!unk71 && (mTickPass > (mTickJust + mRangeMissB))) {
+        unk71 = true;
         gInputCheckManager->fn_801E9488(0);
         gCheckPointManager->fn_801EAF2C(unk78, 2);
         if (_2C()) {
@@ -72,33 +70,33 @@ void CInputChecker::fn_801E7DB4(u32 arg0) {
 }
 
 void CInputChecker::fn_801E7DBC(f32 tickJust, f32 rangeMissF, f32 rangeJustF, f32 rangeJustB, f32 rangeMissB) {
-    unk58 = tickJust;
-    unk5C = rangeMissF;
-    unk60 = rangeJustF;
-    unk64 = rangeJustB;
-    unk68 = rangeMissB;
+    mTickJust = tickJust;
+    mRangeMissF = rangeMissF;
+    mRangeJustF = rangeJustF;
+    mRangeJustB = rangeJustB;
+    mRangeMissB = rangeMissB;
 }
 
 void CInputChecker::fn_801E7DD4(f32 *tickJust, f32 *rangeMissF, f32 *rangeJustF, f32 *rangeJustB, f32 *rangeMissB) {
-    if (tickJust) {
-        *tickJust = unk58;
+    if (tickJust != NULL) {
+        *tickJust = mTickJust;
     }
-    if (rangeMissF) {
-        *rangeMissF = unk5C;
+    if (rangeMissF != NULL) {
+        *rangeMissF = mRangeMissF;
     }
-    if (rangeJustF) {
-        *rangeJustF = unk60;
+    if (rangeJustF != NULL) {
+        *rangeJustF = mRangeJustF;
     }
-    if (rangeJustB) {
-        *rangeJustB = unk64;
+    if (rangeJustB != NULL) {
+        *rangeJustB = mRangeJustB;
     }
-    if (rangeMissB) {
-        *rangeMissB = unk68;
+    if (rangeMissB != NULL) {
+        *rangeMissB = mRangeMissB;
     }
 }
 
 bool CInputChecker::fn_801E7E28(u32 arg0) {
-    for (int i = 0; i < unk2C; i++) {
+    for (s32 i = 0; i < unk2C; i++) {
         if (unk0C[i] == arg0) {
             return true;
         }
@@ -111,7 +109,7 @@ bool CInputChecker::fn_801E7E5C(u32 arg0) {
 }
 
 bool CInputChecker::fn_801E7E70(u32 arg0) {
-    for (int i = 0; i < unk50; i++) {
+    for (s32 i = 0; i < unk50; i++) {
         if (unk30[i] == arg0) {
             unk72 = true;
             return true;
@@ -125,25 +123,25 @@ u32 CInputChecker::_20(u8 &arg0, u32 arg1, f32 arg2) {
         return 2;
     }
 
-    f32 rangeMissF = unk5C;
-    f32 rangeJustF = unk60;
-    f32 rangeJustB = unk64;
-    f32 rangeMissB = unk68;
-    unk6C = (unk54 - unk58) - arg2;
+    f32 rangeMissF = mRangeMissF;
+    f32 rangeJustF = mRangeJustF;
+    f32 rangeJustB = mRangeJustB;
+    f32 rangeMissB = mRangeMissB;
+    mLag = (mTickPass - mTickJust) - arg2;
     if (arg1) {
         fn_801E80BC(rangeMissF, rangeJustF, rangeJustB, rangeMissB);
     }
-    if ((rangeJustF <= unk6C) && (unk6C <= rangeJustB)) {
+    if ((rangeJustF <= mLag) && (mLag <= rangeJustB)) {
         f32 just = rangeJustB - rangeJustF;
-        unk71 = 1;
-        f32 justF = (just <= 4.0f) ? rangeJustF : rangeJustF + just / 4.0f;
-        f32 justB = (just <= 4.0f) ? rangeJustB : rangeJustB - just / 4.0f;
-        arg0 = ((justF <= unk6C) && (unk6C <= justB)) ? 100 : 95;
+        unk71 = true;
+        f32 justF = (just <= 4.0f) ? rangeJustF : (rangeJustF + just / 4.0f);
+        f32 justB = (just <= 4.0f) ? rangeJustB : (rangeJustB - just / 4.0f);
+        arg0 = ((justF <= mLag) && (mLag <= justB)) ? 100 : 95;
         unk74 = 0;
         return 0;
     }
-    if ((rangeMissF <= unk6C) && (unk6C <= rangeMissB)) {
-        unk71 = 1;
+    if ((rangeMissF <= mLag) && (mLag <= rangeMissB)) {
+        unk71 = true;
         arg0 = 80;
         unk74 = 1;
         return 1;
@@ -152,9 +150,9 @@ u32 CInputChecker::_20(u8 &arg0, u32 arg1, f32 arg2) {
 }
 
 bool CInputChecker::fn_801E8018(f32 arg0, f32 arg1) {
-    f32 currTick = unk58 - unk54;
-    f32 missF = currTick + unk5C;
-    f32 missB = currTick + unk68;
+    f32 currTick = mTickJust - mTickPass;
+    f32 missF = currTick + mRangeMissF;
+    f32 missB = currTick + mRangeMissB;
     return ((missF < arg1) && (arg0 < missB));
 }
 
@@ -174,9 +172,7 @@ u32 CInputChecker::_30(u32 arg0) {
     return 1;
 }
 
-void CInputChecker::finalInsert(void) {
-
-}
+void CInputChecker::finalInsert(void) {}
 
 void CInputChecker::finalDestroy(void) {
     _14();
@@ -184,12 +180,11 @@ void CInputChecker::finalDestroy(void) {
 }
 
 void CInputChecker::fn_801E80BC(f32 &rangeMissF, f32 &rangeJustF, f32 &rangeJustB, f32 &rangeMissB) {
-    if (!((rangeJustB - rangeJustF) > 4.0)) {
-        return;
+    if ((rangeJustB - rangeJustF) > 4.0) {
+        f32 mid = (rangeJustB + rangeJustF) / 2;
+        rangeMissF = mid - 4.0;
+        rangeJustF = mid - 1.0;
+        rangeJustB = mid + 1.0;
+        rangeMissB = mid + 4.0;
     }
-    f32 mid = (rangeJustB + rangeJustF) / 2;
-    rangeMissF = mid - 4.0;
-    rangeJustF = mid - 1.0;
-    rangeJustB = mid + 1.0;
-    rangeMissB = mid + 4.0;
 }
