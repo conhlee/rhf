@@ -19,6 +19,7 @@ void CList::insertBefore(CList *list) {
     if (mPrev != NULL) {
         mPrev->mNext = this;
     }
+
     finalInsert();
 }
 
@@ -32,6 +33,7 @@ void CList::insertAfter(CList *list) {
     if (mPrev != NULL) {
         mPrev->mNext = this;
     }
+
     finalInsert();
 }
 
@@ -45,14 +47,12 @@ void CList::removeCurrent(void) {
 
     mNext = NULL;
     mPrev = NULL;
+
     finalDestroy();
 }
 
 void CList::removeAll(void) {
-    CList *current = this;
-    CList *next;
-
-    while (current != NULL) {
+    for (CList *current = this, *next; current != NULL; current = next) {
         next = current->mNext;
 
         if (next != NULL) {
@@ -64,8 +64,7 @@ void CList::removeAll(void) {
 
         current->mNext = NULL;
         current->mPrev = NULL;
+    
         current->finalDestroy();
-
-        current = next;
     }
 }
