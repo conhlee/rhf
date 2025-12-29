@@ -56,6 +56,10 @@ public:
         fn_801DA094(FALSE);
         playFromBeginning();
     }
+    void playFromBeginReverse(void) {
+        fn_801DA094(TRUE);
+        playFromBeginning();
+    }
 
 private:
     nw4r::lyt::Layout *mLayout;

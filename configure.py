@@ -383,6 +383,7 @@ config.libs = [
             Object(Matching, "Game/Strap/MyFlow.cpp"),
             Object(Matching, "Game/MyCanvas.cpp"),
             Object(Matching, "Game/DynTex.cpp"),
+            Object(Matching, "Game/ModeChangeLayout.cpp"),
             Object(Matching, "Game/SNDHeap.cpp"),
             Object(NonMatching, "Game/EndlessCounter.cpp"),
             Object(NonMatching, "Game/HBMManager.cpp"),

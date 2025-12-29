@@ -285,6 +285,12 @@ Game/MyCanvas.cpp:
 Game/DynTex.cpp:
 	.text       start:0x8007C288 end:0x8007C474
 
+Game/ModeChangeLayout.cpp:
+	.text       start:0x800832D4 end:0x8008357C
+	.rodata     start:0x80255410 end:0x80255488
+	.data       start:0x802ECA48 end:0x802ECA78
+	.sdata      start:0x8031F488 end:0x8031F498
+
 Game/SNDHeap.cpp:
 	.text       start:0x8008357C end:0x800836E8
 	.rodata     start:0x80255488 end:0x802554A8
