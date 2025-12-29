@@ -24,7 +24,8 @@ CFileManager::~CFileManager(void) {
     _08();
 }
 
-#define THREAD_STACK_SIZE (0xA00) // In words.
+// In words.
+static const u32 THREAD_STACK_SIZE = 0xA00;
 
 void CFileManager::_10(s32 maxFileCount, s32 maxArchiveCount) {
     mMaxArchiveCount = maxArchiveCount;
@@ -312,9 +313,9 @@ void *CFileManager::fn_801D46A4(void *data, BOOL deleteSrc, s32 arcInfoIdx, EHea
         sDecompThreadData.deleteSrc = deleteSrc;
 
         OSCreateThread(
-            &gFileManager->mThread,
-            fn_801D47B8, &sDecompThreadData,
-            &gFileManager->mThreadStack[THREAD_STACK_SIZE], THREAD_STACK_SIZE * sizeof(u32),
+            &gFileManager->mThread, fn_801D47B8, &sDecompThreadData,
+            &gFileManager->mThreadStack[THREAD_STACK_SIZE],
+            sizeof(gFileManager->mThreadStack[0]) * THREAD_STACK_SIZE,
             OS_PRIORITY_MAX, OS_THREAD_DETACHED
         );
         OSResumeThread(&gFileManager->mThread);

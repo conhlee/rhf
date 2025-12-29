@@ -114,6 +114,7 @@ public:
         u8 _pad00[0x44];
     };
 
+public:
     char mLocaleDir[4];
 
     s32 mMaxFileCount;
