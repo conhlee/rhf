@@ -101,18 +101,18 @@ enum {
 
 #define TFD_EXTERN(name) extern const TickFlowCode name[];
 
-#define TFD_STOP() \
-    TF_STOP        \
-    TFD_END()
-#define TFD_RETURN() \
-    TF_RETURN        \
-    TFD_END()
-
 #define TFD_CMD(command, argc, arg0) (                        \
     (((TickFlowCode)(command) & 0x3FFu)  <<  0) | /* 10bit */ \
     (((TickFlowCode)(argc)    & 0xFu)    << 10) | /* 4bit  */ \
     (((TickFlowCode)(arg0)    & 0x3FFFu) << 14)   /* 14bit */ \
 )
+
+#define TFD_STOP()         \
+    TFD_CMD(TF_STOP, 0, 0) \
+    TFD_END()
+#define TFD_RETURN()         \
+    TFD_CMD(TF_RETURN, 0, 0) \
+    TFD_END()
 
 #define TFD_CAST(value) ((TickFlowCode)(value))
 #define TFD_PCAST(ptr) ((TickFlowCode)(const void *)(ptr))
