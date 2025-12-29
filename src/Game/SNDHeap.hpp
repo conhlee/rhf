@@ -17,6 +17,8 @@ enum ESoundHeap {
     eSoundHeap_Count
 };
 
+extern bool lbl_80320440;
+
 void fn_8008357C(void);
 
 void fn_80083630(u16 groupID, ESoundHeap heap);

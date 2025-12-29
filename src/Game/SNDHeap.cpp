@@ -6,13 +6,13 @@
 
 #include "Mem.hpp"
 
-const u32 sSoundHeapAllocSize[eSoundHeap_Count] = {
+static const u32 sSoundHeapAllocSize[eSoundHeap_Count] = {
     0x200000, // eSoundHeap_0
     0x800000, // eSoundHeap_1
     0x399999, // eSoundHeap_2
     0x380000, // eSoundHeap_3
 };
-const EHeapMEM sSoundHeapAllocHeap[eSoundHeap_Count] = {
+static const EHeapMEM sSoundHeapAllocHeap[eSoundHeap_Count] = {
     eHeap_MEM1, // eSoundHeap_0
     eHeap_MEM1, // eSoundHeap_1
     eHeap_MEM1, // eSoundHeap_2
