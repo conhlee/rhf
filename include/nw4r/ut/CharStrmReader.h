@@ -2,6 +2,8 @@
 #define NW4R_UT_CHAR_STRM_READER_H
 #include <revolution/types.h>
 
+#include <nw4r/db.h>
+
 namespace nw4r {
 namespace ut {
 
@@ -28,8 +30,14 @@ public:
         return mCharStrm;
     }
 
-    void Set(const char* pStrm) {
-        mCharStrm = pStrm;
+    void Set(const char* stream) {
+        NW4R_ASSERT_PTR(this, 50);
+        NW4R_ASSERT_PTR(stream, 51);
+
+
+        NW4R_ASSERT(mReadFunc == ReadNextCharUTF8 || mReadFunc == ReadNextCharCP1252 || mReadFunc == ReadNextCharSJIS, 54);
+
+        mCharStrm = stream;
     }
     void Set(const wchar_t* pStrm) {
         mCharStrm = pStrm;
