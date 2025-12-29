@@ -250,7 +250,7 @@ void CSceneMetroman::_20(void) {
 }
 
 void CSceneMetroman::fn_800D8890(u32 button) {
-    if (button == 4) {
+    if (button == eInputType_TriggerA) {
         switch (mManNextDirection) {
         case 1:
             mManAnim->fn_801DD0AC(metroman_00_man_up_R);

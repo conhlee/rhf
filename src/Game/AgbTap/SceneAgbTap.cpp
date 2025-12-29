@@ -251,7 +251,7 @@ void CSceneAgbTap::_20(void) {
 }
 
 void CSceneAgbTap::fn_800A9698(u32 button, s32 type) {
-    if (button == 4) {
+    if (button == eInputType_TriggerA) {
         if (type == 0) {
             fn_800A9924();
             gSoundManager->play(SE_AGB_TAP_KICK_LADY);

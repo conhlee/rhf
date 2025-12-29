@@ -36,7 +36,7 @@ s32 sceneVer;
 
 void CSceneAgbGhost::fn_800A75DC(u32 button) {
     CSceneAgbGhost *scene = gGameManager->getCurrentScene<CSceneAgbGhost>();
-    if (button == 4) {
+    if (button == eInputType_TriggerA) {
         bool isArrowReady = (scene->mBowArrowAnim->getAnimID() == 3) &&
                             (scene->mBowArrowAnim->fn_801DD43C() != 0);
         if (isArrowReady) {
@@ -240,7 +240,7 @@ void CSceneAgbGhost::_20(void) {
 }
 
 void CSceneAgbGhost::fn_800A7FA8(u32 button, u32 type) {
-    if (button == 4) {
+    if (button == eInputType_TriggerA) {
         bool isArrowReady = (mBowArrowAnim->getAnimID() == 3) &&
                             (mBowArrowAnim->fn_801DD43C() != 0);
         if (isArrowReady) {

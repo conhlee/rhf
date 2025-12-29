@@ -848,7 +848,7 @@ TFD_BEGIN(lbl_8023F65C)
 TFD_STOP()
 
 void CSceneRap::fn_8005128C(u32 button, s32 type, f32 ticks) {
-    if (button == 4) {
+    if (button == eInputType_TriggerA) {
         if (type == 0) {
             switch (mUnk34) {
             case 0: {
