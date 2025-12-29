@@ -41,7 +41,7 @@ void CPauseLayout::_10(void) {
     buildLayout(layoutBin, resAccessor);
 
     for (u32 i = 0; (s32)i < (s32)ARRAY_LENGTH(layoutAnimTable); i++) {
-        getAnimation(i)->fn_801D9E70(getLayout(), NULL, layoutAnimTable[i], resAccessor, true);
+        getAnimation(i)->fn_801D9E70(getLayout(), NULL, layoutAnimTable[i], resAccessor);
     }
     getAnimation(2)->setLoop(true);
 

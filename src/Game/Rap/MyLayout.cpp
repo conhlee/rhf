@@ -18,24 +18,24 @@ void Rap::CMyLayout::_10(void) {
 
     gMessageManager->fn_80088474(getLayout()->GetRootPane());
 
-    mNullMessage00 = getLayout()->GetRootPane()->FindPaneByName("N_message_00", true);
-    mNullMissMsg00 = getLayout()->GetRootPane()->FindPaneByName("N_miss_msg_00", true);
-    mNullMessage01 = getLayout()->GetRootPane()->FindPaneByName("N_message_01", true);
-    mNullMessage02 = getLayout()->GetRootPane()->FindPaneByName("N_message_02", true);
+    mNullMessage00 = getLayout()->GetRootPane()->FindPaneByName("N_message_00");
+    mNullMissMsg00 = getLayout()->GetRootPane()->FindPaneByName("N_miss_msg_00");
+    mNullMessage01 = getLayout()->GetRootPane()->FindPaneByName("N_message_01");
+    mNullMessage02 = getLayout()->GetRootPane()->FindPaneByName("N_message_02");
 
     mTagProcessor = new CMyTagProcessor;
 
     mTextMessage00 = static_cast<nw4r::lyt::TextBox *>(
-        getLayout()->GetRootPane()->FindPaneByName("T_message_00", true)
+        getLayout()->GetRootPane()->FindPaneByName("T_message_00")
     );
     mTextMissMsg00 = static_cast<nw4r::lyt::TextBox *>(
-        getLayout()->GetRootPane()->FindPaneByName("T_miss_msg_00", true)
+        getLayout()->GetRootPane()->FindPaneByName("T_miss_msg_00")
     );
     mTextMessage01 = static_cast<nw4r::lyt::TextBox *>(
-        getLayout()->GetRootPane()->FindPaneByName("T_message_01", true)
+        getLayout()->GetRootPane()->FindPaneByName("T_message_01")
     );
     mTextMessage02 = static_cast<nw4r::lyt::TextBox *>(
-        getLayout()->GetRootPane()->FindPaneByName("T_message_02", true)
+        getLayout()->GetRootPane()->FindPaneByName("T_message_02")
     );
 
     mTextMessage00->SetTagProcessor(mTagProcessor);
@@ -43,14 +43,14 @@ void Rap::CMyLayout::_10(void) {
     mTextMessage01->SetTagProcessor(mTagProcessor);
     mTextMessage02->SetTagProcessor(mTagProcessor);
 
-    getAnimation(0)->fn_801D9E70(getLayout(), mNullMessage00, "rap_show", resAccessor, true);
-    getAnimation(1)->fn_801D9E70(getLayout(), mNullMissMsg00, "rap_show", resAccessor, true);
-    getAnimation(2)->fn_801D9E70(getLayout(), mNullMessage01, "rap_show", resAccessor, true);
-    getAnimation(3)->fn_801D9E70(getLayout(), mNullMessage02, "rap_show", resAccessor, true);
-    getAnimation(4)->fn_801D9E70(getLayout(), mNullMessage00, "rap_hide", resAccessor, true);
-    getAnimation(5)->fn_801D9E70(getLayout(), mNullMissMsg00, "rap_hide", resAccessor, true);
-    getAnimation(6)->fn_801D9E70(getLayout(), mNullMessage01, "rap_hide", resAccessor, true);
-    getAnimation(7)->fn_801D9E70(getLayout(), mNullMessage02, "rap_hide", resAccessor, true);
+    getAnimation(0)->fn_801D9E70(getLayout(), mNullMessage00, "rap_show", resAccessor);
+    getAnimation(1)->fn_801D9E70(getLayout(), mNullMissMsg00, "rap_show", resAccessor);
+    getAnimation(2)->fn_801D9E70(getLayout(), mNullMessage01, "rap_show", resAccessor);
+    getAnimation(3)->fn_801D9E70(getLayout(), mNullMessage02, "rap_show", resAccessor);
+    getAnimation(4)->fn_801D9E70(getLayout(), mNullMessage00, "rap_hide", resAccessor);
+    getAnimation(5)->fn_801D9E70(getLayout(), mNullMissMsg00, "rap_hide", resAccessor);
+    getAnimation(6)->fn_801D9E70(getLayout(), mNullMessage01, "rap_hide", resAccessor);
+    getAnimation(7)->fn_801D9E70(getLayout(), mNullMessage02, "rap_hide", resAccessor);
 
     this->CLayout::_10();
 

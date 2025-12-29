@@ -15,7 +15,7 @@ void Prologue::CMyLayout::_10(void) {
     buildLayout(layoutBin, resAccessor);
 
     CLayoutAnimation *animation = getAnimation(0);
-    animation->fn_801D9E70(getLayout(), NULL, "prologue_anim_00", resAccessor, true);
+    animation->fn_801D9E70(getLayout(), NULL, "prologue_anim_00", resAccessor);
 
     this->CLayout::_10();
 }

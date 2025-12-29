@@ -27,11 +27,11 @@ void Credit::CMyLayout::_10(void) {
 
     for (u8 i = 0; i < 4; i++) {
         sprintf(sPaneNameBuf, "N_name_%02d", i);
-        mPanesN[i] = getLayout()->GetRootPane()->FindPaneByName(sPaneNameBuf, true);
+        mPanesN[i] = getLayout()->GetRootPane()->FindPaneByName(sPaneNameBuf);
 
         sprintf(sPaneNameBuf, "T_name_%02d", i);
         mPanesT[i] = static_cast<nw4r::lyt::TextBox *>(
-            getLayout()->GetRootPane()->FindPaneByName(sPaneNameBuf, true)
+            getLayout()->GetRootPane()->FindPaneByName(sPaneNameBuf)
         );
 
         CTickFlow::fn_801DEF58(i + 1, mPanesT[i], NULL);

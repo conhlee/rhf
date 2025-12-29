@@ -18,10 +18,10 @@ void CBalloonLayout::fn_800399E4(void) {
 
     buildLayout(layoutBin, resAccessor);
 
-    mBoxParent = getLayout()->GetRootPane()->FindPaneByName("N_message_00", true);
-    mBoxTriangleStraight = getLayout()->GetRootPane()->FindPaneByName("P_triangle_00", true);
-    mBoxTriangleCurve = getLayout()->GetRootPane()->FindPaneByName("P_triangle_01", true);
-    mBoxWindow = getLayout()->GetRootPane()->FindPaneByName("W_message_00", true);
+    mBoxParent = getLayout()->GetRootPane()->FindPaneByName("N_message_00");
+    mBoxTriangleStraight = getLayout()->GetRootPane()->FindPaneByName("P_triangle_00");
+    mBoxTriangleCurve = getLayout()->GetRootPane()->FindPaneByName("P_triangle_01");
+    mBoxWindow = getLayout()->GetRootPane()->FindPaneByName("W_message_00");
     mBoxTextbox = static_cast<nw4r::lyt::TextBox *>(
         getLayout()->GetRootPane()->FindPaneByName("T_message_00", true)
     );
@@ -30,10 +30,10 @@ void CBalloonLayout::fn_800399E4(void) {
     mBoxTextTagProcessor = new CMyTagProcessor;
     mBoxTextbox->SetTagProcessor(mBoxTextTagProcessor);
 
-    mOverlayParent = getLayout()->GetRootPane()->FindPaneByName("N_message_01", true);
-    mOverlayPane = getLayout()->GetRootPane()->FindPaneByName("P_message_01", true);
+    mOverlayParent = getLayout()->GetRootPane()->FindPaneByName("N_message_01");
+    mOverlayPane = getLayout()->GetRootPane()->FindPaneByName("P_message_01");
     mOverlayTextbox = static_cast<nw4r::lyt::TextBox *>(
-        getLayout()->GetRootPane()->FindPaneByName("T_message_01", true)
+        getLayout()->GetRootPane()->FindPaneByName("T_message_01")
     );
     mOverlayTextbox->SetTextPositionH(nw4r::lyt::HORIZONTALPOSITION_LEFT);
 
