@@ -14,7 +14,7 @@ public:
     void fn_801D9E70(
         nw4r::lyt::Layout *layout, nw4r::lyt::Pane *pane,
         const char *animName, nw4r::lyt::ResourceAccessor *resAccessor,
-        bool recurseBind
+        bool recurseBind = true
     );
 
     void fn_801DA094(BOOL reverse);
@@ -50,6 +50,11 @@ public:
         fn_801DA20C();
         setIsPlaying(true);
         setSkipNextUpdate(true);
+    }
+
+    void playFromBeginForward(void) {
+        fn_801DA094(FALSE);
+        playFromBeginning();
     }
 
 private:

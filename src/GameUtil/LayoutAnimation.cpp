@@ -87,7 +87,7 @@ void CLayoutAnimation::fn_801DA354(void) {
                 frame = mFrame + mSpeed;
             }
             else {
-                frame = mSpeed * (60.f / 50.f) + mFrame;
+                frame = mFrame + (60.0f / 50.0f) * mSpeed;
             }
 
             while (frame >= fn_801DA600()) {
