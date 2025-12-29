@@ -86,7 +86,7 @@ public:
     static void fn_801E8560(void);
 
     CInputChecker *getUnk0C(void) {
-        return unk0C;
+        return mCheckerHead;
     }
 
     u8 getUnk42E(void) {
@@ -146,9 +146,9 @@ public:
     }
 
 private:
-    u8 *unk04;
-    MEMiHeapHead *unk08;
-    CInputChecker *unk0C;
+    u8 *mHeapStart;
+    MEMiHeapHead *mHeap;
+    CInputChecker *mCheckerHead;
     struct UnkSub {
         u8 unk0;
         u32 unk4;
@@ -195,13 +195,13 @@ private:
 
     void updateUnk0C(void) {
         // not matching: regswap cur/next
-        for (CInputChecker *cur = unk0C, *next; cur != NULL; cur = next) {
+        for (CInputChecker *cur = mCheckerHead, *next; cur != NULL; cur = next) {
             next = cur->getNext();
             if (!cur->_18()) {
                 continue;
             }
-            if (cur == unk0C) {
-                unk0C = cur->getNext();
+            if (cur == mCheckerHead) {
+                mCheckerHead = cur->getNext();
             }
             cur->removeCurrent();
         }

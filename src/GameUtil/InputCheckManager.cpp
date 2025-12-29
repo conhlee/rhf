@@ -152,19 +152,21 @@ CInputCheckManager::~CInputCheckManager(void) {
 
 void CInputCheckManager::_10(u32 size) {
     size = ROUND_UP(size, 32);
-    unk04 = new (eHeap_MEM2, 32) u8[size];
-    unk08 = MEMCreateExpHeap(unk04, size);
+
+    mHeapStart = new (eHeap_MEM2, 32) u8[size];
+    mHeap = MEMCreateExpHeap(mHeapStart, size);
 }
 
 void CInputCheckManager::_08(void) {
-    unk0C->removeAll();
-    unk0C = 0;
-    MEMDestroyExpHeap(unk08);
-    delete[] unk04;
+    mCheckerHead->removeAll();
+    mCheckerHead = NULL;
+
+    MEMDestroyExpHeap(mHeap);
+    delete[] mHeapStart;
 }
 
 void CInputCheckManager::_14(void) {
-    unk0C = 0;
+    mCheckerHead = NULL;
     unk418 = 0;
     unk414 = fn_801E8118;
     unk410 = 0;
@@ -218,7 +220,7 @@ void CInputCheckManager::fn_801E8BD0(void) {
         }
         temp_r23 = 0;
         temp_r20 = unk4A4[sub->unk4];
-        for (cur = unk0C; cur != NULL; cur = next) {
+        for (cur = mCheckerHead; cur != NULL; cur = next) {
             next = cur->getNext();
             if (!cur->getUnk71()) {
                 if (!cur->fn_801E7E28(temp_r20)) {
@@ -250,8 +252,8 @@ void CInputCheckManager::fn_801E8BD0(void) {
                 if ((temp_r27_1 == 2) || !cur->getUnk70() || cur->getUnk50()) {
                     continue;
                 }
-                if (cur == unk0C) {
-                    unk0C = cur->getNext();
+                if (cur == mCheckerHead) {
+                    mCheckerHead = cur->getNext();
                 }
                 cur->removeCurrent();
             } else {
@@ -277,8 +279,8 @@ void CInputCheckManager::fn_801E8BD0(void) {
                 if (!cur->getUnk70()) {
                     continue;
                 }
-                if (cur == unk0C) {
-                    unk0C = cur->getNext();
+                if (cur == mCheckerHead) {
+                    mCheckerHead = cur->getNext();
                 }
                 cur->removeCurrent();
             }
@@ -307,11 +309,11 @@ void CInputCheckManager::fn_801E8BD0(void) {
 }
 
 void *CInputCheckManager::fn_801E9144(u32 size) {
-    return MEMAllocFromExpHeap(unk08, size);
+    return MEMAllocFromExpHeap(mHeap, size);
 }
 
 void CInputCheckManager::fn_801E9150(void *ptr) {
-    MEMFreeToExpHeap(unk08, ptr);
+    MEMFreeToExpHeap(mHeap, ptr);
 }
 
 void CInputCheckManager::fn_801E9158(CInputChecker *checker, bool arg1) {
@@ -326,13 +328,13 @@ void CInputCheckManager::fn_801E9158(CInputChecker *checker, bool arg1) {
         rangeJustB *= leniency;
         checker->fn_801E7DBC(tickJust, rangeMissF, rangeJustF, rangeJustB, rangeMissB);
     }
-    checker->insertBefore(unk0C);
-    unk0C = checker;
+    checker->insertBefore(mCheckerHead);
+    mCheckerHead = checker;
 }
 
 void CInputCheckManager::fn_801E9204(void) {
-    unk0C->removeAll();
-    unk0C = 0;
+    mCheckerHead->removeAll();
+    mCheckerHead = NULL;
 }
 
 void CInputCheckManager::fn_801E923C(u32 arg0) {
@@ -360,7 +362,7 @@ void CInputCheckManager::fn_801E923C(u32 arg0) {
 }
 
 bool CInputCheckManager::fn_801E93E0(u32 arg0, f32 arg1, f32 arg2) {
-    for (CInputChecker *check = unk0C; check != 0; check = check->getNext()) {
+    for (CInputChecker *check = mCheckerHead; check != 0; check = check->getNext()) {
         if (check->fn_801E7E5C(arg0) && 
             check->fn_801E8018(arg1, arg2)) {
                 return true;
