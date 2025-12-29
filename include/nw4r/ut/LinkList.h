@@ -9,7 +9,7 @@
 
 #include <nw4r/ut/inlines.h> // NonCopyable
 
-#include <nw4r/db.h>
+#include <nw4r/db/assert.h>
 
 /*******************************************************************************
  * types

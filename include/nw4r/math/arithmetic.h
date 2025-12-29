@@ -3,7 +3,7 @@
 
 #include <revolution/types.h>
 
-#include <nw4r/db.h>
+#include <nw4r/db/assert.h>
 
 namespace nw4r {
 namespace math {

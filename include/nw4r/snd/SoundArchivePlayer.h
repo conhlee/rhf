@@ -30,7 +30,7 @@
 
 #include "nw4r/snd/SoundMemoryAllocatable.h"
 
-#include <nw4r/db.h>
+#include <nw4r/db/assert.h>
 
 /*******************************************************************************
  * types

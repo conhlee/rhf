@@ -7,7 +7,7 @@
 
 #include <nw4r/math.h>
 
-#include <nw4r/db.h>
+#include <nw4r/db/assert.h>
 
 #include <cstdio>
 #include <cstring>

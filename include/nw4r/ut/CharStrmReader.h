@@ -2,7 +2,7 @@
 #define NW4R_UT_CHAR_STRM_READER_H
 #include <revolution/types.h>
 
-#include <nw4r/db.h>
+#include <nw4r/db/assert.h>
 
 namespace nw4r {
 namespace ut {
@@ -23,10 +23,12 @@ public:
     u16 ReadNextCharSJIS();
 
     u16 Next() {
+        NW4R_ASSERT_PTR(this, 75);
         return (this->*mReadFunc)();
     }
 
     const void* GetCurrentPos() const {
+        NW4R_ASSERT_PTR(this, 69);
         return mCharStrm;
     }
 
@@ -39,8 +41,8 @@ public:
 
         mCharStrm = stream;
     }
-    void Set(const wchar_t* pStrm) {
-        mCharStrm = pStrm;
+    void Set(const wchar_t* stream) {
+        mCharStrm = stream;
     }
 
 private:
