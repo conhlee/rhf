@@ -105,7 +105,7 @@ void fn_801D3568(void) {
         void *arena2Hi = OSGetMEM2ArenaHi();
         u32 arena2Size = (u8 *)arena2Hi - (u8 *)arena2Lo;
 
-        // NDEV units had a 128MB MEM2 size, so if the size of MEM2
+        // NDEV units had a 128MiB MEM2 size, so if the size of MEM2
         // exceeds the size of MEM2 on retail, reduce it to match.
         if (arena2Size > 0x4000000) {
             arena2Size -= 0x4000000;
