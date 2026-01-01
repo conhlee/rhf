@@ -4,11 +4,15 @@
 
 #include "Script/Prologue.hpp"
 
+#include "TickFlow.hpp"
+
 #include "SceneManager.hpp"
 
 #include "CheckPointManager.hpp"
 
 #include "rev_tengoku.rsid"
+
+// TODO: fix undefined commands (usage of TFD_CMD)
 
 GRADE_CRITERIA_TABLE_BEGIN(lbl_802EF2B8)
     GRADE_CRITERIA_TABLE_ENTRY(NULL, "0301100", 0x8065, 0x801E, 0x8032, GRADE_CRITERIA_FLAG_UNK0)
@@ -19,8 +23,6 @@ GRADE_CRITERIA_TABLE_END()
 
 TFD_EXTERN(lbl_801F96A8)
 TFD_EXTERN(lbl_801F97E0)
-TFD_EXTERN(lbl_802E4CC0)
-TFD_EXTERN(lbl_802E4CE8)
 
 // Forward declaration
 TFD_EXTERN(lbl_80265120)

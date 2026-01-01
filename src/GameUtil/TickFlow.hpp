@@ -11,6 +11,10 @@
 
 #include <nw4r/lyt.h>
 
+TFD_EXTERN(lbl_802E4CA0)
+TFD_EXTERN(lbl_802E4CC0)
+TFD_EXTERN(lbl_802E4CE8)
+
 #define TICKFLOW_DECL_CREATE_FN() static CTickFlow *create(void *memory, const TickFlowCode *code, f32 initRest);
 #define TICKFLOW_IMPL_CREATE_FN(_className)                                               \
     CTickFlow *_className::create(void *memory, const TickFlowCode *code, f32 initRest) { \
@@ -30,7 +34,6 @@ public:
     }
 
     virtual ~CTickFlow(void);
-
     virtual void finalInsert(void);
     virtual void finalDestroy(void);
     virtual void _14(void);

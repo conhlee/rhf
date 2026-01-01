@@ -10,12 +10,43 @@
 
 #include "TickFlowDecl.hpp"
 
+TFD_BEGIN(lbl_802E4CA0)
+    TFC_LABEL(999)
+    TFC_BUTTON_PROMPT_GET_FINISHED()
+    TFC_REST(1)
+    TFC_IF_EQU(1)
+        TFC_JUMP(999)
+    TFC_ENDIF()
+TFD_RETURN()
+
+TFD_BEGIN(lbl_802E4CC0)
+    TFC_LABEL(999)
+    TFC_GET_WAVE_READY()
+    TFC_IF_EQU(1)
+        TFC_JUMP(100)
+    TFC_ENDIF()
+    TFC_REST(1)
+    TFC_JUMP(999)
+    TFC_LABEL(100)
+TFD_RETURN()
+
+TFD_BEGIN(lbl_802E4CE8)
+    TFC_LABEL(999)
+    TFC_GET_GROUP_LOADING()
+    TFC_IF_EQU(0)
+        TFC_JUMP(100)
+    TFC_ENDIF()
+    TFC_REST(1)
+    TFC_JUMP(999)
+    TFC_LABEL(100)
+TFD_RETURN()
+
 #define BYTECODE_GET_OPCODE(instruction) (((u32)(instruction) >>  0) & 0x3FF)
 #define BYTECODE_GET_ARGC(instruction)   (((u32)(instruction) >> 10) & 0xF)
 #define BYTECODE_GET_ARG0(instruction)   (((u32)(instruction) >> 14))
 
-nw4r::lyt::TextBox *lbl_803D5D38[8];
-nw4r::lyt::Pane *lbl_803D5D58[8];
+static nw4r::lyt::TextBox *lbl_803D5D38[8];
+static nw4r::lyt::Pane *lbl_803D5D58[8];
 
 CTickFlow::CTickFlow(const TickFlowCode *code, f32 initRest) {
     mCode = code;
