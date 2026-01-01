@@ -43,7 +43,6 @@
 #include "IconSelectLayout.hpp"
 
 #include "cellanim/permanent/rcad_permanent_labels.h"
-
 #include "cellanim/remix/ver8/rcad_remix08_Mask_labels.h"
 
 #include "rev_tengoku.rsid"
@@ -436,7 +435,7 @@ void CExScene::fn_80008EF0(void) {
 void CExScene::fn_80008EFC(void) {
     gFileManager->fn_801D443C();
 
-    for (u8 i = 2; i < 95; i++) {
+    for (u8 i = 2; i < CFileManager::DEFAULT_MAX_ARCHIVE_COUNT; i++) {
         if ((i != 54) && (i != 94) && gFileManager->fn_801D42FC(i)) {
             gFileManager->fn_801D41CC(i);
         }

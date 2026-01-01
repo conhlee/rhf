@@ -340,17 +340,18 @@ void *CFileManager::fn_801D47B8(void *arg) {
 bool CFileManager::fn_801D47F8(u8 *src, u8 *dst, u32 expandSize, u32 dstSize, s32 arcInfoIdx, BOOL deleteSrc) {
     DCInvalidateRange(dst, dstSize);
 
-    s32 srcIdx = 0x10;
-    u8 mask = 0;
+    s32 srcIdx = 0x10; // Skip the header data ..
+
+    u8 opMask = 0;
     u8 opByte;
 
-    for (s32 dstIdx = 0; dstIdx < expandSize; mask >>= 1) {
-        if (mask == 0) {
-            mask = (1 << 7);
+    for (s32 dstIdx = 0; dstIdx < expandSize; opMask >>= 1) {
+        if (opMask == 0) {
+            opMask = (1 << 7);
             opByte = src[srcIdx++];
         }
 
-        if (opByte & mask) {
+        if (opByte & opMask) {
             dst[dstIdx++] = src[srcIdx++];
         }
         else {
@@ -387,11 +388,11 @@ void CFileManager::fn_801D49D4(void) {
     case DVD_STATE_NO_DISK:
     case DVD_STATE_WRONG_DISK:
     case DVD_STATE_RETRY:
-        if (mDVDErrorFuncF) {
+        if (mDVDErrorFuncF != NULL) {
             mDVDErrorFuncF();
         }
         CGameManager::fn_801D7538(driveStatus);
-        if (mDVDErrorFuncB) {
+        if (mDVDErrorFuncB != NULL) {
             mDVDErrorFuncB();
         }
         break;

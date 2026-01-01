@@ -305,7 +305,7 @@ void fn_80038AE4(void) {
         gFileManager = new CFileManager;
     }
 
-    gFileManager->_10(95, 95);
+    gFileManager->_10();
     gFileManager->_14();
     gFileManager->setDVDErrorFuncF(funcDVDErrorF);
     gFileManager->setDVDErrorFuncB(funcDVDErrorB);

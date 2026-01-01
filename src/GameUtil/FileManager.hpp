@@ -17,9 +17,16 @@ extern CFileManager *gFileManager;
 
 class CFileManager : public TSingleton<CFileManager> {
 public:
+    static const s32 DEFAULT_MAX_FILE_COUNT = 95;
+    static const s32 DEFAULT_MAX_ARCHIVE_COUNT = 95;
+
+public:
     virtual void _08(void);
     virtual ~CFileManager(void);
-    virtual void _10(s32 maxFileCount, s32 maxArchiveCount);
+    virtual void _10(
+        s32 maxFileCount = DEFAULT_MAX_FILE_COUNT,
+        s32 maxArchiveCount = DEFAULT_MAX_ARCHIVE_COUNT
+    );
     virtual void _14(void);
 
     CFileManager(void);
