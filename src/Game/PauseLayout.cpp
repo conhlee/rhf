@@ -28,6 +28,11 @@ static const char * layoutAnimTable[] = {
     "pause_00_close",
     "pause_00_loop"
 };
+enum {
+    pause_00_open,
+    pause_00_close,
+    pause_00_loop
+};
 
 extern u8 lbl_80320300;
 extern bool lbl_80320274;
@@ -43,7 +48,7 @@ void CPauseLayout::_10(void) {
     for (u32 i = 0; (s32)i < (s32)ARRAY_LENGTH(layoutAnimTable); i++) {
         getAnimation(i)->fn_801D9E70(getLayout(), NULL, layoutAnimTable[i], resAccessor);
     }
-    getAnimation(2)->setLoop(true);
+    getAnimation(pause_00_loop)->setLoop(true);
 
     gMessageManager->fn_80088474(getLayout()->GetRootPane());
 
@@ -74,21 +79,20 @@ void CPauseLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
         bool doUnpause = false;
     
         if (mUnk20 == 0) {
-            if (!getAnimation(0)->getIsPlaying()) {
+            if (!getAnimation(pause_00_open)->getIsPlaying()) {
                 mUnk20 = 1;
-                getAnimation(2)->playFromBeginning();
+                getAnimation(pause_00_loop)->playFromBeginning();
             }
         }
         else if (mUnk20 == 1) {
             CGCController *gcController = gControllerManager->fn_801D6000(0);
     
             u32 trig = controllerP1->getCoreTrig();
-            if ((trig & WPAD_BUTTON_PLUS) != 0 || (trig & WPAD_BUTTON_A) != 0) {
+            if ((trig & WPAD_BUTTON_PLUS) || (trig & WPAD_BUTTON_A)) {
                 mUnk20 = 2;
     
-                getAnimation(2)->setIsPlaying(false);
-        
-                getAnimation(1)->playFromBeginning();
+                getAnimation(pause_00_loop)->setIsPlaying(false);
+                getAnimation(pause_00_close)->playFromBeginning();
         
                 gSoundManager->play(SE_PAUSE_CONTINUE);
             }
@@ -96,13 +100,13 @@ void CPauseLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 if (trig & WPAD_BUTTON_MINUS) {
                     mUnk24 = 2;
                     doUnpause = true;
-                    getAnimation(2)->setIsPlaying(false);
+                    getAnimation(pause_00_loop)->setIsPlaying(false);
                     gSoundManager->play(SE_PAUSE_QUIT);
                 }
             }
         }
         else if (mUnk20 == 2) {
-            if (!getAnimation(1)->getIsPlaying()) {
+            if (!getAnimation(pause_00_close)->getIsPlaying()) {
                 mUnk24 = 1;
                 doUnpause = true;
             }
@@ -125,13 +129,14 @@ void CPauseLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
             bool inTwoPlay = lbl_80320274 || (gSceneManager->fn_8008B058(0) == eScene_RhythmFighterVS);
 
             if (!CExScene::fn_8000A370()) {
+                u32 maskP1 =
+                    WPAD_BUTTON_LEFT | WPAD_BUTTON_RIGHT | WPAD_BUTTON_DOWN | WPAD_BUTTON_UP |
+                    WPAD_BUTTON_2 | WPAD_BUTTON_1 | WPAD_BUTTON_B | WPAD_BUTTON_A | WPAD_BUTTON_MINUS |
+                    WPAD_BUTTON_HOME;
+                u32 maskP2 = maskP1 | WPAD_BUTTON_PLUS;
                 if (
-                    !(
-                        inTwoPlay && (
-                            (controllerP1->getUnk1338() & 0x9F0F) ||
-                            (controllerP2->getUnk1338() & 0x9F1F)
-                        )
-                    ) && (inTwoPlay || !(controllerP1->getUnk1338() & 0x9F0F))
+                    !(inTwoPlay && ((controllerP1->getUnk1338() & maskP1) || (controllerP2->getUnk1338() & maskP2))) &&
+                    (inTwoPlay || !(controllerP1->getUnk1338() & maskP1))
                 ) {
                     if ((mUnk28 <= 0) && ((controllerP1->getUnk133C() & WPAD_BUTTON_PLUS) || lbl_80320300)) {
                         if (lbl_80320300) {
@@ -139,7 +144,7 @@ void CPauseLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
                         }
                         else {
                             mUnk20 = 0;
-                            getAnimation(0)->playFromBeginning();
+                            getAnimation(pause_00_open)->playFromBeginning();
                         }
 
                         mIsPaused = true;
