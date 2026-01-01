@@ -1090,21 +1090,21 @@ void CSceneManager::fn_8008A8D8(void) {
     bool temp_r28 = false;
 
     if (mSceneHist[0] == eScene_Navi) {
-        s32 i = findSceneInHist(eScene_GameSelect);
-        s32 j = findSceneInHist(eScene_Cafe);
+        s32 gameSelectPosInHist = findSceneInHist(eScene_GameSelect);
+        s32 bonusSelectPosInHist = findSceneInHist(eScene_Cafe);
 
-        if ((i >= 1) && (j >= 1)) {
-            if (i < j) {
+        if ((gameSelectPosInHist >= 1) && (bonusSelectPosInHist >= 1)) {
+            if (gameSelectPosInHist < bonusSelectPosInHist) {
                 temp_r31 = true;
             }
-            else if (j < i) {
+            else if (bonusSelectPosInHist < gameSelectPosInHist) {
                 temp_r29 = true;
             }
         }
-        else if (i >= 1) {
+        else if (gameSelectPosInHist >= 1) {
             temp_r31 = true;
         }
-        else if (j >= 1) {
+        else if (bonusSelectPosInHist >= 1) {
             temp_r29 = true;
         }
         else {
@@ -1119,20 +1119,24 @@ void CSceneManager::fn_8008A8D8(void) {
             temp_r29 = true;
         }
         else {
-            s32 i = findSceneInHist(eScene_GameSelect);
-            s32 j = findSceneInHist(eScene_BonusSelect);
+            s32 gameSelectPosInHist = findSceneInHist(eScene_GameSelect);
+            s32 bonusSelectPosInHist = findSceneInHist(eScene_BonusSelect);
 
-            if ((i >= 1) && (j >= 1)) {
-                if (i < j) {
+            if ((gameSelectPosInHist >= 1) && (bonusSelectPosInHist >= 1)) {
+                if (gameSelectPosInHist < bonusSelectPosInHist) {
                     temp_r31 = true;
-                } else if (j < i) {
+                }
+                else if (bonusSelectPosInHist < gameSelectPosInHist) {
                     temp_r30 = true;
                 }
-            } else if (i >= 1) {
+            }
+            else if (gameSelectPosInHist >= 1) {
                 temp_r31 = true;
-            } else if (j >= 1) {
+            }
+            else if (bonusSelectPosInHist >= 1) {
                 temp_r30 = true;
-            } else {
+            }
+            else {
                 temp_r28 = true;
             }
         }
@@ -1165,8 +1169,8 @@ void CSceneManager::fn_8008A8D8(void) {
     }
 }
 
-u32 CSceneManager::fn_8008B058(s32 idx) {
-    return mSceneHist[idx];
+u32 CSceneManager::fn_8008B058(s32 pos) {
+    return mSceneHist[pos];
 }
 
 void CSceneManager::fn_8008B068(void) {
@@ -1175,8 +1179,8 @@ void CSceneManager::fn_8008B068(void) {
     }
 }
 
-bool CSceneManager::fn_8008B0FC(s32 idx, u32 sceneID) {
-    return mSceneHist[idx] == sceneID;
+bool CSceneManager::fn_8008B0FC(s32 pos, u32 sceneID) {
+    return mSceneHist[pos] == sceneID;
 }
 
 bool CSceneManager::fn_8008B118(ESceneID sceneID) {
