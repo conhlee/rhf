@@ -8,7 +8,7 @@
 
 const char layoutFile_message[] = "message.brlyt";
 
-const char *layoutFileTable[] = { layoutFile_message, NULL };
+static const char *layoutFileTable[] = { layoutFile_message, NULL };
 
 void CBalloonLayout::fn_800399E4(void) {
     nw4r::lyt::MultiArcResourceAccessor *resAccessor = gLayoutManager->getResAccessor();
