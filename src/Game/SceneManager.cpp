@@ -27,7 +27,7 @@ void CSceneManager::_10(void) {}
 void CSceneManager::_08(void) {}
 
 void CSceneManager::_14(void) {
-    unk404 = 0;
+    mUnk404 = false;
     for (s32 i = 0; i < (s32)ARRAY_LENGTH(mSceneHist); i++) {
         mSceneHist[i] = eScene_Null;
     }
@@ -36,9 +36,9 @@ void CSceneManager::_14(void) {
 extern "C" void fn_8008A8D8(void);
 
 void CSceneManager::_18(void) {
-    if (unk404) {
+    if (mUnk404) {
         fn_8008A8D8();
-        unk404 = 0;
+        mUnk404 = false;
     }
 }
 

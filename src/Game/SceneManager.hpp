@@ -113,9 +113,13 @@ public:
         return -1;
     }
 
+    void setUnk404(bool set) {
+        mUnk404 = set;
+    }
+
 private:
     u32 mSceneHist[256];
-    u8 unk404;
+    bool mUnk404;
 };
 
 extern CSceneManager *gSceneManager;
