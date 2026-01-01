@@ -208,3 +208,103 @@ void Error::CMyLayout::_10(void) {
     mUnkF8 = false;
 }
 
+extern Vec2 lbl_80320FA0;
+
+void Error::CMyLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
+    CController *controller = gControllerManager->fn_801D5FF0(0);
+
+    Vec2 vec = (Vec2) {
+        controller->fn_801D523C(this).x,
+        controller->fn_801D523C(this).y
+    };
+
+    if (!mUnkF8 || !controller->fn_801D52D4()) {
+        vec.x = lbl_80320FA0.x;
+        vec.y = lbl_80320FA0.y;
+    }
+
+    switch (mUnk1C) {
+    case 0: {
+        if (getAnimation(1)->getIsPlaying()) {
+            mButtonManager0->_0C(&lbl_80320FA0, false, drawInfo);
+        }
+        else {
+            mButtonManager0->_0C(&vec, true, drawInfo);
+
+            bool temp = mBtn1_00.getEnabled() && mBtn1_00.getUnk26();
+            if (temp) {
+                mUnkF8 = true;
+            }
+
+            if (mExitTimer >= 1) {
+                mExitTimer--;
+
+                if (mExitTimer == 0) {
+                    mScene->fn_80079BF0();
+
+                    mUnk1C = 6;
+                    mUnkF8 = false;
+                }
+            }
+            else {
+                bool temp = mBtn1_00.getEnabled() && mBtn1_00.getUnk27();
+                if (temp) {
+                    mExitTimer = 30;
+                }
+            }
+        }
+    } break;
+
+    case 2: {
+        if (getAnimation(2)->getIsPlaying()) {
+            mButtonManager0->_0C(&lbl_80320FA0, false, drawInfo);
+        }
+        else {
+            mButtonManager0->_0C(&vec, true, drawInfo);
+        }
+    } break;
+    
+    default:
+        break;
+    }
+
+    if (mUnk1C == 0) {
+        if (getAnimation(1)->getIsPlaying()) {
+            mButtonManager0->_0C(&lbl_80320FA0, false, drawInfo);
+        }
+        else {
+            mButtonManager0->_0C(&vec, true, drawInfo);
+
+            bool temp = mBtn1_00.getEnabled() && mBtn1_00.getUnk26();
+            if (temp) {
+                mUnkF8 = true;
+            }
+
+            if (mExitTimer >= 1) {
+                mExitTimer--;
+
+                if (mExitTimer == 0) {
+                    mScene->fn_80079BF0();
+
+                    mUnk1C = 6;
+                    mUnkF8 = false;
+                }
+            }
+            else {
+                bool temp = mBtn1_00.getEnabled() && mBtn1_00.getUnk27();
+                if (temp) {
+                    mExitTimer = 30;
+                }
+            }
+        }
+
+        goto theEnd;
+    }
+
+    if (mUnk1C) {
+        
+    }
+
+theEnd:
+    this->CLayout::_18(drawInfo);
+}
