@@ -74,11 +74,13 @@ enum {
     TF_GET_GROUP_LOADING, ///< Set condvar to 1 if the current group is loading, and 0 if not.
     TF_MESG_PANE_VISIBLE, ///< Set a message pane's visibillity. Arg0: access index; Args: is visible
     TF_041,
-    TF_042,
+    TF_SET_INPUT_ALLOW, ///< Set if inputs from the controller(s) should be allowed.
+                        ///      - Arg0: 0 for all controllers (args will be: inputs allowed),
+                        ///              1 for specific controller (args will be: controller index, inputs allowed).
     TF_043,
     TF_044,
     TF_045,
-    TF_046,
+    TF_BUTTON_PROMPT,
     TF_047,
     TF_048,
     TF_SET_SKIPPABLE, ///< Set if the player is allowed to skip. Arg0: enabled
@@ -161,8 +163,19 @@ enum {
 #define TFC_PLAY_WAVE() TFD_CMD(TF_PLAY_WAVE, 0, 0),
 #define TFC_STOP_WAVE(fadeFrames) TFD_CMD(TF_STOP_WAVE, 0, (fadeFrames)),
 #define TFC_SET_WAVE_VOLUME(volume, fadeFrames) TFD_CMD(TF_SET_WAVE_VOLUME, 2, 0), TFD_CAST(volume), TFD_CAST(fadeFrames),
+#define TFC_GET_WAVE_READY() TFD_CMD(TF_GET_WAVE_READY, 0, 0),
+
+#define TFC_GET_GROUP_LOADING() TFD_CMD(TF_GET_GROUP_LOADING, 0, 0),
 
 #define TFC_MESG_PANE_VISIBLE(accessIdx, isVisible) TFD_CMD(TF_MESG_PANE_VISIBLE, 1, (accessIdx)), TFD_CAST((isVisible) ? 1 : 0),
+
+#define TFC_SET_INPUT_ALLOW_ALL(allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 1, 0), TFD_CAST((allowed) ? 1 : 0),
+#define TFC_SET_INPUT_ALLOW(controllerIndex, allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 2, 1), TFD_CAST(controllerIndex), TFD_CAST((allowed) ? 1 : 0),
+
+#define TFC_BUTTON_PROMPT_SET_CONTROLLER(controllerIndex), TFD_CMD(TF_BUTTON_PROMPT, 1, 0), TFD_CAST(controllerIndex),
+#define TFC_BUTTON_PROMPT_SETUP(button, pressSFX, releaseSFX), TFD_CMD(TF_BUTTON_PROMPT, 4, 1), \
+    TFD_CAST(button), TFD_CAST(pressSFX), TFD_CAST(releaseSFX),
+#define TFC_BUTTON_PROMPT_GET_FINISHED() TFD_CMD(TF_BUTTON_PROMPT, 0, 2),
 
 #define TFC_SET_SKIPPABLE(isSkippable) TFD_CMD(TF_SET_SKIPPABLE, 0, (isSkippable) ? 1 : 0),
 
