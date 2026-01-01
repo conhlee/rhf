@@ -73,7 +73,7 @@ public:
     void fn_801D55D8(u32, u8);
     bool fn_801D5850(void);
     bool fn_801D58A0(void);
-    u32 fn_801D58A8(void);
+    s32 fn_801D58A8(void);
 
     void do801D4EA4(u32 arg0) {
         u32 temp = mCoreStatus[0].hold;
@@ -103,12 +103,8 @@ public:
         return unk1338;
     }
 
-    Vec2 getCorePos(void) {
-        return mCoreStatus[0].pos;
-    }
-    u32 getCoreTrig(void) {
-        return mCoreStatus[0].trig;
-    }
+    Vec2 getCorePos(void) { return mCoreStatus[0].pos; }
+    u32 getCoreTrig(void) { return mCoreStatus[0].trig; }
 
 private:
     enum { MOTOR_SEQ_OFF = 0, MOTOR_SEQ_ON = 1, MOTOR_SEQ_END = 0xFF };

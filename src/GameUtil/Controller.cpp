@@ -346,7 +346,7 @@ bool CController::fn_801D58A0(void) {
     return mInfoUpdated;
 }
 
-u32 CController::fn_801D58A8(void) {
+s32 CController::fn_801D58A8(void) {
     return (mInfoErrcode == WPAD_ERR_OK) ? mInfo.battery : mInfoErrcode; 
 }
 
