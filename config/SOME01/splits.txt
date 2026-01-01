@@ -394,7 +394,7 @@ Game/RFLManager.cpp:
 	.sdata2     start:0x803277E0 end:0x803277E4
 
 Game/Script/CharacterIntro.cpp:
-	.rodata     start:0x802B4278 end:0x802B5D80
+	.rodata     start:0x802B4238 end:0x802B5D80
 	.sdata2     start:0x80327918 end:0x80327AC0
 
 Game/WindParticle.cpp:
