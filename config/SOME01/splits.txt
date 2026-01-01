@@ -2615,7 +2615,7 @@ GameUtil/VarParamManager.cpp:
 GameUtil/code_801ED6A8.cpp:
 	.text       start:0x801ED6A8 end:0x801ED7D4
 
-GameUtil/code_801ED7D4.cpp:
+GameUtil/TPL.cpp:
 	.text       start:0x801ED7D4 end:0x801ED7EC
 
 GameUtil/DebugFont.cpp:

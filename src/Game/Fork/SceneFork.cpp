@@ -21,7 +21,7 @@
 
 #include "Mem.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "cellanim/fork/ver0/rcad_fork_labels.h"
 #include "cellanim/fork/2play/rcad_fork2_labels.h"
@@ -110,7 +110,7 @@ void CSceneFork::_14(void) {
     u32 tplLen = gFileManager->fn_801D422C(19, "./cellanim.tpl");
     void *tplAddr = gFileManager->fn_801D4270(19, "./cellanim.tpl");
 
-    fn_801ED7D4(tplAddr);
+    UserTPLBind(tplAddr);
     DCStoreRange(tplAddr, tplLen);
 
     gCellAnimManager->fn_801DB568(fork_brcadAddr, tplAddr, 0);

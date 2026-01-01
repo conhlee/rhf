@@ -28,7 +28,7 @@
 
 #include "Controller.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 namespace {
 
@@ -136,7 +136,7 @@ void CHBMManager::_10(void) {
     mHBMIconPal = static_cast<TPLPalette *>(gFileManager->fn_801D3C4C(pathBuf));
     gFileManager->fn_801D3D94();
 
-    fn_801ED7D4(mHBMIconPal);
+    UserTPLBind(mHBMIconPal);
 }
 
 void CHBMManager::_08(void) {

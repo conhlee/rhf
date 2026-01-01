@@ -28,7 +28,7 @@
 #include "CursorLayout.hpp"
 #include "BalloonLayout.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "rev_tengoku.rsid"
 
@@ -125,7 +125,7 @@ void CSceneRap::_14(void) {
     u32 tplLen = gFileManager->fn_801D422C(25, "./cellanim.tpl");
     void *tplAddr = gFileManager->fn_801D4270(25, "./cellanim.tpl");
 
-    fn_801ED7D4(tplAddr);
+    UserTPLBind(tplAddr);
     DCStoreRange(tplAddr, tplLen);
 
     gCellAnimManager->fn_801DB568(rap_brcadAddr, tplAddr, 0);

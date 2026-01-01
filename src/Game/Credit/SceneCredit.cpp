@@ -19,7 +19,7 @@
 
 #include "Controller.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "cellanim/credit/ver0/rcad_chara_00_labels.h"
 #include "cellanim/credit/ver0/rcad_title_labels.h"
@@ -74,8 +74,8 @@ void CSceneCredit::_14(void) {
     void *credit_tplAddr = gFileManager->fn_801D4270(2, "./cellanim.tpl");
     void *navi_tplAddr = gFileManager->fn_801D4270(3, "./cellanim.tpl");
 
-    fn_801ED7D4(credit_tplAddr);
-    fn_801ED7D4(navi_tplAddr);
+    UserTPLBind(credit_tplAddr);
+    UserTPLBind(navi_tplAddr);
 
     DCStoreRange(credit_tplAddr, credit_tplLen);
     DCStoreRange(navi_tplAddr, navi_tplLen);

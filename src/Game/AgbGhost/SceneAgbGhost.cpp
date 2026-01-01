@@ -22,7 +22,7 @@
 
 #include "Random.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "cellanim/agbGhost/ver0/rcad_ghost_labels.h"
 
@@ -84,7 +84,7 @@ void CSceneAgbGhost::_14(void) {
     u32 ghost_tplLen = gFileManager->fn_801D422C(2, "./cellanim.tpl");
     void *ghost_tplAddr = gFileManager->fn_801D4270(2, "./cellanim.tpl");
 
-    fn_801ED7D4(ghost_tplAddr);
+    UserTPLBind(ghost_tplAddr);
     DCStoreRange(ghost_tplAddr, ghost_tplLen);
 
     gCellAnimManager->fn_801DB568(ghost_brcadAddr, ghost_tplAddr, 0);

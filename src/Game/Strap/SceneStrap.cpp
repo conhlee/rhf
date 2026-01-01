@@ -19,7 +19,7 @@
 
 #include "Controller.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "cellanim/strap/verE/rcad_strap_labels.h"
 
@@ -72,7 +72,7 @@ void CSceneStrap::_14(void) {
 
     u32 tplLen = gFileManager->fn_801D422C(2, "./cellanim.tpl");
     void *tplAddr = gFileManager->fn_801D4270(2, "./cellanim.tpl");
-    fn_801ED7D4(tplAddr);
+    UserTPLBind(tplAddr);
     DCStoreRange(tplAddr, tplLen);
 
     gCellAnimManager->fn_801DB568(brcadAddr, tplAddr, 0);

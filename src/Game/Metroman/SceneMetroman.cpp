@@ -24,7 +24,7 @@
 #include "CursorLayout.hpp"
 #include "BalloonLayout.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "rev_tengoku.rsid"
 
@@ -87,7 +87,7 @@ void CSceneMetroman::_14(void) {
     u32 metroman_tplLen = gFileManager->fn_801D422C(40, "./cellanim.tpl");
     void *metroman_tplAddr = gFileManager->fn_801D4270(40, "./cellanim.tpl");
 
-    fn_801ED7D4(metroman_tplAddr);
+    UserTPLBind(metroman_tplAddr);
     DCStoreRange(metroman_tplAddr, metroman_tplLen);
 
     gCellAnimManager->fn_801DB568(metroman_00_brcadAddr, metroman_tplAddr, 0);

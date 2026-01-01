@@ -30,7 +30,7 @@
 #include "CursorLayout.hpp"
 #include "BalloonLayout.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "rev_tengoku.rsid"
 
@@ -115,7 +115,7 @@ void CSceneAgbTap::_14(void) {
     u32 tplLen = gFileManager->fn_801D422C(2, "./cellanim.tpl");
     void *tplAddr = gFileManager->fn_801D4270(2, "./cellanim.tpl");
 
-    fn_801ED7D4(tplAddr);
+    UserTPLBind(tplAddr);
     DCStoreRange(tplAddr, tplLen);
 
     gCellAnimManager->fn_801DB568(agb_tap_brcadAddr, tplAddr, 0);

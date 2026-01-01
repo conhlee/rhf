@@ -38,7 +38,7 @@
 
 #include "CellAnimRenderEff.hpp"
 
-#include "code_801ED7D4.hpp"
+#include "TPL.hpp"
 
 #include "IconSelectLayout.hpp"
 
@@ -468,7 +468,7 @@ void CExScene::fn_80009028(void) {
     u32 permanent_tplLen = gFileManager->fn_801D422C(54, "./cellanim.tpl");
     void *permanent_tplAddr = gFileManager->fn_801D4270(54, "./cellanim.tpl");
 
-    fn_801ED7D4(permanent_tplAddr);
+    UserTPLBind(permanent_tplAddr);
     DCStoreRange(permanent_tplAddr, permanent_tplLen);
 
     gCellAnimManager->fn_801DB568(permanent_brcadAddr, permanent_tplAddr, 255);
@@ -950,7 +950,7 @@ void CExScene::fn_8000A0F8(void) {
     u32 tplLen = gFileManager->fn_801D422C(50, "./cellanim.tpl");
     void *tplAddr = gFileManager->fn_801D4270(50, "./cellanim.tpl");
 
-    fn_801ED7D4(tplAddr);
+    UserTPLBind(tplAddr);
     DCStoreRange(tplAddr, tplLen);
 
     gCellAnimManager->fn_801DB568(brcadAddr, tplAddr, 254);
@@ -996,7 +996,7 @@ void CExScene::fn_8000A260(void) {
     u32 tplLen = gFileManager->fn_801D422C(50, "./cellanim.tpl");
     void *tplAddr = gFileManager->fn_801D4270(50, "./cellanim.tpl");
 
-    fn_801ED7D4(tplAddr);
+    UserTPLBind(tplAddr);
     DCStoreRange(tplAddr, tplLen);
 
     gCellAnimManager->fn_801DB568(brcadAddr, tplAddr, 254);

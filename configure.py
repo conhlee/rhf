@@ -1121,7 +1121,7 @@ config.libs = [
             Object(NonMatching, "GameUtil/DebugPrint.cpp"),
             Object(NonMatching, "GameUtil/VarParamManager.cpp"),
             Object(Matching, "GameUtil/code_801ED6A8.cpp"),
-            Object(Matching, "GameUtil/code_801ED7D4.cpp"),
+            Object(Matching, "GameUtil/TPL.cpp"),
             Object(Matching, "GameUtil/DebugFont.cpp"),
         ],
     },
