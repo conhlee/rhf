@@ -3,6 +3,7 @@
 
 #include <revolution/types.h>
 #include <revolution/MEM.h>
+#include <revolution/WPAD.h>
 
 #include "Singleton.hpp"
 
@@ -50,7 +51,7 @@ enum EInputType {
 class CInputCheckManager : public TSingleton<CInputCheckManager> {
 public:
     typedef void (*FuncUnk414)(void);
-    typedef void (*FuncUnk418)(u32);
+    typedef void (*FuncUnk418)(u32 input);
 
     virtual void _08(void);
     virtual ~CInputCheckManager(void);
@@ -78,7 +79,7 @@ public:
     void fn_801E9D58(u32, u32);
     s32 fn_801E9D68(u32);
     void fn_801E9D7C(CInputChecker *);
-    void fn_801E9D80(char *);
+    void fn_801E9D80(const char *);
     void fn_801E9D84(void);
     void fn_801E9D88(void);
     void fn_801E9D8C(void);
@@ -100,27 +101,27 @@ public:
         unk418 = func;
     }
 
-    void setUnk41C(u8 value) {
-        unk41C = value;
+    void setGamePaused(bool paused) {
+        mGamePaused = paused;
     }
 
-    void setUnk429(bool value) {
-        unk429 = value;
+    void setUnk484(bool allow) {
+        mAllowInputOverride = allow;
     }
-    void setUnk484(u8 value) {
-        unk484 = value;
+    void setUnk429(bool allow) {
+        mAllowInput = allow;
     }
-    void setUnk42A(u8 value) {
-        unk42A[0] = value;
+    void setUnk42A(bool allow) {
+        mAllowInputController[0] = allow;
     }
-    void setUnk42B(bool value) {
-        unk42A[1] = value;
+    void setUnk42B(bool allow) {
+        mAllowInputController[1] = allow;
     }
-    void setUnk42C(u8 value) {
-        unk42A[2] = value;
+    void setUnk42C(bool allow) {
+        mAllowInputController[2] = allow;
     }
-    void setUnk42D(u8 value) {
-        unk42A[3] = value;
+    void setUnk42D(bool allow) {
+        mAllowInputController[3] = allow;
     }
     u8 getUnk498(void) {
         return unk498;
@@ -158,29 +159,29 @@ private:
     u32 unk410;
     FuncUnk414 unk414;
     FuncUnk418 unk418;
-    u8 unk41C;
+    bool mGamePaused;
     u8 pad41D[0x420 - 0x41d];
     u32 unk420;
     u32 unk424;
     u8 unk428;
-    u8 unk429;
-    u8 unk42A[4];
+    bool mAllowInput;
+    bool mAllowInputController[WPAD_MAX_CONTROLLERS];
     u8 unk42E;
     u8 unk42F;
     s32 unk430[16];
     f32 unk470;
     f32 unk474[4];
-    u8 unk484;
+    bool mAllowInputOverride;
     u8 pad485[7];
     u8 unk48C;
-    u8 unk48D;
+    bool unk48D;
     u8 pad48E[0xa];
     u8 unk498;
     u8 unk499;
     u8 unk49A;
     u8 unk49B;
-    u8 unk49C;
-    f32 unk4A0;
+    bool mLeniencyEnable;
+    f32 mLeniencyScale;
     u32 unk4A4[256];
     s32 (*unk8A4)(u32);
     u32 unk8A8;
@@ -268,8 +269,6 @@ private:
                 return;
             }
         }
-
-        
     }
 };
 
