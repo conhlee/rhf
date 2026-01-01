@@ -2,6 +2,9 @@
 #define GAME_BACKUPMANAGER_HPP
 
 #include <revolution/types.h>
+
+#include <revolution/NAND.h>
+
 #include "Singleton.hpp"
 
 class CBackupManager : public TSingleton<CBackupManager> {
@@ -22,11 +25,13 @@ public:
     void fn_80084FC8(u32);
 
     s32 getUnk4C(void) const { return mUnk4C; }
+    NANDResult getUnk50(void) const { return mUnk50; }
 
 private:
     u8 _pad04[0x4C - 4];
     s32 mUnk4C;
-    u8 _pad50[0x2B78 - 0x50];
+    NANDResult mUnk50;
+    u8 _pad54[0x2B78 - 0x54];
 };
 
 extern CBackupManager *gBackupManager;
