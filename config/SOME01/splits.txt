@@ -244,13 +244,23 @@ Game/Prologue/MyLayout.cpp:
 	.sdata      start:0x8031F3A0 end:0x8031F3B0
 
 Game/Error/SceneError.cpp:
-	.text       start:0x80079568 end:0x80079D14
+	.text       start:0x80079568 end:0x80079D54
+	.rodata     start:0x802543D0 end:0x802544A0
+	.data       start:0x802EC4B0 end:0x802EC528
+	.sdata      start:0x8031F3E8 end:0x8031F3F8
+	.sbss       start:0x803203B8 end:0x803203C0
 
 Game/Error/MyChecker.cpp:
-	.text       start:0x80079D14 end:0x80079E50
+	.text       start:0x80079D54 end:0x80079E50
+	.rodata     start:0x802544A0 end:0x802544B8
+	.data       start:0x802EC528 end:0x802EC580
+	.sdata      start:0x8031F3F8 end:0x8031F400
 
 Game/Error/MyFlow.cpp:
 	.text       start:0x80079E50 end:0x80079FA4
+	.rodata     start:0x802544B8 end:0x802544C8
+	.data       start:0x802EC580 end:0x802EC5C0
+	.sdata      start:0x8031F400 end:0x8031F408
 
 Game/Error/MyLayout.cpp:
 	.text       start:0x80079FA4 end:0x8007B270

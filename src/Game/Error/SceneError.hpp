@@ -27,19 +27,29 @@ public:
     virtual void _18(void);
     virtual void _1C(void);
     virtual void _20(void);
-    virtual bool _24(void);
     virtual void _28(void);
 
     CSceneError(void) {}
 
     SCENE_DECL_CREATE_FN()
 
+    void fn_80079B3C(u32, u32);
+
+    void fn_80079B40(void);
+    void fn_80079B98(void);
+    void fn_80079BF0(void);
+
+    static void fn_80079568(u32);
+
+    static void fn_8007963C(void);
+
 private:
-    u8 mUnk34;
-    u8 mUnk35;
-    u8 mUnk36;
-    u8 mUnk37;
-    u8 mUnk38;
+    bool mDoExitOnEnd;
+
+    bool mRestart;
+    bool mReturnToMenu;
+    bool mReturnToDataManager;
+    bool mShutdownSystem;
 };
 
 #endif
