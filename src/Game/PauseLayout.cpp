@@ -116,7 +116,7 @@ void CPauseLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
             }
     
             gTickFlowManager->fn_801E4048(false);
-            gInputCheckManager->setUnk41C(false);
+            gInputCheckManager->setGamePaused(false);
             gSoundManager->fn_801E6F98(false);
         }
     }
@@ -149,7 +149,7 @@ void CPauseLayout::_18(nw4r::lyt::DrawInfo *drawInfo) {
                         CExScene::fn_800098D0();
 
                         gTickFlowManager->fn_801E4048(true);
-                        gInputCheckManager->setUnk41C(true);
+                        gInputCheckManager->setGamePaused(true);
                         gSoundManager->fn_801E6F98(true);
 
                         if (controllerP1->getUnk133C() & WPAD_BUTTON_PLUS) {

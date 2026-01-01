@@ -277,7 +277,7 @@ void CHBMManager::fn_80086CCC(void) {
             !gGameManager->getCurrentScene<CExScene>()->fn_80009AA0()
         ) {
             gTickFlowManager->fn_801E4048(false);
-            gInputCheckManager->setUnk41C(0);
+            gInputCheckManager->setGamePaused(false);
             gSoundManager->fn_801E6F98(false);
             gSoundManager->fn_801E6F40(false);
         }
