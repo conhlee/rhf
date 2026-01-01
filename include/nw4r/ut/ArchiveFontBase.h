@@ -9,13 +9,14 @@ namespace ut {
 namespace detail {
 
 class ArchiveFontBase : public ResFontBase {
+protected:
+    static const char LOAD_GLYPH_ALL[1];
+
 public:
-
     ArchiveFontBase();
+
 private:
-
     u16 *mpGlyphIndexAdjustArray;
-
 };
 
 } // namespace detail

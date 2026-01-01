@@ -7,8 +7,6 @@
 
 #include "Mem.hpp"
 
-const char lbl_80329968[] = "\0";
-
 CLayoutManager::CLayoutManager(void) {}
 
 CLayoutManager::~CLayoutManager(void) {
@@ -171,11 +169,11 @@ bool CLayoutManager::fn_801D6E2C(void *resAddr, const char *resName) {
         mFontInfo[mFontCount]->getResFont()->SetResource(resAddr);
     } break;
     case eFontType_ArchiveFont: {
-        u32 bufferSize = nw4r::ut::ArchiveFont::GetRequireBufferSize(resAddr, lbl_80329968);
+        u32 bufferSize = nw4r::ut::ArchiveFont::GetRequireBufferSize(resAddr);
         mFontInfo[mFontCount]->buffer = new (eHeap_MEM2, 32) u8[bufferSize];
         mFontInfo[mFontCount]->font = new nw4r::ut::ArchiveFont;
         mFontInfo[mFontCount]->getArchiveFont()->Construct(
-            mFontInfo[mFontCount]->buffer, bufferSize, resAddr, lbl_80329968
+            mFontInfo[mFontCount]->buffer, bufferSize, resAddr
         );
     } break;
     }

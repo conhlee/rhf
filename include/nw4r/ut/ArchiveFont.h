@@ -9,14 +9,13 @@ namespace ut {
 
 class ArchiveFont : public detail::ArchiveFontBase {
 public:
-
     ArchiveFont();
-    void Construct(void *, u32, const void *, const char *);
+    void Construct(void *, u32, const void *, const char *param_4 = LOAD_GLYPH_ALL);
     void *Destroy();
 
-    static u32 GetRequireBufferSize(const void *, const char *);
-private:
+    static u32 GetRequireBufferSize(const void *, const char *param_2 = LOAD_GLYPH_ALL);
 
+private:
 };
 
 } // namespace ut
