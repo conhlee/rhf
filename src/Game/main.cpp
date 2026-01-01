@@ -59,6 +59,7 @@ DONT_INLINE void fn_80038AE4(void);
 DONT_INLINE void fn_800393DC(void);
 DONT_INLINE void fn_80039900(void);
 
+// DVD error has started (front)
 void funcDVDErrorF(void) {
     OSReport("funcDVDErrorF\n");
 
@@ -72,6 +73,7 @@ void funcDVDErrorF(void) {
     }
 }
 
+// DVD error has ended (back)
 void funcDVDErrorB(void) {
     OSReport("funcDVDErrorB\n");
 
@@ -81,9 +83,7 @@ void funcDVDErrorB(void) {
             gGameManager->getCurrentScene() == NULL ||
             !gGameManager->getCurrentScene<CExScene>()->fn_80009AA0()
         ) &&
-        (
-            gHBMManager == NULL || gHBMManager->getUnk414()
-        )
+        (gHBMManager == NULL || !gHBMManager->getUnk414())
     ) {
         gSoundManager->fn_801E6F98(false);
     }
@@ -104,7 +104,7 @@ void main(int argc, char **argv) {
     gGameManager->_18();
     fn_80039900();
 
-    u32 tickAfterInit = OSGetTick();
+    s32 tickAfterInit = OSGetTick();
 
     OSReport("Init Process Took %d msecs\n", OS_TICKS_TO_MSEC(tickAfterInit - tickBeforeInit));
 
@@ -131,8 +131,6 @@ void main(int argc, char **argv) {
 
 extern GXRenderModeObj sRenderModeObj;
 static bool sIs60FPS;
-
-extern char sSndArchivePath[64];
 
 void fn_80038350(void) {
     VIInit();
@@ -358,13 +356,15 @@ void fn_80038AE4(void) {
 
     gMessageManager->fn_80088030();
 
-    sprintf(sSndArchivePath, "%s%s", gFileManager->fn_801D3C44(), "content2/rev_tengoku.brsar");
+    static char sndArcPath[64];
+
+    sprintf(sndArcPath, "%s%s", gFileManager->fn_801D3C44(), "content2/rev_tengoku.brsar");
 
     if (gSoundManager == NULL) {
         gSoundManager = new CSoundManager;
     }
 
-    gSoundManager->_14(sSndArchivePath);
+    gSoundManager->_14(sndArcPath);
     gSoundManager->_1C();
 
     gSoundManager->fn_801E6E00(PLAYER_SE_SYSTEM);
