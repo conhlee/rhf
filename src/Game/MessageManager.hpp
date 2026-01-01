@@ -8,75 +8,14 @@
 #include "Singleton.hpp"
 
 enum { MESG_ID_INVALID = 10000001 };
-namespace {
-
-struct BMGBlockHeader {
-    u32 type;
-    u32 dataSize;
-
-    BMGBlockHeader *getNext(void) {
-        return reinterpret_cast<BMGBlockHeader *>(
-            reinterpret_cast<u8 *>(this) + dataSize
-        );
-    }
-};
-
-enum {
-    BMG_BLOCK_INF1 = 0x494e4631,
-    BMG_BLOCK_DAT1 = 0x44415431,
-    BMG_BLOCK_STR1 = 0x53545231,
-    BMG_BLOCK_MID1 = 0x4d494431,
-};
-
-struct BMGFileHeader {
-    enum EEncoding {
-        ENCODING_1BYTE,
-        ENCODING_2BYTE,
-        ENCODING_SJIS,
-        ENCODING_UTF8,
-    };
-
-    u32 signature;
-    u32 type;
-    u32 dataSize;
-    u32 numBlocks;
-
-    u8 mEncoding; // EEncoding
-
-    u8 mUnk11[0x20 - 0x11];
-
-    BMGBlockHeader mFirstBlock[1];
-};
-
-struct BMGMessageInfo {
-    struct Entry {
-        u32 dataOffset;
-        u32 attribute;
-    };
-
-    u16 numEntries;
-    u16 entrySize;
-    u16 groupID;
-    Entry entries[1];
-};
-
-struct BMGMessageData {
-    wchar_t data[1];
-};
-
-struct BMGStringAttributeInfo {};
-
-struct BMGMessageIDInfo {
-    u16 numEntries;
-    u8 form;
-    u8 formSupplement;
-    u8 reserved[4];
-    u32 entries[];
-};
-
-} // namespace
 
 class CMessageManager; // Forward-declaration
+
+struct BMGFileHeader; // Forward-declaration
+struct BMGMessageInfo; // Forward-declaration
+struct BMGMessageData; // Forward-declaration
+struct BMGStringAttributeInfo; // Forward-declaration
+struct BMGMessageIDInfo; // Forward-declaration
 
 class CBMGRes {
     friend class CMessageManager;
@@ -99,8 +38,20 @@ private:
     BMGMessageIDInfo *mMessageIDInfo;
 };
 
+enum EMesgSource {
+    eMesgSource_Main,       // riq_X.bmg
+    eMesgSource_Title,      // riq_title_X.bmg
+    eMesgSource_Comment,    // riq_comment_X.bmg
+    eMesgSource_Bonus,      // riq_bonus_X.bmg
+    eMesgSource_Cafe,       // riq_cafe_X.bmg
+
+    eMesgSource_Count
+};
+
 class CMessageManager : public TSingleton<CMessageManager> {
 public:
+    virtual ~CMessageManager(void);
+
     CMessageManager(void);
 
     void fn_80088030(void);
@@ -123,10 +74,7 @@ public:
     static s32 fn_80087708(const char *mesgIDStr);
 
 private:
-    enum { BMG_COUNT = 5 };
-
-private:
-    CBMGRes mBMG[BMG_COUNT];
+    CBMGRes mBMG[eMesgSource_Count];
     s32 mUnk7C;
     s32 mFormatMesgID;
     u8 mMedalCount;

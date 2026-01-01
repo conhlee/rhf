@@ -1,6 +1,75 @@
 #include "MessageManager.hpp"
 
+#include <revolution/SC.h>
+
 #include "FileManager.hpp"
+
+struct BMGBlockHeader {
+    u32 type;
+    u32 size;
+
+    BMGBlockHeader *getNext(void) {
+        return reinterpret_cast<BMGBlockHeader *>(
+            reinterpret_cast<u8 *>(this) + size
+        );
+    }
+};
+
+#define BMG_MAKE_ID(char1, char2, char3, char4) \
+    (((u32)(char1) << 24) | ((u32)(char2) << 16) | ((u32)(char3) << 8) | (u32)(char4))
+
+enum {
+    BMG_BLOCK_INF1 = BMG_MAKE_ID('I','N','F','1'),
+    BMG_BLOCK_DAT1 = BMG_MAKE_ID('D','A','T','1'),
+    BMG_BLOCK_STR1 = BMG_MAKE_ID('S','T','R','1'),
+    BMG_BLOCK_MID1 = BMG_MAKE_ID('M','I','D','1'),
+};
+
+struct BMGFileHeader {
+    enum EEncoding {
+        ENCODING_1BYTE,
+        ENCODING_2BYTE,
+        ENCODING_SJIS,
+        ENCODING_UTF8,
+    };
+
+    u32 signature;
+    u32 type;
+    u32 dataSize;
+    u32 numBlocks;
+
+    u8 mEncoding; // EEncoding
+
+    u8 mUnk11[0x20 - 0x11];
+
+    BMGBlockHeader mFirstBlock[1];
+};
+
+struct BMGMessageInfo {
+    struct Entry {
+        u32 dataOffset;
+        u32 attribute;
+    };
+
+    u16 numEntries;
+    u16 entrySize;
+    u16 groupID;
+    Entry entries[1];
+};
+
+struct BMGMessageData {
+    wchar_t data[1];
+};
+
+struct BMGStringAttributeInfo {};
+
+struct BMGMessageIDInfo {
+    u16 numEntries;
+    u8 form;
+    u8 formSupplement;
+    u8 reserved[4];
+    u32 entries[];
+};
 
 CBMGRes::CBMGRes(void) {
     mData = NULL;
@@ -113,5 +182,22 @@ s32 CMessageManager::fn_80087708(const char *string) {
     return finalValue;
 }
 
+CMessageManager::CMessageManager(void) {}
 
+CMessageManager::~CMessageManager(void) {}
+
+void CMessageManager::fn_80088030(void) {}
+
+void CMessageManager::fn_80088034(void) {
+    switch (SCGetLanguage()) {
+    default:
+        gFileManager->fn_801D3F94(0, "content2/message/riq_E.szs");
+        gFileManager->fn_801D4364(0);
+        break;
+    }
+}
+
+void CMessageManager::fn_8008807C(void) {
+    gFileManager->fn_801D41CC(0);
+}
 
