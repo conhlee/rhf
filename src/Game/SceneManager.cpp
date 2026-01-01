@@ -15,6 +15,7 @@
 #include "Error/SceneError.hpp"
 #include "AgbTap/SceneAgbTap.hpp"
 #include "Rap/SceneRap.hpp"
+#include "Perfect/ScenePerfect.hpp"
 
 CSceneManager::CSceneManager(void) {}
 
@@ -94,7 +95,6 @@ extern "C" void fn_800A4674(void);
 extern "C" void fn_8000B4B4(void);
 extern "C" void fn_8000C2E4(void);
 extern "C" void fn_800CF810(void);
-extern "C" void fn_80082FB0(void);
 extern "C" void fn_8009B39C(void);
 extern "C" void fn_8009A1C8(void);
 extern "C" void fn_800B2918(void);
@@ -362,7 +362,7 @@ void CSceneManager::fn_80089FE0(ESceneID sceneID, const TickFlowCode *tickFlowCo
         fn = (CScene::CreateFn)fn_800CF810;
         break;
     case eScene_Perfect:
-        fn = (CScene::CreateFn)fn_80082FB0;
+        fn = CScenePerfect::create;
         break;
     case eScene_Navi:
         fn = (CScene::CreateFn)fn_8009B39C;
@@ -711,7 +711,6 @@ extern "C" void fn_800A46D8(void);
 extern "C" void fn_8000B518(void);
 extern "C" void fn_8000C348(void);
 extern "C" void fn_800CF884(void);
-extern "C" void fn_80083014(void);
 extern "C" void fn_8009B458(void);
 extern "C" void fn_8009A22C(void);
 extern "C" void fn_800B297C(void);
@@ -897,7 +896,7 @@ void CSceneManager::fn_8008A704(ESceneID sceneID) {
         fn_800CF884();
         break;
     case eScene_Perfect:
-        fn_80083014();
+        CScenePerfect::fn_80083014();
         break;
     case eScene_Navi:
         fn_8009B458();

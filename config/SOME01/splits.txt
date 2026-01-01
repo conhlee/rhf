@@ -295,6 +295,31 @@ Game/MyCanvas.cpp:
 Game/DynTex.cpp:
 	.text       start:0x8007C288 end:0x8007C474
 
+Game/Perfect/MyChecker.cpp:
+	.text       start:0x80082ADC end:0x80082BD8
+	.rodata     start:0x80255338 end:0x80255350
+	.data       start:0x802EC940 end:0x802EC998
+	.sdata      start:0x8031F460 end:0x8031F468
+
+Game/Perfect/MyFlow.cpp:
+	.text       start:0x80082BD8 end:0x80082D2C
+	.rodata     start:0x80255350 end:0x80255368
+	.data       start:0x802EC998 end:0x802EC9D8
+	.sdata      start:0x8031F468 end:0x8031F470
+
+Game/Perfect/MyLayout.cpp:
+	.text       start:0x80082D2C end:0x80082FAC
+	.rodata     start:0x80255368 end:0x802553D8
+	.data       start:0x802EC9D8 end:0x802ECA08
+	.sdata      start:0x8031F470 end:0x8031F480
+	.sdata2     start:0x803250D0 end:0x803250D8
+
+Game/Perfect/ScenePerfect.cpp:
+	.text       start:0x80082FAC end:0x800832D4
+	.rodata     start:0x802553D8 end:0x80255410
+	.data       start:0x802ECA08 end:0x802ECA48
+	.sdata      start:0x8031F480 end:0x8031F488
+
 Game/ModeChangeLayout.cpp:
 	.text       start:0x800832D4 end:0x8008357C
 	.rodata     start:0x80255410 end:0x80255488
