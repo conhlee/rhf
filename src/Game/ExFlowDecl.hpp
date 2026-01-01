@@ -58,12 +58,15 @@ enum {
     TF_129,
     TF_12A,
     TF_12B,
-    TF_LOAD_SND_GROUP,          ///< Start loading a sound group. Arg0: type (1 for music, 2 for sfx); Args: SID of group
-    TF_UNLOAD_SND_GROUPS,       ///< Unload all groups of a specific type. Arg0: type (1 for music, 2 for sfx)
-    TF_RESET_SND_GROUP_HEAP,    ///< Reset a sound group's heap. Arg0: type (1 for music, 2 for sfx)
-                                ///      - Note: this doesn't unload any previously loaded data, but it will be
-                                ///              overwritten by newly allocated data. TODO this explanation is totally wrong!!!!!!!!!!!!
-    TF_12F,
+    TF_LOAD_SND_GROUP,          ///< Start loading a sound group. Arg0: heap (see ESoundHeap); Args: SID of group
+    TF_CLEAR_SND_HEAP,          ///< Clear a sound heap. Arg0: heap (see ESoundHeap)
+                                ///      - Note: this will completely wipe a heap's data, not restore it to its default state.
+                                ///              This means clearing a heap with default data (such as Heap 0, which contains the
+                                ///              common & practice groups by default) will cause that data to become deloaded.
+    TF_RESET_SND_GROUP_HEAP,    ///< Reset a sound group's heap. Arg0: heap (see ESoundHeap)
+                                ///      - Note: if the heap contains default data (such as Heap 0, which contains the common &
+                                ///              practice groups by default), this data will be retained when resetting.
+    TF_SND_LOADING,
     TF_130,
     TF_131,
     TF_CELLANIM_RENDER_EFF,
@@ -163,9 +166,10 @@ enum {
 #define TFC_RESET_SND_GROUP_HEAP_2() TFD_CMD(TF_RESET_SND_GROUP_HEAP, 0, eSoundHeap_2),
 #define TFC_RESET_SND_GROUP_HEAP_3() TFD_CMD(TF_RESET_SND_GROUP_HEAP, 0, eSoundHeap_3),
 
-// TODO
-#define TFC_12F_BEGIN() TFD_CMD(TF_12F, 1, 0), TFD_CAST(1),
-#define TFC_12F_END() TFD_CMD(TF_12F, 1, 0), TFD_CAST(0),
+#define TFC_SND_LOADING_BEGIN() TFD_CMD(TF_SND_LOADING, 1, 0), TFD_CAST(1),
+#define TFC_SND_LOADING_END() TFD_CMD(TF_SND_LOADING, 1, 0), TFD_CAST(0),
+
+#define TFC_SND_LOADING_GET() TFD_CMD(TF_SND_LOADING, 0, 1),
 
 #define TFC_CELLANIM_RENDER_EFF_RESET() TFD_CMD(TF_CELLANIM_RENDER_EFF, 1, 0), TFD_CAST(eCellAnimRenderEff_None),
 #define TFC_CELLANIM_RENDER_EFF_GRAYSCALE() TFD_CMD(TF_CELLANIM_RENDER_EFF, 1, 0), TFD_CAST(eCellAnimRenderEff_Grayscale),
