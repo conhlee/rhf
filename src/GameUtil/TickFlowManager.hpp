@@ -80,6 +80,7 @@ private:
     bool mUnkFC;
     u8 mUnkFD;
     u32 mUnk100;
+    u8 pad104[0x130 - 0x104];
 };
 
 
