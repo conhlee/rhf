@@ -705,7 +705,6 @@ extern "C" void fn_800CB354(void);
 extern "C" void fn_8009D718(void);
 extern "C" void fn_800A5BA4(void);
 extern "C" void fn_800ABBC8(void);
-extern "C" void fn_8007963C(void);
 extern "C" void fn_80092104(void);
 extern "C" void fn_8000EC8C(void);
 extern "C" void fn_800A46D8(void);
@@ -868,7 +867,7 @@ void CSceneManager::fn_8008A704(ESceneID sceneID) {
         fn_800ABBC8();
         break;
     case eScene_Error:
-        fn_8007963C();
+        CSceneError::fn_8007963C();
         break;
     case eScene_Strap:
         CSceneStrap::fn_8007B2D8();
