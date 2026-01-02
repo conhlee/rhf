@@ -1,6 +1,3 @@
-#ifndef GAME_MENU_MENUDATA_HPP
-#define GAME_MENU_MENUDATA_HPP
-
 #include "ExFlowDecl.hpp"
 
 #include "SceneManager.hpp"
@@ -1185,5 +1182,3 @@ const MenuEntry lbl_801F8460[106] = {
         /* .commentText = */ lbl_803210FC,
     },
 };
-
-#endif
