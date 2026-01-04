@@ -1,6 +1,6 @@
-#include <ctype.h>
 #include <revolution/ARC.h>
 #include <revolution/OS/OSError.h>
+#include <ctype.h>
 
 /**
  * Modified from decompilation by riidefi in WiiCore
@@ -180,13 +180,11 @@ s32 ARCConvertPathToEntrynum(ARCHandle* handle, const char* path) {
         // We've ensured the directory is not special.
         // Isolate the name of the current item in the path string.
         name_end = path;
-        while (name_end[0] != '\0' && name_end[0] != '/') {
-            ++name_end;
-        }
+        while (*name_end != '\0' && *name_end != '/') { name_end++; }
 
         // If the name was delimited by a '/' rather than truncated.
         // This must be expressed as a ternary, and an enum cannot be used..
-        name_delimited_by_slash = (name_end[0] != '\0') ? 1 : 0;
+        name_delimited_by_slash = (name_end[0] == '\0') ? FALSE : TRUE;
         name_length = name_end - path;
 
         // Traverse all children of the parent.
