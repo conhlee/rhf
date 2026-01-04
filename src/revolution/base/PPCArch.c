@@ -207,7 +207,8 @@ void PPCMthid4(register u32 val) {
             mtspr 0x3F3, val
         }
         // clang-format on
-    } else {
+    }
+    else {
         OSReport("H4A should not be cleared because of Broadway errata.\n");
         val |= HID4_H4A;
         // clang-format off

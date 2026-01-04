@@ -28,7 +28,8 @@ void MEMAppendListObject(MEMList* list, void* object) {
 
     if (list->head == NULL) {
         SetFirstObject_(list, object);
-    } else {
+    }
+    else {
         node = OBJECT_GET_NODE(list, object);
         node->prev = list->tail;
         node->next = NULL;
@@ -46,13 +47,15 @@ void MEMRemoveListObject(MEMList* list, void* object) {
 
     if (node->prev == NULL) {
         list->head = node->next;
-    } else {
+    }
+    else {
         OBJECT_GET_NODE(list, node->prev)->next = node->next;
     }
 
     if (node->next == NULL) {
         list->tail = node->prev;
-    } else {
+    }
+    else {
         OBJECT_GET_NODE(list, node->next)->prev = node->prev;
     }
 

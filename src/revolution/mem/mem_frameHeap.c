@@ -127,7 +127,8 @@ void* MEMAllocFromFrmHeapEx(MEMiHeapHead* heap, u32 size, s32 align) {
     // Alignment sign determines alloc direction
     if (align >= 0) {
         memBlock = AllocFromHead_(frm, size, align);
-    } else {
+    }
+    else {
         memBlock = AllocFromTail_(frm, size, -align);
     }
     UnlockHeap(heap);
@@ -161,7 +162,8 @@ u32 MEMGetAllocatableSizeForFrmHeapEx(MEMiHeapHead* heap, s32 align) {
 
     if (start > frm->tail) {
         size = 0;
-    } else {
+    }
+    else {
         size = GetOffsetFromPtr(start, frm->tail);
     }
 
@@ -184,7 +186,8 @@ BOOL MEMRecordStateForFrmHeap(MEMiHeapHead* heap, u32 id) {
 
     if (state == NULL) {
         success = FALSE;
-    } else {
+    }
+    else {
         state->id = id;
         state->head = head;
         state->tail = frm->tail;
@@ -219,7 +222,8 @@ BOOL MEMFreeByStateToFrmHeap(MEMiHeapHead* heap, u32 id) {
 
     if (state == NULL) {
         success = FALSE;
-    } else {
+    }
+    else {
         frm->head = state->head;
         frm->tail = state->tail;
         frm->states = state->next;
@@ -240,7 +244,8 @@ u32 MEMAdjustFrmHeap(MEMiHeapHead* heap) {
 
     if (GetOffsetFromPtr(frm->tail, heap->end) != 0) {
         newSize = 0;
-    } else {
+    }
+    else {
         heap->end = frm->head;
         frm->tail = frm->head;
         newSize = GetOffsetFromPtr(heap, frm->head);

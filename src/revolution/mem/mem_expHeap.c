@@ -56,14 +56,16 @@ static MEMiExpHeapMBlock* RemoveMBlock_(MEMiExpHeapMBlockList* list,
     // Fix prev link
     if (prev != NULL) {
         prev->next = next;
-    } else {
+    }
+    else {
         list->head = next;
     }
 
     // Fix next link
     if (next != NULL) {
         next->prev = prev;
-    } else {
+    }
+    else {
         list->tail = prev;
     }
 
@@ -121,7 +123,7 @@ static MEMiHeapHead* InitExpHeap_(MEMiHeapHead* heap, void* end, u16 opt) {
 static void* AllocUsedBlockFromFreeBlock_(MEMiExpHeapHead* exp,
                                           MEMiExpHeapMBlock* mblock,
                                           void* memPtr, u32 size,
-                                          u16 allocDir) {
+                                          u16 allocDir) DONT_INLINE {
 }
 
 static void* AllocFromHead_(MEMiHeapHead* heap, u32 size, s32 align) {
@@ -233,7 +235,8 @@ void* MEMAllocFromExpHeapEx(MEMiHeapHead* heap, u32 size, s32 align) {
     // Alignment sign determines alloc direction
     if (align >= 0) {
         memBlock = AllocFromHead_(heap, size, align);
-    } else {
+    }
+    else {
         memBlock = AllocFromTail_(heap, size, -align);
     }
 
