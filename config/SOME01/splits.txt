@@ -1365,7 +1365,7 @@ revolution/nand/NANDErrorMessage.c:
 	.sdata2     start:0x80328E80 end:0x80328EB0
 
 revolution/sc/scsystem.c:
-	.text       start:0x80122BC0 end:0x80124550
+	.text       start:0x80122BC0 end:0x80124548
 	.rodata     start:0x802DF2C0 end:0x802DF318
 	.data       start:0x803084B8 end:0x803086B0
 	.sdata      start:0x8031FCE0 end:0x8031FDF0
@@ -1373,7 +1373,7 @@ revolution/sc/scsystem.c:
 	.bss        start:0x80370240 end:0x803783E0
 
 revolution/sc/scapi.c:
-	.text       start:0x80124550 end:0x80124A60
+	.text       start:0x80124550 end:0x80124A58
 
 revolution/sc/scapi_prdinfo.c:
 	.text       start:0x80124A60 end:0x80124CE4
@@ -1386,7 +1386,7 @@ revolution/wenc/wenc.c:
 	.sdata2     start:0x80328EB0 end:0x80328EB8
 
 revolution/arc/arc.c:
-	.text       start:0x80124FC0 end:0x801259A0
+	.text       start:0x80124FC0 end:0x80125998
 	.data       start:0x80308710 end:0x80308780
 	.sdata      start:0x8031FE00 end:0x8031FE08
 

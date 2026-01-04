@@ -745,9 +745,9 @@ config.libs = [
     RevolutionLib(
         "sc",
         [
-            Object(NonMatching, "revolution/sc/scsystem.c"),
-            Object(NonMatching, "revolution/sc/scapi.c"),
-            Object(NonMatching, "revolution/sc/scapi_prdinfo.c"),
+            Object(Matching, "revolution/sc/scsystem.c"),
+            Object(Matching, "revolution/sc/scapi.c"),
+            Object(Matching, "revolution/sc/scapi_prdinfo.c"),
         ]
     ),
     RevolutionLib(
@@ -759,7 +759,7 @@ config.libs = [
     RevolutionLib(
         "arc",
         [
-            Object(NonMatching, "revolution/arc/arc.c"),
+            Object(Matching, "revolution/arc/arc.c"),
         ]
     ),
     RevolutionLib(
