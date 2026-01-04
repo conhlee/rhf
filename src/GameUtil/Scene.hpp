@@ -20,8 +20,8 @@ public:
     typedef CScene *(*CreateFn)(u16 heapGroup);
     enum EState {
         eState_Initial = 0, // Scene object was just created
-        eState_Loading = 1, // Scene object is busy preparing
-        eState_Ready = 2, /// Scene object has finished preparing and is ready to become active
+        eState_Loading = 1, // Scene object is busy loading assets
+        eState_Ready = 2, /// Scene object has finished loading and is ready to become active
         eState_Active = 3, // Scene object is active (running)
         eState_ScheduleDown = 4, // Scene object has been requested to go down
         eState_Down = 5, // Scene object is down, busy deconstructing
