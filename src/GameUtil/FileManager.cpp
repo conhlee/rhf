@@ -155,7 +155,7 @@ void CFileManager::fn_801D412C(s32 result, DVDFileInfo *fileInfo) {
         }
     }
 
-    if (result == DVD_RESULT_FATAL_ERROR) {
+    if (result == DVD_RESULT_FATAL) {
         return;
     }
 
@@ -386,8 +386,8 @@ void CFileManager::fn_801D49D4(void) {
     s32 driveStatus = DVDGetDriveStatus();
     switch (driveStatus) {
     case DVD_STATE_NO_DISK:
-    case DVD_STATE_WRONG_DISK:
-    case DVD_STATE_RETRY:
+    case DVD_STATE_WRONG_DISK_ID:
+    case DVD_STATE_DISK_ERROR:
         if (mDVDErrorFuncF != NULL) {
             mDVDErrorFuncF();
         }

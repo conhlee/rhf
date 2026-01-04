@@ -19,11 +19,32 @@ typedef enum {
     SC_AREA_ASI,
     SC_AREA_LTN,
     SC_AREA_SAF,
+    SC_AREA_CHN,
+
+    SC_AREA_MAX,
+    SC_AREA_NULL = -1
 } SCProductArea;
 
+typedef enum {
+    SC_PRD_GAME_REG_JP,
+    SC_PRD_GAME_REG_US,
+    SC_PRD_GAME_REG_EU,
+    SC_PRD_GAME_REG_DEBUG,
+
+    SC_PRD_GAME_REG_KR,
+    SC_PRD_GAME_REG_CN,
+
+    SC_PRD_GAME_REG_MAX,
+    SC_PRD_GAME_REG_NULL = -1
+} SCProductGameRegion;
+
 BOOL __SCF1(const char* type, char* buf, u32 sz);
+
 BOOL SCGetProductAreaString(char* buf, u32 sz);
 s8 SCGetProductArea(void);
+
+BOOL SCGetProductGameRegionString(char* buf, u32 sz);
+s8 SCGetProductGameRegion(void);
 
 #ifdef __cplusplus
 }

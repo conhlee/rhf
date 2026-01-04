@@ -49,6 +49,7 @@ typedef enum {
 
     // Bluetooth settings
     SC_ITEM_BT_DINF, // Bluetooth device info
+    SC_ITEM_BT_CDIF,
     SC_ITEM_BT_SENS, // Remote sensitivity
     SC_ITEM_BT_SPKV, // WPAD speaker volume
     SC_ITEM_BT_MOT,  // WPAD motor mode
@@ -58,7 +59,11 @@ typedef enum {
     SC_ITEM_DVD_CNF, // DVD config
     SC_ITEM_WWW_RST, // WWW restriction
 
-    SC_ITEM_MAX
+    SC_ITEM_MPLS_MOVIE,
+
+    SC_ITEM_IPL_TID,
+
+    SC_ITEM_MAX_PLUS1
 } SCItemID;
 
 typedef void (*SCFlushCallback)(SCStatus status);

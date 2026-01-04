@@ -1,6 +1,7 @@
 #ifndef RVL_SDK_PAD_H
 #define RVL_SDK_PAD_H
 #include <revolution/types.h>
+#include <revolution/PAD/Pad.h>
 #ifdef __cplusplus
 extern "C" {
 #endif

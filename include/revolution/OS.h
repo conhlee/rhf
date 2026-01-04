@@ -22,6 +22,7 @@ extern "C" {
 #include <revolution/OS/OSStateTM.h>
 #include <revolution/OS/OSThread.h>
 #include <revolution/OS/OSTime.h>
+#include <revolution/OS/__ppc_eabi_init.h>
 
 #ifdef __cplusplus
 }

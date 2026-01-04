@@ -1,6 +1,8 @@
 #ifndef RVL_SDK_SC_SCAPI_H
 #define RVL_SDK_SC_SCAPI_H
 #include <types.h>
+#include <revolution/WPAD/bte.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -46,6 +48,17 @@ typedef struct SCBtDeviceInfoArray {
     SCBtDeviceInfo active[6];  // at 0x2BD
 } SCBtDeviceInfoArray;
 
+typedef struct SCBtCmpDevInfo {
+    BD_ADDR devAddr; // size 0x06, offset 0x00
+    struct small_dev_info small; // size 0x40, offset 0x06
+    LINK_KEY linkKey; // size 0x10, offset 0x30 // ? or just a buffer
+} SCBtCmpDevInfo; // size 0x56
+
+typedef struct SCBtCmpDevInfoArray {
+    u8 num; // size 0x001, offset 0x000 // name known from asserts
+    SCBtCmpDevInfo devices[6]; // size 0x204, offset 0x001
+} SCBtCmpDevInfoArray; // size 0x205
+
 u8 SCGetAspectRatio(void);
 s8 SCGetDisplayOffsetH(void);
 u8 SCGetEuRgb60Mode(void);
@@ -56,7 +69,9 @@ u8 SCGetScreenSaverMode(void);
 u8 SCGetSoundMode(void);
 u32 SCGetCounterBias(void);
 void SCGetBtDeviceInfoArray(SCBtDeviceInfoArray* info);
-void SCSetBtDeviceInfoArray(const SCBtDeviceInfoArray* info);
+BOOL SCSetBtDeviceInfoArray(const SCBtDeviceInfoArray* info);
+void SCGetBtCmpDevInfoArray(SCBtCmpDevInfoArray *array);
+BOOL SCSetBtCmpDevInfoArray(const SCBtCmpDevInfoArray *array);
 u32 SCGetBtDpdSensibility(void);
 u8 SCGetWpadMotorMode(void);
 void SCSetWpadMotorMode(u8 mode);

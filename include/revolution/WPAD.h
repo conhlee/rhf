@@ -8,9 +8,12 @@
 extern "C" {
 #endif
 
-#include <revolution/WPAD/WPAD.h>
-#include <revolution/WPAD/WPADInternal.h>
+#include <revolution/WPAD/bte.h>
 #include <revolution/WPAD/debug_msg.h>
+#include <revolution/WPAD/WPAD.h>
+#include <revolution/WPAD/WPADHIDParser.h>
+#include <revolution/WPAD/WPADMem.h>
+#include <revolution/WPAD/WPADInternal.h>
 
 #ifdef __cplusplus
 }

@@ -149,10 +149,10 @@ void CGameManager::fn_801D7538(s32 driveStatus) {
     case DVD_STATE_NO_DISK:
         sDVDMessageData.messageStr = lbl_80316400;
         break;
-    case DVD_STATE_WRONG_DISK:
+    case DVD_STATE_WRONG_DISK_ID:
         sDVDMessageData.messageStr = lbl_8031645C;
         break;
-    case DVD_STATE_RETRY:
+    case DVD_STATE_DISK_ERROR:
         sDVDMessageData.messageStr = lbl_803164B8;
         break;
     default:
