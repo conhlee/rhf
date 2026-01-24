@@ -2097,7 +2097,7 @@ nw4r/lyt/lyt_util.cpp:
 	.text       start:0x801A77E0 end:0x801A7850
 
 nw4r/math/math_arithmetic.cpp:
-	.text       start:0x801A7850 end:0x801A7A20
+	.text       start:0x801A7850 end:0x801A7A18
 	.data       start:0x80314A00 end:0x80315310
 	.sdata2     start:0x80329210 end:0x80329230
 

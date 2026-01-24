@@ -973,7 +973,7 @@ config.libs = [
     Nw4rLib(
         "math",
         [
-            Object(NonMatching, "nw4r/math/math_arithmetic.cpp"),
+            Object(Matching, "nw4r/math/math_arithmetic.cpp"),
             Object(NonMatching, "nw4r/math/math_triangular.cpp"),
             Object(NonMatching, "nw4r/math/math_types.cpp"),
         ]
