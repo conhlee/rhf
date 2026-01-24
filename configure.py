@@ -472,9 +472,9 @@ config.libs = [
         "mtx",
         [
             Object(NonMatching, "revolution/mtx/mtx.c"),
-            Object(NonMatching, "revolution/mtx/mtxvec.c"),
-            Object(NonMatching, "revolution/mtx/mtx44.c"),
-            Object(NonMatching, "revolution/mtx/vec.c"),
+            Object(Matching, "revolution/mtx/mtxvec.c"),
+            Object(Matching, "revolution/mtx/mtx44.c"),
+            Object(Matching, "revolution/mtx/vec.c"),
         ]
     ),
     RevolutionLib(

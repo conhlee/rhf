@@ -647,19 +647,19 @@ revolution/os/__ppc_eabi_init.c:
 	.text       start:0x800E6850 end:0x800E6910
 
 revolution/mtx/mtx.c:
-	.text       start:0x800E6910 end:0x800E6FF0
+	.text       start:0x800E6910 end:0x800E6FE4
 	.sdata      start:0x8031FAF8 end:0x8031FB00
 	.sdata2     start:0x803288A8 end:0x803288B0
 
 revolution/mtx/mtxvec.c:
-	.text       start:0x800E6FF0 end:0x800E7050
+	.text       start:0x800E6FF0 end:0x800E7044
 
 revolution/mtx/mtx44.c:
-	.text       start:0x800E7050 end:0x800E71E0
+	.text       start:0x800E7050 end:0x800E71D8
 	.sdata2     start:0x803288B0 end:0x803288C8
 
 revolution/mtx/vec.c:
-	.text       start:0x800E71E0 end:0x800E73F0
+	.text       start:0x800E71E0 end:0x800E73E8
 	.sdata2     start:0x803288C8 end:0x803288D8
 
 revolution/dvd/dvdfs.c:
