@@ -692,13 +692,16 @@ config.libs = [
             Object(NonMatching, "PowerPC_EABI_Support/MetroTRK/target_options.c"),
         ],
     },
-    RevolutionLib( # not actually rvl sdk
-        "ndevexi2a",
-        [
-            Object(NonMatching, "NdevExi2A/DebuggerDriver.c"),
-            Object(NonMatching, "NdevExi2A/exi.c"),
-        ]
-    ),
+    {
+        "lib": "ndevexi2a",
+        "mw_version": "GC/3.0a5.2",
+        "cflags": cflags_base,
+        "progress_category": "sdk",
+        "objects": [
+            Object(Matching, "NdevExi2A/DebuggerDriver.c"),
+            Object(Matching, "NdevExi2A/exi.c"),
+        ],
+    },
     RevolutionLib(
         "mem",
         [

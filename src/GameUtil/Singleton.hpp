@@ -4,7 +4,7 @@
 #include <revolution/types.h>
 
 template <typename T>
-class TSingleton { // this is probably incorrect
+class TSingleton {
 public:
     virtual void _08(void) {}
     virtual ~TSingleton(void) {
