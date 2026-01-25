@@ -58,7 +58,10 @@ namespace nw4r { namespace snd
 
 	// methods
 	public:
-        static void InitSoundSystem(s32 soundThreadPrio, s32 dvdThreadPriority);
+        static void InitSoundSystem(
+			s32 soundThreadPrio = DEFAULT_SOUND_THREAD_PRIORITY,
+			s32 dvdThreadPriority = DEFAULT_DVD_THREAD_PRIORITY
+		);
         static u32 GetRequiredMemSize(SoundSystemParam const &param);
 
 		static void InitSoundSystem(SoundSystemParam const &param,

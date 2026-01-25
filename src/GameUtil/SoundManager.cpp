@@ -15,10 +15,7 @@ SNDHandle::~SNDHandle(void) {
 CSoundManager::CSoundManager(void) {
     AIInit(NULL);
 
-    nw4r::snd::SoundSystem::InitSoundSystem(
-        nw4r::snd::SoundSystem::DEFAULT_SOUND_THREAD_PRIORITY,
-        nw4r::snd::SoundSystem::DEFAULT_DVD_THREAD_PRIORITY
-    );
+    nw4r::snd::SoundSystem::InitSoundSystem();
 
     mFxReverbHi0 = NULL;
     mFxReverbHi1 = NULL;
@@ -586,29 +583,29 @@ void CSoundManager::fn_801E7344(nw4r::snd::SeqUserprocCallback *callback, void *
 }
 
 void CSoundManager::fn_801E734C(void) {    
-    mFxReverbHi0Param.earlyMode = nw4r::snd::FX_REVERB_EARLY_REFLECTION_30MS;
+    mFxReverbHi0Param.earlyMode =       nw4r::snd::FX_REVERB_EARLY_REFLECTION_30MS;
     mFxReverbHi0Param.preDelayTimeMax = 0.1f;
-    mFxReverbHi0Param.preDelayTime = 0.1f;
-    mFxReverbHi0Param.fusedMode = nw4r::snd::FX_REVERB_FUSED_OLD_AXFX;
-    mFxReverbHi0Param.fusedTime = 2.1f;
-    mFxReverbHi0Param.coloration = 0.6f;
-    mFxReverbHi0Param.damping = 0.4f;
-    mFxReverbHi0Param.crosstalk = 0.1f;
-    mFxReverbHi0Param.earlyGain = 0.0f;
-    mFxReverbHi0Param.fusedGain = 1.0f;
-    mFxReverbHi0Param.outGain = 0.4f;
+    mFxReverbHi0Param.preDelayTime =    0.1f;
+    mFxReverbHi0Param.fusedMode =       nw4r::snd::FX_REVERB_FUSED_OLD_AXFX;
+    mFxReverbHi0Param.fusedTime =       2.1f;
+    mFxReverbHi0Param.coloration =      0.6f;
+    mFxReverbHi0Param.damping =         0.4f;
+    mFxReverbHi0Param.crosstalk =       0.1f;
+    mFxReverbHi0Param.earlyGain =       0.0f;
+    mFxReverbHi0Param.fusedGain =       1.0f;
+    mFxReverbHi0Param.outGain =         0.4f;
 
-    mFxReverbHi1Param.earlyMode = nw4r::snd::FX_REVERB_EARLY_REFLECTION_30MS;
+    mFxReverbHi1Param.earlyMode =       nw4r::snd::FX_REVERB_EARLY_REFLECTION_30MS;
     mFxReverbHi1Param.preDelayTimeMax = 0.0f;
-    mFxReverbHi1Param.preDelayTime = 0.0f;
-    mFxReverbHi1Param.fusedMode = nw4r::snd::FX_REVERB_FUSED_OLD_AXFX;
-    mFxReverbHi1Param.fusedTime = 2.1f;
-    mFxReverbHi1Param.coloration = 0.6f;
-    mFxReverbHi1Param.damping = 0.4f;
-    mFxReverbHi1Param.crosstalk = 0.1f;
-    mFxReverbHi1Param.earlyGain = 0.0f;
-    mFxReverbHi1Param.fusedGain = 1.0f;
-    mFxReverbHi1Param.outGain = 0.4f;
+    mFxReverbHi1Param.preDelayTime =    0.0f;
+    mFxReverbHi1Param.fusedMode =       nw4r::snd::FX_REVERB_FUSED_OLD_AXFX;
+    mFxReverbHi1Param.fusedTime =       2.1f;
+    mFxReverbHi1Param.coloration =      0.6f;
+    mFxReverbHi1Param.damping =         0.4f;
+    mFxReverbHi1Param.crosstalk =       0.1f;
+    mFxReverbHi1Param.earlyGain =       0.0f;
+    mFxReverbHi1Param.fusedGain =       1.0f;
+    mFxReverbHi1Param.outGain =         0.4f;
 }
 
 void CSoundManager::fn_801E73C8(WaveInfo *waveInfo, u16 count) {
