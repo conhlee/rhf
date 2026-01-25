@@ -61,7 +61,8 @@ BOOL __SCF1(const char* type, char* buf, u32 sz) {
 
             if (((ptext ^ type[typeOfs]) & 0xDF) == 0) {
                 typeOfs++;
-            } else {
+            }
+            else {
                 typeOfs = 0;
             }
         }
