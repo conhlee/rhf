@@ -31,8 +31,8 @@ public:
 
     CFileManager(void);
 
-    void fn_801D3C2C(const char *localeDir);
-    const char *fn_801D3C44(void);
+    void setLocaleDir(const char *localeDir);
+    const char *getLocaleDir(void);
 
     // NOTE: alignment must be a multiple of 32, or DVD read will fail!
     void *fn_801D3C4C(const char *path, EHeapMEM heap = eHeap_MEM2, s32 alignment = 32);
@@ -70,7 +70,7 @@ public:
     }
 
     // TODO: come up with a better name
-    static void waitLoadFinalizeTick(void) {
+    static void waitTick(void) {
         gFileManager->fn_801D49D4(); // Check DVD errors, wait for them to be resolved if they appear ..
         gFileManager->fn_801D4544(); // Update archive processing (do decompression, relocation, etc.)
         OSSleepTicks(OS_MSEC_TO_TICKS(10ll));

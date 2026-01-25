@@ -7,6 +7,9 @@
 
 static char sDVDPathBuffer[64];
 
+// In words.
+static const u32 THREAD_STACK_SIZE = 0xA00;
+
 void CFileManager::fn_801D392C(s32 result, DVDFileInfo *fileInfo) {
     s32 index = gFileManager->getFileInfoIdx(fileInfo);
     if (result == -1) {
@@ -23,9 +26,6 @@ CFileManager::CFileManager(void) {}
 CFileManager::~CFileManager(void) {
     _08();
 }
-
-// In words.
-static const u32 THREAD_STACK_SIZE = 0xA00;
 
 void CFileManager::_10(s32 maxFileCount, s32 maxArchiveCount) {
     mMaxArchiveCount = maxArchiveCount;
@@ -64,33 +64,33 @@ void CFileManager::_14(void) {
     mDVDErrorFuncB = NULL;
 }
 
-void CFileManager::fn_801D3C2C(const char *localeDir) {
+void CFileManager::setLocaleDir(const char *localeDir) {
     sprintf(mLocaleDir, "%s", localeDir);
 }
 
-const char *CFileManager::fn_801D3C44(void) {
+const char *CFileManager::getLocaleDir(void) {
     return mLocaleDir;
 }
 
 void *CFileManager::fn_801D3C4C(const char *path, EHeapMEM heap, s32 alignment) {
-    sprintf(sDVDPathBuffer, "%s%s", gFileManager->fn_801D3C44(), path);
+    sprintf(sDVDPathBuffer, "%s%s", gFileManager->getLocaleDir(), path);
 
-    s32 dfiIndex = -1;
+    s32 fileInfoIndex = -1;
     for (s32 i = 0; i < mMaxFileCount; i++) {
         if (mDVDFileInfoActive[i] == false) {
-            dfiIndex = i;
+            fileInfoIndex = i;
             break;
         }
     }
 
-    DVDOpen(sDVDPathBuffer, &mDVDFileInfo[dfiIndex]);
+    DVDOpen(sDVDPathBuffer, &mDVDFileInfo[fileInfoIndex]);
 
-    u32 allocSize = ROUND_UP(mDVDFileInfo[dfiIndex].length, 32);
+    u32 allocSize = ROUND_UP(mDVDFileInfo[fileInfoIndex].length, 32);
     void *alloc = new (heap, alignment) u8[allocSize];
     DCInvalidateRange(alloc, allocSize);
 
-    DVDReadAsyncPrio(&mDVDFileInfo[dfiIndex], alloc, allocSize, 0, fn_801D392C, 2);
-    mDVDFileInfoActive[dfiIndex] = true;
+    DVDReadAsyncPrio(&mDVDFileInfo[fileInfoIndex], alloc, allocSize, 0, fn_801D392C, 2);
+    mDVDFileInfoActive[fileInfoIndex] = true;
 
     return alloc;
 }
@@ -106,28 +106,28 @@ bool CFileManager::fn_801D3D58(void) {
 
 void CFileManager::fn_801D3D94(void) {
     while (fn_801D3D58()) {
-        waitLoadFinalizeTick();
+        waitTick();
     }
 }
 
 void CFileManager::fn_801D3E94(void) {
     while (fn_801D3D58()) {
-        waitLoadFinalizeTick();
+        waitTick();
     }
 }
 
 void CFileManager::fn_801D3F94(s32 arcIndex, const char *path, EHeapMEM heap, s32 alignment) {
-    sprintf(sDVDPathBuffer, "%s%s", gFileManager->fn_801D3C44(), path);
+    sprintf(sDVDPathBuffer, "%s%s", gFileManager->getLocaleDir(), path);
 
-    s32 dfiIndex = -1;
+    s32 fileInfoIndex = -1;
     for (s32 i = 0; i < mMaxFileCount; i++) {
         if (mDVDFileInfoActive[i] == false) {
-            dfiIndex = i;
+            fileInfoIndex = i;
             break;
         }
     }
 
-    mArchiveInfo[arcIndex].dvdFileInfo = &mDVDFileInfo[dfiIndex];
+    mArchiveInfo[arcIndex].dvdFileInfo = &mDVDFileInfo[fileInfoIndex];
     mArchiveInfo[arcIndex].heapType = heap;
     mArchiveInfo[arcIndex].heapGroup = fn_801D363C();
 
@@ -136,14 +136,14 @@ void CFileManager::fn_801D3F94(s32 arcIndex, const char *path, EHeapMEM heap, s3
 
     mArchiveInfo[arcIndex].state = eArchiveInfoState_Loading;
 
-    DVDOpen(sDVDPathBuffer, &mDVDFileInfo[dfiIndex]);
+    DVDOpen(sDVDPathBuffer, &mDVDFileInfo[fileInfoIndex]);
 
-    u32 allocSize = ROUND_UP(mDVDFileInfo[dfiIndex].length, 32);
+    u32 allocSize = ROUND_UP(mDVDFileInfo[fileInfoIndex].length, 32);
     mArchiveInfo[arcIndex].data = new (mArchiveInfo[arcIndex].heapType, alignment) u8[allocSize];
     DCInvalidateRange(mArchiveInfo[arcIndex].data, allocSize);
 
-    DVDReadAsyncPrio(&mDVDFileInfo[dfiIndex], mArchiveInfo[arcIndex].data, allocSize, 0, fn_801D3988, 2);
-    mDVDFileInfoActive[dfiIndex] = true;
+    DVDReadAsyncPrio(&mDVDFileInfo[fileInfoIndex], mArchiveInfo[arcIndex].data, allocSize, 0, fn_801D3988, 2);
+    mDVDFileInfoActive[fileInfoIndex] = true;
 }
 
 void CFileManager::fn_801D412C(s32 result, DVDFileInfo *fileInfo) {
@@ -225,13 +225,13 @@ bool CFileManager::fn_801D431C(void) {
 
 void CFileManager::fn_801D4364(s32 arcIndex) {
     while (mArchiveInfo[arcIndex].state != eArchiveInfoState_Ready) {
-        waitLoadFinalizeTick();
+        waitTick();
     }
 }
 
 void CFileManager::fn_801D443C(void) {
     while (!fn_801D431C()) {
-        waitLoadFinalizeTick();
+        waitTick();
     }
 }
 
@@ -272,7 +272,7 @@ void CFileManager::fn_801D4544(void) {
 )
 
 void *CFileManager::fn_801D461C(void *data, BOOL deleteSrc, EHeapMEM heap, s32 alignment) {
-    s32 expandSize = getSZSExpandSize(data);
+    u32 expandSize = getSZSExpandSize(data);
 
     u32 dstSize = ROUND_UP(expandSize, 32);
     u8 *dst = new (heap, alignment) u8[dstSize];

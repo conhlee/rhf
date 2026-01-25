@@ -77,7 +77,7 @@ void CSoundManager::_14(const char *soundArchivePath) {
     OSResumeThread(&mThread);
 
     while (!mLoadData.loaded) {
-        gFileManager->waitLoadFinalizeTick();
+        gFileManager->waitTick();
     }
 }
 
@@ -562,7 +562,7 @@ void CSoundManager::fn_801E7230(u16 groupID, nw4r::snd::SoundHeap *soundHeap) {
     fn_801E71CC(groupID, soundHeap);
 
     while (!mLoadData.loaded) {
-        gFileManager->waitLoadFinalizeTick();
+        gFileManager->waitTick();
     }
 }
 
