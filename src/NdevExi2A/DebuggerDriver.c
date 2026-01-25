@@ -104,7 +104,7 @@ BOOL DBWrite(const void* src, u32 size) {
     __DBWaitForSendMail();
 
     ofs = 0;
-    if ((++l_byOffsetCounter & 0x1) == 0) {
+    if (!(++l_byOffsetCounter & 0x1)) {
         ofs = 0;
     }
     else {
