@@ -1,12 +1,12 @@
 #ifndef RVL_SDK_MEM_ALLOCATOR_H
 #define RVL_SDK_MEM_ALLOCATOR_H
 #include <revolution/types.h>
+#include <revolution/MEM/mem_heapCommon.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct MEMAllocator;
-typedef struct MEMiHeapHead;
 
 typedef void *(*MEMAllocatorAllocFunc)(struct MEMAllocator *allocator,
                                        u32 size);

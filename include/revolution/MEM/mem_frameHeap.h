@@ -1,14 +1,12 @@
 #ifndef RVL_SDK_MEM_FRAME_HEAP_H
 #define RVL_SDK_MEM_FRAME_HEAP_H
 #include <revolution/types.h>
+#include <revolution/MEM/mem_heapCommon.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #define MEM_FRM_HEAP_MIN_SIZE (sizeof(MEMiHeapHead) + sizeof(MEMiFrmHeapHead))
-
-// Forward declarations
-typedef struct MEMiHeapHead MEMiHeapHead;
 
 // Specify how to free memory
 typedef enum {

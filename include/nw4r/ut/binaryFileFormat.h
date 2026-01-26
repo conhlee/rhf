@@ -7,20 +7,14 @@
 
 #include <types.h>
 
+#include <climits> // CHAR_BIT
+
 /*******************************************************************************
  * types
  */
 
-// TODO: move these out?
-
-#if defined(CHAR_BIT)
-# define CHAR_BIT_	CHAR_BIT
-#else
-# define CHAR_BIT_	8 // most common; default
-#endif
-
 #define NW4R_BYTE_(byte_, offset_)	\
-	(static_cast<unsigned char>(byte_) << CHAR_BIT_ * (offset_))
+	(static_cast<unsigned char>(byte_) << CHAR_BIT * (offset_))
 
 #define NW4R_FILE_VERSION(MAJOR, MINOR)	\
 	(NW4R_BYTE_(MAJOR, 1) | NW4R_BYTE_(MINOR, 0))

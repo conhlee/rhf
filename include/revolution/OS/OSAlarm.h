@@ -11,7 +11,7 @@ typedef struct OSAlarm OSAlarm;
 
 typedef void (*OSAlarmHandler)(OSAlarm* alarm, OSContext* ctx);
 
-typedef struct OSAlarm {
+struct OSAlarm {
     OSAlarmHandler handler; // at 0x0
     u32 tag;                // at 0x4
     s64 end;                // at 0x8
@@ -20,7 +20,7 @@ typedef struct OSAlarm {
     s64 period;             // at 0x18
     s64 start;              // at 0x20
     void* userData;         // at 0x28
-} OSAlarm;
+};
 
 typedef struct OSAlarmQueue {
     OSAlarm* head; // at 0x0

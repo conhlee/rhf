@@ -1,16 +1,14 @@
 #ifndef RVL_SDK_MEM_EXP_HEAP_H
 #define RVL_SDK_MEM_EXP_HEAP_H
 #include <revolution/types.h>
+#include <revolution/MEM/mem_heapCommon.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define MEM_EXP_HEAP_MIN_SIZE                                                  \
-    (sizeof(MEMiHeapHead) + sizeof(MEMiExpHeapHead) +                          \
+#define MEM_EXP_HEAP_MIN_SIZE                           \
+    (sizeof(MEMiHeapHead) + sizeof(MEMiExpHeapHead) +   \
      sizeof(MEMiExpHeapMBlock) + 4)
-
-// Forward declarations
-typedef struct MEMiHeapHead;
 
 typedef enum {
     MEM_EXP_HEAP_ALLOC_FAST, //!< When allocating memory blocks, take the first

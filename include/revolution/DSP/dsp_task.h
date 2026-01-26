@@ -2,6 +2,7 @@
 #define RVL_SDK_DSP_TASK_H
 #include <types.h>
 #include <stdint.h>
+#include <revolution/OS/OSContext.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -13,10 +14,6 @@ extern "C" {
             ;                                                                  \
         }                                                                      \
     } while (0)
-
-// Forward declarations
-typedef struct DSPTask DSPTask;
-typedef struct OSContext OSContext;
 
 typedef enum {
     DSP_TASK_ACTIVE = (1 << 0),
@@ -30,9 +27,11 @@ typedef enum {
     DSP_TASK_STATE_3,
 } DSPTaskState;
 
+typedef struct DSPTask DSPTask;
+
 typedef void (*DSPTaskCallback)(DSPTask* task);
 
-typedef struct DSPTask {
+struct DSPTask {
     u32 state;                       // at 0x0
     volatile u32 prio;               // at 0x4
     u32 flags;                       // at 0x8
@@ -51,7 +50,7 @@ typedef struct DSPTask {
     DSPTask* next;                   // at 0x38
     DSPTask* prev;                   // at 0x3C
     char UNK_0x40[0x50 - 0x40];
-} DSPTask;
+};
 
 extern BOOL __DSP_rude_task_pending;
 extern DSPTask* __DSP_rude_task;

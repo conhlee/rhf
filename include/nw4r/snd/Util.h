@@ -9,11 +9,6 @@
 
 #include "nw4r/db.h"
 
-// TODO: DIRTY HACK! move out
-#ifndef static_assert
-#define static_assert __static_assert
-#endif
-
 /*******************************************************************************
  * classes and functions
  */
@@ -90,7 +85,6 @@ namespace nw4r { namespace snd { namespace detail
 		return static_cast<T ## index_ const *>(GetDataRefAddressImpl(		\
 			static_cast<RefType>(ref.refType), ref.value, baseAddress));	\
 	}																		\
-	static_assert(true, "") // swallow semicolon
 
 		DEF_GET_DATA_REF_ADDRESS_(141, 0);
 		DEF_GET_DATA_REF_ADDRESS_(142, 1);

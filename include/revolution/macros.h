@@ -50,4 +50,8 @@
 #define __declspec(x)
 #endif
 
+#ifdef __MWERKS__
+#define static_assert __static_assert
+#endif
+
 #endif

@@ -1,12 +1,10 @@
 #ifndef RVL_SDK_DSP_H
 #define RVL_SDK_DSP_H
 #include <types.h>
+#include <revolution/DSP/dsp_task.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// Forward declarations
-typedef struct DSPTask DSPTask;
 
 // General-purpose typedef
 typedef void* DSPMail;
