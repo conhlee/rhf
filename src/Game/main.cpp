@@ -48,22 +48,91 @@
 
 #include "SoundData.inc"
 
-extern "C" {
-    void fn_8008E430(void);
-
-    bool lbl_803202E8;
+struct FontInitData {
+    const char *binName;
+    const char *arcPath;
 };
+
+static const char sFontBinName[] = "Riq_I4_28_RodinNTLGProDB.brfnt";
+static const char sFontArcPath[] = "content2/Riq_I4_28_RodinNTLGProDB.szs";
+static const FontInitData sFontInitData = { sFontBinName, sFontArcPath };
+
+static const GXRenderModeObj sRenderModeNtscInt456 = {
+    0,
+    640, 456, 456,
+    25, 12,
+    670, 456,
+    1,
+    0,
+    0,
+    { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
+    { 7, 7, 12, 12, 12, 7, 7 }
+};
+
+static const GXRenderModeObj sRenderModeNtscProg456 = {
+    2,
+    640, 456, 456,
+    25, 12,
+    670, 456,
+    0,
+    0,
+    0,
+    { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
+    { 0, 0, 21, 22, 21, 0, 0 }
+};
+
+static const GXRenderModeObj sRenderModePalInt456 = {
+    4,
+    640, 456, 542,
+    27, 16,
+    666, 542,
+    1,
+    0,
+    0,
+    { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
+    { 7, 7, 12, 12, 12, 7, 7 }
+};
+
+static const GXRenderModeObj sRenderModeEuRgb60Int456 = {
+    20,
+    640, 456, 456,
+    25, 12,
+    670, 456,
+    1,
+    0,
+    0,
+    { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
+    { 7, 7, 12, 12, 12, 7, 7 }
+};
+
+static const GXRenderModeObj sRenderModeEuRgb60Prog456 = {
+    22,
+    640, 456, 456,
+    25, 12,
+    670, 456,
+    0,
+    0,
+    0,
+    { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 },
+    { 0, 0, 21, 22, 21, 0, 0 }
+};
+
+extern "C" void fn_8008E430(void);
 
 DONT_INLINE void fn_80038350(void);
 DONT_INLINE void fn_80038AE4(void);
 DONT_INLINE void fn_800393DC(void);
 DONT_INLINE void fn_80039900(void);
 
+// @bug Should be initialized to false, but left uninitialized.
+// Used in DVD error functions to check if managers are up.
+static bool sInitIsDone;
+
 // DVD error has started (front)
 void funcDVDErrorF(void) {
     OSReport("funcDVDErrorF\n");
 
-    if (lbl_803202E8) {
+    if (sInitIsDone) {
         gSoundManager->fn_801E6F98(true);
 
         gControllerManager->fn_801D5FF0(0)->_44();
@@ -78,7 +147,7 @@ void funcDVDErrorB(void) {
     OSReport("funcDVDErrorB\n");
 
     if (
-        lbl_803202E8 &&
+        sInitIsDone &&
         (
             gGameManager->getCurrentScene() == NULL ||
             !gGameManager->getCurrentScene<CExScene>()->fn_80009AA0()
@@ -110,7 +179,7 @@ void main(int argc, char **argv) {
 
     CExScene::fn_80009F70(false);
 
-    lbl_803202E8 = true;
+    sInitIsDone = true;
 
     if (gBackupManager->getUnk4C() == 0) {
         gGameManager->startMainLoop<CSceneStrap>();
@@ -129,143 +198,49 @@ void main(int argc, char **argv) {
     CExScene::fn_8000966C();
 }
 
-extern GXRenderModeObj sRenderModeObj;
+static GXRenderModeObj sRenderModeObj;
 static bool sIs60FPS;
 
 void fn_80038350(void) {
     VIInit();
 
+    GXRenderModeObj ntscInt456 = sRenderModeNtscInt456;
+    GXRenderModeObj ntscProg456 = sRenderModeNtscProg456;
+    GXRenderModeObj palInt456 = sRenderModePalInt456;
+    GXRenderModeObj euRgb60Int456 = sRenderModeEuRgb60Int456;
+    GXRenderModeObj euRgb60Prog456 = sRenderModeEuRgb60Prog456;
+
     bool progressive = SCGetProgressiveMode() == SC_PROGRESSIVE;
     bool pal60 = SCGetEuRgb60Mode() == SC_EURGB_60_HZ;
     bool stdAspect = SCGetAspectRatio() == SC_ASPECT_STD;
-    bool componentCable = VIGetDTVStatus() == VI_VISEL_COMPONENT;
-
     bool isNtsc = VIGetTvFormat() == VI_TVFORMAT_NTSC;
-    bool isDtv = VIGetDTVStatus() == 1;
 
-    if (isDtv && progressive) {
+    if ((VIGetDTVStatus() == TRUE) && progressive) {
         if (isNtsc) {
-            sRenderModeObj.vfilter[0] = 0;
-            sRenderModeObj.vfilter[1] = 0;
-            sRenderModeObj.vfilter[2] = 0x15;
-            sRenderModeObj.vfilter[3] = 0x16;
-            sRenderModeObj.tvInfo = 0x16;
-            sRenderModeObj.xfbHeight = 456;
-            sRenderModeObj.viXOrigin = 25;
-            sRenderModeObj.viYOrigin = 12;
-            sRenderModeObj.viWidth = 670;
-            sRenderModeObj.viHeight = 456;
-            sRenderModeObj.xfbMode = 0;
-            sRenderModeObj.vfilter[4] = 0x15;
-            sRenderModeObj.vfilter[5] = 0;
-            sRenderModeObj.vfilter[6] = 0;
-
+            sRenderModeObj = ntscProg456;
             sIs60FPS = true;
         }
         else {
-            sRenderModeObj.vfilter[0] = 0;
-            sRenderModeObj.vfilter[1] = 0;
-            sRenderModeObj.vfilter[2] = 0x15;
-            sRenderModeObj.vfilter[3] = 0x16;
-            sRenderModeObj.tvInfo = 0x2;
-            sRenderModeObj.xfbHeight = 456;
-            sRenderModeObj.viXOrigin = 25;
-            sRenderModeObj.viYOrigin = 12;
-            sRenderModeObj.viWidth = 670;
-            sRenderModeObj.viHeight = 456;
-            sRenderModeObj.xfbMode = 0;
-            sRenderModeObj.vfilter[4] = 0x15;
-            sRenderModeObj.vfilter[5] = 0;
-            sRenderModeObj.vfilter[6] = 0;
-
+            sRenderModeObj = euRgb60Prog456;
             sIs60FPS = true;
-        }
-    }
-    else if (!isNtsc) {
-        if (pal60) {
-            sRenderModeObj.tvInfo = 0x14;
-            sRenderModeObj.xfbHeight = 456;
-            sRenderModeObj.viXOrigin = 25;
-            sRenderModeObj.viYOrigin = 12;
-            sRenderModeObj.viWidth = 670;
-            sRenderModeObj.viHeight = 456;
-            sRenderModeObj.xfbMode = 1;
-            sRenderModeObj.vfilter[0] = 0x7;
-            sRenderModeObj.vfilter[1] = 0x7;
-            sRenderModeObj.vfilter[2] = 0xC;
-            sRenderModeObj.vfilter[3] = 0xC;
-            sRenderModeObj.vfilter[4] = 0xC;
-            sRenderModeObj.vfilter[5] = 0x7;
-            sRenderModeObj.vfilter[6] = 0x7;
-
-            sIs60FPS = true;
-        }
-        else {
-            sRenderModeObj.tvInfo = 0x4;
-            sRenderModeObj.xfbHeight = 542;
-            sRenderModeObj.viXOrigin = 27;
-            sRenderModeObj.viYOrigin = 16;
-            sRenderModeObj.viWidth = 666;
-            sRenderModeObj.viHeight = 542;
-            sRenderModeObj.xfbMode = 1;
-            sRenderModeObj.vfilter[0] = 0x7;
-            sRenderModeObj.vfilter[1] = 0x7;
-            sRenderModeObj.vfilter[2] = 0xC;
-            sRenderModeObj.vfilter[3] = 0xC;
-            sRenderModeObj.vfilter[4] = 0xC;
-            sRenderModeObj.vfilter[5] = 0x7;
-            sRenderModeObj.vfilter[6] = 0x7;
-
-            sIs60FPS = false;
         }
     }
     else {
-        sRenderModeObj.vfilter[0] = 0x7;
-        sRenderModeObj.vfilter[1] = 0x7;
-        sRenderModeObj.vfilter[2] = 0xC;
-        sRenderModeObj.vfilter[3] = 0xC;
-        sRenderModeObj.tvInfo = 0;
-        sRenderModeObj.xfbHeight = 456;
-        sRenderModeObj.viXOrigin = 25;
-        sRenderModeObj.viYOrigin = 12;
-        sRenderModeObj.viWidth = 670;
-        sRenderModeObj.viHeight = 456;
-        sRenderModeObj.xfbMode = 1;
-        sRenderModeObj.vfilter[4] = 0xC;
-        sRenderModeObj.vfilter[5] = 0x7;
-        sRenderModeObj.vfilter[6] = 0x7;
-
-        sIs60FPS = true;
+        if (isNtsc) {
+            sRenderModeObj = ntscInt456;
+            sIs60FPS = true; 
+        }
+        else {
+            if (pal60) {
+                sRenderModeObj = euRgb60Int456;
+                sIs60FPS = true;
+            }
+            else {
+                sRenderModeObj = palInt456;
+                sIs60FPS = false;
+            }
+        }
     }
-
-    sRenderModeObj.sample_pattern[10][0] = 6;
-    sRenderModeObj.sample_pattern[10][1] = 6;
-    sRenderModeObj.sample_pattern[0xb][0] = 6;
-    sRenderModeObj.sample_pattern[0xb][1] = 6;
-    sRenderModeObj.sample_pattern[8][0] = 6;
-    sRenderModeObj.sample_pattern[8][1] = 6;
-    sRenderModeObj.sample_pattern[9][0] = 6;
-    sRenderModeObj.sample_pattern[9][1] = 6;
-    sRenderModeObj.sample_pattern[6][0] = 6;
-    sRenderModeObj.sample_pattern[6][1] = 6;
-    sRenderModeObj.sample_pattern[7][0] = 6;
-    sRenderModeObj.sample_pattern[7][1] = 6;
-    sRenderModeObj.sample_pattern[4][0] = 6;
-    sRenderModeObj.sample_pattern[4][1] = 6;
-    sRenderModeObj.sample_pattern[5][0] = 6;
-    sRenderModeObj.sample_pattern[5][1] = 6;
-    sRenderModeObj.sample_pattern[2][0] = 6;
-    sRenderModeObj.sample_pattern[2][1] = 6;
-    sRenderModeObj.sample_pattern[3][0] = 6;
-    sRenderModeObj.sample_pattern[3][1] = 6;
-    sRenderModeObj.sample_pattern[0][0] = 6;
-    sRenderModeObj.sample_pattern[0][1] = 6;
-    sRenderModeObj.sample_pattern[1][0] = 6;
-    sRenderModeObj.sample_pattern[1][1] = 6;
-    sRenderModeObj.aa = 0;
-    sRenderModeObj.field_rendering = 0;
-    sRenderModeObj.efbHeight = 456;
-    sRenderModeObj.fbWidth = 640;
 
     if (!stdAspect) {
         if (isNtsc) {
@@ -309,7 +284,8 @@ void fn_80038AE4(void) {
     gFileManager->setDVDErrorFuncB(funcDVDErrorB);
     switch (SCGetLanguage()) {
     default:
-        gFileManager->fn_801D3C2C("EN/");
+    case SC_LANG_EN:
+        gFileManager->setLocaleDir("EN/");
         break;
     }
 
@@ -357,8 +333,7 @@ void fn_80038AE4(void) {
     gMessageManager->fn_80088030();
 
     static char sndArcPath[64];
-
-    sprintf(sndArcPath, "%s%s", gFileManager->fn_801D3C44(), "content2/rev_tengoku.brsar");
+    sprintf(sndArcPath, "%s%s", gFileManager->getLocaleDir(), "content2/rev_tengoku.brsar");
 
     if (gSoundManager == NULL) {
         gSoundManager = new CSoundManager;
@@ -624,17 +599,17 @@ void fn_80039900(void) {
 
     gLayoutManager->fn_801D6DAC(1);
 
-    const char *fontPath = "content2/Riq_I4_28_RodinNTLGProDB.szs";
-    const char *fontRes = "Riq_I4_28_RodinNTLGProDB.brfnt";
+    const char *fontBinName = sFontInitData.binName;
+    const char *fontArcPath = sFontInitData.arcPath;
 
-    void *fontData = gFileManager->fn_801D3C4C(fontPath, eHeap_MEM2, -32);
+    void *fontData = gFileManager->fn_801D3C4C(fontArcPath, eHeap_MEM2, -32);
     gFileManager->fn_801D3D94();
 
-    if (strstr(fontPath, ".szs") != NULL) {
-        fontData = gFileManager->fn_801D461C(fontData, TRUE, eHeap_MEM2, 32);
+    if (strstr(fontArcPath, ".szs") != NULL) {
+        fontData = gFileManager->fn_801D461C(fontData, TRUE);
     }
 
-    if (gLayoutManager->fn_801D6E2C(fontData, fontRes)) {
+    if (gLayoutManager->fn_801D6E2C(fontData, fontBinName)) {
         delete[] static_cast<u8 *>(fontData);
     }
 
