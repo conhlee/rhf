@@ -6,6 +6,7 @@
 #include "Scene.hpp"
 
 #include "PauseLayout.hpp"
+#include "CursorLayout.hpp"
 
 #include "CellAnim.hpp"
 
@@ -155,7 +156,7 @@ public:
 
 protected:
     CPauseLayout *mPauseLayout;
-    CLayout *mCursorLayout; // TODO: CCursorLayout
+    CCursorLayout *mCursorLayout;
     CLayout *mLyricLayout; // TODO: CLyricLayout
     CCellAnim *mEndlessGameOverAnim;
     CCellAnim *mEndlessHiScoreAnim;
