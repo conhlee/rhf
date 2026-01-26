@@ -9,7 +9,7 @@
 
 #include "TimeRatio.hpp"
 
-#include "SNDHandle.hpp"
+#include "Sound.hpp"
 
 namespace AgbGhost {
 

@@ -11,7 +11,7 @@
 
 #include "TimeRatio.hpp"
 
-#include "SNDHandle.hpp"
+#include "Sound.hpp"
 
 #include "GameManager.hpp"
 

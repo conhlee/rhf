@@ -32,8 +32,8 @@ private:
     nw4r::lyt::Pane *mPaneSRot[CURSOR_COUNT];
     nw4r::lyt::Pane *mPaneRot[CURSOR_COUNT];
 
-    // NOTE: technically useless; the base class already has the
-    // property mDrawEnable
+    // NOTE: slightly redundant; the base class already has the
+    //       property mDrawEnable
     bool mCursorDrawEnable;
 
     bool mEnableTrans[CURSOR_COUNT];

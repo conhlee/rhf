@@ -6,7 +6,7 @@
 #include "TickFlowManager.hpp"
 #include "InputCheckManager.hpp"
 #include "CheckPointManager.hpp"
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 #include "GraphicManager.hpp"
 
 #include "VarParam.hpp"

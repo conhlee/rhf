@@ -20,7 +20,7 @@
 
 #include "CellAnimManager.hpp"
 
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "Controller.hpp"
 

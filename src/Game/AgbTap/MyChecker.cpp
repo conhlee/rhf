@@ -2,7 +2,7 @@
 
 #include "TickFlowManager.hpp"
 
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "ExScene.hpp"
 

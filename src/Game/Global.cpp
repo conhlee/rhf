@@ -6,7 +6,7 @@
 #include "CellAnimManager.hpp"
 #include "HBMManager.hpp"
 #include "MessageManager.hpp"
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 #include "TickFlowManager.hpp"
 #include "InputCheckManager.hpp"
 #include "CheckPointManager.hpp"

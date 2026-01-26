@@ -2,7 +2,7 @@
 
 #include <nw4r/snd.h>
 
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "Mem.hpp"
 

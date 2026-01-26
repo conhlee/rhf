@@ -4,7 +4,7 @@
 
 #include "TickFlowManager.hpp"
 
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "Controller.hpp"
 
@@ -262,7 +262,7 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     } break;
     case TF_TEMPO_SEQ: {
         f32 seqTempo = gSoundManager->fn_801E75C0(arg0);
-        u16 seqTempoInt = seqTempo;
+        u16 seqTempoInt = static_cast<u16>(seqTempo);
         if (seqTempoInt == 0) {
             seqTempoInt = 120;
 

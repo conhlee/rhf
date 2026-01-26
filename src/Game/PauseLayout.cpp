@@ -4,7 +4,7 @@
 
 #include "MessageManager.hpp"
 
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "TickFlowManager.hpp"
 

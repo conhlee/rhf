@@ -2572,7 +2572,7 @@ GameUtil/TickFlowManager.cpp:
 	.rodata     start:0x802E4D50 end:0x802E4EB0
 	.sbss       start:0x80320FA8 end:0x80320FB0
 
-GameUtil/SoundManager.cpp:
+GameUtil/Sound.cpp:
 	.text       start:0x801E4198 end:0x801E7B40
 	.rodata     start:0x802E4EB0 end:0x802E4FE0
 	.data       start:0x8031E8F0 end:0x8031E948

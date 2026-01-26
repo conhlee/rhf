@@ -1,5 +1,5 @@
-#ifndef GAMEUTIL_SOUNDMANAGER_HPP
-#define GAMEUTIL_SOUNDMANAGER_HPP
+#ifndef GAMEUTIL_SOUND_HPP
+#define GAMEUTIL_SOUND_HPP
 
 #include <revolution/types.h>
 
@@ -9,7 +9,10 @@
 
 #include <nw4r/snd.h>
 
-#include "SNDHandle.hpp"
+class SNDHandle : public nw4r::snd::SoundHandle {
+public:
+    virtual ~SNDHandle(void);
+};
 
 struct SeqTempo {
     enum EType {

@@ -10,7 +10,7 @@
 #include "GameManager.hpp"
 #include "BackupManager.hpp"
 #include "FileManager.hpp"
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 #include "HBMManager.hpp"
 #include "LayoutManager.hpp"
 #include "MessageManager.hpp"

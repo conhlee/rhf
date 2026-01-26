@@ -7,7 +7,7 @@
 #include "SceneManager.hpp"
 #include "MyCanvas.hpp"
 #include "LayoutManager.hpp"
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 #include "Controller.hpp"
 #include "CheckPointManager.hpp"
 #include "TickFlowManager.hpp"

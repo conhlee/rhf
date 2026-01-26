@@ -22,7 +22,7 @@
 
 #include "InputCheckManager.hpp"
 
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "SceneManager.hpp"
 

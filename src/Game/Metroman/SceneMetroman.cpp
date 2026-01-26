@@ -6,7 +6,7 @@
 
 #include "GameManager.hpp"
 
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "FileManager.hpp"
 
@@ -65,7 +65,7 @@ bool CSceneMetroman::_24(void) {
     return this->CScene::_24();
 }
 
-// TODO endless last score
+// TODO make public in ExScene
 extern s32 lbl_803201C4;
 extern s32 lbl_803201C8;
 

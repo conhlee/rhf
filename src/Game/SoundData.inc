@@ -1,4 +1,4 @@
-#include "SoundManager.hpp"
+#include "Sound.hpp"
 
 #include "rev_tengoku.rsid"
 

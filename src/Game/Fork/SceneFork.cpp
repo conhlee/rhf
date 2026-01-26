@@ -17,7 +17,7 @@
 #include "CursorLayout.hpp"
 #include "BalloonLayout.hpp"
 
-#include "SNDHandle.hpp"
+#include "Sound.hpp"
 
 #include "Mem.hpp"
 

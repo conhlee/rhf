@@ -12,7 +12,6 @@
 
 #include "GameManager.hpp"
 #include "CellAnimManager.hpp"
-#include "SoundManager.hpp"
 #include "FileManager.hpp"
 #include "InputCheckManager.hpp"
 #include "LayoutManager.hpp"
