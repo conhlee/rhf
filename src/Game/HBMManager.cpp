@@ -81,8 +81,8 @@ void CHBMManager::_10(void) {
         strcat(pathBuf, "/homeBtn_SPA.arc");
     } break;
     
-    case SC_LANG_EN:
-    default: {
+    default:
+    case SC_LANG_EN: {
         mHBMInfo.region = SC_LANG_EN;
         strcat(pathBuf, "/homeBtn_ENG.arc");
     } break;
