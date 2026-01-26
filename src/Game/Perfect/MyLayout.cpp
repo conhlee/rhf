@@ -9,12 +9,13 @@
 #include "GameTable.hpp"
 #include "GiftTable.hpp"
 
+// TODO
+extern "C" void fn_801D8A5C(nw4r::lyt::TextBox *, f32, f32);
+
+
 const char layoutFile_perfect[] = "perfect.brlyt";
 
 DECL_SECTION(".sdata") const char * const layoutFileTable[] = { layoutFile_perfect, NULL };
-
-// TODO
-extern "C" void fn_801D8A5C(nw4r::lyt::TextBox *, f32, f32);
 
 enum {
     perfect_loop
@@ -41,10 +42,10 @@ void Perfect::CMyLayout::_10(void) {
     const GameTableEntry *gameEnt = fn_8000EB50(gameNum);
 
     const char *giftTitle;
-    if (gameEnt->giftType == GameTableEntry::eGiftType_Music) {
+    if (gameEnt->giftType == eGiftType_Music) {
         giftTitle = fn_800B4338(gameEnt->giftIndex)->titleFormatted;
     }
-    else { // GameTableEntry::eGiftType_ReadingMaterial
+    else { // eGiftType_ReadingMaterial
         giftTitle = fn_800B434C(gameEnt->giftIndex)->titleFormatted;
     }
 
@@ -53,26 +54,56 @@ void Perfect::CMyLayout::_10(void) {
     u8 perfectsLeft = gSaveData->fn_80078F4C()->fn_800782F4() - 1;
 
     const char *perfectMesg;
-    if (gameEnt->giftType == GameTableEntry::eGiftType_Music) {
+    if (gameEnt->giftType == eGiftType_Music) {
         if (perfectsLeft == 0) {
-            perfectMesg = "0103003";
+            perfectMesg = "0103003";        /*
+                "(Gift Title)"
+                You've earned a gift!
+                Listen to it at the café!
+                You finally got them all!
+                PERFECT!                    */
         }
         else if (perfectsLeft == 1) {
-            perfectMesg = "0103005";
+            perfectMesg = "0103005";        /*
+                "(Gift Title)"
+                You've earned a gift!
+                Listen to it at the café!
+                There's now just 1 gift
+                left to get. Keep it up!    */
         }
         else {
-            perfectMesg = "0103001";
+            perfectMesg = "0103001";        /*
+                "(Gift Title)"
+                You've earned a gift!
+                Listen to it at the café!
+                There are now (X) gifts left
+                to get. Keep going!         */
         }
     }
-    else { // GameTableEntry::eGiftType_ReadingMaterial
+    else { // eGiftType_ReadingMaterial
         if (perfectsLeft == 0) {
-            perfectMesg = "0103002";
+            perfectMesg = "0103002";        /*
+                "(Gift Title)"
+                You've earned a gift!
+                Read it at the café!
+                You finally got them all!
+                PERFECT!                    */
         }
         else if (perfectsLeft == 1) {
-            perfectMesg = "0103004";
+            perfectMesg = "0103004";        /*
+                "(Gift Title)"
+                You've earned a gift!
+                Read it at the café!
+                There's now just 1 gift
+                left to get. Keep it up!    */
         }
         else {
-            perfectMesg = "0103000";
+            perfectMesg = "0103000";        /*
+                "(Gift Title)"
+                You've earned a gift!
+                Read it at the café!
+                There are now (X) gifts left
+                to get. Keep going!         */
         }
     }
 

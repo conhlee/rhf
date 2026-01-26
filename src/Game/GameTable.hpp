@@ -5,12 +5,11 @@
 
 #include "ExFlowDecl.hpp"
 
+enum EGiftType {
+    eGiftType_Music,
+    eGiftType_ReadingMaterial
+};
 struct GameTableEntry {
-    enum EGiftType {
-        eGiftType_Music,
-        eGiftType_ReadingMaterial
-    };
-
     const TickFlowCode *gameTickFlow;
     const char *name; // Message ID
     const char *description; // Message ID
