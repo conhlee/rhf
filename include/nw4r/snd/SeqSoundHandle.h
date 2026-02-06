@@ -32,10 +32,23 @@ public:
         }
     }
 
-    void SetTrackVolume(u32 trackFlags, f32 volume) {
+    void SetTrackVolume(u32 trackBitFlag, f32 volume) {
         if (IsAttachedSound()) {
-            mSound->SetTrackVolume(trackFlags, volume);
+            mSound->SetTrackVolume(trackBitFlag, volume);
         }
+    }
+
+    void SetTrackMute(u32 trackBitFlag, bool mute) {
+        if (IsAttachedSound()) {
+            mSound->SetTrackMute(trackBitFlag, mute);
+        }
+    }
+
+    u32 GetTick() const {
+        if (IsAttachedSound()) {
+            return mSound->GetTick();
+        }
+        return 0;
     }
 
     void WriteVariable(int idx, s16 value) {

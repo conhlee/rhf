@@ -201,3 +201,30 @@ void CMessageManager::fn_8008807C(void) {
     gFileManager->fn_801D41CC(0);
 }
 
+void CMessageManager::fn_80088088(void) {
+    switch (SCGetLanguage()) {
+    default:
+        mBMG[eMesgSource_Main].init(0, "riq_E.bmg");
+        break;
+    }
+    switch (SCGetLanguage()) {
+    default:
+        mBMG[eMesgSource_Title].init(0, "riq_title_E.bmg");
+        break;
+    }
+    switch (SCGetLanguage()) {
+    default:
+        mBMG[eMesgSource_Comment].init(0, "riq_comment_E.bmg");
+        break;
+    }
+    switch (SCGetLanguage()) {
+    default:
+        mBMG[eMesgSource_Bonus].init(0, "riq_bonus_E.bmg");
+        break;
+    }
+    switch (SCGetLanguage()) {
+    default:
+        mBMG[eMesgSource_Cafe].init(0, "riq_cafe_E.bmg");
+        break;
+    }
+}

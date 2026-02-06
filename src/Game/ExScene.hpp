@@ -112,7 +112,7 @@ public:
     static void fn_80009E24(bool enabled);
     static void fn_80009E44(bool);
     static void fn_80009E58(void);
-    static void fn_80009ABC(u32);
+    static void fn_80009E98(u32);
 
     static void fn_80009F70(bool);
     static bool fn_80009FB4(void);

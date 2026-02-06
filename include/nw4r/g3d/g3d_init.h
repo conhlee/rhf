@@ -6,7 +6,7 @@
 namespace nw4r {
 namespace g3d {
 
-void G3dInit(BOOL enableLockedCache);
+void G3dInit(bool bLCEnable);
 void G3dReset();
 
 } // namespace g3d

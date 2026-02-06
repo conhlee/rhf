@@ -31,6 +31,17 @@ namespace nw4r { namespace ut { class FileStream; }}
  * classes and functions
  */
 
+
+namespace nw4r { namespace snd
+{
+	struct StrmDataInfo
+	{
+		bool loopFlag;		// size 0x01, offset 0x00
+		int sampleRate;		// size 0x04, offset 0x04
+		u32 loopStart;		// size 0x04, offset 0x08
+		u32 loopEnd;		// size 0x04, offset 0x0C
+	}; // size 0x10
+}} // namespace nw4r::snd
 namespace nw4r { namespace snd { namespace detail
 {
 	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x2fcda
@@ -174,6 +185,8 @@ namespace nw4r { namespace snd { namespace detail
 		                    u32 blockSize, int bufferBlockIndex,
 		                    bool needUpdateAdpcmLoop);
 
+		bool ReadStrmDataInfo(StrmDataInfo *info) const; 
+
 		bool AllocStrmBuffers();
 		void FreeStrmBuffers();
 
@@ -183,6 +196,8 @@ namespace nw4r { namespace snd { namespace detail
 		int CalcLoadingBufferBlockCount() const;
 		bool CalcStartOffset(s32 *startBlockIndex, u32 *startBlockOffset,
 		                     s32 *loopCount);
+
+		s32 GetPlaySamplePosition() const;
 
 		void SetLoopEndToZeroBuffer(int endBufferBlockIndex);
 

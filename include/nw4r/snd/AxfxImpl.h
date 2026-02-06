@@ -10,8 +10,8 @@ namespace snd {
 namespace detail {
 
 struct AxfxImpl {
-    MEMiHeapHead* mHandle; // at 0x4
-    u32 mAllocCounter;     // at 0x8
+    MEMiHeapHead* mHandle; // at 0x0
+    u32 mAllocCounter;     // at 0x4
 
     static const u32 HEAP_SIZE_MIN = MEM_FRM_HEAP_MIN_SIZE + 32;
 
@@ -29,7 +29,7 @@ struct AxfxImpl {
     }
 
     void HookAlloc(AXFXAllocHook* pAllocHook, AXFXFreeHook* pFreeHook);
-    void RestoreAlloc(AXFXAllocHook allocHook, AXFXFreeHook freeHook);
+    u32 RestoreAlloc(AXFXAllocHook allocHook, AXFXFreeHook freeHook);
 
     static void* Alloc(u32 size);
     static void Free(void* pBlock);

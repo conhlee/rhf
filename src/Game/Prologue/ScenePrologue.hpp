@@ -2,6 +2,7 @@
 #define GAME_PROLOGUE_SCENEPROLOGUE_HPP
 
 #include <revolution/types.h>
+
 #include "ExScene.hpp"
 
 namespace Prologue {

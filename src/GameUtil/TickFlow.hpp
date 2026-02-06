@@ -49,6 +49,20 @@ public:
     static void fn_801DEF58(u8 accessIndex, nw4r::lyt::TextBox *textBox, nw4r::lyt::Pane *container);
     static nw4r::lyt::TextBox *fn_801DEF78(u8 accessIndex);
 
+    s32 getCategory(void) const {
+        return mCategory;
+    }
+
+    bool getButtonPromptIsReleased(void) const {
+        return mButtonPromptIsReleased;
+    }
+    bool getButtonPromptIsPressed(void) const {
+        return mButtonPromptIsPressed;
+    }
+    bool getButtonPromptIsPressedOrReleased(void) const {
+        return mButtonPromptIsReleased || mButtonPromptIsPressed;
+    }
+
 private:
     u32 fn_801DECFC(const TickFlowCode *code, u32 labelId);
     u32 fn_801DEDFC(

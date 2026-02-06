@@ -69,7 +69,7 @@ void CGraphicManager::_14(GXRenderModeObj *renderMode, GXColor *clearColor, u32 
         VIWaitForRetrace();
     }
 
-    nw4r::g3d::G3dInit(TRUE);
+    nw4r::g3d::G3dInit(true);
 }
 
 void CGraphicManager::fn_801D63B4(void) {

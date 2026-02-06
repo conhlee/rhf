@@ -1,50 +1,33 @@
 #ifndef NW4R_SND_TASK_H
 #define NW4R_SND_TASK_H
+#include <nw4r/types_nw4r.h>
 
-/*******************************************************************************
- * headers
- */
+#include <nw4r/ut.h>
 
-#include "nw4r/ut/inlines.h" // ut::NonCopyable
-#include "nw4r/ut/LinkList.h"
+namespace nw4r {
+namespace snd {
+namespace detail {
 
-/*******************************************************************************
- * classes and functions
- */
+class Task : private ut::NonCopyable {
+	friend class TaskManager;
 
-namespace nw4r { namespace snd { namespace detail
-{
-	// [R89JEL]:/bin/RVL/Debug/mainD.elf:.debug::0x2ea55
-	class Task : private ut::NonCopyable
-	{
-	// typedefs
-	public:
-		typedef ut::LinkList<Task, 0x04> LinkList;
+public:
+	Task() :
+		mBusyFlag(false)
+	{}
+	virtual ~Task();
 
-	// methods
-	public:
-		// cdtors
-		Task() : mBusyFlag(false) {}
-		virtual ~Task();
+	virtual void Execute() = 0;
+	virtual void Cancel() = 0;
+	virtual void OnCancel() = 0;
 
-		// virtual function ordering
-		// vtable Task
-		virtual void Execute() = 0;
-		virtual void Cancel() = 0;
-		virtual void OnCancel() = 0;
+private:
+	ut::LinkListNode	mTaskLink;
+	bool				mBusyFlag;
+};
 
-	// members
-	private:
-		/* base NonCopyable */			// size 0x00, offset 0x00
-		/* vtable */					// size 0x04, offset 0x00
-		ut::LinkListNode	mTaskLink;	// size 0x08, offset 0x04
-		bool				mBusyFlag;	// size 0x01, offset 0x0c
-		/* 3 bytes padding */
-
-	// friends
-	private:
-		friend class TaskManager;
-	}; // size 0x10
-}}} // namespace nw4r::snd::detail
+} // namespace detail
+} // namespace snd
+} // namespace nw4r
 
 #endif // NW4R_SND_TASK_H

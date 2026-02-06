@@ -50,7 +50,9 @@
 #include <nw4r/snd/StrmFile.h>
 #include <nw4r/snd/StrmPlayer.h>
 #include <nw4r/snd/StrmSound.h>
+#include <nw4r/snd/StrmSoundHandle.h>
 #include <nw4r/snd/Task.h>
+#include <nw4r/snd/TaskThread.h>
 #include <nw4r/snd/Util.h>
 #include <nw4r/snd/Voice.h>
 #include <nw4r/snd/WaveFile.h>

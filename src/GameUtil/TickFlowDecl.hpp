@@ -51,24 +51,24 @@ enum {
     TF_028,
     TF_029,
     TF_02A,
-    TF_02B,
-    TF_02C,
-    TF_02D,
-    TF_02E,
-    TF_02F,
+    TF_PREPARE_SEQ,
+    TF_START_SEQ,
+    TF_START_PREPARED_SEQ,
+    TF_STOP_SEQ,
+    TF_SET_SEQ_VOLUME,
     TF_030,
-    TF_031,
-    TF_032,
-    TF_033,
-    TF_034,
-    TF_035,
-    TF_036,
+    TF_PREPARE_STRM,
+    TF_START_STRM,
+    TF_START_PREPARED_STRM,
+    TF_STOP_STRM,
+    TF_SET_STRM_VOLUME,
+    TF_GET_STRM_PREPARED,
     TF_PREPARE_WAVE, ///< Prepare WSD (wave sound data) for playback. Arg0: SID of WSD
-    TF_038,
-    TF_PLAY_WAVE, ///< Start WSD (wave sound data) playback.
+    TF_START_WAVE,
+    TF_START_PREPARED_WAVE, ///< Start WSD (wave sound data) playback.
     TF_STOP_WAVE,
     TF_SET_WAVE_VOLUME,
-    TF_GET_WAVE_READY, ///< Set condvar to 1 if WSD (wave sound data) is ready, and 0 if not.
+    TF_GET_WAVE_PREPARED, ///< Set condvar to 1 if WSD (wave sound data) is ready, and 0 if not.
     TF_03D,
     TF_03E,
     TF_GET_GROUP_LOADING, ///< Set condvar to 1 if the current group is loading, and 0 if not.
@@ -160,10 +160,10 @@ enum {
 #define TFC_PLAY_SFX(soundID) TFD_CMD(TF_PLAY_SFX, 1, 0), TFD_CAST(soundID),
 
 #define TFC_PREPARE_WAVE(soundID) TFD_CMD(TF_PREPARE_WAVE, 0, (soundID)),
-#define TFC_PLAY_WAVE() TFD_CMD(TF_PLAY_WAVE, 0, 0),
+#define TFC_START_PREPARED_WAVE() TFD_CMD(TF_START_PREPARED_WAVE, 0, 0),
 #define TFC_STOP_WAVE(fadeFrames) TFD_CMD(TF_STOP_WAVE, 0, (fadeFrames)),
 #define TFC_SET_WAVE_VOLUME(volume, fadeFrames) TFD_CMD(TF_SET_WAVE_VOLUME, 2, 0), TFD_CAST(volume), TFD_CAST(fadeFrames),
-#define TFC_GET_WAVE_READY() TFD_CMD(TF_GET_WAVE_READY, 0, 0),
+#define TFC_GET_WAVE_PREPARED() TFD_CMD(TF_GET_WAVE_PREPARED, 0, 0),
 
 #define TFC_GET_GROUP_LOADING() TFD_CMD(TF_GET_GROUP_LOADING, 0, 0),
 

@@ -66,6 +66,7 @@ public:
     }
 
     void SetFontSize(f32 width, f32 height);
+    void SetFontSize(f32 height);
 
     f32 GetFontWidth() const;
     f32 GetFontHeight() const;
@@ -230,9 +231,11 @@ private:
     static void SetupGXForRGBA();
 
     void UpdateVertexColor();
-    void PrintGlyph(f32 x, f32 y, f32 z, const Glyph& rGlyph);
 
-    void LoadTexture(const Glyph& rGlyph, GXTexMapID slot);
+    void DrawGlyph(const Glyph& glyph);
+    void PrintGlyph(f32 x, f32 y, f32 z, const Glyph& glyph);
+
+    void LoadTexture(const Glyph& glyph, GXTexMapID slot);
     void ResetTextureCache() {
         mLoadingTexture.Reset();
     }

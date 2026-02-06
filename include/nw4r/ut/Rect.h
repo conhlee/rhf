@@ -30,6 +30,18 @@ struct Rect {
         return bottom - top;
     }
 
+    void Normalize() {
+        f32 l = left;
+        f32 t = top;
+        f32 r = right;
+        f32 b = bottom;
+
+        left = math::FSelect(r - l, l, r);   // min(r, l)
+        right = math::FSelect(r - l, r, l);  // max(r, l)
+        top = math::FSelect(b - t, t, b);    // min(b, t)
+        bottom = math::FSelect(b - t, b, t); // max(b, t)
+    }
+
     void MoveTo(f32 x, f32 y) {
         right = x + GetWidth();
         left = x;

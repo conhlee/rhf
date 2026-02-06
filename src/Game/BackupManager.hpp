@@ -9,6 +9,8 @@
 
 class CBackupManager : public TSingleton<CBackupManager> {
 public:
+    virtual ~CBackupManager(void);
+
     CBackupManager();
 
     void fn_80084054(void);

@@ -5,6 +5,13 @@
 extern "C" {
 #endif
 
+typedef enum _va_arg_type {
+    arg_ARGPOINTER,
+    arg_WORD,
+    arg_DOUBLEWORD,
+    arg_ARGREAL
+} _va_arg_type;
+
 typedef struct __va_list_struct {
     char gpr;
     char fpr;
@@ -15,7 +22,7 @@ typedef struct __va_list_struct {
 
 typedef _va_list_struct __va_list[1];
 
-void* __va_arg(_va_list_struct*, int);
+void *__va_arg(_va_list_struct *v_list, int type);
 
 #ifndef __MWERKS__
 #define __builtin_va_info(...)
@@ -25,13 +32,10 @@ void* __va_arg(_va_list_struct*, int);
 // from defined-string in mwcceppc.exe:
 // __builtin_va_info: initialize the __va_list_struct
 // _var_arg_typeof: convert type to integer for __va_arg
-#define __va_start(list, fmt) __builtin_va_info(&list)
-#define __va_arg(list, type) (*((type*)__va_arg(list, _var_arg_typeof(type))))
-#define va_start __va_start
-#define va_arg __va_arg
-#define va_end __va_end
+#define va_start(list, fmt) __builtin_va_info(&list)
+#define va_arg(list, type) (*((type*)__va_arg(list, _var_arg_typeof(type))))
+#define va_end(list) ((void)0)
 #define va_list __va_list
-#define __va_end(list) ((void)0)
 
 #define __va_copy(a, b) (*(a) = *(b))
 

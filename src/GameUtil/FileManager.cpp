@@ -266,9 +266,9 @@ void CFileManager::fn_801D4544(void) {
     }
 }
 
-#define getSZSExpandSize(src) ( \
-    (((u8 *)(src))[4] << 24) | (((u8 *)(src))[5] << 16) | \
-    (((u8 *)(src))[6] << 8) | (((u8 *)(src))[7] << 0) \
+#define getSZSExpandSize(src) (                             \
+    (((u8 *)(src))[4] << 24) | (((u8 *)(src))[5] << 16) |   \
+    (((u8 *)(src))[6] <<  8) | (((u8 *)(src))[7] <<  0)     \
 )
 
 void *CFileManager::fn_801D461C(void *data, BOOL deleteSrc, EHeapMEM heap, s32 alignment) {

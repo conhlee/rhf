@@ -7,14 +7,11 @@ namespace ut {
 
 // Forward declarations
 struct Rect;
-template <typename T> class TextWriterBase;
 
-/******************************************************************************
- *
- * PrintContext
- *
- ******************************************************************************/
-template <typename T> struct PrintContext {
+template <typename T>
+class TextWriterBase;
+template <typename T>
+struct PrintContext {
     enum Flags {
         FLAGS_CHARSPACE = (1 << 0),
     };
@@ -25,13 +22,8 @@ template <typename T> struct PrintContext {
     f32 y;                     // at 0xC
     u32 flags;                 // at 0x10
 };
-
-/******************************************************************************
- *
- * TagProcessorBase
- *
- ******************************************************************************/
-template <typename T> class TagProcessorBase {
+template <typename T>
+class TagProcessorBase {
 public:
     typedef PrintContext<T> ContextType;
 
@@ -47,13 +39,12 @@ public:
     TagProcessorBase();
     virtual ~TagProcessorBase(); // at 0x8
 
-    virtual Operation Process(u16 ch, ContextType* pCtx); // at 0xC
-    virtual Operation CalcRect(Rect* pRect, u16 ch,
-                               ContextType* pCtx); // at 0x10
+    virtual Operation Process(u16 code, ContextType *context); // at 0xC
+    virtual Operation CalcRect(Rect *pRect, u16 code, ContextType *context); // at 0x10
 
 private:
-    void ProcessTab(ContextType* pCtx);
-    void ProcessLinefeed(ContextType* pCtx);
+    void ProcessLinefeed(ContextType *context);
+    void ProcessTab(ContextType *context);
 };
 
 } // namespace ut

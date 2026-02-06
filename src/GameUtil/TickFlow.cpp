@@ -21,7 +21,7 @@ TFD_RETURN()
 
 TFD_BEGIN(lbl_802E4CC0)
     TFC_LABEL(999)
-    TFC_GET_WAVE_READY()
+    TFC_GET_WAVE_PREPARED()
     TFC_IF_EQU(1)
         TFC_JUMP(100)
     TFC_ENDIF()
@@ -117,10 +117,10 @@ bool CTickFlow::fn_801DD9E8(void) {
 bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     switch (opcode) {
     case TF_ASYNC_CALL: {
-        gTickFlowManager->fn_801E1CC0(
-            reinterpret_cast<const TickFlowCode *>(args[0]),
-            args[1] + mCurrentRest + gTickFlowManager->fn_801E2698()
-        );
+        const TickFlowCode *code = reinterpret_cast<const TickFlowCode *>(args[0]);
+        f32 rest = (u32)args[1];
+        f32 initRest = rest + mCurrentRest + gTickFlowManager->fn_801E2698();
+        gTickFlowManager->fn_801E1CC0(code, initRest);
     } break;
     case TF_CALL:
         mExecStack[mExecStackPos].code = mCode;
@@ -242,17 +242,17 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     case TF_019:
         if (arg0 == 0) {
             switch (args[0]) {
-            case 0:
-                mCondvar = (gTickFlowManager->getUnk1C() == 0) ? 1 : 0;
+            case eBGMType_None:
+                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_None) ? 1 : 0;
                 break;
-            case 1:
-                mCondvar = (gTickFlowManager->getUnk1C() == 1) ? 1 : 0;
+            case eBGMType_Seq:
+                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_Seq) ? 1 : 0;
                 break;
-            case 2:
-                mCondvar = (gTickFlowManager->getUnk1C() == 2) ? 1 : 0;
+            case eBGMType_Strm:
+                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_Strm) ? 1 : 0;
                 break;
-            case 3:
-                mCondvar = (gTickFlowManager->getUnk1C() == 3) ? 1 : 0;
+            case eBGMType_Wave:
+                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_Wave) ? 1 : 0;
                 break;
             }
         }
@@ -262,7 +262,7 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     } break;
     case TF_TEMPO_SEQ: {
         f32 seqTempo = gSoundManager->fn_801E75C0(arg0);
-        u16 seqTempoInt = static_cast<u16>(seqTempo);
+        u16 seqTempoInt = seqTempo;
         if (seqTempoInt == 0) {
             seqTempoInt = 120;
 
@@ -292,7 +292,25 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         
     } break;
     case TF_PLAY_SFX_VOL: {
+        SNDHandle *soundHandle = gTickFlowManager->fn_801E415C();
+
+        f32 volume = args[1] / 256.0f;
+        gSoundManager->play(args[0], 0.0f, soundHandle);
+        gSoundManager->fn_801E65F4(volume, 0, soundHandle);
+    } break;
+    case TF_PLAY_SFX: {
+        SNDHandle *soundHandle = gTickFlowManager->fn_801E415C();
         
+        
+    } break;
+    case TF_024: {
+        SNDHandle *soundHandle = gTickFlowManager->fn_801E415C();
+        
+        f32 volume = arg0 / 256.0f;
+        f32 fadeTicks = (u32)args[0];
+        s32 fadeFrames = gTickFlowManager->fn_801E26B4(fadeTicks);
+
+        gSoundManager->fn_801E65F4(volume, fadeFrames, soundHandle);
     } break;
     }
     return false;

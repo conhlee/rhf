@@ -7,6 +7,7 @@ extern "C" {
 #include <revolution/OS/OS.h>
 #include <revolution/OS/OSAddress.h>
 #include <revolution/OS/OSAlarm.h>
+#include <revolution/OS/OSAlloc.h>
 #include <revolution/OS/OSArena.h>
 #include <revolution/OS/OSCache.h>
 #include <revolution/OS/OSContext.h>

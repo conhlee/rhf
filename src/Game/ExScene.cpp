@@ -47,16 +47,12 @@
 
 #include "rev_tengoku.rsid"
 
-struct struct_80320198 {
-    f32 unk00;
-
-    struct_80320198(f32 value) {
-        value = -value;
-        unk00 = value;
-    }
-};
-
-static struct_80320198 lbl_80320198 (1000.0f);
+static f32 generate_1000() {
+    f32 value = 1000.0f;
+    value = -value;
+    return value;
+}
+static f32 lbl_80320198 = generate_1000();
 
 s32 lbl_8032019C;
 
@@ -82,8 +78,8 @@ static bool lbl_803201C0;
 static bool lbl_803201C1;
 static bool lbl_803201C2;
 
-static s32 lbl_803201C4;
-static s32 lbl_803201C8;
+s32 lbl_803201C4;
+s32 lbl_803201C8;
 
 static CCellAnim *lbl_803201CC;
 static CCellAnim *lbl_803201D0;
@@ -305,7 +301,7 @@ void CExScene::_08(void) {
     if (!gHBMManager->getUnk414()) {
         gCellAnimManager->_24(-299, NULL, NULL);
 
-        if (mPauseLayout != NULL && (mPauseLayout->getPaused() || mPauseLayout->getUnk24() == 2)) {
+        if ((mPauseLayout != NULL) && (mPauseLayout->getPaused() || mPauseLayout->getUnk24() == 2)) {
             gLayoutManager->fn_801D6D78();
             mPauseLayout->_1C(gLayoutManager->getDrawInfo());
         }
@@ -350,8 +346,8 @@ void CExScene::_20(void) {
 
     gTickFlowManager->fn_801E2490(0);
     gTickFlowManager->registerFlow<CExFlow>();
-    gTickFlowManager->setUnkFD(false);
-    gTickFlowManager->setUnk100(0x1000); // TODO: what is this?
+    gTickFlowManager->setUnkFD(0);
+    gTickFlowManager->setUnk100(WPAD_BUTTON_MINUS);
 
     gLayoutManager->fn_801D6BB0();
     gLayoutManager->_28();
@@ -728,7 +724,7 @@ bool CExScene::fn_80009AA0(void) {
 
 void CExScene::fn_80009ABC(void) {
     lbl_803201A0 = true;
-    fn_80009ABC(1);
+    fn_80009E98(1);
 }
 
 void CExScene::fn_80009B54(s32 x, s32 y) {
@@ -860,7 +856,7 @@ void CExScene::fn_80009E58(void) {
     lbl_803201F8->fn_801DD0AC(permanent_perfect_icon_hit);
 }
 
-void CExScene::fn_80009ABC(u32 param_1) {
+void CExScene::fn_80009E98(u32 param_1) {
     if ((lbl_803201BC & param_1) && lbl_803201B8) {
         if (lbl_803201B9 && !(lbl_803201B8 ? lbl_803201BA : false)) {
             lbl_803201F8->fn_801DD0AC(permanent_perfect_icon_fail);
@@ -871,7 +867,7 @@ void CExScene::fn_80009ABC(u32 param_1) {
     }
 }
 
-const char * const lbl_802E5828[] = {
+static const char * lbl_802E5828[] = {
     "*-----",
     "**--------",
     "***----------",
@@ -1033,7 +1029,7 @@ void CExScene::fn_8000A378(void) {
         lbl_8032A240.fn_801E9DE8(FALSE);
 
         if (lbl_8032A240.hasEnded()) {
-            lbl_8032A240.fn_801EA698(1000.0f, lbl_80320198.unk00);
+            lbl_8032A240.fn_801EA698(1000.0f, lbl_80320198);
 
             f32 time = gTickFlowManager->fn_801E2928(720.0f);
             lbl_8032A240.fn_801EA550(0.0f, time, true);
@@ -1079,7 +1075,7 @@ void CExScene::fn_8000A564(bool param_1, bool param_2) {
             lbl_8032A200.fn_801EA550(0.0f, 32.0f, true);
         }
 
-        lbl_8032A240.fn_801EA698(1000.0f, lbl_80320198.unk00);
+        lbl_8032A240.fn_801EA698(1000.0f, lbl_80320198);
 
         f32 time = gTickFlowManager->fn_801E2928(720.0f);
         lbl_8032A240.fn_801EA550(0.0f, time, true);

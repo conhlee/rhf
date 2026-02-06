@@ -5,6 +5,11 @@
 extern "C" {
 #endif
 
+#define OS_GQR_TYPE_U8  4
+#define OS_GQR_TYPE_U16 5
+#define OS_GQR_TYPE_S8  6
+#define OS_GQR_TYPE_S16 7
+
 // Initializes GQRs 2-5 with the following configuration:
 // GQR2: unsigned 8 bit
 // GQR3: unsigned 16 bit
@@ -13,20 +18,20 @@ extern "C" {
 static inline void OSInitFastCast(void) {
     #ifdef __MWERKS__
     asm {
-        li r3, 4
-        oris r3, r3, 4
+        li r3, OS_GQR_TYPE_U8
+        oris r3, r3, OS_GQR_TYPE_U8
         mtgqr2 r3
 
-        li r3, 5
-        oris r3, r3, 5
+        li r3, OS_GQR_TYPE_U16
+        oris r3, r3, OS_GQR_TYPE_U16
         mtgqr3 r3
 
-        li r3, 6
-        oris r3, r3, 6
+        li r3, OS_GQR_TYPE_S8
+        oris r3, r3, OS_GQR_TYPE_S8
         mtgqr4 r3
         
-        li r3, 7
-        oris r3, r3, 7
+        li r3, OS_GQR_TYPE_S16
+        oris r3, r3, OS_GQR_TYPE_S16
         mtgqr5 r3
     }
     #endif
@@ -52,6 +57,22 @@ static inline void OSSetGQR7(register u32 type, register u32 scale) {
     #endif
 }
 
+static f32 __OSu8tof32(register u8* in) {
+    register f32 ret;
+
+    #ifdef __MWERKS__
+    asm {
+        psq_l ret, 0(in), 1, 2
+    }
+    #endif
+
+    return ret;
+}
+
+static void OSu8tof32(u8* in, volatile f32* out) {
+    *out = __OSu8tof32(in);
+}
+
 static inline f32 __OSu16tof32(register const u16* arg) {
     register f32 ret;
 
@@ -66,6 +87,25 @@ static inline f32 __OSu16tof32(register const u16* arg) {
 
 static inline void OSu16tof32(const u16* in, f32* out) {
     *out = __OSu16tof32(in);
+}
+
+static u8 __OSf32tou8(register f32 arg) {
+    f32 a;
+    register f32 *ptr = &a;
+    u8 r;
+
+    #ifdef __MWERKS__
+    asm {
+        psq_st arg, 0(ptr), 1, 2
+    }
+    #endif
+
+    r = *(u8 *)ptr;
+    return r;
+}
+
+static void OSf32tou8(f32 *in, volatile u8 *out) {
+    *out = __OSf32tou8(*in);
 }
 
 static inline u16 __OSf32tou16(register f32 arg) {

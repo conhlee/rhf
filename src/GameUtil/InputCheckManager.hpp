@@ -48,6 +48,11 @@ enum EInputType {
     eInputType_Num,
 };
 
+#define INPUT_PX(inputType, controllerIndex) ((inputType) + (eInputType_Num * (controllerIndex)))
+
+#define INPUT_P1(inputType) INPUT_PX((inputType), 0)
+#define INPUT_P2(inputType) INPUT_PX((inputType), 1)
+
 class CInputCheckManager : public TSingleton<CInputCheckManager> {
 public:
     typedef void (*FuncUnk414)(void);
@@ -122,6 +127,9 @@ public:
     }
     void setUnk42D(bool allow) {
         mAllowInputController[3] = allow;
+    }
+    void setUnk42E(bool value) {
+        unk42E = value;
     }
     u8 getUnk498(void) {
         return unk498;

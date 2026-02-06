@@ -116,12 +116,16 @@ namespace nw4r { namespace snd { namespace detail
 
 		void SetTempoRatio(f32 tempo);
 
-		void SetTrackVolume(u32 trackFlags, f32 volume);
+		void SetTrackVolume(u32 trackBitFlag, f32 volume);
 
 		bool WriteVariable(int idx, s16 value);
 
 		bool LoadData(SeqLoadTask::Callback *callback,
 		              void *callbackArg);
+
+		void SetTrackMute(u32 trackBitFlag, bool mute);
+
+		u32 GetTick() const;
 
 		static void NotifyLoadAsyncEndSeqData(bool result, void const *seqBase,
 		                                      void *userData);

@@ -20,6 +20,9 @@ public:
     static const s32 DEFAULT_MAX_FILE_COUNT = 95;
     static const s32 DEFAULT_MAX_ARCHIVE_COUNT = 95;
 
+    static const EHeapMEM DEFAULT_HEAP = eHeap_MEM2;
+    static const s32 DEFAULT_ALIGN = 32;
+
 public:
     virtual void _08(void);
     virtual ~CFileManager(void);
@@ -35,12 +38,18 @@ public:
     const char *getLocaleDir(void);
 
     // NOTE: alignment must be a multiple of 32, or DVD read will fail!
-    void *fn_801D3C4C(const char *path, EHeapMEM heap = eHeap_MEM2, s32 alignment = 32);
+    void *fn_801D3C4C(
+        const char *path,
+        EHeapMEM heap = DEFAULT_HEAP, s32 alignment = DEFAULT_ALIGN
+    );
     bool fn_801D3D58(void);
     void fn_801D3D94(void);
     void fn_801D3E94(void);
     // NOTE: alignment must be a multiple of 32, or DVD read will fail!
-    void fn_801D3F94(s32 arcIndex, const char *path, EHeapMEM heap = eHeap_MEM2, s32 alignment = 32);
+    void fn_801D3F94(
+        s32 arcIndex, const char *path,
+        EHeapMEM heap = DEFAULT_HEAP, s32 alignment = DEFAULT_ALIGN
+    );
     void fn_801D41CC(s32 arcIndex);
     u32 fn_801D422C(s32 arcIndex, const char *path);
     void *fn_801D4270(s32 arcIndex, const char *path);
@@ -53,7 +62,10 @@ public:
     void fn_801D4544(void);
     void fn_801D49D4(void);
 
-    static void *fn_801D461C(void *data, BOOL deleteSrc, EHeapMEM heap = eHeap_MEM2, s32 alignment = 32);
+    static void *fn_801D461C(
+        void *data, BOOL deleteSrc,
+        EHeapMEM heap = DEFAULT_HEAP, s32 alignment = DEFAULT_ALIGN
+    );
 
     void setDVDErrorFuncF(void (*DVDErrorFuncF)(void)) {
         mDVDErrorFuncF = DVDErrorFuncF;
@@ -69,7 +81,6 @@ public:
         return fn_801D4270(1, RFLGetArcFilePath());
     }
 
-    // TODO: come up with a better name
     static void waitTick(void) {
         gFileManager->fn_801D49D4(); // Check DVD errors, wait for them to be resolved if they appear ..
         gFileManager->fn_801D4544(); // Update archive processing (do decompression, relocation, etc.)

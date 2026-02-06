@@ -133,4 +133,3 @@ bool Credit::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
 void Credit::CMyFlow::_14(void) {
     this->~CMyFlow();
 }
-

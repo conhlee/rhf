@@ -86,7 +86,7 @@ public:
     virtual void ReleaseWorkBuffer();                       // at 0x1C
 
     u32 GetRequiredMemSize();
-    bool SetParam(const ReverbHiParam& rParam);
+    bool SetParam(const ReverbHiParam& rParam) DONT_INLINE;
 
 private:
     bool mActive;

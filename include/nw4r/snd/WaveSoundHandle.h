@@ -7,6 +7,8 @@
 
 #include <revolution/types.h> // NULL
 
+#include "nw4r/snd/WaveSound.h"
+
 #include "nw4r/ut/inlines.h" // ut::NonCopyable
 
 /*******************************************************************************
@@ -14,7 +16,6 @@
  */
 
 // forward declarations
-namespace nw4r { namespace snd { namespace detail { class WaveSound; }}}
 namespace nw4r { namespace snd { class SoundHandle; }}
 
 /*******************************************************************************
@@ -29,10 +30,17 @@ namespace nw4r { namespace snd
 	// methods
 	public:
 		// cdtors
-		WaveSoundHandle(SoundHandle *handle);
+		explicit WaveSoundHandle(SoundHandle *handle);
+		~WaveSoundHandle() {
+			DetachSound();
+		}
 
 		// methods
 		bool IsAttachedSound() const { return mSound != NULL; }
+
+		bool IsPrepared() const {
+			return IsAttachedSound() && mSound->IsPrepared();
+		}
 
 		void DetachSound();
 

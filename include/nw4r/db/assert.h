@@ -6,6 +6,8 @@
 namespace nw4r {
 namespace db {
 
+#ifndef NW4R_ASSERT_DISABLE
+
 // TODO: do these macros belong here?
 #define NW4R_WARNING(line, ...) nw4r::db::Warning(__FILE__, line, __VA_ARGS__)
 #define NW4R_PANIC(line, ...) nw4r::db::Panic(__FILE__, line, __VA_ARGS__)
@@ -15,6 +17,16 @@ namespace db {
 
 #define NW4R_ASSERT_MSG(x, line, ...)                                                \
     ((x) && 1 || (nw4r::db::Panic(__FILE__, line, __VA_ARGS__), 0))
+
+#else
+
+#define NW4R_WARNING(line, ...)
+#define NW4R_PANIC(line, ...)
+#define NW4R_DB_ASSERT(exp, line, ...)
+
+#define NW4R_ASSERT_MSG(x, line, ...)
+
+#endif // NW4R_ASSERT_DISABLE
 
 #define NW4R_ASSERT(x, line)                                                    \
     NW4R_ASSERT_MSG((x), line, "NW4R:Failed assertion " #x)

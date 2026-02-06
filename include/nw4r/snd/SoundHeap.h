@@ -17,12 +17,11 @@ public:
     SoundHeap();
     virtual ~SoundHeap(); // at 0x8
 
-    virtual void* Alloc(u32 size); // at 0xC
+    virtual void *Alloc(u32 size); // at 0xC
 
-    void* Alloc(u32 size, detail::FrameHeap::FreeCallback pCallback,
-                void* pCallbackArg);
+    void *Alloc(u32 size, detail::FrameHeap::FreeCallback callback, void *callbackArg);
 
-    bool Create(void* pBase, u32 size);
+    bool Create(void *startAddress, u32 size);
     void Destroy();
 
     void Clear();
@@ -45,8 +44,7 @@ public:
     }
 
 private:
-    static void DisposeCallbackFunc(void* pBuffer, u32 size,
-                                    void* pCallbackArg);
+    static void DisposeCallbackFunc(void *mem, u32 size, void *arg);
 
 private:
     mutable OSMutex mMutex;       // at 0x0

@@ -339,6 +339,9 @@ Game/SNDHeap.cpp:
 Game/EndlessCounter.cpp:
 	.text       start:0x800836E8 end:0x80083F10
 
+Game/BackupManager.cpp:
+	.text       start:0x80083F10 end:0x80085FC0
+
 Game/HBMManager.cpp:
 	.text       start:0x80085FC0 end:0x80087534
 	.rodata     start:0x80255528 end:0x80255658
@@ -425,6 +428,9 @@ Game/AgbTap/SceneAgbTap.cpp:
 	.sdata      start:0x8031F7D0 end:0x8031F7D8
 	.sdata2     start:0x80326008 end:0x803260A0
 
+Game/Interview/SceneInterview.cpp:
+	.text       start:0x800B5444 end:0x800B7F28
+
 Game/RFLManager.cpp:
 	.text       start:0x800C2A30 end:0x800C3078
 	.rodata     start:0x802B2480 end:0x802B24C0
@@ -500,7 +506,7 @@ revolution/os/OSAlloc.c:
 	.sbss       start:0x80320640 end:0x80320650
 
 revolution/os/OSArena.c:
-	.text       start:0x800DB0C0 end:0x800DB1C0
+	.text       start:0x800DB0C0 end:0x800DB1B4
 	.sdata      start:0x8031FAA0 end:0x8031FAA8
 	.sbss       start:0x80320650 end:0x80320658
 
@@ -929,7 +935,7 @@ PowerPC_EABI_Support/Runtime/__init_cpp_exceptions.cpp:
 	.ctors      start:0x801F74E0 end:0x801F74E4 rename:.ctors$10
 	.dtors      start:0x801F7580 end:0x801F7584 rename:.dtors$10
 	.dtors      start:0x801F7584 end:0x801F7588 rename:.dtors$15
-	.sdata      start:0x8031FC40 end:0x8031FC48
+	.sdata      start:0x8031FC40 end:0x8031FC44
 
 PowerPC_EABI_Support/Runtime/Gecko_ExceptionPPC.cp:
 	extab       start:0x80006778 end:0x800067B8
@@ -1988,8 +1994,8 @@ nw4r/db/db_assert.cpp:
 	.bss        start:0x803B5A98 end:0x803B5AE0
 
 nw4r/g3d/platform/g3d_cpu.cpp:
-	.text       start:0x80199D40 end:0x80199EF0
-	.sdata2     start:0x803290F0 end:0x803290F8
+	.text       start:0x80199D40 end:0x80199EEC
+	.sdata2     start:0x803290F0 end:0x803290F4
 
 nw4r/g3d/g3d_state.cpp:
 	.text       start:0x80199EF0 end:0x8019B140
@@ -2000,9 +2006,9 @@ nw4r/g3d/g3d_state.cpp:
 	.bss        start:0x803B5AE0 end:0x803BB088
 
 nw4r/g3d/g3d_init.cpp:
-	.text       start:0x8019B140 end:0x8019B240
+	.text       start:0x8019B140 end:0x8019B238
 	.data       start:0x80314590 end:0x803145D8
-	.sdata      start:0x8031FF88 end:0x8031FF90
+	.sdata      start:0x8031FF88 end:0x8031FF8C
 
 nw4r/g3d/g3d_fog.cpp:
 	.text       start:0x8019B240 end:0x8019B2C0
@@ -2144,11 +2150,11 @@ nw4r/snd/snd_BankFile.cpp:
 
 nw4r/snd/snd_BasicPlayer.cpp:
 	.text       start:0x801AD220 end:0x801AD460
-	.data       start:0x80315418 end:0x80315440
+	.data       start:0x80315418 end:0x8031543C
 	.sdata2     start:0x803292C0 end:0x803292C8
 
 nw4r/snd/snd_BasicSound.cpp:
-	.text       start:0x801AD460 end:0x801AEAB0
+	.text       start:0x801AD460 end:0x801AEAAC
 	.ctors      start:0x801F7538 end:0x801F753C
 	.data       start:0x80315440 end:0x80315478
 	.sbss       start:0x80320EC0 end:0x80320EC4
@@ -2161,12 +2167,12 @@ nw4r/snd/snd_BiquadFilterPreset.cpp:
 	.sdata2     start:0x803292D8 end:0x803292E8
 
 nw4r/snd/snd_Channel.cpp:
-	.text       start:0x801AEEF0 end:0x801AFF10
+	.text       start:0x801AEEF0 end:0x801AFF08
 	.sdata2     start:0x803292E8 end:0x80329310
 	.bss        start:0x803BB508 end:0x803BB538
 
 nw4r/snd/snd_DisposeCallbackManager.cpp:
-	.text       start:0x801AFF10 end:0x801B02A0
+	.text       start:0x801AFF10 end:0x801B029C
 	.sbss       start:0x80320ED0 end:0x80320ED8
 	.bss        start:0x803BB538 end:0x803BB550
 
@@ -2183,10 +2189,10 @@ nw4r/snd/snd_ExternalSoundPlayer.cpp:
 	.text       start:0x801B0D10 end:0x801B0FE0
 
 nw4r/snd/snd_FrameHeap.cpp:
-	.text       start:0x801B0FE0 end:0x801B1880
+	.text       start:0x801B0FE0 end:0x801B1874
 
 nw4r/snd/snd_FxBase.cpp:
-	.text       start:0x801B1880 end:0x801B1890
+	.text       start:0x801B1880 end:0x801B1884
 
 nw4r/snd/snd_FxReverbHi.cpp:
 	.text       start:0x801B1890 end:0x801B1E90
@@ -2340,7 +2346,7 @@ nw4r/snd/snd_TaskManager.cpp:
 	.bss        start:0x803D5B58 end:0x803D5BA0
 
 nw4r/snd/snd_TaskThread.cpp:
-	.text       start:0x801C2780 end:0x801C2950
+	.text       start:0x801C2780 end:0x801C2948
 
 nw4r/snd/snd_Voice.cpp:
 	.text       start:0x801C2950 end:0x801C51E0
@@ -2360,31 +2366,31 @@ nw4r/snd/snd_Util.cpp:
 	.sdata2     start:0x80329480 end:0x803294B0
 
 nw4r/snd/snd_WaveArchive.cpp:
-	.text       start:0x801C5D80 end:0x801C5E90
+	.text       start:0x801C5D80 end:0x801C5E88
 
 nw4r/snd/snd_WaveFile.cpp:
-	.text       start:0x801C5E90 end:0x801C6100
+	.text       start:0x801C5E90 end:0x801C60F4
 
 nw4r/snd/snd_WaveSound.cpp:
-	.text       start:0x801C6100 end:0x801C64C0
+	.text       start:0x801C6100 end:0x801C64BC
 	.ctors      start:0x801F7548 end:0x801F754C
 	.data       start:0x80315AF0 end:0x80315B28
 	.sbss       start:0x80320F28 end:0x80320F30
 
 nw4r/snd/snd_WaveSoundHandle.cpp:
-	.text       start:0x801C64C0 end:0x801C6600
+	.text       start:0x801C64C0 end:0x801C65F8
 
 nw4r/snd/snd_WsdFile.cpp:
-	.text       start:0x801C6600 end:0x801C69D0
-	.sdata2     start:0x803294B0 end:0x803294B8
+	.text       start:0x801C6600 end:0x801C69C4
+	.sdata2     start:0x803294B0 end:0x803294B4
 
 nw4r/snd/snd_WsdPlayer.cpp:
-	.text       start:0x801C69D0 end:0x801C7B80
+	.text       start:0x801C69D0 end:0x801C7B78
 	.data       start:0x80315B28 end:0x80315B88
 	.sdata2     start:0x803294B8 end:0x803294E0
 
 nw4r/snd/snd_adpcm.cpp:
-	.text       start:0x801C7B80 end:0x801C7C10
+	.text       start:0x801C7B80 end:0x801C7C0C
 
 nw4r/ut/ut_list.cpp:
 	.text       start:0x801C7C10 end:0x801C7D30
@@ -2399,7 +2405,7 @@ nw4r/ut/ut_CharStrmReader.cpp:
 	.text       start:0x801C7F40 end:0x801C8060
 
 nw4r/ut/ut_TagProcessorBase.cpp:
-	.text       start:0x801C8060 end:0x801C89C0
+	.text       start:0x801C8060 end:0x801C89B4
 	.data       start:0x80315B88 end:0x80315BB0
 	.sdata2     start:0x803294E0 end:0x803294E8
 
@@ -2426,12 +2432,12 @@ nw4r/ut/ut_DvdLockedFileStream.cpp:
 	.sbss       start:0x80320F48 end:0x80320F60
 
 nw4r/ut/ut_LockedCache.cpp:
-	.text       start:0x801C9570 end:0x801C9670
+	.text       start:0x801C9570 end:0x801C9668
 	.ctors      start:0x801F755C end:0x801F7560
 	.bss        start:0x803D5BE0 end:0x803D5C00
 
 nw4r/ut/ut_Font.cpp:
-	.text       start:0x801C9670 end:0x801C9720
+	.text       start:0x801C9670 end:0x801C9714
 	.data       start:0x80315C80 end:0x80315CB0
 
 nw4r/ut/ut_RomFont.cpp:
@@ -2457,7 +2463,7 @@ nw4r/ut/ut_ArchiveFont.cpp:
 	.data       start:0x80315EA0 end:0x80315F30
 
 nw4r/ut/ut_CharWriter.cpp:
-	.text       start:0x801CC760 end:0x801CDF10
+	.text       start:0x801CC760 end:0x801CDF0C
 	.sbss       start:0x80320F60 end:0x80320F68
 	.sdata2     start:0x803294E8 end:0x80329508
 	.bss        start:0x803D5C00 end:0x803D5C10

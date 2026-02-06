@@ -16,6 +16,7 @@
 #include "AgbTap/SceneAgbTap.hpp"
 #include "Rap/SceneRap.hpp"
 #include "Perfect/ScenePerfect.hpp"
+#include "Interview/SceneInterview.hpp"
 
 CSceneManager::CSceneManager(void) {}
 
@@ -70,7 +71,6 @@ extern "C" void fn_80060534(void);
 extern "C" void fn_8006F390(void);
 extern "C" void fn_8006C6DC(void);
 extern "C" void fn_800759C4(void);
-extern "C" void fn_800B5460(void);
 extern "C" void fn_800BC6DC(void);
 extern "C" void fn_800B956C(void);
 extern "C" void fn_800D7F70(void);
@@ -269,7 +269,7 @@ void CSceneManager::fn_80089FE0(ESceneID sceneID, const TickFlowCode *tickFlowCo
         fn = (CScene::CreateFn)fn_800759C4;
         break;
     case eScene_Interview:
-        fn = (CScene::CreateFn)fn_800B5460;
+        fn = CSceneInterview::create;
         break;
     case eScene_Alarm:
         fn = (CScene::CreateFn)fn_800BC6DC;
@@ -410,7 +410,6 @@ extern s32 lbl_80320328;
 extern s32 lbl_80320330;
 extern s32 lbl_80320338;
 extern s32 lbl_80320340;
-extern s32 lbl_80320538;
 extern s32 lbl_80320388;
 extern s32 lbl_803202D8;
 extern s32 lbl_803202B0;
@@ -497,7 +496,7 @@ void CSceneManager::fn_8008A4DC(ESceneID sceneID, s32 ver) {
         lbl_80320340 = ver;
         break;
     case eScene_Interview:
-        lbl_80320538 = ver;
+        Interview::sceneVer = ver;
         break;
     case eScene_Karateman:
         lbl_80320388 = ver;
@@ -671,7 +670,6 @@ extern "C" void fn_8004553C(void);
 extern "C" void fn_80047D08(void);
 extern "C" void fn_8004BEB4(void);
 extern "C" void fn_8004DE50(void);
-extern "C" void fn_800B5508(void);
 extern "C" void fn_80069878(void);
 extern "C" void fn_800344C0(void);
 extern "C" void fn_80022F74(void);
@@ -755,7 +753,7 @@ void CSceneManager::fn_8008A704(ESceneID sceneID) {
         fn_8004DE50();
         break;
     case eScene_Interview:
-        fn_800B5508();
+        CSceneInterview::fn_800B5508();
         break;
     case eScene_Karateman:
         fn_80069878();
@@ -929,7 +927,6 @@ extern "C" void fn_800456B4(void);
 extern "C" void fn_80047E24(void);
 extern "C" void fn_8004BFD0(void);
 extern "C" void fn_8004DF40(void);
-extern "C" void fn_800B5624(void);
 extern "C" void fn_800699C0(void);
 extern "C" void fn_80034618(void);
 extern "C" void fn_800230B8(void);
@@ -990,7 +987,7 @@ void CSceneManager::fn_8008A82C(ESceneID sceneID) {
         fn_8004DF40();
         break;
     case eScene_Interview:
-        fn_800B5624();
+        CSceneInterview::fn_800B5624();
         break;
     case eScene_Karateman:
         fn_800699C0();

@@ -396,7 +396,7 @@ void CHBMManager::fn_800870BC(void) {
     GXSetChanCtrl(GX_COLOR0A0, FALSE, GX_SRC_VTX, GX_SRC_VTX, GX_LIGHT_NULL, GX_DF_NONE, GX_AF_NONE);
 
     GXSetNumTexGens(1);
-    GXSetTexCoordGen2(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, 60, FALSE, 125);
+    GXSetTexCoordGen2(GX_TEXCOORD0, GX_TG_MTX2x4, GX_TG_TEX0, GX_TEXMTX_IDENT, FALSE, GX_DUALMTX_IDENT);
 
     GXSetNumTevStages(1);
     GXSetTevColor(GX_TEVREG0, (GXColor){ 0xFF, 0xFF, 0xFF, mProhibitIconAlpha });

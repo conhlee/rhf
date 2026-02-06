@@ -81,6 +81,16 @@ namespace nw4r { namespace snd { namespace detail
 		bool Prepare(StrmPlayer::StartOffsetType startOffsetType, s32 offset,
 		             ut::FileStream *fileStream);
 
+		bool ReadStrmDataInfo(StrmDataInfo *info) const
+		{
+			return mStrmPlayer.ReadStrmDataInfo(info);
+		}
+
+		s32 GetPlaySamplePosition() const
+		{
+			return mStrmPlayer.GetPlaySamplePosition();
+		}
+
 		static DebugSoundType GetSoundType()
 		{
 			return DEBUG_SOUND_TYPE_STRMSOUND;

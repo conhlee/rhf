@@ -9,7 +9,9 @@ enum ECellAnimRenderEff {
     eCellAnimRenderEff_None,
     eCellAnimRenderEff_Grayscale,
     eCellAnimRenderEff_Invert,
-    eCellAnimRenderEff_ShowEdge
+    eCellAnimRenderEff_ShowEdge,
+
+    eCellAnimRenderEff_5 = 5 // ???
 };
 
 ECellAnimRenderEff fn_8009E1B4(ECellAnimRenderEff type);
