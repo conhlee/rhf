@@ -1,0 +1,14 @@
+#define kanji_ex_i_man_test	0
+#define kanji_ex_i_man_pray_L	1
+#define kanji_ex_i_man_pray_R	2
+#define kanji_ex_i_man_fall_L	3
+#define kanji_ex_i_man_fall_R	4
+#define kanji_ex_i_man_step_L	5
+#define kanji_ex_i_man_step_R	6
+#define kanji_ex_i_woman_test	7
+#define kanji_ex_i_woman_pray_L	8
+#define kanji_ex_i_woman_pray_R	9
+#define kanji_ex_i_woman_fall_L	10
+#define kanji_ex_i_woman_fall_R	11
+#define kanji_ex_i_woman_step_L	12
+#define kanji_ex_i_woman_step_R	13

@@ -1,0 +1,17 @@
+#define shrimp_bg	0
+#define shrimp_beat	1
+#define shrimp_break	2
+#define shrimp_break2	3
+#define shrimp_jump_r	4
+#define shrimp_jump_r_out	5
+#define shrimp_jump_r_through	6
+#define shrimp_jump_l	7
+#define shrimp_jump_l_out	8
+#define shrimp_jump_l_through	9
+#define shrimp_bg_beach	10
+#define shrimp_bg_bird	11
+#define shrimp_bg_sky	12
+#define shrimp_dolphin_jump	13
+#define shrimp_dolphin_jump_break	14
+#define shrimp_dolphin_S_jump	15
+#define shrimp_dolphin_S_jump_break	16

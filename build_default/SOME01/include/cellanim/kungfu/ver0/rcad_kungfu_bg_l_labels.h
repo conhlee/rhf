@@ -1,0 +1,15 @@
+#define kungfu_bg_l_bg	0
+#define kungfu_bg_l_bg_test	1
+#define kungfu_bg_l_sennin	2
+#define kungfu_bg_l_crown	3
+#define kungfu_bg_l_CellAnim0	4
+#define kungfu_bg_l_bg_sky	5
+#define kungfu_bg_l_building	6
+#define kungfu_bg_l_gate	7
+#define kungfu_bg_l_air	8
+#define kungfu_bg_l_crown_1	9
+#define kungfu_bg_l_crown_2	10
+#define kungfu_bg_l_crown_3	11
+#define kungfu_bg_l_crown_4	12
+#define kungfu_bg_l_building_2	13
+#define kungfu_bg_l_building_3	14

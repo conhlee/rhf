@@ -1,0 +1,13 @@
+#define rocket_03_rocket	0
+#define rocket_03_rocket_drop_l	1
+#define rocket_03_rocket_drop_r	2
+#define rocket_03_rocket_just	3
+#define rocket_03_rocket_show	4
+#define rocket_03_rocket_hide	5
+#define rocket_03_effect_just	6
+#define rocket_03_effect_miss	7
+#define rocket_03_number	8
+#define rocket_03_number_zero	9
+#define rocket_03_rocket_flight_00	10
+#define rocket_03_rocket_flight_01	11
+#define rocket_03_rocket_flight_02	12

@@ -1,0 +1,8 @@
+#define samurai_words_title	0
+#define samurai_words_continue	1
+#define samurai_words_remix_04_text_00	2
+#define samurai_words_remix_04_text_01	3
+#define samurai_words_remix_04_text_02	4
+#define samurai_words_remix_04_text_03	5
+#define samurai_words_remix_04_text_all_00	6
+#define samurai_words_remix_04_text_all_01	7

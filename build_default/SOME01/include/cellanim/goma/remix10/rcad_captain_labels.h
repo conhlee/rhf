@@ -1,0 +1,15 @@
+#define captain_WalkFromL	0
+#define captain_WalkFromR	1
+#define captain_beat	2
+#define captain_beat_just_00	3
+#define captain_beat_just_01	4
+#define captain_beat_just_02	5
+#define captain_beat_miss_00	6
+#define captain_beat_miss_01	7
+#define captain_face_just_00	8
+#define captain_face_just_01	9
+#define captain_face_just_02	10
+#define captain_face_miss_00	11
+#define captain_face_miss_01	12
+#define captain_face_indicate	13
+#define captain_face_end	14

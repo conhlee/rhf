@@ -1,0 +1,9 @@
+#define samurai_other_00_flash	0
+#define samurai_other_00_thunder_00	1
+#define samurai_other_00_thunder_01	2
+#define samurai_other_00_thunder_02	3
+#define samurai_other_00_rain	4
+#define samurai_other_00_leaf	5
+#define samurai_other_00_snow	6
+#define samurai_other_00_drop	7
+#define samurai_other_00_black	8

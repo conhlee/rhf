@@ -1,0 +1,13 @@
+#define rotation_wait	0
+#define rotation_beat	1
+#define rotation_ready	2
+#define rotation_rotate	3
+#define rotation_rotate_loop	4
+#define rotation_stop_just	5
+#define rotation_stop_miss	6
+#define rotation_stop_through	7
+#define rotation_face_smile	8
+#define rotation_face_smile_last	9
+#define rotation_face_miss	10
+#define rotation_face_miss_last	11
+#define rotation_shadow	12

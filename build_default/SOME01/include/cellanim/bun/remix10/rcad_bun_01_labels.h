@@ -1,0 +1,15 @@
+#define bun_01_bg_00	0
+#define bun_01_bg_01	1
+#define bun_01_bg_02	2
+#define bun_01_bg_02_tutorial	3
+#define bun_01_robo_wait	4
+#define bun_01_robo_ball_in	5
+#define bun_01_robo_ready	6
+#define bun_01_robo_vibe1	7
+#define bun_01_robo_vibe2	8
+#define bun_01_robo_cover	9
+#define bun_01_robo_cover_break	10
+#define bun_01_robo_drink1	11
+#define bun_01_robo_drink2	12
+#define bun_01_smoke	13
+#define bun_01_rabbit_shine	14

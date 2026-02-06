@@ -1,0 +1,10 @@
+#define handclap_bg	0
+#define handclap_man_wait	1
+#define handclap_man_normal	2
+#define handclap_man_happy	3
+#define handclap_man_angry	4
+#define handclap_man_ready1	5
+#define handclap_man_ready2	6
+#define handclap_man_clap_just	7
+#define handclap_man_clap_out	8
+#define handclap_title	9

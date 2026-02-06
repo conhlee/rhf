@@ -1,0 +1,9 @@
+#define chameleon_bg	0
+#define chameleon_fly	1
+#define chameleon_fly_shadow	2
+#define chameleon_chameleon_blink	3
+#define chameleon_chameleon_a_out	4
+#define chameleon_chameleon_a_hit	5
+#define chameleon_chameleon_ab_out	6
+#define chameleon_chameleon_ab_hit	7
+#define chameleon_chameleon_eye	8

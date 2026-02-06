@@ -1,0 +1,11 @@
+#define resultTwoPlay_score	0
+#define resultTwoPlay_1POmanjyu	1
+#define resultTwoPlay_2POmanjyu	2
+#define resultTwoPlay_aisyoOmanjyu	3
+#define resultTwoPlay_number	4
+#define resultTwoPlay_container	5
+#define resultTwoPlay_spot_00	6
+#define resultTwoPlay_spot_01	7
+#define resultTwoPlay_1POmanjyu_shout	8
+#define resultTwoPlay_2POmanjyu_shout	9
+#define resultTwoPlay_test	10

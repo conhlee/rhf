@@ -1,0 +1,14 @@
+#define hihat_dummy	0
+#define hihat_bg	1
+#define hihat_bg_scroll	2
+#define hihat_demo_play	3
+#define hihat_demo_stop	4
+#define hihat_open_00	5
+#define hihat_half_00	6
+#define hihat_close_00	7
+#define hihat_open_shot_00	8
+#define hihat_half_shot_00	9
+#define hihat_close_shot_00	10
+#define hihat_open_miss_00	11
+#define hihat_half_miss_00	12
+#define hihat_close_miss_00	13

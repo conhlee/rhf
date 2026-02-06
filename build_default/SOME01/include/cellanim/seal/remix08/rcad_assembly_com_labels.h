@@ -1,0 +1,14 @@
+#define assembly_com_box_ready_A	0
+#define assembly_com_box_act_A	1
+#define assembly_com_box_ready_AB	2
+#define assembly_com_box_act_AB_just	3
+#define assembly_com_box_act_AB_miss_out	4
+#define assembly_com_spring_ready_A	5
+#define assembly_com_spring_act_A	6
+#define assembly_com_spring_ready_AB	7
+#define assembly_com_spring_ready_AB_to_ready_A	8
+#define assembly_com_spring_act_AB_just	9
+#define assembly_com_spring_act_AB_miss_out	10
+#define assembly_com_spring_through_A	11
+#define assembly_com_box_shadow_00	12
+#define assembly_com_box_effects_00	13

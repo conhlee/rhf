@@ -1,0 +1,9 @@
+#define mail_bg	0
+#define mail_phone	1
+#define mail_btn	2
+#define mail_btn_decide	3
+#define mail_btn_send	4
+#define mail_btn_label	5
+#define mail_finger	6
+#define mail_mail_send	7
+#define mail_spot	8

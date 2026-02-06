@@ -1,0 +1,17 @@
+#define fude_bg	0
+#define fude_paper	1
+#define fude_fude_00	2
+#define fude_fude_press_00	3
+#define fude_fude_press_loop_00	4
+#define fude_fude_slim_00	5
+#define fude_fude_01	6
+#define fude_fude_press_01	7
+#define fude_fude_press_loop_01	8
+#define fude_fude_slim_01	9
+#define fude_fude_02	10
+#define fude_fude_press_02	11
+#define fude_fude_press_loop_02	12
+#define fude_fude_slim_02	13
+#define fude_sumi	14
+#define fude_kan	15
+#define fude_shout	16

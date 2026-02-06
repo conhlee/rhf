@@ -1,0 +1,12 @@
+#define badminton_bg_bg	0
+#define badminton_bg_island	1
+#define badminton_bg_cloud	2
+#define badminton_bg_ship	3
+#define badminton_bg_night_window	4
+#define badminton_bg_bird	5
+#define badminton_bg_baloon	6
+#define badminton_bg_pteranodon	7
+#define badminton_bg_bluebird	8
+#define badminton_bg_captain	9
+#define badminton_bg_tree	10
+#define badminton_bg_snow	11

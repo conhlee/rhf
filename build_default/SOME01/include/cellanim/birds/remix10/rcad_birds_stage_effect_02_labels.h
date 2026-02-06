@@ -1,0 +1,1 @@
+#define birds_stage_effect_02_stage_effect_05	0

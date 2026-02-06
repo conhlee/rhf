@@ -131,6 +131,10 @@ class ProgressCategory:
 
 def find_cellanim_files(input_dir):
     matches = []
+
+    if not os.path.exists(input_dir):
+        return matches
+
     target_names = { "cellanim.szs", "cellanim_epilogue.szs" }
     for root, _, files in os.walk(input_dir):
         for file in files:
@@ -281,41 +285,90 @@ class ProjectConfig:
     def use_wibo(self) -> bool:
         return (
             self.wibo_tag is not None
-            and sys.platform == "linux"
-            and platform.machine() in ("i386", "x86_64")
+            and (sys.platform == "linux" or sys.platform == "darwin")
+            and platform.machine() in ("i386", "x86_64", "aarch64", "arm64")
             and self.wrapper is None
         )
 
     def apply_custom_build_rule(self):
-        self.custom_build_rules: Optional[List[Dict[str, Any]]] = [
-            {
-                "name": "rsid",
-                "description": "RSID $out",
-                "command": "$python " + str(self.tools_dir / "rsid_generate.py") + " $in -o $out -ig -lf",
-                "pool": "console"
-            },
-            {
-                "name": "rcad_label",
-                "description": "RCAD LABEL",
-                "command": "$python " + str(self.tools_dir / "extract_cellanim_label.py") + " $in -o $out",
-                "pool": "console"
-            }
-        ]
+        self.custom_build_rules: Optional[List[Dict[str, Any]]] = []
+        self.custom_build_steps: Optional[Dict[str, List[Dict[str, Any]]]] = {"pre-compile": []}
 
-        self.custom_build_steps: Optional[Dict[str, List[Dict[str, Any]]]] = {
-            "pre-compile": [
+        if os.path.exists(Path("orig") / self.version / "files" / "EN" / "content2" / "rev_tengoku.brsar"):
+            # print("apply_custom_build_rule: BRSAR asset does exist; will set RSID gen rule ..")
+            self.custom_build_rules.append(
+                {
+                    "name": "rsid",
+                    "description": "RSID $out",
+                    "command": f"$python {str(self.tools_dir / "rsid_generate.py")} $in -o $out -ig -lf",
+                    "pool": "console"
+                }
+            )
+            self.custom_build_steps["pre-compile"].append(
                 {
                     "rule": "rsid",
                     "inputs": str(Path("orig") / self.version / "files" / "EN" / "content2" / "rev_tengoku.brsar"),
                     "outputs": str(self.build_dir / self.version / "include" / "rev_tengoku.rsid"),
-                },
+                }
+            )
+        else:
+            print("apply_custom_build_rule: BRSAR asset does not exist; will set copy default rule ..")
+            self.custom_build_rules.append(
+                {
+                    "name": "rsid",
+                    "description": "RSID $out",
+                    "command":
+                        f"copy $in $out"
+                        if is_windows() else
+                        f"cp $in $out",
+                    "pool": "console"
+                }
+            )
+            self.custom_build_steps["pre-compile"].append(
+                {
+                    "rule": "rsid",
+                    "inputs": str(Path("build_default") / self.version / "include" / "rev_tengoku.rsid"),
+                    "outputs": str(self.build_dir / self.version / "include" / "rev_tengoku.rsid"),
+                }
+            )
+
+        if os.path.exists(Path("orig") / self.version / "files" / "EN" / "content2" / "cellanim"):
+            # print("apply_custom_build_rule: cellanim assets do exist; will set extract rule ..")
+            self.custom_build_rules.append(
+                {
+                    "name": "rcad_label",
+                    "description": "RCAD LABEL",
+                    "command": "$python " + str(self.tools_dir / "extract_cellanim_label.py") + " $in -o $out",
+                    "pool": "console"
+                }
+            )
+            self.custom_build_steps["pre-compile"].append(
                 {
                     "rule": "rcad_label",
                     "inputs": find_cellanim_files(str(Path("orig") / self.version / "files" / "EN" / "content2" / "cellanim")),
                     "outputs": str(self.build_dir / self.version / "include" / "cellanim"),
                 }
-            ]
-        }
+            )
+        else:
+            print("apply_custom_build_rule: cellanim assets do not exist; will set copy default rule ..")
+            self.custom_build_rules.append(
+                {
+                    "name": "rcad_label",
+                    "description": "RCAD LABEL",
+                    "command":
+                        f"xcopy $in $out /s /e"
+                        if is_windows() else
+                        f"cp -r $in $out",
+                    "pool": "console"
+                }
+            )
+            self.custom_build_steps["pre-compile"].append(
+                {
+                    "rule": "rcad_label",
+                    "inputs": str(Path("build_default") / self.version / "include" / "cellanim"),
+                    "outputs": str(self.build_dir / self.version / "include" / "cellanim"),
+                }
+            )
 
 
 def is_windows() -> bool:

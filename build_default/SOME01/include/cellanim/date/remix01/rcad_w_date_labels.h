@@ -1,0 +1,14 @@
+#define w_date_boy_look_away	0
+#define w_date_boy_beat	1
+#define w_date_boy_beat_T	2
+#define w_date_boy_kick	3
+#define w_date_boy_miss	4
+#define w_date_girl_beat	5
+#define w_date_girl_look	6
+#define w_date_girl_sad	7
+#define w_date_girl_smile	8
+#define w_date_ball_soccer	9
+#define w_date_ball_rugby	10
+#define w_date_ball_basket	11
+#define w_date_ball_shadow	12
+#define w_date_bench	13

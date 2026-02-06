@@ -1,0 +1,9 @@
+#define w_date_bg_bg_front	0
+#define w_date_bg_bg_back	1
+#define w_date_bg_leaves	2
+#define w_date_bg_leaf	3
+#define w_date_bg_clouds	4
+#define w_date_bg_sky	5
+#define w_date_bg_butterfly_00	6
+#define w_date_bg_butterfly_01	7
+#define w_date_bg_wind_mill	8

@@ -1,0 +1,11 @@
+#define sort_bg_base	0
+#define sort_bg_bg	1
+#define sort_bg_partition_00	2
+#define sort_bg_partition_01	3
+#define sort_bg_pipe_back_00	4
+#define sort_bg_pipe_front_00	5
+#define sort_bg_pipe_back_01	6
+#define sort_bg_pipe_front_01	7
+#define sort_bg_light_00	8
+#define sort_bg_light_01	9
+#define sort_bg_curtain	10

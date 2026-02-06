@@ -1,0 +1,12 @@
+#define tapman_tapman_body	0
+#define tapman_tapman_head	1
+#define tapman_tapman_head_ok	2
+#define tapman_tapman_beat	3
+#define tapman_tapman_beat2	4
+#define tapman_tapman_cracker00	5
+#define tapman_tapman_cracker01	6
+#define tapman_tapman_cracker02	7
+#define tapman_tapman_cracker03	8
+#define tapman_tapman_cracker04	9
+#define tapman_paper	10
+#define tapman_tie	11

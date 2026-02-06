@@ -1,0 +1,10 @@
+#define mail_bg00_frame	0
+#define mail_bg00_bg_00	1
+#define mail_bg00_bg_01	2
+#define mail_bg00_bg_02	3
+#define mail_bg00_staff_show	4
+#define mail_bg00_staff_hide	5
+#define mail_bg00_phone_calling	6
+#define mail_bg00_phone_talking	7
+#define mail_bg00_phone_off	8
+#define mail_bg00_phone_sending	9

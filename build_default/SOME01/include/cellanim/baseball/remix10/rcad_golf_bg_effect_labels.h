@@ -1,0 +1,9 @@
+#define golf_bg_effect_splash_show	0
+#define golf_bg_effect_splash_hide	1
+#define golf_bg_effect_splash_loop	2
+#define golf_bg_effect_ripple	3
+#define golf_bg_effect_ball	4
+#define golf_bg_effect_rainbow	5
+#define golf_bg_effect_CellAnim0	6
+#define golf_bg_effect_CellAnim1	7
+#define golf_bg_effect_CellAnim2	8

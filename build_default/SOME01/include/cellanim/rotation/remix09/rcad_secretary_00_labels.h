@@ -1,0 +1,16 @@
+#define secretary_00_secretary_body_beat	0
+#define secretary_00_secretary_body_sign	1
+#define secretary_00_secretary_face_normal	2
+#define secretary_00_secretary_face_look	3
+#define secretary_00_secretary_face_sad	4
+#define secretary_00_secretary_face_blink	5
+#define secretary_00_secretary_face_talk	6
+#define secretary_00_secretary_end	7
+#define secretary_00_secretary_up	8
+#define secretary_00_secretary_down	9
+#define secretary_00_secretary_shake	10
+#define secretary_00_hole_open	11
+#define secretary_00_hole_close	12
+#define secretary_00_hole_back	13
+#define secretary_00_hole_front	14
+#define secretary_00_secretary_shadow	15

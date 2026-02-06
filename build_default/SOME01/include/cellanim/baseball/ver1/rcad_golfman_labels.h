@@ -1,0 +1,14 @@
+#define golfman_golfman_ready	0
+#define golfman_golfman_beat	1
+#define golfman_golfman_just	2
+#define golfman_golfman_miss	3
+#define golfman_golfman_through	4
+#define golfman_golfman_through_Gorilla	5
+#define golfman_golfman_out	6
+#define golfman_golfman_wait	7
+#define golfman_golfman_look	8
+#define golfman_golfman_greet	9
+#define golfman_golfman_shadow	10
+#define golfman_golfman_test1	11
+#define golfman_golfman_test2	12
+#define golfman_golfman_test3	13

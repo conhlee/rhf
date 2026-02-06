@@ -1,0 +1,17 @@
+#define rocket_bg_box_00	0
+#define rocket_bg_box_01	1
+#define rocket_bg_box_02	2
+#define rocket_bg_bg_00_1play	3
+#define rocket_bg_bg_00_2play	4
+#define rocket_bg_bg_01	5
+#define rocket_bg_bg_02	6
+#define rocket_bg_bg_03	7
+#define rocket_bg_bg_04	8
+#define rocket_bg_bg_scroll_fast	9
+#define rocket_bg_offset_00	10
+#define rocket_bg_offset_01	11
+#define rocket_bg_offset_02	12
+#define rocket_bg_star_00	13
+#define rocket_bg_star_01	14
+#define rocket_bg_star_02	15
+#define rocket_bg_number_1_7	16

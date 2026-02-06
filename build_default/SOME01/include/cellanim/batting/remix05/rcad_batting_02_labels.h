@@ -1,0 +1,16 @@
+#define batting_02_batter_beat	0
+#define batting_02_batter_beat_look	1
+#define batting_02_batter_ready	2
+#define batting_02_batter_swing	3
+#define batting_02_batter_swing_air	4
+#define batting_02_batter_swing_air_to_ready	5
+#define batting_02_batter_swing_miss	6
+#define batting_02_batter_swing_out	7
+#define batting_02_batter_success	8
+#define batting_02_batter_through	9
+#define batting_02_batter_blink_00	10
+#define batting_02_batter_blink_01	11
+#define batting_02_batter_blink_02	12
+#define batting_02_ball	13
+#define batting_02_ball_large	14
+#define batting_02_shadow	15
