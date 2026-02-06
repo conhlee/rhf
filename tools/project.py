@@ -318,7 +318,7 @@ class ProjectConfig:
                     "name": "rsid",
                     "description": "RSID $out",
                     "command":
-                        f"copy $in $out"
+                        f"xcopy $in $out* /y"
                         if is_windows() else
                         f"cp $in $out",
                     "pool": "console"
@@ -356,7 +356,7 @@ class ProjectConfig:
                     "name": "rcad_label",
                     "description": "RCAD LABEL",
                     "command":
-                        f"xcopy $in $out /s /e"
+                        f"xcopy $in $out\\ /s /e /y"
                         if is_windows() else
                         f"cp -r $in $out",
                     "pool": "console"
