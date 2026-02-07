@@ -65,11 +65,152 @@ Game/Prologue/ScenePrologue.cpp:
 Game/Script/Prologue.cpp:
 	.rodata     start:0x801F9110 end:0x801F9664
 
+Game/Epilogue/MyFlow.cpp:
+	.text       start:0x8000B1D4 end:0x8000B294
+
+Game/Epilogue/MyLayout.cpp:
+	.text       start:0x8000B294 end:0x8000B4B4
+
+Game/Epilogue/SceneEpilogue.cpp:
+	.text       start:0x8000B4B4 end:0x8000B888
+
+Game/Grading/MyFlow.cpp:
+	.text       start:0x8000B888 end:0x8000BA78
+
+Game/Grading/MyLayout.cpp:
+	.text       start:0x8000BA78 end:0x8000C2E4
+
+Game/Grading/SceneGrading.cpp:
+	.text       start:0x8000C2E4 end:0x8000C640
+
+Game/GameSelect/MyFlow.cpp:
+	.text       start:0x8000C640 end:0x8000C7F4
+
+Game/GameSelect/MyLayout.cpp:
+	.text       start:0x8000C7F4 end:0x8000EC28
+
+Game/GameSelect/SceneGameSelect.cpp:
+	.text       start:0x8000EC28 end:0x8000F424
+
+Game/Basket/MyChecker.cpp:
+	.text       start:0x8000F424 end:0x8000F580
+
+Game/Basket/MyFlow.cpp:
+	.text       start:0x8000F580 end:0x8000F824
+
+Game/Basket/SceneBasket.cpp:
+	.text       start:0x8000F824 end:0x80010574
+
+Game/Choro/MyChecker.cpp:
+	.text       start:0x80010574 end:0x800106D8
+
+Game/Choro/MyFlow.cpp:
+	.text       start:0x800106D8 end:0x800107AC
+
+Game/Choro/SceneChoro.cpp:
+	.text       start:0x800107AC end:0x80011E24
+
+Game/Bun/MyChecker.cpp:
+	.text       start:0x80011E24 end:0x80012C08
+
+Game/Bun/MyFlow.cpp:
+	.text       start:0x80012C08 end:0x8001363C
+
+Game/Bun/SceneBun.cpp:
+	.text       start:0x8001363C end:0x80014640
+
+Game/Kungfu/MyChecker.cpp:
+	.text       start:0x80014640 end:0x80014A0C
+
+Game/Kungfu/MyFlow.cpp:
+	.text       start:0x80014A0C end:0x80015AE0
+
+Game/Kungfu/SceneKungfu.cpp:
+	.text       start:0x80015AE0 end:0x8001D854
+
+Game/Frog/MyChecker.cpp:
+	.text       start:0x8001D854 end:0x8001DA0C
+
+Game/Frog/MyFlow.cpp:
+	.text       start:0x8001DA0C end:0x8001DCC4
+
+Game/Frog/SceneFrog.cpp:
+	.text       start:0x8001DCC4 end:0x8001F5C4
+
+Game/Birds/MyChecker.cpp:
+	.text       start:0x8001F5C4 end:0x8001FA44
+
+Game/Birds/MyFlow.cpp:
+	.text       start:0x8001FA44 end:0x800204D8
+
+Game/Birds/SceneBirds.cpp:
+	.text       start:0x800204D8 end:0x800222C4
+
+Game/Panel/MyChecker.cpp:
+	.text       start:0x800222C4 end:0x800227FC
+
+Game/Panel/MyFlow.cpp:
+	.text       start:0x800227FC end:0x80022D78
+
+Game/Panel/ScenePanel.cpp:
+	.text       start:0x80022D78 end:0x8002494C
+
 Game/MyTagProcessor.cpp:
 	.text       start:0x8002494C end:0x80026814
 
+Game/Date/MyChecker.cpp:
+	.text       start:0x80026814 end:0x80027AF0
+
+Game/Date/MyFlow.cpp:
+	.text       start:0x80027AF0 end:0x80027FA4
+
+Game/Date/SceneDate.cpp:
+	.text       start:0x80027FA4 end:0x80029AE4
+
+Game/Rocket/MyChecker.cpp:
+	.text       start:0x80029AE4 end:0x80029D58
+
+Game/Rocket/MyFlow.cpp:
+	.text       start:0x80029D58 end:0x8002A560
+
 Game/Rocket/SceneRocket.cpp:
 	.text       start:0x8002A560 end:0x8002CF84
+
+Game/Seesaw/SceneSeesaw.cpp:
+	.text       start:0x8002CF84 end:0x8002EFBC
+
+Game/Seesaw/MyChecker.cpp:
+	.text       start:0x8002EFBC end:0x8002F420
+
+Game/Seesaw/MyFlow.cpp:
+	.text       start:0x8002F420 end:0x8002F74C
+
+Game/Concons/MyChecker.cpp:
+	.text       start:0x8002F74C end:0x8002F99C
+
+Game/Concons/MyFlow.cpp:
+	.text       start:0x8002F99C end:0x80030294
+
+Game/Concons/SceneConcons.cpp:
+	.text       start:0x80030294 end:0x80033898
+
+Game/Muscle/MyChecker.cpp:
+	.text       start:0x80033898 end:0x80033CFC
+
+Game/Muscle/MyFlow.cpp:
+	.text       start:0x80033CFC end:0x80034340
+
+Game/Muscle/SceneMuscle.cpp:
+	.text       start:0x80034340 end:0x80036688
+
+Game/Shrimp/SceneShrimp.cpp:
+	.text       start:0x80036688 end:0x80037748
+
+Game/Shrimp/MyChecker.cpp:
+	.text       start:0x80037748 end:0x80037BCC
+
+Game/Shrimp/MyFlow.cpp:
+	.text       start:0x80037BCC end:0x800380CC
 
 Game/main.cpp:
 	.text       start:0x800380CC end:0x800399E4
@@ -228,6 +369,33 @@ Game/Karateman/MyFlow.cpp:
 Game/Karateman/SceneKarateman.cpp:
 	.text       start:0x80069800 end:0x8006AE20
 
+Game/Robot/MyChecker.cpp:
+	.text       start:0x8006AE20 end:0x8006BD7C
+
+Game/Robot/MyFlow.cpp:
+	.text       start:0x8006BD7C end:0x8006C6C0
+
+Game/Robot/SceneRobot.cpp:
+	.text       start:0x8006C6C0 end:0x8006D5AC
+
+Game/Tambourine/SceneTambourine.cpp:
+	.text       start:0x8006D5AC end:0x8006E9A0
+
+Game/Tambourine/MyChecker.cpp:
+	.text       start:0x8006E9A0 end:0x8006EB88
+
+Game/Tambourine/MyFlow.cpp:
+	.text       start:0x8006EB88 end:0x8006F37C
+
+Game/Watch/SceneWatch.cpp:
+	.text       start:0x8006F37C end:0x80071B78
+
+Game/Watch/MyChecker.cpp:
+	.text       start:0x80071B78 end:0x80071CC8
+
+Game/Watch/MyFlow.cpp:
+	.text       start:0x80071CC8 end:0x80072428
+
 Game/Baseball/MyLayout.cpp:
 	.text       start:0x80072428 end:0x800729C4
 
@@ -241,11 +409,33 @@ Game/Pseudo3D.cpp:
 Game/Rap/MyLayout.cpp:
 	.text       start:0x80072AAC end:0x80073254
 
+Game/Samurai/MyChecker.cpp:
+	.text       start:0x80073254 end:0x80075104
+
+Game/Samurai/MyFlow.cpp:
+	.text       start:0x80075104 end:0x800759B0
+
+Game/Samurai/SceneSamurai.cpp:
+	.text       start:0x800759B0 end:0x80077588
+
+Game/Muscle/MyLayout.cpp:
+	.text       start:0x80077588 end:0x800777C0
+
 Game/Prologue/MyLayout.cpp:
 	.text       start:0x800777C0 end:0x80077908
 	.rodata     start:0x80253E58 end:0x80253E90
 	.data       start:0x802EC308 end:0x802EC338
 	.sdata      start:0x8031F3A0 end:0x8031F3B0
+
+Game/SaveData.cpp:
+	.text       start:0x80077908 end:0x80078FE8
+
+Game/GameSelect/MyBtnPane.cpp:
+	.text       start:0x80078FE8 end:0x80079540
+
+Game/GameSelect/Table.cpp:
+	.text       start:0x80079540 end:0x80079568
+	.rodata     start:0x80253F20 end:0x802543D0
 
 Game/Error/SceneError.cpp:
 	.text       start:0x80079568 end:0x80079D54
@@ -299,6 +489,29 @@ Game/MyCanvas.cpp:
 Game/DynTex.cpp:
 	.text       start:0x8007C288 end:0x8007C474
 
+Game/Shrimp/MyLayout.cpp:
+	.text       start:0x8007C474 end:0x8007CAE4
+
+Game/GameSelect/code_8007CAE4.cpp:
+	.text       start:0x8007CAE4 end:0x8007F6BC
+	.ctors      start:0x801F74EC end:0x801F74F0
+
+Game/GameSelect/code_8007F6BC.cpp:
+	.text       start:0x8007F6BC end:0x80081368
+	.ctors      start:0x801F74F0 end:0x801F74F8
+
+Game/GameSelect/code_80081368.cpp:
+	.text       start:0x80081368 end:0x8008182C
+
+Game/GameSelect/code_8008182C.cpp:
+	.text       start:0x8008182C end:0x80081E78
+
+Game/GameSelect/code_80081E78.cpp:
+	.text       start:0x80081E78 end:0x800825E0
+
+Game/GameSelect/code_800825E0.cpp:
+	.text       start:0x800825E0 end:0x80082ADC
+
 Game/Perfect/MyChecker.cpp:
 	.text       start:0x80082ADC end:0x80082BD8
 	.rodata     start:0x80255338 end:0x80255350
@@ -350,7 +563,7 @@ Game/HBMManager.cpp:
 	.sdata2     start:0x803250F0 end:0x80325130
 
 Game/MessageManager.cpp:
-	.text       start:0x80087534 end:0x800898D4
+	.text       start:0x80087534 end:0x80089DF0
 
 Game/SceneManager.cpp:
 	.text       start:0x80089DF0 end:0x8008B844
@@ -359,6 +572,9 @@ Game/SceneManager.cpp:
 	.sdata      start:0x8031F4F8 end:0x8031F508
 	.sdata2     start:0x803251B8 end:0x80325330
 
+Game/ExController.cpp:
+	.text       start:0x8008B844 end:0x8008D290
+
 Game/ExFlow.cpp:
 	.text       start:0x8008D290 end:0x8008E430
 	.data       start:0x802ED598 end:0x802ED5B8
@@ -366,6 +582,15 @@ Game/ExFlow.cpp:
 Game/CellAnimRenderEff.cpp:
 	.text       start:0x8009DF2C end:0x8009E2BC
 	.sbss       start:0x803204D8 end:0x803204E0
+
+Game/Hihat/MyChecker.cpp:
+	.text       start:0x8009E2BC end:0x8009E5DC
+
+Game/Hihat/MyFlow.cpp:
+	.text       start:0x8009E5DC end:0x8009E9B4
+
+Game/Hihat/SceneHihat.cpp:
+	.text       start:0x8009E9B4 end:0x800A090C
 
 Game/Logo/MyChecker.cpp:
 	.text       start:0x800A090C end:0x800A0A08
@@ -396,6 +621,33 @@ Game/Script/AgbGhost.cpp:
 	.rodata     start:0x80264840 end:0x802653D4
 	.data       start:0x802EF2B8 end:0x802EF308
 	.sdata2     start:0x80325D00 end:0x80325D90
+
+Game/BonusSelect/MyChecker.cpp:
+	.text       start:0x800A0DAC end:0x800A0EA8
+
+Game/BonusSelect/MyFlow.cpp:
+	.text       start:0x800A0EA8 end:0x800A1020
+
+Game/BonusSelect/MyLayout.cpp:
+	.text       start:0x800A1020 end:0x800A4670
+
+Game/BonusSelect/SceneBonusSelect.cpp:
+	.text       start:0x800A4670 end:0x800A5294
+
+Game/GameSelect/MyLayoutBG.cpp:
+	.text       start:0x800A5294 end:0x800A53F0
+
+Game/AgbKanji/MyChecker.cpp:
+	.text       start:0x800A53F0 end:0x800A57C8
+
+Game/AgbKanji/MyFlow.cpp:
+	.text       start:0x800A57C8 end:0x800A5B20
+
+Game/AgbKanji/SceneAgbKanji.cpp:
+	.text       start:0x800A5B20 end:0x800A6FEC
+
+Game/AgbGhost/MyChecker.cpp:
+	.text       start:0x800A6FEC end:0x800A7208
 
 Game/AgbGhost/MyFlow.cpp:
 	.text       start:0x800A7208 end:0x800A75DC
@@ -428,8 +680,91 @@ Game/AgbTap/SceneAgbTap.cpp:
 	.sdata      start:0x8031F7D0 end:0x8031F7D8
 	.sdata2     start:0x80326008 end:0x803260A0
 
+Game/NightWalk/MyChecker.cpp:
+	.text       start:0x800A9F0C end:0x800AB1EC
+
+Game/NightWalk/MyFlow.cpp:
+	.text       start:0x800AB1EC end:0x800AB910
+
+Game/NightWalk/SceneNightWalk.cpp:
+	.text       start:0x800AB910 end:0x800AD4E4
+
+Game/Sword/SceneSword.cpp:
+	.text       start:0x800AD4E4 end:0x800AE8F8
+
+Game/Sword/MyChecker.cpp:
+	.text       start:0x800AE8F8 end:0x800AEAAC
+
+Game/Sword/MyFlow.cpp:
+	.text       start:0x800AEAAC end:0x800AEF18
+
+Game/GameSelect/MyLayout2P.cpp:
+	.text       start:0x800AEF18 end:0x800B034C
+
+Game/CafeMenu/MyChecker.cpp:
+	.text       start:0x800B034C end:0x800B0448
+
+Game/CafeMenu/MyFlow.cpp:
+	.text       start:0x800B0448 end:0x800B066C
+
+Game/CafeMenu/MyLayout.cpp:
+	.text       start:0x800B066C end:0x800B2914
+
+Game/CafeMenu/SceneCafeMenu.cpp:
+	.text       start:0x800B2914 end:0x800B2D08
+
+Game/Reading/MyChecker.cpp:
+	.text       start:0x800B2D08 end:0x800B2E04
+
+Game/Reading/MyFlow.cpp:
+	.text       start:0x800B2E04 end:0x800B2F7C
+
+Game/Reading/MyLayout.cpp:
+	.text       start:0x800B2F7C end:0x800B3FB8
+
+Game/Reading/SceneReading.cpp:
+	.text       start:0x800B3FB8 end:0x800B4338
+
+Game/GiftTable.cpp:
+	.text       start:0x800B4338 end:0x800B4360
+	.rodata     start:0x8029AB68 end:0x8029B268
+
+Game/BatteryLayout.cpp:
+	.text       start:0x800B4360 end:0x800B4794
+
+Game/Interview/MyChecker.cpp:
+	.text       start:0x800B4794 end:0x800B4C48
+
+Game/Interview/MyFlow.cpp:
+	.text       start:0x800B4C48 end:0x800B5444
+
 Game/Interview/SceneInterview.cpp:
 	.text       start:0x800B5444 end:0x800B7F28
+
+Game/Eatmen/MyChecker.cpp:
+	.text       start:0x800B7F28 end:0x800B8F60
+
+Game/Eatmen/MyFlow.cpp:
+	.text       start:0x800B8F60 end:0x800B9558
+
+Game/Eatmen/SceneEatmen.cpp:
+	.text       start:0x800B9558 end:0x800BB294
+
+Game/Receive/MyLayout.cpp:
+	.text       start:0x800BB294 end:0x800BBD68
+
+Game/Alarm/MyChecker.cpp:
+	.text       start:0x800BBD68 end:0x800BBF0C
+
+Game/Alarm/MyFlow.cpp:
+	.text       start:0x800BBF0C end:0x800BC6C8
+
+Game/Alarm/SceneAlarm.cpp:
+	.text       start:0x800BC6C8 end:0x800BFF30
+	.ctors      start:0x801F74FC end:0x801F7500
+
+Game/IconSelectLayout.cpp:
+	.text       start:0x800BFF30 end:0x800C2A30
 
 Game/RFLManager.cpp:
 	.text       start:0x800C2A30 end:0x800C3078
@@ -444,6 +779,9 @@ Game/Script/CharacterIntro.cpp:
 
 Game/WindParticle.cpp:
 	.text       start:0x800C3078 end:0x800C378C
+
+Game/code_800C378C.cpp:
+	.text       start:0x800C378C end:0x800C3A8C
 
 Game/Credit/MyChecker.cpp:
 	.text       start:0x800C3A8C end:0x800C3B88
@@ -474,6 +812,76 @@ Game/Credit/SceneCredit.cpp:
 	.sbss       start:0x80320578 end:0x80320580
 	.sdata2     start:0x80327AD0 end:0x80327B30
 	.bss        start:0x8034C860 end:0x8034C878
+
+Game/NightWalk/MyLayout.cpp:
+	.text       start:0x800C4EF8 end:0x800C5DF4
+
+Game/code_800C5DF4.cpp:
+	.text       start:0x800C5DF4 end:0x800C5F70
+
+Game/code_800C5F70.cpp:
+	.text       start:0x800C5F70 end:0x800C6100
+
+Game/Shooting/SceneShooting.cpp:
+	.text       start:0x800C6100 end:0x800C7BBC
+
+Game/Shooting/MyChecker.cpp:
+	.text       start:0x800C7BBC end:0x800C7CB8
+
+Game/Shooting/MyFlow.cpp:
+	.text       start:0x800C7CB8 end:0x800C81F0
+
+Game/Mail/MyChecker.cpp:
+	.text       start:0x800C81F0 end:0x800C82EC
+
+Game/Mail/MyFlow.cpp:
+	.text       start:0x800C82EC end:0x800C86E8
+
+Game/Mail/SceneMail.cpp:
+	.text       start:0x800C86E8 end:0x800CA72C
+
+Game/Mail/MyLayout.cpp:
+	.text       start:0x800CA72C end:0x800CAF18
+
+Game/Hihat/MyLayout.cpp:
+	.text       start:0x800CAF18 end:0x800CB29C
+
+Game/RhythmFighterVS/SceneRhythmFighterVS.cpp:
+	.text       start:0x800CB29C end:0x800CE76C
+
+Game/RhythmFighterVS/MyChecker.cpp:
+	.text       start:0x800CE76C end:0x800CE93C
+
+Game/RhythmFighterVS/MyFlow.cpp:
+	.text       start:0x800CE93C end:0x800CF238
+
+Game/Grading2P/MyChecker.cpp:
+	.text       start:0x800CF238 end:0x800CF334
+
+Game/Grading2P/MyFlow.cpp:
+	.text       start:0x800CF334 end:0x800CF80C
+
+Game/Grading2P/SceneGrading2P.cpp:
+	.text       start:0x800CF80C end:0x800D1EC0
+
+Game/Grading2P/MyLayout.cpp:
+	.text       start:0x800D1EC0 end:0x800D2920
+
+Game/code_800D2920.cpp:
+	.text       start:0x800D2920 end:0x800D2A70
+
+Game/GameSelect/code_800D2A70.cpp:
+	.text       start:0x800D2A70 end:0x800D5268
+	.ctors      start:0x801F7500 end:0x801F7504
+
+Game/Omochi/SceneOmochi.cpp:
+	.text       start:0x800D5268 end:0x800D7518
+
+Game/Omochi/MyFlow.cpp:
+	.text       start:0x800D7518 end:0x800D77C0
+
+Game/Mail/code_800D77C0.cpp:
+	.text       start:0x800D77C0 end:0x800D77E0
 
 Game/Metroman/MyChecker.cpp:
 	.text       start:0x800D77E0 end:0x800D79CC
