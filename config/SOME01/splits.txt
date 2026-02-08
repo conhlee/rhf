@@ -44,7 +44,7 @@ Game/ExScene.cpp:
 	.sdata2     start:0x80321168 end:0x803211F8
 	.bss        start:0x8032A1A0 end:0x8032A278
 
-Game/ExChecker.cpp:
+Game/code_8000ABC0.cpp:
 	.text       start:0x8000ABC0 end:0x8000AC24
 
 Game/Prologue/MyFlow.cpp:
@@ -578,6 +578,85 @@ Game/ExController.cpp:
 Game/ExFlow.cpp:
 	.text       start:0x8008D290 end:0x8008E430
 	.data       start:0x802ED598 end:0x802ED5B8
+
+Game/code_8008E430.cpp:
+	.text       start:0x8008E430 end:0x8008E59C
+
+Game/code_8008E59C.cpp:
+	.text       start:0x8008E59C end:0x8008E72C
+
+Game/ExChecker.cpp:
+	.text       start:0x8008E72C end:0x8008EB24
+
+Game/ExBtnPane.cpp:
+	.text       start:0x8008EB24 end:0x8008FF40
+
+Game/code_8008FF40.cpp:
+	.text       start:0x8008FF40 end:0x80090054
+
+Game/Robot/MyLayout.cpp:
+	.text       start:0x80090054 end:0x80090408
+
+Game/LyricLayout.cpp:
+	.text       start:0x80090408 end:0x80090A40
+
+Game/Tutorial/SceneTutorial.cpp:
+	.text       start:0x80090A40 end:0x80091C90
+
+Game/Tutorial/MyChecker.cpp:
+	.text       start:0x80091C90 end:0x80091EA4
+
+Game/Tutorial/MyFlow.cpp:
+	.text       start:0x80091EA4 end:0x80092094
+
+Game/Title/SceneTitle.cpp:
+	.text       start:0x80092094 end:0x80092954
+
+Game/Title/MyChecker.cpp:
+	.text       start:0x80092954 end:0x80092A50
+
+Game/Title/MyFlow.cpp:
+	.text       start:0x80092A50 end:0x80092C50
+
+Game/Title/MyLayout.cpp:
+	.text       start:0x80092C50 end:0x80097478
+
+Game/Cafe/MyChecker.cpp:
+	.text       start:0x80097478 end:0x80097574
+
+Game/Cafe/MyFlow.cpp:
+	.text       start:0x80097574 end:0x80097774
+
+Game/Cafe/MyLayout.cpp:
+	.text       start:0x80097774 end:0x8009A1C4
+
+Game/Cafe/SceneCafe.cpp:
+	.text       start:0x8009A1C4 end:0x8009A704
+
+Game/PlayHistory.cpp:
+	.text       start:0x8009A704 end:0x8009AA64
+
+Game/Navi/MyChecker.cpp:
+	.text       start:0x8009AA64 end:0x8009AC50
+
+Game/Navi/MyFlow.cpp:
+	.text       start:0x8009AC50 end:0x8009B338
+
+Game/Navi/SceneNavi.cpp:
+	.text       start:0x8009B338 end:0x8009CE34
+	.ctors      start:0x801F74F8 end:0x801F74FC
+
+Game/CafeTopic.cpp:
+	.text       start:0x8009CE34 end:0x8009D2E4
+
+Game/AgbClap/MyChecker.cpp:
+	.text       start:0x8009D2E4 end:0x8009D47C
+
+Game/AgbClap/MyFlow.cpp:
+	.text       start:0x8009D47C end:0x8009D694
+
+Game/AgbClap/SceneAgbClap.cpp:
+	.text       start:0x8009D694 end:0x8009DF2C
 
 Game/CellAnimRenderEff.cpp:
 	.text       start:0x8009DF2C end:0x8009E2BC
