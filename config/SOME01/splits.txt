@@ -1165,7 +1165,7 @@ revolution/dvd/dvdfs.c:
 	.sbss       start:0x80320740 end:0x80320760
 
 revolution/dvd/dvd.c:
-	.text       start:0x800E7C40 end:0x800EC900
+	.text       start:0x800E7C40 end:0x800EC8F4
 	.data       start:0x802FF2A0 end:0x802FF6B0
 	.sdata      start:0x8031FB10 end:0x8031FB28
 	.sbss       start:0x80320760 end:0x803207F8
@@ -1176,7 +1176,7 @@ revolution/dvd/dvdqueue.c:
 	.bss        start:0x80352870 end:0x803528A0
 
 revolution/dvd/dvderror.c:
-	.text       start:0x800ECB80 end:0x800ED5A0
+	.text       start:0x800ECB80 end:0x800ED598
 	.data       start:0x802FF6B0 end:0x802FF6E0
 	.sbss       start:0x803207F8 end:0x80320808
 	.bss        start:0x803528A0 end:0x80352B00
@@ -1185,7 +1185,7 @@ revolution/dvd/dvdidutils.c:
 	.text       start:0x800ED5A0 end:0x800ED690
 
 revolution/dvd/dvdFatal.c:
-	.text       start:0x800ED690 end:0x800ED800
+	.text       start:0x800ED690 end:0x800ED7F8
 	.rodata     start:0x802DDE10 end:0x802DDE48
 	.data       start:0x802FF6E0 end:0x802FFEA8
 	.sdata      start:0x8031FB28 end:0x8031FB30
@@ -1193,7 +1193,7 @@ revolution/dvd/dvdFatal.c:
 	.sdata2     start:0x803288D8 end:0x803288E0
 
 revolution/dvd/dvdDeviceError.c:
-	.text       start:0x800ED800 end:0x800EDA90
+	.text       start:0x800ED800 end:0x800EDA8C
 	.rodata     start:0x802DDE48 end:0x802DDE68
 	.data       start:0x802FFEA8 end:0x80300040
 	.sdata      start:0x8031FB30 end:0x8031FB38
@@ -1202,7 +1202,7 @@ revolution/dvd/dvdDeviceError.c:
 	.bss        start:0x80352B00 end:0x80352B20
 
 revolution/dvd/dvd_broadway.c:
-	.text       start:0x800EDA90 end:0x800F0140
+	.text       start:0x800EDA90 end:0x800F0138
 	.data       start:0x80300040 end:0x80300F48
 	.sdata      start:0x8031FB38 end:0x8031FB48
 	.sbss       start:0x80320818 end:0x80320840

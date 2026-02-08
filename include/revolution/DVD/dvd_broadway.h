@@ -1,19 +1,15 @@
 #ifndef RVL_SDK_DVD_BROADWAY_H
 #define RVL_SDK_DVD_BROADWAY_H
 #include <types.h>
+#include <revolution/DVD/dvd.h>
+#include <revolution/OS/OSAlarm.h>
+#include <revolution/ESP.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #define DVD_LOW_OFFSET(x) ((x) >> 2)
 #define DVD_LOW_SPEED(x) (((x) & 3) << 16)
-
-// Forward declarations
-typedef struct DVDDiskID DVDDiskID;
-typedef struct DVDDriveInfo DVDDriveInfo;
-typedef struct ESPTicket ESPTicket;
-typedef struct ESPTmd ESPTmd;
-typedef struct OSAlarm OSAlarm;
 
 typedef enum {
     DVD_INTTYPE_TC = (1 << 0),   // Transaction callback?
@@ -35,8 +31,8 @@ typedef void (*DVDLowCallback)(u32 intType);
 
 BOOL DVDLowInit(void);
 BOOL DVDLowReadDiskID(DVDDiskID* out, DVDLowCallback callback);
-BOOL DVDLowOpenPartition(u32 offset, const ESPTicket* ticket, u32 certsSize,
-                         const void* certs, ESPTmd* tmd,
+BOOL DVDLowOpenPartition(u32 offset, const ESTicket* ticket, u32 certsSize,
+                         const void* certs, ESTitleMeta* tmd,
                          DVDLowCallback callback);
 BOOL DVDLowClosePartition(DVDLowCallback callback);
 BOOL DVDLowUnencryptedRead(void* dst, u32 size, u32 offset,

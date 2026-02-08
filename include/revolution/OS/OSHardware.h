@@ -2,6 +2,7 @@
 #define RVL_SDK_OS_HARDWARE_H
 #include <revolution/OS/OSAddress.h>
 #include <revolution/OS/OSThread.h>
+#include <revolution/DVD/dvd.h>
 #include <revolution/types.h>
 #ifdef __cplusplus
 extern "C" {
@@ -42,16 +43,13 @@ typedef struct OSExecParams;
     /* Memory-mapped value for direct access */                                \
     type OS_##name : (addr);
 
+typedef enum {
+    OS_BOOT_MAGIC_BOOTROM = 0xD15EA5E,
+    OS_BOOT_MAGIC_JTAG = 0xE5207C22,
+} OSBootMagic;
+
 typedef struct OSBootInfo {
-    u32 appName;    // at 0x0
-    u16 appMaker;   // at 0x4
-    u8 diskID;      // at 0x6
-    u8 diskVer;     // at 0x7
-    u8 strmEnable;  // at 0x8
-    u8 strmBufSize; // at 0x9
-    char UNK_0xA[0x18 - 0xA];
-    u32 rvlDiscMagic; // at 0x18
-    u32 gcDiscMagic;  // at 0x1C
+    DVDDiskID diskID; // at 0x00
     u32 bootMagic;    // at 0x20
     u32 aplVersion;   // at 0x24
     u32 physMemSize;  // at 0x28
@@ -147,9 +145,12 @@ OS_DEF_GLOBAL_VAR(u8, APPLOADER_TARGET,                  0x8000315D);
 OS_DEF_GLOBAL_VAR(BOOL, MIOS_SHUTDOWN_FLAG,              0x80003164);
 OS_DEF_GLOBAL_VAR(u32, CURRENT_APP_NAME,                 0x80003180);
 OS_DEF_GLOBAL_VAR(u8, CURRENT_APP_TYPE,                  0x80003184);
+OS_DEF_GLOBAL_VAR(u8, LOCKED_FLAG,                       0x80003187);
 OS_DEF_GLOBAL_VAR(u32, MINIMUM_IOS_VERSION,              0x80003188);
 OS_DEF_GLOBAL_VAR(u32, NAND_TITLE_LAUNCH_CODE,           0x8000318C);
 OS_DEF_GLOBAL_VAR(u32, NAND_TITLE_RETURN_CODE,           0x80003190);
+OS_DEF_GLOBAL_VAR(u32, BOOT_PARTITION_TYPE,              0x80003194);
+OS_DEF_GLOBAL_VAR(u32, BOOT_PARTITION_OFFSET,            0x80003198);
 OS_DEF_GLOBAL_ARR(u8, SC_PRDINFO, [0x100],               0x80003800);
 // clang-format on
 

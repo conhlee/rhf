@@ -6,8 +6,10 @@ extern "C" {
 
 #include <revolution/DVD/dvd_broadway.h>
 #include <revolution/DVD/dvd.h>
+#include <revolution/DVD/dvderror.h>
 #include <revolution/DVD/dvdfs.h>
 #include <revolution/DVD/dvdidutils.h>
+#include <revolution/DVD/dvdqueue.h>
 
 #ifdef __cplusplus
 }
