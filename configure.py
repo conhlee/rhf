@@ -651,7 +651,7 @@ config.libs = [
             Object(NonMatching, "revolution/dvd/dvdidutils.c"),
             Object(NonMatching, "revolution/dvd/dvdFatal.c"),
             Object(NonMatching, "revolution/dvd/dvdDeviceError.c"),
-            Object(NonMatching, "revolution/dvd/dvd_broadway.c"),
+            Object(Matching, "revolution/dvd/dvd_broadway.c"),
         ]
     ),
     RevolutionLib(

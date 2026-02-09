@@ -31,9 +31,17 @@ typedef void (*DVDLowCallback)(u32 intType);
 
 BOOL DVDLowInit(void);
 BOOL DVDLowReadDiskID(DVDDiskID* out, DVDLowCallback callback);
-BOOL DVDLowOpenPartition(u32 offset, const ESTicket* ticket, u32 certsSize,
-                         const void* certs, ESTitleMeta* tmd,
+BOOL DVDLowOpenPartition(u32 offset, ESTicket* eTicket, u32 certsSize,
+                         void* certificates, ESTitleMeta* tmd,
                          DVDLowCallback callback);
+BOOL DVDLowOpenPartitionWithTmdAndTicket(u32 offset, ESTicket *eTicket,
+                                         u32 numTmdBytes, ESTitleMeta *tmd,
+                                         u32 numCertBytes, void* certificates,
+                                         DVDLowCallback callback);
+BOOL DVDLowOpenPartitionWithTmdAndTicketView(u32 offset, ESTicketView *eTicketView,
+                                             u32 numTmdBytes, ESTitleMeta *tmd,
+                                             u32 numCertBytes, void* certificates,
+                                             DVDLowCallback callback);
 BOOL DVDLowClosePartition(DVDLowCallback callback);
 BOOL DVDLowUnencryptedRead(void* dst, u32 size, u32 offset,
                            DVDLowCallback callback);
