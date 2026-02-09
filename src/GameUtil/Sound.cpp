@@ -205,7 +205,7 @@ void CSoundManager::fn_801E4D60(void) {
 
     fn_801E5648();
 
-    if ((mVolumeFadeFrames > 0) && !gTickFlowManager->getUnk6D()) {
+    if ((mVolumeFadeFrames > 0) && !gTickFlowManager->getPaused()) {
         f32 curVolume = first_player_volume();
 
         f32 finalVolume = curVolume + mVolumeFadeStep;

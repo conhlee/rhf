@@ -107,7 +107,7 @@ void CSceneAgbTap::_14(void) {
     gTickFlowManager->registerFlow<AgbTap::CMyFlow>();
 
     CController *controller = gControllerManager->fn_801D5FF0(0);
-    controller->fn_801D5500(0x800, 3);
+    controller->fn_801D5500((1 << 11), 3);
 
     void *agb_tap_brcadAddr = gFileManager->fn_801D4270(2, "./agb_tap.brcad");
     void *agb_tap_bg_brcadAddr = gFileManager->fn_801D4270(2, "./agb_tap_bg.brcad");

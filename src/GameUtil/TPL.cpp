@@ -5,7 +5,7 @@
 void UserTPLBind(void *pal) {
     TPLPalette *palette = static_cast<TPLPalette *>(pal);
 
-    // @bug Might have forgotten a zero or two on that address ..
+    // @bug Meant to write >= 0x80000000 (start of MEM1) instead of > 0x800000 ?
     if (palette->descriptors > reinterpret_cast<TPLDescriptor *>(0x800000)) {
         return;
     }

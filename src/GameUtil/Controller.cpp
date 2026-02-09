@@ -31,13 +31,13 @@ CController::CController(s32 channel) {
     unk1364 = 10;
     unk1365 = 4;
     for (s32 i = 0; i < (s32)ARRAY_LENGTH(unk1354); i++) {
-        if ((u16)(1 << i)) {
+        if (((1 << i) & 0xFFFF) != 0) {
             unk1354[i] = 0;
         }
     }
 
     for (s32 i = 0; i < (s32)ARRAY_LENGTH(unk1354); i++) {
-        if (((1 << i) & (0x800 | 0x400))) {
+        if (((1 << i) & ((1 << 10) | (1 << 11))) != 0) {
             unk1354[i] = 6;
         }
     }
@@ -86,7 +86,7 @@ void CController::fn_801D4EA4(u32 arg1, u32 arg2) {
     for (s32 i = 0; i < (s32)ARRAY_LENGTH(unk1344); i++) {
         u32 temp_r12 = 1 << i;
         if (unk1344[i]) {
-            if (gTickFlowManager->getUnk6D()) {
+            if (gTickFlowManager->getPaused()) {
                 continue;
             }
             unk1344[i]--;
@@ -103,7 +103,7 @@ void CController::fn_801D4EA4(u32 arg1, u32 arg2) {
             }
             if (xorarg2 & temp_r12) {
                 unk1340 |= temp_r12;
-                if (!gTickFlowManager->getUnk6D()) {
+                if (!gTickFlowManager->getPaused()) {
                     unk1344[i] = unk1354[i];
                 }
             }
@@ -280,7 +280,7 @@ void CController::fn_801D5500(u32 arg1, u8 arg2) {
 }
 
 void CController::fn_801D55D8(u32 arg1, u8 arg2) {
-    for (s32 i = 0; i < (s32)ARRAY_LENGTH(unk1354); i++) {
+    for (s32 i = 0; i < (s32)ARRAY_LENGTH(unk1344); i++) {
         if (arg1 & (1 << i)) {
             unk1344[i] = arg2;
         }
@@ -294,12 +294,12 @@ void CController::_40(const char *seqText, bool forcePlay) {
         mMotorSeqPlaying = true;
         mMotorSeqPos = 0;
 
-        for (s32 j = 0; j < seqLen; j++) {
-            if (seqText[j] == '*') {
-                mMotorSeq[j] = MOTOR_SEQ_ON;
+        for (s32 i = 0; i < seqLen; i++) {
+            if (seqText[i] == '*') {
+                mMotorSeq[i] = MOTOR_SEQ_ON;
             }
-            else if (seqText[j] == '-') {
-                mMotorSeq[j] = MOTOR_SEQ_OFF;
+            else if (seqText[i] == '-') {
+                mMotorSeq[i] = MOTOR_SEQ_OFF;
             }
         }
         mMotorSeq[seqLen] = MOTOR_SEQ_END;

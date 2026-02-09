@@ -14,7 +14,7 @@ TFD_BEGIN(lbl_802E4CA0)
     TFC_LABEL(999)
     TFC_BUTTON_PROMPT_GET_FINISHED()
     TFC_REST(1)
-    TFC_IF_EQU(1)
+    TFC_IF_EQU(TRUE)
         TFC_JUMP(999)
     TFC_ENDIF()
 TFD_RETURN()
@@ -22,7 +22,7 @@ TFD_RETURN()
 TFD_BEGIN(lbl_802E4CC0)
     TFC_LABEL(999)
     TFC_GET_WAVE_PREPARED()
-    TFC_IF_EQU(1)
+    TFC_IF_EQU(TRUE)
         TFC_JUMP(100)
     TFC_ENDIF()
     TFC_REST(1)
@@ -33,7 +33,7 @@ TFD_RETURN()
 TFD_BEGIN(lbl_802E4CE8)
     TFC_LABEL(999)
     TFC_GET_GROUP_LOADING()
-    TFC_IF_EQU(0)
+    TFC_IF_EQU(FALSE)
         TFC_JUMP(100)
     TFC_ENDIF()
     TFC_REST(1)
@@ -243,16 +243,16 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         if (arg0 == 0) {
             switch (args[0]) {
             case eBGMType_None:
-                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_None) ? 1 : 0;
+                mCondvar = (gTickFlowManager->getCurrentBGMType() == eBGMType_None) ? TRUE : FALSE;
                 break;
             case eBGMType_Seq:
-                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_Seq) ? 1 : 0;
+                mCondvar = (gTickFlowManager->getCurrentBGMType() == eBGMType_Seq) ? TRUE : FALSE;
                 break;
             case eBGMType_Strm:
-                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_Strm) ? 1 : 0;
+                mCondvar = (gTickFlowManager->getCurrentBGMType() == eBGMType_Strm) ? TRUE : FALSE;
                 break;
             case eBGMType_Wave:
-                mCondvar = (gTickFlowManager->getUnk1C() == eBGMType_Wave) ? 1 : 0;
+                mCondvar = (gTickFlowManager->getCurrentBGMType() == eBGMType_Wave) ? TRUE : FALSE;
                 break;
             }
         }

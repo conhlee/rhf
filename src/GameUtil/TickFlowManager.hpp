@@ -100,10 +100,10 @@ public:
 
     u8 fn_801E4180(void);
 
-    s32 getUnk1C(void) {
+    EBGMType getCurrentBGMType(void) {
         return mCurrentBGMType;
     }
-    bool getUnk6D(void) {
+    bool getPaused(void) {
         return mPaused;
     }
 

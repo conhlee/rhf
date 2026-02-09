@@ -282,7 +282,7 @@ void DVDMessageData::fn_801D77A4(void) {
     GXSetCullMode(GX_CULL_NONE);
     GXSetClipMode(GX_CLIP_ENABLE);
 
-    GXSetTevColor(GX_TEVREG0, (GXColor){0, 0, 0, 0xFF});
+    GXSetTevColor(GX_TEVREG0, (GXColor){ 0, 0, 0, 0xFF });
 
     GXBegin(GX_QUADS, GX_VTXFMT0, 4);
 

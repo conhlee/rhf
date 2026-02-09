@@ -70,7 +70,7 @@ bool AgbGhost::CMyFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     case TF_AGBGHOST_GHOST_HEIGHT: {
         mScene->mGhostHeight = args[0];
 
-        if (gTickFlowManager->getUnk1C() == eBGMType_Wave) {
+        if (gTickFlowManager->getCurrentBGMType() == eBGMType_Wave) {
             gTickFlowManager->fn_801E3E2C(mScene->mGhostHeight / 256.0f, 15);
         }
         mScene->mUnk1B2 = true;

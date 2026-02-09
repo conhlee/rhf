@@ -167,17 +167,17 @@ enum {
 
 #define TFC_GET_GROUP_LOADING() TFD_CMD(TF_GET_GROUP_LOADING, 0, 0),
 
-#define TFC_MESG_PANE_VISIBLE(accessIdx, isVisible) TFD_CMD(TF_MESG_PANE_VISIBLE, 1, (accessIdx)), TFD_CAST((isVisible) ? 1 : 0),
+#define TFC_MESG_PANE_VISIBLE(accessIdx, isVisible) TFD_CMD(TF_MESG_PANE_VISIBLE, 1, (accessIdx)), TFD_CAST((isVisible) ? TRUE : FALSE),
 
-#define TFC_SET_INPUT_ALLOW_ALL(allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 1, 0), TFD_CAST((allowed) ? 1 : 0),
-#define TFC_SET_INPUT_ALLOW(controllerIndex, allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 2, 1), TFD_CAST(controllerIndex), TFD_CAST((allowed) ? 1 : 0),
+#define TFC_SET_INPUT_ALLOW_ALL(allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 1, 0), TFD_CAST((allowed) ? TRUE : FALSE),
+#define TFC_SET_INPUT_ALLOW(controllerIndex, allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 2, 1), TFD_CAST(controllerIndex), TFD_CAST((allowed) ? TRUE : FALSE),
 
 #define TFC_BUTTON_PROMPT_SET_CONTROLLER(controllerIndex), TFD_CMD(TF_BUTTON_PROMPT, 1, 0), TFD_CAST(controllerIndex),
 #define TFC_BUTTON_PROMPT_SETUP(button, pressSFX, releaseSFX), TFD_CMD(TF_BUTTON_PROMPT, 4, 1), \
     TFD_CAST(button), TFD_CAST(pressSFX), TFD_CAST(releaseSFX),
 #define TFC_BUTTON_PROMPT_GET_FINISHED() TFD_CMD(TF_BUTTON_PROMPT, 0, 2),
 
-#define TFC_SET_SKIPPABLE(isSkippable) TFD_CMD(TF_SET_SKIPPABLE, 0, (isSkippable) ? 1 : 0),
+#define TFC_SET_SKIPPABLE(isSkippable) TFD_CMD(TF_SET_SKIPPABLE, 0, (isSkippable) ? TRUE : FALSE),
 
 #define TFC_SET_SKIP_HANDLER(tfLabel) TFD_CMD(TF_SET_SKIP_HANDLER, 1, 0), TFD_PCAST(tfLabel),
 

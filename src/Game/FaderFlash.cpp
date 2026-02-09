@@ -36,7 +36,7 @@ void CFaderFlash::_08(void) {
         break;
     }
 
-    if (mUnk10 != 0.0f && !gTickFlowManager->getUnk6D()) {
+    if (mUnk10 != 0.0f && !gTickFlowManager->getPaused()) {
         mUnk0C += mUnk10;
         if ((mUnk10 > 0.0f) && (mUnk0C >= 255.0f)) {
             mUnk0C = 255.0f;

@@ -159,10 +159,8 @@ void CCellAnim::makeMtx(BOOL defMtx, Mtx baseMtx) {
         MTXTrans(transMtx, mPos.x, mPos.y, 0.0f);
         MTXConcat(mMtx, transMtx, mMtx);
     }
-
-    f64 myAngle = mAngle; // ???
-    if (myAngle != 0.0) {
-        MTXRotDeg(rotMtx, 'z', mAngle);
+    if (getAngle() != 0.0) {
+        MTXRotDeg(rotMtx, 'z', getAngle());
         MTXConcat(mMtx, rotMtx, mMtx);
     }
     if ((mScale.x != 1.0) || (mScale.y != 1.0)) {
@@ -184,8 +182,11 @@ void CCellAnim::makeMtx(BOOL defMtx, Mtx baseMtx) {
     }
 
     if (mBaseLinkedHead != NULL) {
-        u16 texWidth = gCellAnimManager->fn_801DBE04(mID); // unused
-        u16 texHeight = gCellAnimManager->fn_801DBE14(mID); // unused
+        u16 texWidth = gCellAnimManager->fn_801DBE04(mID);
+        u16 texHeight = gCellAnimManager->fn_801DBE14(mID);
+
+#pragma unused(texWidth)
+#pragma unused(texHeight)
 
         for (s32 i = 0; i < sprite->partCount; i++) {
             bool hasBasePart = false;
