@@ -15,7 +15,7 @@ enum {
     TF_SET_SCENE = 0x100,       ///< Set the current scene. Args: scene ID, TickFlowCode *
     TF_SET_SCENE_VER,           ///< Set a scene's version. Args: scene ID, version
     TF_SCENE_ASSETS,            ///< (Un)load a scene's assets (cellanim data & layouts). Arg0: 0 for load, 1 for unload; Args: scene ID
-    TF_103,
+    TF_CHECK_SCENE_HIST,
     TF_GET_SCENE_RUNNING,       ///< Set condvar to 1 if the current scene is running, and 0 if not.
     TF_SET_PROLOGUE,            ///< Set the prologue. Arg0: is 2P; Args: name, version
     TF_SET_EPILOGUE,            ///< Set the epilogue. Args: name, version
@@ -23,15 +23,15 @@ enum {
     TF_SET_GRADING_CAPTION,     ///< Set the grading caption. Args: mesg ID string
     TF_PROLOGUE_JINGLE,         ///< Set/get the prologue jingle. Arg0: 0 for set (arg will be jingle num), 1 for get (condvar will be jingle num).
     TF_FADE,                    ///< Fade the screen in/out. Arg0: 0 for fade out, 1 for fade in; Args: time is in frames, time (in ticks or frames).
-    TF_10B,
+    TF_UI_NEXT_POS,
     TF_UI_SKIP_POS,             ///< Set the "(-) Skip" graphic's position.
                                 ///      - Arg0: position: 0 for top-left, 1 for top-right,
                                 ///                        2 for bottom-left, 3 for bottom-right.
     TF_UI_SKIP_ANIM,            ///< Play the "(-) Skip" graphic's animation. Args: is practice
     TF_UI_PAUSE,                ///< Show/hide the "(+) Pause" graphic. Arg0: 0 for show, 1 for hide
-    TF_10F,
-    TF_110,
-    TF_111,
+    TF_UI_EXIT_POS,
+    TF_UI_YOU_POS,
+    TF_UI_YOU_VISIBLE,
     TF_MASK01_VISIBLE,          ///< Set mask01's visibility. Args: 0 for invisible, 1 for visible 
     TF_MASK01_OPACITY,          ///< Set mask01's opacity. Args: opacity (0-255)
     TF_MASK01_COLOR,            ///< Set mask01's color. Args: color R (0-255), color G (0-255), color B (0-255)
@@ -77,13 +77,13 @@ enum {
     TF_137,
     TF_138,
     TF_139,
-    TF_13A,
+    TF_SET_CURSOR_VISIBLE,
     TF_13B,
     TF_13C,
     TF_13D,
     TF_13E,
-    TF_REMIX8_MASK_MANAGE,      ///< Manage the Remix 8 mask. Arg0: operation (0: load, 1: unload, 2: enquire ready (sets condvar), 3: init, 4: set visible, 5: set layer); Args: is visible / layer
-    TF_ENDLESS_MANAGE,          ///< Manage Endless Remix. Arg0: operation (0: load, 1: unload, 2: enquire ready (sets condvar), 3: init, 4: get random scene ID (sets condvar))
+    TF_REMIX8_MASK,             ///< Manage the Remix 8 mask. Arg0: operation (0: load, 1: unload, 2: enquire ready (sets condvar), 3: init, 4: set visible, 5: set layer); Args: is visible / layer
+    TF_ENDLESS,                 ///< Manage Endless Remix. Arg0: operation (0: load, 1: unload, 2: enquire ready (sets condvar), 3: init, 4: get random scene ID (sets condvar))
     TF_141
 };
 
