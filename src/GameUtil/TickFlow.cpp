@@ -239,7 +239,7 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
             mNextInstructionPos, true
         );
         break;
-    case TF_019:
+    case TF_CHECK_BGM_TYPE:
         if (arg0 == 0) {
             switch (args[0]) {
             case eBGMType_None:

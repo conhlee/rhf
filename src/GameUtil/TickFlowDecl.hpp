@@ -33,7 +33,7 @@ enum {
     TF_SWITCH_DEFAULT,
     TF_SWITCH_END,
     TF_018,
-    TF_019,
+    TF_CHECK_BGM_TYPE,
     TF_TEMPO, ///< Set tempo. Arg0: BPM to set
     TF_TEMPO_SEQ, ///< Set tempo. Arg0: SID of sequence to reference BPM from
     TF_TEMPO_WAVE, ///< Set tempo. Arg0: SID of wave to reference BPM from
@@ -69,11 +69,11 @@ enum {
     TF_STOP_WAVE,
     TF_SET_WAVE_VOLUME,
     TF_GET_WAVE_PREPARED, ///< Set condvar to 1 if WSD (wave sound data) is ready, and 0 if not.
-    TF_03D,
-    TF_03E,
+    TF_SET_PLAYER_VOLUME,
+    TF_SET_PLAYER_VOLUME_FADE,
     TF_GET_GROUP_LOADING, ///< Set condvar to 1 if the current group is loading, and 0 if not.
     TF_MESG_PANE_VISIBLE, ///< Set a message pane's visibillity. Arg0: access index; Args: is visible
-    TF_041,
+    TF_MESG_PANE_SET_STRING,
     TF_SET_INPUT_ALLOW, ///< Set if inputs from the controller(s) should be allowed.
                         ///      - Arg0: 0 for all controllers (args will be: inputs allowed),
                         ///              1 for specific controller (args will be: controller index, inputs allowed).
@@ -82,13 +82,13 @@ enum {
     TF_045,
     TF_BUTTON_PROMPT,
     TF_047,
-    TF_048,
+    TF_SET_BUTTON_COOLDOWN,
     TF_SET_SKIPPABLE, ///< Set if the player is allowed to skip. Arg0: enabled
     TF_SET_SKIP_HANDLER, ///< Set the TickFlow that runs when a skip is triggered. Args: TickFlowCode *
-    TF_04B,
-    TF_04C,
+    TF_SET_SKIP_CONTROLLER,
+    TF_SET_SKIP_INPUT,
     TF_ICI_CTRL,
-    TF_04E,
+    TF_CONTROLLER_DO_MOTOR_SEQ,
     TF_RANDOM, ///< Set the condvar to a random value. Arg0: upper bound of random value
 
     /*   ExFlow opcodes (0x100 to 0x141) are found in Game/ExFlowDecl.hpp */
