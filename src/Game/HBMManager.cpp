@@ -56,7 +56,7 @@ CHBMManager::~CHBMManager(void) {
     _08();
 }
 
-// HomeButton2 is used; this game has no Operation Guide. 
+// HomeButton2 is used (this game has no Operation Guide). 
 static const char hbmRootDir[] = "hbm/HomeButton2";
 
 void CHBMManager::_10(void) {
@@ -71,21 +71,19 @@ void CHBMManager::_10(void) {
     
     mHBMInfo.region = SCGetLanguage();
     switch (mHBMInfo.region) {
-    case SC_LANG_FR: {
+    case SC_LANG_FR:
         mHBMInfo.region = SC_LANG_FR;
         strcat(pathBuf, "/homeBtn_FRA.arc");
-    } break;
-
-    case SC_LANG_SP: {
+        break;
+    case SC_LANG_SP:
         mHBMInfo.region = SC_LANG_SP;
         strcat(pathBuf, "/homeBtn_SPA.arc");
-    } break;
-    
+        break;
     default:
-    case SC_LANG_EN: {
+    case SC_LANG_EN:
         mHBMInfo.region = SC_LANG_EN;
         strcat(pathBuf, "/homeBtn_ENG.arc");
-    } break;
+        break;
     }
 
     mHBMInfo.layoutBuf = gFileManager->fn_801D3C4C(pathBuf);
@@ -108,10 +106,11 @@ void CHBMManager::_10(void) {
 
     mHBMInfo.configBufSize = strlen(static_cast<char *>(mHBMInfo.configBuf));
 
-    mHBMWorkMem = new (eHeap_MEM1, 32) u8[0x80000];
+    u32 workMemSize = 0x80000;
+    mHBMWorkMem = new (eHeap_MEM1, 32) u8[workMemSize];
 
     mHBMInfo.mem = mHBMWorkMem;
-    mHBMInfo.memSize = 0x80000;
+    mHBMInfo.memSize = workMemSize;
     mHBMInfo.sound_callback = soundcallback;
     mHBMInfo.backFlag = TRUE;
     mHBMInfo.cursor = 0;
@@ -128,8 +127,10 @@ void CHBMManager::_10(void) {
     mHBMSoundData = gFileManager->fn_801D3C4C(pathBuf);
     gFileManager->fn_801D3D94();
 
-    mHBMSoundMem = new (eHeap_MEM2, 32) u8[0x18700];
-    HBMCreateSound(mHBMSoundData, mHBMSoundMem, 0x18700);
+    u32 soundMemSize = 0x18700;
+    mHBMSoundMem = new (eHeap_MEM2, 32) u8[soundMemSize];
+
+    HBMCreateSound(mHBMSoundData, mHBMSoundMem, soundMemSize);
 
     strcpy(pathBuf, hbmRootDir);
     strcat(pathBuf, "/homeBtnIcon.tpl");
