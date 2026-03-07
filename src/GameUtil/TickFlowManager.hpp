@@ -28,7 +28,7 @@ public:
     virtual ~CTickFlowManager(void);
     virtual void _10(u32 heapSize);
     virtual void _14(CTickFlow::CreateFn createFn, u32 size, const TickFlowCode *tickFlowCode);
-    virtual void _18(void);
+    virtual bool _18(void);
     virtual void _1C(CTickFlow::CreateFn createFn, u32 size);
 
     CTickFlowManager();
@@ -44,6 +44,7 @@ public:
 
     void fn_801E0578(void);
     void fn_801E0A0C(void);
+    void fn_801E1360(void);
 
     CTickFlow *fn_801E1CC0(const TickFlowCode *code, f32 initRest = 0.0f);
     bool fn_801E1D9C(CTickFlow *tickFlow);
@@ -207,7 +208,7 @@ private:
     s32 mUnkF0;
 
     const TickFlowCode *mSkipHandler;
-    const TickFlowCode *mSceneTransHandler;
+    const TickFlowCode *mSceneTransHandler; // TODO: not actually run on scene transition but rather on skip, rename
 
     bool mSkipAllowed;
     u8 mSkipControllerIndex;

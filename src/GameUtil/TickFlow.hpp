@@ -63,6 +63,9 @@ public:
         return mButtonPromptIsReleased || mButtonPromptIsPressed;
     }
 
+    bool getExecPaused(void) const { return mExecPaused; }
+    void setExecPaused(bool paused) { mExecPaused = paused; }
+
 private:
     u32 fn_801DECFC(const TickFlowCode *code, u32 labelId);
     u32 fn_801DEDFC(

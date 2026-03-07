@@ -3063,7 +3063,10 @@ GameUtil/TickFlow.cpp:
 GameUtil/TickFlowManager.cpp:
 	.text       start:0x801DEFE4 end:0x801E4198
 	.rodata     start:0x802E4D50 end:0x802E4EB0
+	.data       start:0x8031E8B0 end:0x8031E8F0
+	.sdata      start:0x80320060 end:0x80320070
 	.sbss       start:0x80320FA8 end:0x80320FB0
+	.sdata2     start:0x80329698 end:0x803296C4
 
 GameUtil/Sound.cpp:
 	.text       start:0x801E4198 end:0x801E7B40

@@ -107,7 +107,7 @@ public:
         return mButtonHold & button;
     }
     bool checkTrig(u32 button) {
-        return mButtonTrig & button;
+        return button & mButtonTrig;
     }
     bool checkRelease(u32 button) {
         return mButtonRelease & button;

@@ -42,6 +42,20 @@ namespace nw4r { namespace snd
 			return IsAttachedSound() && mSound->IsPrepared();
 		}
 
+		bool ReadWsdDataInfo(WsdDataInfo *info) const {
+			if (!IsAttachedSound()) {
+				return false;
+			}
+			return mSound->ReadWsdDataInfo(info);
+		}
+
+		u32 GetPlaySamplePosition(void) const {
+			if (!IsAttachedSound()) {
+				return -1;
+			}
+			return mSound->GetPlaySamplePosition();
+		}
+
 		void DetachSound();
 
 	// members

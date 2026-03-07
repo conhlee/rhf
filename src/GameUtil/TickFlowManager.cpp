@@ -4,6 +4,12 @@
 
 #include <nw4r/snd.h>
 
+#include "GameManager.hpp"
+
+#include "CheckPointManager.hpp"
+
+#include "Controller.hpp"
+
 #include "Mem.hpp"
 
 #define CTICKFLOWMANAGER_DEBUG_HEAP_ALLOC(block)                \
@@ -110,6 +116,85 @@ void CTickFlowManager::_14(CTickFlow::CreateFn createFn, u32 size, const TickFlo
     mUnk128 = NULL;
 }
 
+bool CTickFlowManager::_18(void) {
+    if (mPaused) {
+        gSoundManager->fn_801E5640(0.0f);
+        return false;
+    }
+
+    f32 ticksPerFrame = (fn_801E2CA8() * 48.0f) / (fn_801E4180() * 60.0f);
+    gSoundManager->fn_801E5640(ticksPerFrame);
+    mUnk128 = NULL;
+
+    if (
+        (mSkipAllowed && gControllerManager->fn_801D5FF0(mSkipControllerIndex)->checkTrig(mSkipButton)) &&
+        (gGameManager->getCurrentScene()->getState() == CScene::eState_Active)
+    ) {
+        gSoundManager->fn_801E7008();
+        gSoundManager->fn_801E7108();
+
+        fn_801E1E4C();
+
+        CTickFlow *skipTickFlow = fn_801E1CC0(mSkipHandler);
+        if (mSceneTransHandler != NULL) {
+            skipTickFlow->fn_801DEF8C(mSceneTransHandler);
+        }
+
+        mSkipHandler = NULL;
+        mSkipAllowed = false;
+
+        gCheckPointManager->setUnkDD(false);
+
+        return false;
+    }
+    else {
+        if (mCurrentBGMType == eBGMType_None) {
+            mTicksPerFrame = calcTicksPerFrame();
+        }
+        else if (mCurrentBGMType == eBGMType_Seq) {
+            fn_801E0578();
+        }
+        else if (mCurrentBGMType == eBGMType_Strm) {
+            fn_801E0A0C();
+        }
+        else if (mCurrentBGMType == eBGMType_Wave) {
+            fn_801E1360();
+        }
+
+        mCurTickPass += mTicksPerFrame;
+
+        for (CTickFlow *current = mTickFlowHead; current != NULL; current = current->getNext()) {
+            current->setExecPaused(false);
+        }
+
+        bool ret;
+        do {
+            mUnk6C = false;
+
+            ret = true;
+
+            CTickFlow *current = mTickFlowHead;
+            while (current != NULL) {
+                mTickFlowTail = current;
+                CTickFlow *next = static_cast<CTickFlow *>(current->getNext());
+
+                if (current->fn_801DD9E8()) {
+                    fn_801E1DC8(current);
+                }
+                else {
+                    ret = false;
+                }
+
+                current = next;
+            }
+
+            mTickFlowTail = NULL;
+        } while (mUnk6C);
+
+        return ret;
+    }
+}
+
 void CTickFlowManager::fn_801E0578(void) {
     nw4r::snd::SeqSoundHandle seqHandle (mCurrentSoundHandle);
     if (seqHandle.IsAttachedSound()) {
@@ -138,17 +223,16 @@ void CTickFlowManager::fn_801E0578(void) {
 }
 
 void CTickFlowManager::fn_801E0A0C(void) {
-    nw4r::snd::StrmDataInfo strmDataInfo;
     nw4r::snd::StrmSoundHandle strmHandle (mCurrentSoundHandle);
     
-    bool handleOK = strmHandle.IsAttachedSound();
-    if (handleOK) {
-        handleOK = strmHandle.ReadStrmDataInfo(&strmDataInfo);
-    }
+    bool attached = strmHandle.IsAttachedSound();
+
+    nw4r::snd::StrmDataInfo strmDataInfo;
+    bool strmDataRead = strmHandle.ReadStrmDataInfo(&strmDataInfo);
 
     if (
         ((mUnk10C == 2) && !fn_801ED7B8(mUnk110)) ||
-        ((mUnk10C != 2) && handleOK)
+        ((mUnk10C != 2) && attached && strmDataRead)
     ) {
         WaveInfo *waveInfo = gSoundManager->fn_801E73D4(mStrmSoundID);
         s32 len = gSoundManager->fn_801E748C(waveInfo);
@@ -158,10 +242,11 @@ void CTickFlowManager::fn_801E0A0C(void) {
             pos = fn_801ED6A8(mUnk110);
         }
         else {
-            pos = strmHandle.GetPlaySamplePosition();
-
+            s32 tempPos = strmHandle.GetPlaySamplePosition();
             if (mUnk10C == 1) {
-                pos = fn_801ED704(mUnk110, pos);
+                pos = fn_801ED704(mUnk110, tempPos);
+            } else {
+                pos = tempPos;
             }
         }
 
@@ -175,46 +260,146 @@ void CTickFlowManager::fn_801E0A0C(void) {
             return;
         }
 
+        s32 prevPos = mUnk34;
+
         if (len < pos) {
             pos = len;
         }
+        
+        s32 posPass = pos - prevPos;
 
-        WaveTempo *tempoPrev = gSoundManager->fn_801E7414(waveInfo, mUnk34);
+        WaveTempo *tempoPrev = gSoundManager->fn_801E7414(waveInfo, prevPos);
         WaveTempo *tempoCur = gSoundManager->fn_801E7414(waveInfo, pos);
 
         if (tempoPrev == tempoCur) {
-            if (pos < static_cast<s32>(mUnk34)) {
-                if ((tempoCur->flag & WAVE_TEMPO_FLAG_LAST_LOOP) == 0) {
+            if (prevPos <= pos) {
+                mTicksPerFrame = tempoCur->beatCount * 48.0f * posPass / tempoCur->sampleCount;
+            }
+            else {
+                if ((tempoCur->flag & WAVE_TEMPO_FLAG_LAST_LOOP) != 0) {
+                    posPass += tempoCur->sampleCount;
+                    mTicksPerFrame = tempoCur->beatCount * 48.0f * posPass / tempoCur->sampleCount;
+                }
+                else {
                     fn_801E3690();
                     OSReport("stopStrm()\n");
                     return;
                 }
-
-                mTicksPerFrame = tempoCur->beatCount * 48.0f * (f32)(pos - mUnk34 + tempoCur->sampleCount) / (f32)tempoCur->sampleCount;
-            }
-            else {
-                mTicksPerFrame = tempoCur->beatCount * 48.0f * (f32)(pos - mUnk34) / (f32)tempoCur->sampleCount;
             }
         }
         else {
             s32 sc = gSoundManager->fn_801E7450(waveInfo, tempoCur);
+            
+            s32 a = (sc - prevPos);
+            s32 b = (pos - sc);
 
             mTicksPerFrame =
-                (tempoPrev->beatCount * 48.0f * (sc - mUnk34) / tempoPrev->sampleCount) +
-                (tempoPrev->beatCount * 48.0f * (pos - sc) / tempoCur->sampleCount);
+                (tempoPrev->beatCount * 48.0f * a / tempoPrev->sampleCount) +
+                (tempoCur->beatCount * 48.0f * b / tempoCur->sampleCount);
+        }
+        mUnk70[mUnkF0 % ARRAY_LENGTH(mUnk70)] = mTicksPerFrame;
+        mUnk34 = pos;
 
-            mUnk70[mUnkF0 % ARRAY_LENGTH(mUnk70)] = mTicksPerFrame;
-            mUnk34 = pos;
+        mUnkF0++;
 
-            mUnkF0++;
-
-            if (mUnk38) {
-                mUnk38 = false;
-            }
+        if (mUnk38) {
+            mUnk38 = false;
         }
     }
     else {
         fn_801E3690();
+    }
+}
+
+void CTickFlowManager::fn_801E1360(void) {
+    nw4r::snd::WaveSoundHandle waveHandle (mCurrentSoundHandle);
+    
+    bool attached = waveHandle.IsAttachedSound();
+
+    nw4r::snd::WsdDataInfo waveDataInfo;
+    bool waveDataRead = waveHandle.ReadWsdDataInfo(&waveDataInfo);
+
+    if (
+        ((mUnk10C == 2) && !fn_801ED7B8(mUnk110)) ||
+        ((mUnk10C != 2) && attached && waveDataRead)
+    ) {
+        WaveInfo *waveInfo = gSoundManager->fn_801E73D4(mWaveSoundID);        
+        s32 len = gSoundManager->fn_801E748C(waveInfo);
+        
+        s32 pos;
+        if (mUnk10C == 2) {
+            pos = fn_801ED6A8(mUnk110);
+        }
+        else {
+            s32 tempPos = waveHandle.GetPlaySamplePosition();
+            if (mUnk10C == 1) {
+                pos = fn_801ED704(mUnk110, tempPos);
+            }
+            else {
+                pos = tempPos;
+            }
+        }
+
+        if (pos == len) {
+            OSReport("calcTickPassWave() : pos == len; -> pos--\n");
+            pos--;
+        }
+
+        if (pos < 0) {
+            fn_801E3C00();
+            return;
+        }
+
+        s32 prevPos = mUnk40;
+
+        if (len < pos) {
+            pos = len;
+        }
+    
+        s32 posPass = pos - prevPos;
+    
+        WaveTempo *tempoPrev = gSoundManager->fn_801E7414(waveInfo, prevPos);
+        WaveTempo *tempoCur = gSoundManager->fn_801E7414(waveInfo, pos);
+
+        if (tempoPrev == tempoCur) {
+            if (prevPos < pos) {
+                mTicksPerFrame = tempoCur->beatCount * 48.0f * posPass / tempoCur->sampleCount;
+            }
+            else {
+                if ((tempoCur->flag & WAVE_TEMPO_FLAG_LAST_LOOP) != 0) {
+                    posPass += tempoCur->sampleCount;
+                    mTicksPerFrame = tempoCur->beatCount * 48.0f * posPass / tempoCur->sampleCount;
+                }
+                else {
+                    OSReport("Wave Sound SamplePos Error (Invalid Loop)\n");
+                    OSReport("stopWave()\n");
+                    fn_801E3C00();
+                    return;
+                }
+            }
+        }
+        else {
+            s32 sc = gSoundManager->fn_801E7450(waveInfo, tempoCur);
+            
+            s32 a = (sc - prevPos);
+            s32 b = (pos - sc);
+
+            mTicksPerFrame =
+                (tempoPrev->beatCount * 48.0f * a / tempoPrev->sampleCount) +
+                (tempoCur->beatCount * 48.0f * b / tempoCur->sampleCount);
+        }
+
+        mUnk70[mUnkF0 % ARRAY_LENGTH(mUnk70)] = mTicksPerFrame;
+        mUnk40 = pos;
+
+        mUnkF0++;
+
+        if (mUnk44) {
+            mUnk44 = false;
+        }
+    }
+    else {
+        fn_801E3C00();
     }
 }
 

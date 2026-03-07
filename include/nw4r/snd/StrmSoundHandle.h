@@ -41,17 +41,17 @@ namespace nw4r { namespace snd
         }
 
 		bool ReadStrmDataInfo(StrmDataInfo *info) const {
-			if (IsAttachedSound()) {
-				return mSound->ReadStrmDataInfo(info);
+			if (!IsAttachedSound()) {
+				return false;
 			}
-			return false;
+			return mSound->ReadStrmDataInfo(info);
 		}
 
 		s32 GetPlaySamplePosition() const {
-			if (IsAttachedSound()) {
-				return mSound->GetPlaySamplePosition();
+			if (!IsAttachedSound()) {
+				return -1;
 			}
-			return -1;
+			return mSound->GetPlaySamplePosition();
 		}
 
 		void DetachSound();

@@ -62,6 +62,14 @@ namespace nw4r { namespace snd { namespace detail
 		void SetChannelPriority(int priority);
 		void SetReleasePriorityFix(bool flag);
 
+		bool ReadWsdDataInfo(WsdDataInfo *info) const {
+			return mWsdPlayer.ReadWsdDataInfo(info);
+		}
+
+		u32 GetPlaySamplePosition(void) const {
+			return mWsdPlayer.GetPlaySamplePosition();
+		}
+
 		static DebugSoundType GetSoundType()
 		{
 			return DEBUG_SOUND_TYPE_WAVESOUND;
