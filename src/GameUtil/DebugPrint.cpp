@@ -56,51 +56,65 @@ void CDebugPrint::fn_801EC674(s32 x, s32 y, s32 frames, const char *format, ...)
     va_end(args);
 }
 
-// TODO: match
+// non matching: data
+// ptmfs are misplaced, may have something
+// to do with the pool data hack below
+// (needed to match fn_801EC850)
+#pragma pool_data off
+
+struct MyVec2 {
+    f32 x, y;
+
+    f32 max(void) const {
+        f32 _y = y;
+        f32 _x = x;
+        return _x < _y ? _y : _x;
+    }
+};
+
 Vec2i CDebugPrint::fn_801EC850(const char *format, std::va_list args) {
-    if (nw4r::db::DbgPrint::GetInstance() == NULL) {
-        return (Vec2i) { 0, 0 };
+    if (nw4r::db::DbgPrint::GetInstance() != NULL) {
+        nw4r::ut::Font *font = gDebugFont->getFont();
+    
+        char buffer[256];
+        s32 charCount = vsnprintf(buffer, sizeof(buffer), format, args);
+    
+        nw4r::ut::CharStrmReader charStrmReader = font->GetCharStrmReader();
+        charStrmReader.Set(buffer);
+    
+        
+        f32 fontHeight = font->GetHeight();
+        f32 dpFontSize = nw4r::db::DbgPrint::GetInstance()->GetFontSize();
+        
+        f32 fontSizeRatio = dpFontSize / fontHeight;
+
+        MyVec2 local_18 = { 0 };
+    
+        s32 lineFeed = font->GetLineFeed();
+        
+        f32 temp_f28 = fontSizeRatio * lineFeed;
+    
+        u16 lastChar = charStrmReader.Next();
+    
+        while ((static_cast<const char *>(charStrmReader.GetCurrentPos()) - buffer) <= charCount) {
+            if (lastChar == '\n') {
+                local_18.y = local_18.max();
+                local_18.x = 0.0f;
+    
+                temp_f28 += fontSizeRatio * font->GetLineFeed();
+            }
+            else {
+                local_18.x += fontSizeRatio * font->GetCharWidth(lastChar);
+            }
+    
+            lastChar = charStrmReader.Next();
+        }
+
+        local_18.y = local_18.max();
+        return (Vec2i) { local_18.y, temp_f28 };
     }
+    return (Vec2i) { 0, 0 };
 
-    nw4r::ut::Font *font = gDebugFont->getFont();
-
-    char buffer[256];
-    s32 charCount = vsnprintf(buffer, sizeof(buffer), format, args);
-
-    nw4r::ut::CharStrmReader charStrmReader = font->GetCharStrmReader();
-    charStrmReader.Set(buffer);
-
-    f32 local_1b8 = 0.0f;
-    f32 local_1b4 = 0.0f;
-
-    f32 fontHeight = font->GetHeight();
-    f32 dpFontSize = nw4r::db::DbgPrint::GetInstance()->GetFontSize();
-
-    f32 fontSizeRatio = dpFontSize / fontHeight;
-    s32 lineFeed = font->GetLineFeed();
-
-    u16 lastChar = charStrmReader.Next();
-
-    f32 dVar15 = 0.0f;
-    f32 dVar1;
-    f32 dVar16;
-
-
-    for (;;) {
-        const char *curPos = static_cast<const char *>(charStrmReader.GetCurrentPos());
-        if (charCount < (curPos - buffer)) {
-            break;
-        }
-
-        if (lastChar == '\n') {
-        }
-        else {
-            f32 charWidth = font->GetCharWidth(lastChar);
-            dVar1 = fontHeight * (charWidth) + local_1b8;
-        }
-
-        lastChar = charStrmReader.Next();
-    }
 }
 
 void CDebugPrint::_18(void) {}

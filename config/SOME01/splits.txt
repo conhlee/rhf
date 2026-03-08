@@ -3107,6 +3107,10 @@ GameUtil/SDManager.cpp:
 
 GameUtil/DebugPrint.cpp:
 	.text       start:0x801EC3B0 end:0x801ECEC4
+	.rodata     start:0x802E5188 end:0x802E51C8
+	.data       start:0x8031EAC8 end:0x8031ECE8
+	.sdata      start:0x803200E0 end:0x803200F8
+	.sdata2     start:0x803297B8 end:0x803297C8
 
 GameUtil/VarParamManager.cpp:
 	.text       start:0x801ECEC4 end:0x801ED6A8

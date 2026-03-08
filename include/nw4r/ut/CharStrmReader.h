@@ -22,9 +22,14 @@ public:
     u16 ReadNextCharCP1252();
     u16 ReadNextCharSJIS();
 
-    u16 Next() {
-        NW4R_ASSERT_PTR(this, 75);
-        return (this->*mReadFunc)();
+    void Set(const char* stream) {
+        NW4R_ASSERT_PTR(this, 50);
+        NW4R_ASSERT_PTR(stream, 51);
+
+        
+        NW4R_ASSERT(mReadFunc == ReadNextCharUTF8 || mReadFunc == ReadNextCharCP1252 || mReadFunc == ReadNextCharSJIS, 54);
+
+        mCharStrm = stream;
     }
 
     const void* GetCurrentPos() const {
@@ -32,15 +37,12 @@ public:
         return mCharStrm;
     }
 
-    void Set(const char* stream) {
-        NW4R_ASSERT_PTR(this, 50);
-        NW4R_ASSERT_PTR(stream, 51);
-
-
-        NW4R_ASSERT(mReadFunc == ReadNextCharUTF8 || mReadFunc == ReadNextCharCP1252 || mReadFunc == ReadNextCharSJIS, 54);
-
-        mCharStrm = stream;
+    u16 Next() {
+        NW4R_ASSERT_PTR(this, 75);
+        return (this->*mReadFunc)();
     }
+
+
     void Set(const wchar_t* stream) {
         mCharStrm = stream;
     }

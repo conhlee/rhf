@@ -77,7 +77,7 @@ public:
 
     void InitReaderFunc(FontEncoding encode);
 
-    CharStrmReader GetCharStrmReader() const {
+    CharStrmReader GetCharStrmReader() const DONT_INLINE {
         return CharStrmReader(mReadFunc);
     }
 

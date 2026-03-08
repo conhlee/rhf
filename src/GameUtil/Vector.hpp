@@ -18,7 +18,7 @@ public:
 
     CVector(void) {
         mSize = 1;
-        mArray = new T[mSize];
+        mArray = new T[1];
         memset(mArray, 0x00, mSize * sizeof(T));
     }
 

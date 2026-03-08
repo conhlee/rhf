@@ -21,7 +21,7 @@ public:
     ut::Color GetTextColor(void);
 
     void SetFontSize(f32 size);
-    f32 GetFontSize(void);
+    f32 GetFontSize(void) const;
 
     void SetVisible(bool visible);
     bool IsVisible(void);
