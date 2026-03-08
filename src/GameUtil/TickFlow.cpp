@@ -123,11 +123,7 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         gTickFlowManager->fn_801E1CC0(code, initRest);
     } break;
     case TF_CALL:
-        mExecStack[mExecStackPos].code = mCode;
-        mExecStack[mExecStackPos].instructionPos = mNextInstructionPos;
-        mCode = reinterpret_cast<const TickFlowCode *>(args[0]);
-        mExecStackPos++;
-        mNextInstructionPos = 0;
+        fn_801DEF8C(reinterpret_cast<const TickFlowCode *>(args[0]));
         break;
     case TF_RETURN:
         mExecStackPos--;
@@ -258,17 +254,19 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         }
         break;
     case TF_TEMPO: {
-        gTickFlowManager->fn_801E2B9C((u16)arg0);
+        u16 tempo = arg0; // NOTE: arg0 (u32) is truncated to u16
+        gTickFlowManager->fn_801E2B9C(tempo);
     } break;
     case TF_TEMPO_SEQ: {
         f32 seqTempo = gSoundManager->fn_801E75C0(arg0);
-        u16 seqTempoInt = seqTempo;
+
+        u16 seqTempoInt = seqTempo; // NOTE: Decimal precision is lost.
         if (seqTempoInt == 0) {
             seqTempoInt = 120;
-
             // "TFC_TEMPO_SEQ( %d ) : no tempo data was found\n"
             OSReport("TFC_TEMPO_SEQ( %d ) : テンポデータがありませんでした\n", arg0);
         }
+
         gTickFlowManager->fn_801E2B9C(seqTempoInt);
     } break;
     case TF_TEMPO_WAVE: {

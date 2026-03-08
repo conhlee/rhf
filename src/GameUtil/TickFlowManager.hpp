@@ -42,9 +42,9 @@ public:
         _1C(&T::create, sizeof(T));
     }
 
-    void fn_801E0578(void);
-    void fn_801E0A0C(void);
-    void fn_801E1360(void);
+    void calcTickPassSeq(void);
+    void calcTickPassStrm(void);
+    void calcTickPassWave(void);
 
     CTickFlow *fn_801E1CC0(const TickFlowCode *code, f32 initRest = 0.0f);
     bool fn_801E1D9C(CTickFlow *tickFlow);
@@ -61,25 +61,25 @@ public:
     void fn_801E2C04(f32 speed);
     f32 fn_801E2CA8(void);
 
-    void fn_801E2ED8(u16 soundID);
-    void fn_801E2F00(u16 soundID);
-    void fn_801E300C(void);
-    void fn_801E3120(s32 fadeFrames = 0);
+    void prepareSeq(u16 soundID);
+    void playSeq(u16 soundID);
+    void playPreparedSeq(void);
+    void stopSeq(s32 fadeFrames = 0);
     void fn_801E334C(f32 volume, s32 fadeFrames = 0);
     void fn_801E335C(u32 trackBitFlag, bool mute);
     void fn_801E33C0(bool);
 
-    void fn_801E33C8(u16 soundID);
-    void fn_801E33F0(u16 soundID);
-    void fn_801E34EC(void);
-    void fn_801E3690(s32 fadeFrames = 0);
+    void prepareStrm(u16 soundID);
+    void playStrm(u16 soundID);
+    void playPreparedStrm(void);
+    void stopStrm(s32 fadeFrames = 0);
     void fn_801E38BC(f32 volume, s32 fadeFrames = 0);
     bool fn_801E38CC(void);
 
-    void fn_801E3938(u16 soundID);
-    void fn_801E3960(u16 soundID);
-    void fn_801E3A5C(void);
-    void fn_801E3C00(s32 fadeFrames = 0);
+    void prepareWave(u16 soundID);
+    void playWave(u16 soundID);
+    void playPreparedWave(void);
+    void stopWave(s32 fadeFrames = 0);
     void fn_801E3E2C(f32 volume, s32 fadeFrames = 0);
     bool fn_801E3E3C(void);
 
