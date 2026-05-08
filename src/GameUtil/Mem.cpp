@@ -3,9 +3,9 @@
 MEMiHeapHead *gHeapMEM1;
 MEMiHeapHead *gHeapMEM2;
 
-static bool sHeapInitialized;
+static bool sHeapInitialized = false;
 
-static u8 sHeapGroupIDStackPos;
+static u8 sHeapGroupIDStackPos = 0;
 static u16 sHeapGroupIDStack[16];
 
 static void *doAlloc(size_t size, EHeapMEM heap, s32 align);
@@ -15,9 +15,9 @@ void *operator new(size_t size) {
         memInitHeap();
     }
 
-    BOOL interrupt = OSDisableInterrupts();
+    BOOL prevInterrupts = OSDisableInterrupts();
     void *alloc = MEMAllocFromExpHeap(gHeapMEM2, size);
-    OSRestoreInterrupts(interrupt);
+    OSRestoreInterrupts(prevInterrupts);
 
     if (alloc == NULL) {
         OSReport("Can't Alloc Heap\n");
@@ -39,9 +39,9 @@ void *operator new[](size_t size) {
         memInitHeap();
     }
 
-    BOOL interrupt = OSDisableInterrupts();
+    BOOL prevInterrupts = OSDisableInterrupts();
     void *alloc = MEMAllocFromExpHeap(gHeapMEM2, size);
-    OSRestoreInterrupts(interrupt);
+    OSRestoreInterrupts(prevInterrupts);
 
     if (alloc == NULL) {
         OSReport("Can't Alloc Heap\n");
@@ -59,7 +59,7 @@ void *operator new[](size_t size, EHeapMEM heap, s32 align) {
 }
 
 void operator delete(void *ptr) {
-    BOOL interrupt = OSDisableInterrupts();
+    BOOL prevInterrupts = OSDisableInterrupts();
 
     if (ptr != NULL) {
         MEMiHeapHead *found = MEMFindContainHeap(ptr);
@@ -71,11 +71,11 @@ void operator delete(void *ptr) {
         }
     }
 
-    OSRestoreInterrupts(interrupt);
+    OSRestoreInterrupts(prevInterrupts);
 }
 
 void operator delete[](void *ptr) {
-    BOOL interrupt = OSDisableInterrupts();
+    BOOL prevInterrupts = OSDisableInterrupts();
 
     if (ptr != NULL) {
         MEMiHeapHead *found = MEMFindContainHeap(ptr);
@@ -87,7 +87,7 @@ void operator delete[](void *ptr) {
         }
     }
 
-    OSRestoreInterrupts(interrupt);
+    OSRestoreInterrupts(prevInterrupts);
 }
 
 void fn_801D3564(void) {}
@@ -164,7 +164,7 @@ static void *doAlloc(size_t size, EHeapMEM heap, s32 align) {
         memInitHeap();
     }
 
-    BOOL interrupt = OSDisableInterrupts();
+    BOOL prevInterrupts = OSDisableInterrupts();
 
     void *alloc = NULL;
     if (heap == eHeap_MEM1) {
@@ -184,7 +184,7 @@ static void *doAlloc(size_t size, EHeapMEM heap, s32 align) {
         }
     }
 
-    OSRestoreInterrupts(interrupt);
+    OSRestoreInterrupts(prevInterrupts);
 
     if (alloc == NULL) {
         OSReport("Can't Alloc Heap\n");
