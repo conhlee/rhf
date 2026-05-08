@@ -249,8 +249,11 @@ void CFileManager::updateArc(void) {
 
         if (archiveInfo->state == eArchiveInfoState_Loaded) {
             if (archiveInfo->compressed) {
-                // NOTE: this returns the decompressed buffer before the decompression is actually finished.
-                //       if NULL is returned, the decompression thread is still busy; we'll try again next time.
+                /*
+                 * NOTE: tryExpandTask will return the buffer containing the decompressed data ahead of time,
+                 *       before the task is actually finished. If NULL is returned, the task thread is still
+                 *       busy.
+                 */
                 void *expandBuffer = tryExpandTask(archiveInfo->data, TRUE, i, archiveInfo->heapType, -32);
                 if (expandBuffer != NULL) {
                     archiveInfo->data = static_cast<u8 *>(expandBuffer);
