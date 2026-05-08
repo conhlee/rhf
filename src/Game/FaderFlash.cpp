@@ -15,55 +15,53 @@ CFaderFlash *CFaderFlash::fn_80007C28(void) {
 }
 
 void CFaderFlash::_08(void) {
-    switch (mUnk04) {
-    case 2:
-        if (mUnk08 != 0) {
-            mUnk08--;
+    switch (mState) {
+    case eState_Wait1:
+        if (mWaitFrames != 0) {
+            mWaitFrames--;
         }
         else {
             if (gFileManager->getArcIdle()) {
-                mUnk04 = 3;
-                mUnk08 = 2;
+                mState = eState_Wait2;
+                mWaitFrames = 2;
             }
         }
         break;
-    
-    case 3:
-        mUnk08--;
-        if (mUnk08 == 0) {
-            mUnk04 = 0;
+    case eState_Wait2:
+        mWaitFrames--;
+        if (mWaitFrames == 0) {
+            mState = eState_Idle;
         }
         break;
-
     default:
         break;
     }
 
-    if (mUnk10 != 0.0f && !gTickFlowManager->getPaused()) {
-        mUnk0C += mUnk10;
-        if ((mUnk10 > 0.0f) && (mUnk0C >= 255.0f)) {
-            mUnk0C = 255.0f;
-            mUnk10 = 0.0f;
+    if ((mAlphaStep != 0.0f) && !gTickFlowManager->getPaused()) {
+        mAlpha += mAlphaStep;
+        if ((mAlphaStep > 0.0f) && (mAlpha >= 255.0f)) {
+            mAlpha = 255.0f;
+            mAlphaStep = 0.0f;
         }
-        else if ((mUnk10 < 0.0f) && (mUnk0C <= 0.0f)) {
-            mUnk0C = 0.0f;
-            mUnk10 = 0.0f;
+        else if ((mAlphaStep < 0.0f) && (mAlpha <= 0.0f)) {
+            mAlpha = 0.0f;
+            mAlphaStep = 0.0f;
         }
     }
 }
 
 void CFaderFlash::_0C(void) {
-    if (mUnk04 < 1 || mUnk04 > 3) {
+    if ((mState != eState_1) && (mState != eState_Wait1) && (mState != eState_Wait2)) {
         return;
     }
-    _24(0xFFu);
+    _24(0xFF);
 }
 
 void CFaderFlash::fn_80007DD8(void) {
-    if (mUnk0C == 0.0f) {
+    if (mAlpha == 0.0f) {
         return;
     }
-    _24(mUnk0C);
+    _24(static_cast<u8>(mAlpha));
 }
 
 void CFaderFlash::_24(u8 alpha) {
@@ -134,29 +132,32 @@ void CFaderFlash::_24(u8 alpha) {
 }
 
 void CFaderFlash::_10(void) {
-    mUnk08 = 5;
-    mUnk04 = 2;
+    mWaitFrames = 5;
+    mState = eState_Wait1;
 }
 
 void CFaderFlash::_18(void) {}
 
 void CFaderFlash::_1C(void) {
-    mUnk0C = 0.0f;
-    mUnk10 = 0.0f;
+    mAlpha = 0.0f;
+    mAlphaStep = 0.0f;
 }
 
 void CFaderFlash::_20(void) {}
 
-void CFaderFlash::fn_800080B0(f32 f1) {
-    mUnk10 = 256.0f / f1;
+void CFaderFlash::fn_800080B0(f32 frames) {
+    // @bug Should actually be 255.0f / frames
+    mAlphaStep = 256.0f / frames;
 }
 
-void CFaderFlash::fn_800080C0(f32 f1) {
-    mUnk10 = -256.0f / f1;
+void CFaderFlash::fn_800080C0(f32 frames) {
+    // @bug Should actually be -255.0f / frames
+    mAlphaStep = -256.0f / frames;
 }
 
 bool CFaderFlash::fn_800080D0(void) {
-    return (mUnk10 < -0.01) || (0.01 < mUnk10);
+    // NOTE: mAlphaStep != 0.0f would have been OK, so this is odd
+    return (mAlphaStep < -0.01) || (0.01 < mAlphaStep);
 }
 
 CFaderFlash::~CFaderFlash(void) {

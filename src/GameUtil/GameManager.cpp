@@ -329,7 +329,7 @@ void DVDMessageData::fn_801D7A74(void) {
 }
 
 bool CGameManager::_2C(void) {
-    return mFader->getUnk04() == 2;
+    return mFader->getState() == CFaderFlash::eState_Wait1;
 }
 
 void CGameManager::_28(void) {

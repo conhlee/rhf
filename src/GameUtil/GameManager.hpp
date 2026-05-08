@@ -25,7 +25,7 @@ public:
     virtual void _28(void);
     virtual bool _2C(void);
     virtual bool _30(void) {
-        return mFader->getUnk04() == 0;   
+        return mFader->getState() == CFaderFlash::eState_Idle;   
     }
     virtual void _34(const TickFlowCode *tickFlowCode) {
         mNextTickFlowCode = tickFlowCode;

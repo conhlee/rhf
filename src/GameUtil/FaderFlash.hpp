@@ -6,6 +6,14 @@
 
 class CFaderFlash : public CFader {
 public:
+    enum EState {
+        eState_Idle,
+        eState_1, // (unused)
+        eState_Wait1,
+        eState_Wait2,
+    };
+
+public:
     virtual void _08(void);
     virtual void _0C(void);
     virtual void _10(void);
@@ -16,27 +24,27 @@ public:
     virtual void _24(u8);
 
     CFaderFlash(void) {
-        mUnk04 = 0;
+        mState = eState_Idle;
     }
 
-    s32 getUnk04(void) const { return mUnk04; }
+    EState getState(void) const { return mState; }
     
     void fn_80007DD8(void);
 
-    void fn_800080B0(f32);
-    void fn_800080C0(f32);
+    void fn_800080B0(f32 frames);
+    void fn_800080C0(f32 frames);
 
     bool fn_800080D0(void);
 
-    void fn_801D859C(void);
+    void fn_801D859C(void); // destroy
 
-    static CFaderFlash *fn_80007C28(void);
+    static CFaderFlash *fn_80007C28(void); // create
 
 private:
-    s32 mUnk04;
-    u8 mUnk08;
-    f32 mUnk0C;
-    f32 mUnk10;
+    EState mState; // mState
+    u8 mWaitFrames; // mWaitFrames
+    f32 mAlpha; // mAlpha
+    f32 mAlphaStep; // mAlphaStep
 };
 
 #endif
