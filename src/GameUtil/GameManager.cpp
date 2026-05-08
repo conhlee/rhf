@@ -136,12 +136,12 @@ void CGameManager::_20(CScene::CreateFn sceneCreateFn, u16 sceneMemGroup) {
     mCurrentScene->fn_801D8578();
 }
 
-static bool sDVDMesgIsPowerOff;
+static bool sDVDMesgIsPowerOff = false;
 static void dvdMesgPowerCallback(void) {
     sDVDMesgIsPowerOff = true;
 }
 
-static bool sDVDMesgIsReset;
+static bool sDVDMesgIsReset = false;
 static void dvdMesgResetCallback(void) {
     sDVDMesgIsReset = true;
 }
@@ -158,8 +158,6 @@ void CGameManager::fn_801D7538(s32 driveStatus) {
     case DVD_STATE_DISK_ERROR:
         sDVDMessageData.messageStr = lbl_803164B8;
         break;
-    default:
-        break;
     }
 
     sDVDMesgIsPowerOff = false;
@@ -168,7 +166,7 @@ void CGameManager::fn_801D7538(s32 driveStatus) {
     OSStateCallback prevResetCallback = OSSetResetCallback(dvdMesgResetCallback);
     OSStateCallback prevPowerCallback = OSSetPowerCallback(dvdMesgPowerCallback);
 
-    while (driveStatus == static_cast<s32>(DVDGetDriveStatus())) {
+    while (driveStatus == DVDGetDriveStatus()) {
         gGraphicManager->fn_801D63B4();
 
         if (gSoundManager->fn_801E4D4C()) {
