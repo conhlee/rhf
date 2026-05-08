@@ -19,15 +19,16 @@ class CScene {
 public:
     typedef CScene *(*CreateFn)(u16 memGroup);
     enum EState {
-        eState_Initial = 0, // Scene object was just created
-        eState_Loading = 1, // Scene object is busy loading assets
-        eState_Ready = 2, /// Scene object has finished loading and is ready to become active
-        eState_Active = 3, // Scene object is active (running)
-        eState_ScheduleDown = 4, // Scene object has been requested to go down
-        eState_Down = 5, // Scene object is down, busy deconstructing
-        eState_Dead = 6 // Scene object has been deconstructed, will now be freed
+        eState_Initial,         // Scene object was just created
+        eState_Loading,         // Scene object is busy loading assets
+        eState_Ready,           // Scene object has finished loading and is ready to become active
+        eState_Active,          // Scene object is active (running)
+        eState_ScheduleDown,    // Scene object has been requested to go down
+        eState_Down,            // Scene object is down, busy deconstructing
+        eState_Dead             // Scene object has been deconstructed, will now be freed
     };
 
+public:
     virtual void _08(void); // deinit
     virtual ~CScene(void) {}
     virtual void _10(void) = 0; // loadAssets
