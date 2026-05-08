@@ -301,7 +301,7 @@ void CExScene::_08(void) {
     if (!gHBMManager->getUnk414()) {
         gCellAnimManager->_24(-299, NULL, NULL);
 
-        if ((mPauseLayout != NULL) && (mPauseLayout->getPaused() || mPauseLayout->getUnk24() == 2)) {
+        if ((mPauseLayout != NULL) && (mPauseLayout->getPaused() || (mPauseLayout->getUnk24() == 2))) {
             gLayoutManager->fn_801D6D78();
             mPauseLayout->_1C(gLayoutManager->getDrawInfo());
         }

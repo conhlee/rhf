@@ -5,6 +5,9 @@
 
 #include "TickFlow.hpp"
 
+TFD_EXTERN(lbl_80255990)
+TFD_EXTERN(lbl_802559B0)
+
 class CExFlow : public CTickFlow {
 public:
     virtual ~CExFlow(void);

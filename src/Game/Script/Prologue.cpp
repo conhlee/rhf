@@ -2,13 +2,11 @@
 
 #include "Prologue/MyFlowDecl.hpp"
 
-#include "TickFlow.hpp"
+#include "ExFlow.hpp"
 
 #include "SceneManager.hpp"
 
 #include "rev_tengoku.rsid"
-
-TFD_EXTERN(lbl_802559B0)
 
 TFD_BEGIN(lbl_801F9110)
     TFC_FADE_IN_FRAMES(1)

@@ -359,7 +359,7 @@ void CInputCheckManager::fn_801E923C(u32 arg0) {
     }
 
     f32 unkFloat = -1.0f;
-    CInputCheckManager::UnkSub *sub = 0;
+    CInputCheckManager::UnkSub *sub = NULL;
     
     for (int i = 0; i < ARRAY_LENGTH(unk10); i++) {
         if (unk10[i].unk0 == 0) {

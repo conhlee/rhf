@@ -4,7 +4,9 @@
 
 #include "Script/Prologue.hpp"
 
-#include "TickFlow.hpp"
+#include "Script/Grading.hpp"
+
+#include "ExFlow.hpp"
 
 #include "SceneManager.hpp"
 
@@ -22,7 +24,6 @@ GRADE_CRITERIA_TABLE_BEGIN(lbl_802EF268)
 GRADE_CRITERIA_TABLE_END()
 
 TFD_EXTERN(lbl_801F96A8)
-TFD_EXTERN(lbl_801F97E0)
 
 // Forward declaration
 TFD_EXTERN(lbl_802641A0)

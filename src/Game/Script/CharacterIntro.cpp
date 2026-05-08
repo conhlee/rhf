@@ -2,14 +2,14 @@
 
 #include "Credit/MyFlowDecl.hpp"
 
-#include "TickFlow.hpp"
+#include "Script/Grading.hpp"
+
+#include "ExFlow.hpp"
 
 #include "SceneManager.hpp"
 
 #include "rev_tengoku.rsid"
 
-TFD_EXTERN(lbl_802559B0)
-TFD_EXTERN(lbl_801F97E0)
 TFD_EXTERN(lbl_801F96A8)
 
 TFD_BEGIN(lbl_802B4238)

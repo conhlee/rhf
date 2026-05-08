@@ -125,7 +125,7 @@ const wchar_t *CBMGRes::getString(u32 id) const {
         }
 
         if (i < mMessageIDInfo->numEntries) {
-            const wchar_t *string = mMessageData->data + (mMessageInfo->entries[i].dataOffset / sizeof(wchar_t));
+            const wchar_t *string = &mMessageData->data[mMessageInfo->entries[i].dataOffset / sizeof(wchar_t)];
             if (wcslen(string) != 0) {
                 return string;
             }

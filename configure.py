@@ -327,6 +327,7 @@ config.libs = [
             Object(Matching, "Game/Prologue/MyFlow.cpp"),
             Object(Matching, "Game/Prologue/ScenePrologue.cpp"),
             Object(Matching, "Game/Script/Prologue.cpp"),
+            Object(NonMatching, "Game/Script/Grading.cpp"),
             Object(Matching, "Game/Epilogue/MyFlow.cpp"),
             Object(Matching, "Game/Epilogue/MyLayout.cpp"),
             Object(Matching, "Game/Epilogue/SceneEpilogue.cpp"),

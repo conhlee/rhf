@@ -110,6 +110,9 @@ Game/Grading/SceneGrading.cpp:
 Game/Script/Prologue.cpp:
 	.rodata     start:0x801F9110 end:0x801F9664
 
+Game/Script/Grading.cpp:
+	.rodata     start:0x801F97A0 end:0x801F9938
+
 Game/GameSelect/MyFlow.cpp:
 	.text       start:0x8000C640 end:0x8000C7F4
 
