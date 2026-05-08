@@ -173,8 +173,8 @@ enum {
 #define TFC_SET_INPUT_ALLOW_ALL(allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 1, 0), TFD_CAST((allowed) ? TRUE : FALSE),
 #define TFC_SET_INPUT_ALLOW(controllerIndex, allowed) TFD_CMD(TF_SET_INPUT_ALLOW, 2, 1), TFD_CAST(controllerIndex), TFD_CAST((allowed) ? TRUE : FALSE),
 
-#define TFC_BUTTON_PROMPT_SET_CONTROLLER(controllerIndex), TFD_CMD(TF_BUTTON_PROMPT, 1, 0), TFD_CAST(controllerIndex),
-#define TFC_BUTTON_PROMPT_SETUP(button, pressSFX, releaseSFX), TFD_CMD(TF_BUTTON_PROMPT, 4, 1), \
+#define TFC_BUTTON_PROMPT_SET_CONTROLLER(controllerIndex) TFD_CMD(TF_BUTTON_PROMPT, 1, 0), TFD_CAST(controllerIndex),
+#define TFC_BUTTON_PROMPT_SETUP(button, pressSFX, releaseSFX) TFD_CMD(TF_BUTTON_PROMPT, 3, 1), \
     TFD_CAST(button), TFD_CAST(pressSFX), TFD_CAST(releaseSFX),
 #define TFC_BUTTON_PROMPT_GET_FINISHED() TFD_CMD(TF_BUTTON_PROMPT, 0, 2),
 
