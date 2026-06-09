@@ -8,8 +8,13 @@ extern "C" {
 /**
  * IPC hardware registers
  */
+#ifdef __MWERKS__
 volatile u32 IPC_HW_REGS_PPC[] : 0xCD000000;
 volatile u32 IPC_HW_REGS[] : 0xCD800000;
+#else
+extern volatile u32 IPC_HW_REGS_PPC[];
+extern volatile u32 IPC_HW_REGS[];
+#endif // __MWERKS__
 
 /**
  * Hardware register indexes

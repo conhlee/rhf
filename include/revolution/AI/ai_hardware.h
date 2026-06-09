@@ -8,16 +8,16 @@ extern "C" {
 /**
  * AI hardware registers
  */
-volatile u32 AI_HW_REGS[]
 #ifdef __MWERKS__
-: 0xCD006C00
+volatile u32 AI_HW_REGS[] : 0xCD006C00;
+#else
+extern volatile u32 AI_HW_REGS[];
 #endif
-;
 
 /**
  * Hardware register indexes
  */
-typedef enum {
+enum {
     AI_AICR,   //!< 0xCD006C00
     AI_AIVR,   //!< 0xCD006C04
     AI_AISCNT, //!< 0xCD006C08

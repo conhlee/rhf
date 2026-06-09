@@ -8,12 +8,16 @@ extern "C" {
 /**
  * SI hardware registers
  */
+#ifdef __MWERKS__
 volatile u32 SI_HW_REGS[] : 0xCD006400;
+#else
+extern volatile u32 SI_HW_REGS[];
+#endif // __MWERKS__
 
 /**
  * Hardware register indexes
  */
-typedef enum {
+enum {
     SI_SIC0OUTBUF, //!< 0xCD006400
     SI_SIC0INBUFH, //!< 0xCD006404
     SI_SIC0INBUFL, //!< 0xCD006408

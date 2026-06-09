@@ -44,11 +44,9 @@ extern volatile union {
     void* p;
     float f;
 } WGPIPE
-// Codewarrior allows specifying symbold addr with ':'
-// however this breaks other compilers
 #ifdef __MWERKS__
     : 0xCC008000
-#endif
+#endif // __MWERKS__
 ;
 
 /**
