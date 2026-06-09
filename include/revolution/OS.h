@@ -18,6 +18,7 @@ extern "C" {
 #include <revolution/OS/OSFont.h>
 #include <revolution/OS/OSHardware.h>
 #include <revolution/OS/OSInterrupt.h>
+#include <revolution/OS/OSMemory.h>
 #include <revolution/OS/OSMessage.h>
 #include <revolution/OS/OSMutex.h>
 #include <revolution/OS/OSReset.h>
