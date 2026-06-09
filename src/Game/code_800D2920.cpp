@@ -23,7 +23,7 @@ void fn_800D2920(u16 sfx1P, u16 sfx2P_P1, u16 sfx2P_P2, BOOL set2P, BOOL setP1, 
 }
 
 void fn_800D29C8(u16 sfx, BOOL set2P, BOOL setP1, SNDHandle *soundHandle) {
-if (!set2P) {
+    if (!set2P) {
         gSoundManager->play(sfx, 0.0f, soundHandle);
     }
     else {

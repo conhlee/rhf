@@ -229,7 +229,7 @@ void CHBMManager::fn_80086B90(void) {
 
     Mtx mtx;
     MTXIdentity(mtx);
-    GXLoadPosMtxImm(mtx, 3);
+    GXLoadPosMtxImm(mtx, GX_PNMTX1);
 
     GXClearVtxDesc();
     GXSetVtxAttrFmt(GX_VTXFMT4, GX_VA_POS, GX_POS_XY, GX_F32, 0);
@@ -247,7 +247,7 @@ void CHBMManager::fn_80086B90(void) {
     GXSetBlendMode(GX_BM_NONE, GX_BL_ZERO, GX_BL_ZERO, GX_LO_CLEAR);
     GXSetZMode(TRUE, GX_LEQUAL, TRUE);
 
-    GXSetCurrentMtx(3);
+    GXSetCurrentMtx(GX_PNMTX1);
 }
 
 extern "C" void fn_8008D000(s32, s32);
@@ -410,7 +410,7 @@ void CHBMManager::fn_800870BC(void) {
     GXSetBlendMode(GX_BM_BLEND, GX_BL_SRCALPHA, GX_BL_INVSRCALPHA, GX_LO_CLEAR);
     GXSetZMode(FALSE, GX_LEQUAL, FALSE);
 
-    GXSetCurrentMtx(3);
+    GXSetCurrentMtx(GX_PNMTX1);
 
     GXTexObj texObj;
     TPLGetGXTexObjFromPalette(mHBMIconPal, &texObj, 0);

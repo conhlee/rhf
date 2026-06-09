@@ -26,10 +26,6 @@
 
 #include <nw4r/db/assert.h>
 
-#include "LayoutManager.hpp"
-
-#include "SNDHeap.hpp"
-
 struct DVDMessageData {
     nw4r::ut::ResFont font;
     wchar_t *messageStr;
@@ -250,8 +246,8 @@ void DVDMessageData::fn_801D77A4(void) {
 
     Mtx mtx;
     MTXIdentity(mtx);
-    GXLoadPosMtxImm(mtx, 0);
-    GXSetCurrentMtx(0);
+    GXLoadPosMtxImm(mtx, GX_PNMTX0);
+    GXSetCurrentMtx(GX_PNMTX0);
 
     GXClearVtxDesc();
     GXInvalidateVtxCache();

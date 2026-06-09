@@ -2,8 +2,6 @@
 
 #include <revolution/GX.h>
 
-#include "Mem.hpp"
-
 #include "CellAnimManager.hpp"
 
 #include "TickFlowManager.hpp"
@@ -273,7 +271,7 @@ void CCellAnim::draw(BOOL forceDraw) {
                 MTXConcat(tempMtx, scaleMtx, tempMtx);
             }
 
-            GXLoadPosMtxImm(tempMtx, 0);
+            GXLoadPosMtxImm(tempMtx, GX_PNMTX0);
 
             u8 opacity = (key->opacity * obj->opacity * mOpacity) / 255 / 255;
             GXSetTevColor(GX_TEVREG0, (GXColor){ mFgColorR, mFgColorG, mFgColorB, opacity });

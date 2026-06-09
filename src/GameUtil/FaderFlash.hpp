@@ -2,6 +2,7 @@
 #define GAME_FADERFLASH_HPP
 
 #include <revolution/types.h>
+
 #include "Fader.hpp"
 
 class CFaderFlash : public CFader {

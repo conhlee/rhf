@@ -111,8 +111,8 @@ void CVarParamManager::fn_801ED44C(void) {
 
     Mtx mtx;
     MTXIdentity(mtx);
-    GXLoadPosMtxImm(mtx, 0);
-    GXSetCurrentMtx(0);
+    GXLoadPosMtxImm(mtx, GX_PNMTX0);
+    GXSetCurrentMtx(GX_PNMTX0);
 
     GXClearVtxDesc();
     GXInvalidateVtxCache();
