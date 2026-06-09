@@ -6,6 +6,8 @@
 
 #include <revolution/OS.h>
 
+#include <nw4r/db/assert.h>
+
 #include <cmath>
 
 namespace nw4r {
