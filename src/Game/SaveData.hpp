@@ -94,9 +94,11 @@ public:
     void fn_80078E04(void);
     void fn_80078E8C(void);
 
-    void fn_80078F2C(u8);
-    SaveDataFile *fn_80078F3C(s32);
+    void fn_80078F2C(u8 arg);
+    u8 fn_80078F34(void);
+    SaveDataFile *fn_80078F3C(s32 saveIndex);
     SaveDataFile *fn_80078F4C(void);
+    u8 *fn_80078F60(void);
     void fn_80078F68(void);
 
     void do80077BC8(s32 param_1) {
@@ -104,7 +106,11 @@ public:
     }
 
 private:
-    char _pad[0x1448 - 0x4];
+    SaveDataFile unk4[4]; // current save files, duh
+    u8 unkA04[0x20];
+    SaveDataFile unkA24[4]; // might be a backup/unstaged changes?
+    u8 unk1424[0x20];
+    u8 unk1444; // might be selected save index?
 };
 
 extern CSaveData *gSaveData;
