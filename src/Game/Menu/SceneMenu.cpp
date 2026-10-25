@@ -138,8 +138,8 @@ void CSceneMenu::_28(void) {
                 return;
             }
             if (tickFlowCode == lbl_801F7890) {
-                if (gSaveData->fn_80078F4C()->fn_80077DF8() < 5) {
-                    gSaveData->fn_80078F4C()->fn_80077C0C(5);
+                if (gSaveData->getSelectedSaveFile()->fn_80077DF8() < 5) {
+                    gSaveData->getSelectedSaveFile()->fn_80077C0C(5);
                 }
                 gTickFlowManager->fn_801E1E4C();
                 gTickFlowManager->fn_801E1CC0(lbl_801F8460[lbl_80320143].tickFlowCode);

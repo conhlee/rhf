@@ -1003,7 +1003,7 @@ void CExScene::fn_8000A260(void) {
 
 void CExScene::fn_8000A2FC(void) {
     lbl_803201C4 = 0;
-    lbl_803201C8 = gSaveData->fn_80078F4C()->fn_80077E40(4);
+    lbl_803201C8 = gSaveData->getSelectedSaveFile()->fn_80077E40(4);
 }
 
 void CExScene::fn_8000A334(bool param_1) {
@@ -1221,7 +1221,7 @@ bool CExScene::fn_8000A998(void) {
 
 void CExScene::fn_8000A9CC(s32 gameIndex, bool twoPlay) {
     if (!twoPlay) {
-        gSaveData->fn_80078F4C()->fn_80077C5C(gameIndex, mEndlessScore);
+        gSaveData->getSelectedSaveFile()->fn_80077C5C(gameIndex, mEndlessScore);
     }
     else {
         // TODO: fakeness !!!
@@ -1239,30 +1239,30 @@ void CExScene::fn_8000A9CC(s32 gameIndex, bool twoPlay) {
         CIconSelectLayout *layout = gLayoutManager->getLayout<CIconSelectLayout>(mEndlessIconSelectLayoutID);
         layout->fn_800C1DF4(&out_00, &out_01, &out_02, &out_03, &out_04, &out_05);
         
-        gSaveData->fn_80078F4C()->fn_80077C5C(gameIndex, mEndlessScore);
+        gSaveData->getSelectedSaveFile()->fn_80077C5C(gameIndex, mEndlessScore);
 
         if (out_00) {
-            gSaveData->fn_80078F4C()->fn_80077C84(gameIndex);
+            gSaveData->getSelectedSaveFile()->fn_80077C84(gameIndex);
 
             temp_00 = out_02;
-            gSaveData->fn_80078F4C()->fn_80077CA4(gameIndex, &temp_00);
+            gSaveData->getSelectedSaveFile()->fn_80077CA4(gameIndex, &temp_00);
         }
         else {
-            gSaveData->fn_80078F4C()->fn_80777C6C(gameIndex, out_01);
+            gSaveData->getSelectedSaveFile()->fn_80777C6C(gameIndex, out_01);
         }
 
         if (out_03) {
-            gSaveData->fn_80078F4C()->fn_80077C94(gameIndex);
+            gSaveData->getSelectedSaveFile()->fn_80077C94(gameIndex);
 
             temp_01 = out_05;
-            gSaveData->fn_80078F4C()->fn_80077CC0(gameIndex, &temp_01);
+            gSaveData->getSelectedSaveFile()->fn_80077CC0(gameIndex, &temp_01);
         }
         else {
-            gSaveData->fn_80078F4C()->fn_80077C78(gameIndex, out_04);
+            gSaveData->getSelectedSaveFile()->fn_80077C78(gameIndex, out_04);
         }
     }
 
-    gSaveData->fn_80078F68();
+    gSaveData->updateSnapshot();
     if (gBackupManager != NULL) {
         gBackupManager->fn_80084FC8(true);
     }

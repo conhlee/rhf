@@ -51,10 +51,10 @@ void CSceneGrading::_14(void) {
         saveData->do80077BC8(levelState);
 
         if (lbl_80320264) {
-            gSaveData->fn_80078F4C()->fn_80078808();
+            gSaveData->getSelectedSaveFile()->fn_80078808();
         }
 
-        gSaveData->fn_80078F68();
+        gSaveData->updateSnapshot();
 
         if (gBackupManager != NULL) {
             gBackupManager->fn_80084FC8(1);

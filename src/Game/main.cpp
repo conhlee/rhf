@@ -403,8 +403,8 @@ static void fn_80038AE4(void) {
         gSaveData = new CSaveData;
     }
 
-    gSaveData->fn_80078E04();
-    gSaveData->fn_80078E8C();
+    gSaveData->initialize();
+    gSaveData->resetAllSaveFiles();
 
     if (gBackupManager == NULL) {
         gBackupManager = new CBackupManager;

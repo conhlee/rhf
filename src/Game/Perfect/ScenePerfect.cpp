@@ -49,14 +49,14 @@ void CScenePerfect::_14(void) {
         saveData->do80077BC8(5);
 
         for (s32 i = 0; i < 3; i++) {
-            gSaveData->fn_80078F4C()->fn_800786E4();
+            gSaveData->getSelectedSaveFile()->fn_800786E4();
         }
 
-        if (gSaveData->fn_80078F4C()->fn_80078238() == (50 - 1)) {
-            gSaveData->fn_80078F4C()->fn_80077CEC(true);
+        if (gSaveData->getSelectedSaveFile()->fn_80078238() == (50 - 1)) {
+            gSaveData->getSelectedSaveFile()->fn_80077CEC(true);
         }
 
-        gSaveData->fn_80078F68();
+        gSaveData->updateSnapshot();
 
         if (gBackupManager != NULL) {
             gBackupManager->fn_80084FC8(1);

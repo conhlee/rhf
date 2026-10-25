@@ -52,9 +52,9 @@ void CScenePrologue::_14(void) {
     if (gSceneManager->fn_8008B27C() && !fn_80009FB4()) {
         const char *nightWalkName = "nightWalk";
         if (strstr(lbl_8032A278, nightWalkName) == NULL) {
-            if (gSaveData->fn_80078F4C()->fn_80077E08() != 0) {
-                gSaveData->fn_80078F4C()->fn_800786E4();
-                gSaveData->fn_80078F68();
+            if (gSaveData->getSelectedSaveFile()->fn_80077E08() != 0) {
+                gSaveData->getSelectedSaveFile()->fn_800786E4();
+                gSaveData->updateSnapshot();
                 if (getPerfectEligible() && (gBackupManager != NULL)) {
                     gBackupManager->fn_80084FC8(1);
                 } 

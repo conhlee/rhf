@@ -36,7 +36,7 @@ void Perfect::CMyLayout::_10(void) {
 
     this->CLayout::_10();
 
-    s32 gameNum = gSaveData->fn_80078F4C()->fn_80077DF8();
+    s32 gameNum = gSaveData->getSelectedSaveFile()->fn_80077DF8();
     const GameTableEntry *gameEnt = fn_8000EB50(gameNum);
 
     const char *giftTitle;
@@ -49,7 +49,7 @@ void Perfect::CMyLayout::_10(void) {
 
     gMessageManager->setFormatIDBonus(giftTitle);
 
-    u8 perfectsLeft = gSaveData->fn_80078F4C()->fn_800782F4() - 1;
+    u8 perfectsLeft = gSaveData->getSelectedSaveFile()->fn_800782F4() - 1;
 
     const char *perfectMesg;
     if (gameEnt->giftType == eGiftType_Music) {

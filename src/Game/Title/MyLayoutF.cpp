@@ -540,7 +540,7 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 bool action = mFileButtons[saveIndex].getEnabled() && mFileButtons[saveIndex].getUnk27();
                 if (action) {
                     mSelectedSaveIndex = saveIndex;
-                    if (gSaveData->fn_80078F3C(saveIndex)->fn_80077D04()) {
+                    if (gSaveData->getSaveFile(saveIndex)->fn_80077D04()) {
                         getAnimation(anim_fileSelect_top_frm_out_W_msg_01)->playFromBeginForward();
 
                         for (u8 otherSaveIndex = 0; otherSaveIndex < SAVE_COUNT; otherSaveIndex++)
@@ -595,10 +595,10 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 if (mState == TITLE_STATE_ACTION_MENU_IN) {
                     s32 saveIndex = mSelectedSaveIndex;
                     bool foo = false;
-                    bool bar = gSaveData->fn_80078F3C(saveIndex)->fn_80077D04() && gSaveData->fn_80078F3C(saveIndex)->fn_80077D20();
+                    bool bar = gSaveData->getSaveFile(saveIndex)->fn_80077D04() && gSaveData->getSaveFile(saveIndex)->fn_80077D20();
 
                     if (bar) {
-                        if (gRFLManager->fn_800C2FE0(gSaveData->fn_80078F3C(saveIndex)->fn_80077D38()) == NULL)
+                        if (gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38()) == NULL)
                             foo = true;
                     }
 
@@ -664,7 +664,7 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                     if (actionIndex == TITLE_FILE_ACTION_BUTTON_START) {
                         gPlayHistory->fn_8009A710();
                         gCafeTopic->fn_8009CE34();
-                        gSaveData->fn_80078F2C(mSelectedSaveIndex);
+                        gSaveData->setSelectedSaveIndex(mSelectedSaveIndex);
 
                         CExScene::fn_8000A74C(30);
                         CExScene::fn_8000A790(30);
@@ -703,10 +703,10 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                     s32 saveIndex = mSelectedSaveIndex;
 
                     bool foo = false;
-                    bool bar = gSaveData->fn_80078F3C(saveIndex)->fn_80077D04() && gSaveData->fn_80078F3C(saveIndex)->fn_80077D20();
+                    bool bar = gSaveData->getSaveFile(saveIndex)->fn_80077D04() && gSaveData->getSaveFile(saveIndex)->fn_80077D20();
 
                     if (bar)
-                        if (gRFLManager->fn_800C2FE0(gSaveData->fn_80078F3C(saveIndex)->fn_80077D38()) == NULL)
+                        if (gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38()) == NULL)
                             foo = true;
 
                     if (foo) {
@@ -714,7 +714,7 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                         getAnimation(anim_fileSelect_window_out + mSelectedSaveIndex)->playFromBeginForward();
                         updateState(TITLE_STATE_ACTION_MENU_OUT);
                     } else {
-                        if (gSaveData->fn_80078F3C(mSelectedSaveIndex)->fn_80077D04())
+                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04())
                             updateState(TITLE_STATE_ACTION_MENU);
                         else
                             updateState(TITLE_STATE_FILE_SELECT);
@@ -783,10 +783,10 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                             continue;
                         }
 
-                        if (gSaveData->fn_80078F3C(mSelectedSaveIndex)->fn_80077D04()) {
+                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04()) {
                             s32 saveIndex = mSelectedSaveIndex;
-                            gSaveData->fn_80078F3C(saveIndex)->fn_80077A74(buttonIndex);
-                            gSaveData->fn_80078F68();
+                            gSaveData->getSaveFile(saveIndex)->fn_80077A74(buttonIndex);
+                            gSaveData->updateSnapshot();
 
                             if (gBackupManager != NULL)
                                 gBackupManager->fn_80084FC8(1);
@@ -888,13 +888,13 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                         mUnk9B8 = false;
                     } else {
                         s32 num = buttonIndex + mMiiPage * 10;
-                        if (gSaveData->fn_80078F3C(mSelectedSaveIndex)->fn_80077D04()) {
+                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04()) {
                             RFLCreateID createID = gRFLManager->fn_800C3060(num);
                             s32 saveIndex = mSelectedSaveIndex;
-                            gSaveData->fn_80078F3C(saveIndex)->fn_80077A7C();
-                            gSaveData->fn_80078F3C(saveIndex)->fn_80077A88(createID);
+                            gSaveData->getSaveFile(saveIndex)->fn_80077A7C();
+                            gSaveData->getSaveFile(saveIndex)->fn_80077A88(createID);
 
-                            gSaveData->fn_80078F68();
+                            gSaveData->updateSnapshot();
 
                             if (gBackupManager != NULL)
                                 gBackupManager->fn_80084FC8(1);
@@ -985,8 +985,8 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                         getAnimation(anim_fileSelect_window_in_W_msg_01)->playFromBeginForward();
 
                         s32 selectedSaveIndex = mSelectedSaveIndex;
-                        gSaveData->fn_80078F3C(selectedSaveIndex)->fn_80077908();
-                        gSaveData->fn_80078F68();
+                        gSaveData->getSaveFile(selectedSaveIndex)->fn_80077908();
+                        gSaveData->updateSnapshot();
 
                         if (gBackupManager != NULL)
                             gBackupManager->fn_80084FC8(1);
@@ -1061,13 +1061,13 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 RFLCreateID createID = lbl_8034C820[selectedSaveIndex];
 
                 if (foo) {
-                    gSaveData->fn_80078F3C(selectedSaveIndex)->fn_80077A7C();
-                    gSaveData->fn_80078F3C(selectedSaveIndex)->fn_80077A88(createID);
+                    gSaveData->getSaveFile(selectedSaveIndex)->fn_80077A7C();
+                    gSaveData->getSaveFile(selectedSaveIndex)->fn_80077A88(createID);
                 } else {
-                    gSaveData->fn_80078F3C(selectedSaveIndex)->fn_80077A74(bar);
+                    gSaveData->getSaveFile(selectedSaveIndex)->fn_80077A74(bar);
                 }
 
-                gSaveData->fn_80078F68();
+                gSaveData->updateSnapshot();
 
                 if (gBackupManager != NULL)
                     gBackupManager->fn_80084FC8(1);
@@ -1076,7 +1076,7 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
 
                 gPlayHistory->fn_8009A710();
                 gCafeTopic->fn_8009CE34();
-                gSaveData->fn_80078F2C(mSelectedSaveIndex);
+                gSaveData->setSelectedSaveIndex(mSelectedSaveIndex);
 
                 CExScene::fn_8000A74C(30);
                 CExScene::fn_8000A790(30);
@@ -1163,7 +1163,7 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
         }
         case TITLE_STATE_START_GAME: {
             if (++mStartGameFrames == 30) {
-                if (gSaveData->fn_80078F3C(mSelectedSaveIndex)->fn_80077EC8()) {
+                if (gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077EC8()) {
                     gTickFlowManager->fn_801E1E4C();
                     gTickFlowManager->fn_801E1CC0(lbl_80253E18);
                 } else {
@@ -1259,15 +1259,15 @@ void Title::CMyLayoutF::updateSaveDisplay(s32 saveIndex) {
     nw4r::lyt::Pane *existingSavePane = getLayout()->GetRootPane()->FindPaneByName(sExistingSavePaneNames[saveIndex]);
     nw4r::lyt::Pane *newSavePane = getLayout()->GetRootPane()->FindPaneByName(sNewSavePaneNames[saveIndex]);
 
-    if (gSaveData->fn_80078F3C(saveIndex)->fn_80077D04()) {
+    if (gSaveData->getSaveFile(saveIndex)->fn_80077D04()) {
         existingSavePane->SetVisible(true);
         newSavePane->SetVisible(false);
 
         nw4r::lyt::TextBox *noriTextBox = static_cast<nw4r::lyt::TextBox *>(getLayout()->GetRootPane()->FindPaneByName(sNoriTextBoxNames[saveIndex]));
         nw4r::lyt::TextBox *medalTextBox = static_cast<nw4r::lyt::TextBox *>(getLayout()->GetRootPane()->FindPaneByName(sMedalTextBoxNames[saveIndex]));
 
-        u32 nori = gSaveData->fn_80078F3C(saveIndex)->fn_80077F78();
-        u32 medals = gSaveData->fn_80078F3C(saveIndex)->fn_800780E0();
+        u32 nori = gSaveData->getSaveFile(saveIndex)->fn_80077F78();
+        u32 medals = gSaveData->getSaveFile(saveIndex)->fn_800780E0();
 
         wchar_t buffer[8];
         swprintf(buffer, ARRAY_LENGTH(buffer), L"%d", nori);
@@ -1276,15 +1276,15 @@ void Title::CMyLayoutF::updateSaveDisplay(s32 saveIndex) {
         medalTextBox->SetString(buffer);
 
         nw4r::lyt::TexMap texture;
-        if (gSaveData->fn_80078F3C(saveIndex)->fn_80077D20()) {
+        if (gSaveData->getSaveFile(saveIndex)->fn_80077D20()) {
             bool baz = false;
             bool qux = false;
 
-            if (gSaveData->fn_80078F3C(saveIndex)->fn_80077D04() && gSaveData->fn_80078F3C(saveIndex)->fn_80077D20())
+            if (gSaveData->getSaveFile(saveIndex)->fn_80077D04() && gSaveData->getSaveFile(saveIndex)->fn_80077D20())
                 baz = true;
 
             if (baz) {
-                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->fn_80078F3C(saveIndex)->fn_80077D38());
+                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38());
                 if (texObj == NULL)
                     qux = true;
             }
@@ -1292,18 +1292,18 @@ void Title::CMyLayoutF::updateSaveDisplay(s32 saveIndex) {
             if (qux) {
                 texture = mDefaultMiiTexture;
             } else {
-                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->fn_80078F3C(saveIndex)->fn_80077D38());
+                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38());
                 texture = nw4r::lyt::TexMap(*texObj);
                 texture.SetImage(reinterpret_cast<void *>(reinterpret_cast<u32>(GXGetTexObjData(texObj)) + 0x80000000));
             }
         } else {
-            s8 index = gSaveData->fn_80078F3C(saveIndex)->fn_80077CFC();
+            s8 index = gSaveData->getSaveFile(saveIndex)->fn_80077CFC();
             texture = getLayout()->GetRootPane()->FindPaneByName(sIconNamePaneNames[index])->GetMaterial()->GetTexMap(0);
         }
 
         nw4r::lyt::Pane *pane = setSaveIconTexture(getLayout(), saveIndex, texture);
 
-        fn_800C5F70(pane, saveIndex, gSaveData->fn_80078F3C(saveIndex)->fn_80077D20());
+        fn_800C5F70(pane, saveIndex, gSaveData->getSaveFile(saveIndex)->fn_80077D20());
     } else {
         existingSavePane->SetVisible(false);
         newSavePane->SetVisible(true);
@@ -1328,8 +1328,8 @@ void Title::CMyLayoutF::setupIconSelection(void) {
     }
 
     for (s32 saveIndex = 0; saveIndex < SAVE_COUNT; saveIndex++) {
-        if (gSaveData->fn_80078F3C(saveIndex)->fn_80077D04() && !gSaveData->fn_80078F3C(saveIndex)->fn_80077D20()) {
-            s8 index = gSaveData->fn_80078F3C(saveIndex)->fn_80077CFC();
+        if (gSaveData->getSaveFile(saveIndex)->fn_80077D04() && !gSaveData->getSaveFile(saveIndex)->fn_80077D20()) {
+            s8 index = gSaveData->getSaveFile(saveIndex)->fn_80077CFC();
             mNameButtons[index].setActionSfxID(SE_ERROR);
 
             getAnimation(anim_fileSelect_name_activate_nameFramePane + index)->setIsPlaying(false);
@@ -1348,7 +1348,7 @@ void Title::CMyLayoutF::setupIconSelection(void) {
         fn_800C5F70(pane, mSelectedSaveIndex, false);
     }
 
-    const char *mesgID = gSaveData->fn_80078F3C(mSelectedSaveIndex)->fn_80077D04()
+    const char *mesgID = gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04()
         /*
         Which would you like?
         Choose one!
@@ -1365,12 +1365,12 @@ void Title::CMyLayoutF::setupIconSelection(void) {
 
 static inline bool isMiiUsed(RFLCreateID createID) {
     for (s32 saveIndex = 0; saveIndex < SAVE_COUNT; saveIndex++) {
-        if (!gSaveData->fn_80078F3C(saveIndex)->fn_80077D04())
+        if (!gSaveData->getSaveFile(saveIndex)->fn_80077D04())
             continue;
-        if (!gSaveData->fn_80078F3C(saveIndex)->fn_80077D20())
+        if (!gSaveData->getSaveFile(saveIndex)->fn_80077D20())
             continue;
 
-        RFLCreateID savedID = gSaveData->fn_80078F3C(saveIndex)->fn_80077D38();
+        RFLCreateID savedID = gSaveData->getSaveFile(saveIndex)->fn_80077D38();
         if (memcmp(&savedID, &createID, sizeof(RFLCreateID)) == 0)
             return true;
     }

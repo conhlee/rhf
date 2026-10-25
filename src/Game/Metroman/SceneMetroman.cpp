@@ -170,7 +170,7 @@ void CSceneMetroman::_14(void) {
     mHiScoreCounter = new CEndlessCounter(6, 0, -2, score_number_00_S, false, 2, 14.0f);
     mHiScoreCounter->fn_80083CB8(1000);
     mHiScoreCounter->fn_80083C5C(260.0f, -180.0f);
-    mHiScoreCounter->fn_8008397C(gSaveData->fn_80078F4C()->fn_80077E40(3));
+    mHiScoreCounter->fn_8008397C(gSaveData->getSelectedSaveFile()->fn_80077E40(3));
     mHiScoreCounter->fn_80083CAC(mUnk9C);
 
     mHiScoreRecordAnim = gCellAnimManager->createCellAnim(-2, score_hiscore_record);
@@ -182,7 +182,7 @@ void CSceneMetroman::_14(void) {
         mScoreCounter->fn_8008397C(lbl_803201C4);
         mHiScoreCounter->fn_8008397C(lbl_803201C8);
 
-        s32 highScore = gSaveData->fn_80078F4C()->fn_80077E40(4);
+        s32 highScore = gSaveData->getSelectedSaveFile()->fn_80077E40(4);
         if (mScoreCounter->fn_80083C54() > highScore) {
             fn_8000A94C(true, mScoreCounter->fn_80083C54());
         }
