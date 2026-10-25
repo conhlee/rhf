@@ -3,27 +3,27 @@
 #include "GameTable.hpp"
 #include "Random.hpp"
 
-void SaveDataFile::fn_80077908(void) {
+void SaveDataFile::reset(void) {
     memset(this, 0, sizeof(SaveDataFile));
 
-    unk0 = -1;
+    mProfileIconIndex = -1;
 
     unk9 = 0;
-    unkA = -1;
+    mSelectedGameIndex = -1;
 
     for (u8 i = 0; i < ARRAY_LENGTH(mLevelStates); i++) {
-        fn_80077AAC(i, eLevelState_Locked);
-        unk3E[i] = -1;
+        setLevelState(i, eLevelState_Locked);
+        mLevelScores[i] = -1;
     }
 
-    fn_80077AAC(0, eLevelState_AttemptNG);
-    fn_80077AAC(1, eLevelState_Unlocked);
-    fn_80077AAC(2, eLevelState_Unlocked);
-    fn_80077AAC(3, eLevelState_Unlocked);
-    fn_80077AAC(4, eLevelState_Unlocked);
+    setLevelState(0, eLevelState_AttemptNG);
+    setLevelState(1, eLevelState_Unlocked);
+    setLevelState(2, eLevelState_Unlocked);
+    setLevelState(3, eLevelState_Unlocked);
+    setLevelState(4, eLevelState_Unlocked);
 
     unk3D = 0;
-    unkA2 = 0;
+    mHasPendingResult = false;
     unkA6 = 0;
     fn_800783B4();
     for (u8 i = 0; i < ARRAY_LENGTH(unkE0); i++)
@@ -39,30 +39,30 @@ void SaveDataFile::fn_80077908(void) {
     unk253 = 1;
 }
 
-void SaveDataFile::fn_80077A74(s8 arg) {
-    unk0 = arg;
+void SaveDataFile::setProfileIconIndex(s8 index) {
+    mProfileIconIndex = index;
 }
 
-void SaveDataFile::fn_80077A7C(void) {
-    unk0 = 99;
+void SaveDataFile::useProfileMii(void) {
+    mProfileIconIndex = 99;
 }
 
-void SaveDataFile::fn_80077A88(RFLCreateID createID) {
-    unk1 = createID;
+void SaveDataFile::setProfileMiiID(RFLCreateID createID) {
+    mProfileMiiID = createID;
 }
 
-void SaveDataFile::fn_80077A9C(s8 arg) {
+void SaveDataFile::setUnk9(s8 arg) {
     unk9 = arg;
 }
 
-void SaveDataFile::fn_80077AA4(s8 arg) {
-    unkA = arg;
+void SaveDataFile::setSelectedGameIndex(s8 index) {
+    mSelectedGameIndex = index;
 }
 
-void SaveDataFile::fn_80077AAC(u8 arg1, ELevelState levelState) {
-    mLevelStates[arg1] = levelState;
+void SaveDataFile::setLevelState(u8 index, ELevelState levelState) {
+    mLevelStates[index] = levelState;
 
-    s32 game = fn_80079540(arg1);
+    s32 game = fn_80079540(index);
     switch (game) {
         case 4:
         case 5:
@@ -104,14 +104,14 @@ void SaveDataFile::fn_80077BC0(s8 arg) {
     unk3D = arg;
 }
 
-void SaveDataFile::fn_80077BC8(s32 arg1, s16 arg2) {
-    unkA2 = 1;
-    unkA3 = arg1;
-    unkA4 = arg2;
+void SaveDataFile::setPendingResult(ELevelState levelState, s16 score) {
+    mHasPendingResult = true;
+    mPendingLevelState = levelState;
+    mPendingLevelScore = score;
 }
 
-void SaveDataFile::fn_80077BDC(void) {
-    unkA2 = 0;
+void SaveDataFile::clearPendingResult(void) {
+    mHasPendingResult = false;
 }
 
 void SaveDataFile::fn_80077BE8(s8 arg) {
@@ -205,52 +205,52 @@ void SaveDataFile::fn_80077CF4(s8 arg) {
     unk253 = arg;
 }
 
-s8 SaveDataFile::fn_80077CFC(void) {
-    return unk0;
+s8 SaveDataFile::getProfileIconIndex(void) {
+    return mProfileIconIndex;
 }
 
-bool SaveDataFile::fn_80077D04(void) {
-    return unk0 != -1;
+bool SaveDataFile::isOccupied(void) {
+    return mProfileIconIndex != -1;
 }
 
-bool SaveDataFile::fn_80077D20(void) {
-    return unk0 == 99;
+bool SaveDataFile::isUsingProfileMii(void) {
+    return mProfileIconIndex == 99;
 }
 
-RFLCreateID SaveDataFile::fn_80077D38(void) {
-    return unk1;
+RFLCreateID SaveDataFile::getProfileMiiID(void) {
+    return mProfileMiiID;
 }
 
-s8 SaveDataFile::fn_80077D48(void) {
+s8 SaveDataFile::getUnk9(void) {
     return unk9;
 }
 
-s8 SaveDataFile::fn_80077D50(void) {
-    return unkA;
+s8 SaveDataFile::getSelectedGameIndex(void) {
+    return mSelectedGameIndex;
 }
 
-ELevelState SaveDataFile::fn_80077D58(s32 arg) {
-    return static_cast<ELevelState>(mLevelStates[arg]);
+ELevelState SaveDataFile::getLevelState(s32 index) {
+    return static_cast<ELevelState>(mLevelStates[index]);
 }
 
-s16 SaveDataFile::fn_80077D64(u8 arg) {
-    return unk3E[arg];
+s16 SaveDataFile::getLevelScore(u8 index) {
+    return mLevelScores[index];
 }
 
 bool SaveDataFile::fn_80077D74(void) {
     return unk3D != 0;
 }
 
-bool SaveDataFile::fn_80077D88(void) {
-    return unkA2 != 0;
+bool SaveDataFile::hasPendingResult(void) {
+    return mHasPendingResult != false;
 }
 
-s8 SaveDataFile::fn_80077D9C(void) {
-    return unkA3;
+s8 SaveDataFile::getPendingLevelState(void) {
+    return mPendingLevelState;
 }
 
-s16 SaveDataFile::fn_80077DA4(void) {
-    return unkA4;
+s16 SaveDataFile::getPendingLevelScore(void) {
+    return mPendingLevelScore;
 }
 
 bool SaveDataFile::fn_80077DAC(void) {
@@ -337,27 +337,27 @@ bool SaveDataFile::fn_80077F04(void) {
     return unk253 != 0;
 }
 
-void SaveDataFile::fn_80077F18(u8 arg, s16 value) {
-    s16 oldValue = unk3E[arg];
+void SaveDataFile::updateLevelScore(u8 index, s16 score) {
+    s16 oldValue = mLevelScores[index];
 
     if (oldValue < 0) {
-        unk3E[arg] = value;
+        mLevelScores[index] = score;
         return;
     }
 
-    s32 diff = value - oldValue;
+    s32 diff = score - oldValue;
     s32 absDiff = diff < 0 ? -diff : diff;
 
     if (absDiff < 300) {
-        if (value > oldValue)
-            oldValue = value;
-        unk3E[arg] = oldValue;
+        if (score > oldValue)
+            oldValue = score;
+        mLevelScores[index] = oldValue;
     } else {
-        unk3E[arg] = (value + oldValue) / 2;
+        mLevelScores[index] = (score + oldValue) / 2;
     }
 }
 
-u32 SaveDataFile::fn_80077F78(void) {
+u32 SaveDataFile::calculateFlow(void) {
     s32 index;
     s32 total = 0;
     s32 count = 0;
@@ -366,7 +366,7 @@ u32 SaveDataFile::fn_80077F78(void) {
     for (s32 column = 4; column >= 0; column--) {
         index = column;
         for (s32 row = 0; row < 10; index += 5, row++) {
-            s32 value = unk3E[static_cast<u8>(index)];
+            s32 value = mLevelScores[static_cast<u8>(index)];
             if (value >= 0) {
                 total += value + 50;
                 count++;
@@ -384,7 +384,7 @@ u32 SaveDataFile::fn_80077F78(void) {
     return result;
 }
 
-u32 SaveDataFile::fn_800780E0(void) {
+u32 SaveDataFile::countMedals(void) {
     u8 count = 0;
 
     for (u8 i = 0; i < ARRAY_LENGTH(mLevelStates); i++)
@@ -404,7 +404,7 @@ u32 SaveDataFile::fn_8007819C(void) {
     return count;
 }
 
-u8 SaveDataFile::fn_80078238(void) {
+u8 SaveDataFile::countPerfects(void) {
     u8 count = 0;
 
     for (u8 i = 0; i < ARRAY_LENGTH(mLevelStates); i++)
@@ -414,7 +414,7 @@ u8 SaveDataFile::fn_80078238(void) {
     return count;
 }
 
-u8 SaveDataFile::fn_800782F4(void) {
+u8 SaveDataFile::countRemainingPerfects(void) {
     u8 count = 0;
 
     for (u8 i = 0; i < ARRAY_LENGTH(mLevelStates); i++)
@@ -643,7 +643,7 @@ void CSaveData::initialize(void) {
 
 void CSaveData::resetAllSaveFiles(void) {
     for (s32 saveIndex = 0; saveIndex < SAVE_COUNT; saveIndex++)
-        mSaveFiles[saveIndex].fn_80077908();
+        mSaveFiles[saveIndex].reset();
 
     updateSnapshot();
 }

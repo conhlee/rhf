@@ -49,7 +49,7 @@ void Perfect::CMyLayout::_10(void) {
 
     gMessageManager->setFormatIDBonus(giftTitle);
 
-    u8 perfectsLeft = gSaveData->getSelectedSaveFile()->fn_800782F4() - 1;
+    u8 perfectsLeft = gSaveData->getSelectedSaveFile()->countRemainingPerfects() - 1;
 
     const char *perfectMesg;
     if (gameEnt->giftType == eGiftType_Music) {

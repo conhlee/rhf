@@ -46,13 +46,13 @@ void CScenePerfect::_14(void) {
     if (gSceneManager->fn_8008B27C()) {
         // TODO: fakematch
         CSaveData *saveData = gSaveData;
-        saveData->do80077BC8(5);
+        saveData->recordPendingResult(eLevelState_Perfect);
 
         for (s32 i = 0; i < 3; i++) {
             gSaveData->getSelectedSaveFile()->fn_800786E4();
         }
 
-        if (gSaveData->getSelectedSaveFile()->fn_80078238() == (50 - 1)) {
+        if (gSaveData->getSelectedSaveFile()->countPerfects() == (50 - 1)) {
             gSaveData->getSelectedSaveFile()->fn_80077CEC(true);
         }
 

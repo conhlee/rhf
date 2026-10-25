@@ -48,7 +48,7 @@ void CSceneGrading::_14(void) {
 
         // TODO: fakematch
         CSaveData *saveData = gSaveData;
-        saveData->do80077BC8(levelState);
+        saveData->recordPendingResult(levelState);
 
         if (lbl_80320264) {
             gSaveData->getSelectedSaveFile()->fn_80078808();

@@ -170,8 +170,8 @@ void Grading::CMyLayout::fn_8000C15C(void) {
     }
 
     if (gSceneManager->fn_8008B27C() && (mScene->mGrade == eGrade_HI)) {
-        u8 index = fn_8000EBB0(gSaveData->getSelectedSaveFile()->fn_80077D50());
-        ELevelState prevState = gSaveData->getSelectedSaveFile()->fn_80077D58(index);
+        u8 index = fn_8000EBB0(gSaveData->getSelectedSaveFile()->getSelectedGameIndex());
+        ELevelState prevState = gSaveData->getSelectedSaveFile()->getLevelState(index);
 
         if (prevState < eLevelState_CompleteHI) {
             mMedalPane->SetVisible(true);

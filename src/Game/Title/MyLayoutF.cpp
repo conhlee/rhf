@@ -540,7 +540,7 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 bool action = mFileButtons[saveIndex].getEnabled() && mFileButtons[saveIndex].getUnk27();
                 if (action) {
                     mSelectedSaveIndex = saveIndex;
-                    if (gSaveData->getSaveFile(saveIndex)->fn_80077D04()) {
+                    if (gSaveData->getSaveFile(saveIndex)->isOccupied()) {
                         getAnimation(anim_fileSelect_top_frm_out_W_msg_01)->playFromBeginForward();
 
                         for (u8 otherSaveIndex = 0; otherSaveIndex < SAVE_COUNT; otherSaveIndex++)
@@ -594,15 +594,15 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
             if (actionFinished) {
                 if (mState == TITLE_STATE_ACTION_MENU_IN) {
                     s32 saveIndex = mSelectedSaveIndex;
-                    bool foo = false;
-                    bool bar = gSaveData->getSaveFile(saveIndex)->fn_80077D04() && gSaveData->getSaveFile(saveIndex)->fn_80077D20();
+                    bool isProfileMiiMissing = false;
+                    bool usesProfileMii = gSaveData->getSaveFile(saveIndex)->isOccupied() && gSaveData->getSaveFile(saveIndex)->isUsingProfileMii();
 
-                    if (bar) {
-                        if (gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38()) == NULL)
-                            foo = true;
+                    if (usesProfileMii) {
+                        if (gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->getProfileMiiID()) == NULL)
+                            isProfileMiiMissing = true;
                     }
 
-                    if (foo) {
+                    if (isProfileMiiMissing) {
                         mUnk24 = 3;
 
                         /*
@@ -702,19 +702,19 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                 } else if (mState == TITLE_STATE_ICON_SELECT_OUT) {
                     s32 saveIndex = mSelectedSaveIndex;
 
-                    bool foo = false;
-                    bool bar = gSaveData->getSaveFile(saveIndex)->fn_80077D04() && gSaveData->getSaveFile(saveIndex)->fn_80077D20();
+                    bool isProfileMiiMissing = false;
+                    bool usesProfileMii = gSaveData->getSaveFile(saveIndex)->isOccupied() && gSaveData->getSaveFile(saveIndex)->isUsingProfileMii();
 
-                    if (bar)
-                        if (gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38()) == NULL)
-                            foo = true;
+                    if (usesProfileMii)
+                        if (gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->getProfileMiiID()) == NULL)
+                            isProfileMiiMissing = true;
 
-                    if (foo) {
+                    if (isProfileMiiMissing) {
                         getAnimation(anim_fileSelect_window_out_W_menu_00)->playFromBeginForward();
                         getAnimation(anim_fileSelect_window_out + mSelectedSaveIndex)->playFromBeginForward();
                         updateState(TITLE_STATE_ACTION_MENU_OUT);
                     } else {
-                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04())
+                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->isOccupied())
                             updateState(TITLE_STATE_ACTION_MENU);
                         else
                             updateState(TITLE_STATE_FILE_SELECT);
@@ -783,9 +783,9 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                             continue;
                         }
 
-                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04()) {
+                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->isOccupied()) {
                             s32 saveIndex = mSelectedSaveIndex;
-                            gSaveData->getSaveFile(saveIndex)->fn_80077A74(buttonIndex);
+                            gSaveData->getSaveFile(saveIndex)->setProfileIconIndex(buttonIndex);
                             gSaveData->updateSnapshot();
 
                             if (gBackupManager != NULL)
@@ -888,11 +888,11 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                         mUnk9B8 = false;
                     } else {
                         s32 num = buttonIndex + mMiiPage * 10;
-                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04()) {
+                        if (gSaveData->getSaveFile(mSelectedSaveIndex)->isOccupied()) {
                             RFLCreateID createID = gRFLManager->fn_800C3060(num);
                             s32 saveIndex = mSelectedSaveIndex;
-                            gSaveData->getSaveFile(saveIndex)->fn_80077A7C();
-                            gSaveData->getSaveFile(saveIndex)->fn_80077A88(createID);
+                            gSaveData->getSaveFile(saveIndex)->useProfileMii();
+                            gSaveData->getSaveFile(saveIndex)->setProfileMiiID(createID);
 
                             gSaveData->updateSnapshot();
 
@@ -985,7 +985,7 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
                         getAnimation(anim_fileSelect_window_in_W_msg_01)->playFromBeginForward();
 
                         s32 selectedSaveIndex = mSelectedSaveIndex;
-                        gSaveData->getSaveFile(selectedSaveIndex)->fn_80077908();
+                        gSaveData->getSaveFile(selectedSaveIndex)->reset();
                         gSaveData->updateSnapshot();
 
                         if (gBackupManager != NULL)
@@ -1056,15 +1056,15 @@ void Title::CMyLayoutF::_18(nw4r::lyt::DrawInfo *drawInfo) {
             bool doAction = mConfirmButton.getEnabled() && mConfirmButton.getUnk27();
             if (doAction) {
                 s32 selectedSaveIndex = mSelectedSaveIndex;
-                bool foo = lbl_803204B0[selectedSaveIndex];
-                s8 bar = lbl_803204B4[selectedSaveIndex];
+                bool useProfileMii = lbl_803204B0[selectedSaveIndex];
+                s8 profileIconIndex = lbl_803204B4[selectedSaveIndex];
                 RFLCreateID createID = lbl_8034C820[selectedSaveIndex];
 
-                if (foo) {
-                    gSaveData->getSaveFile(selectedSaveIndex)->fn_80077A7C();
-                    gSaveData->getSaveFile(selectedSaveIndex)->fn_80077A88(createID);
+                if (useProfileMii) {
+                    gSaveData->getSaveFile(selectedSaveIndex)->useProfileMii();
+                    gSaveData->getSaveFile(selectedSaveIndex)->setProfileMiiID(createID);
                 } else {
-                    gSaveData->getSaveFile(selectedSaveIndex)->fn_80077A74(bar);
+                    gSaveData->getSaveFile(selectedSaveIndex)->setProfileIconIndex(profileIconIndex);
                 }
 
                 gSaveData->updateSnapshot();
@@ -1193,7 +1193,7 @@ void Title::CMyLayoutF::_14(void) {
 
 const char *sExistingSavePaneNames[4] = {"N_data_00", "N_data_01", "N_data_02", "N_data_03"};
 const char *sNewSavePaneNames[4] = {"N_first_00", "N_first_01", "N_first_02", "N_first_03"};
-const char *sNoriTextBoxNames[4] = {"T_nori_num_00", "T_nori_num_01", "T_nori_num_02", "T_nori_num_03"};
+const char *sFlowTextBoxNames[4] = {"T_nori_num_00", "T_nori_num_01", "T_nori_num_02", "T_nori_num_03"};
 const char *sMedalTextBoxNames[4] = {"T_medal_num_00", "T_medal_num_01", "T_medal_num_02", "T_medal_num_03"};
 const char *sMiiTexturePaneNames[10] = {"P_icon_mii_00", "P_icon_mii_01", "P_icon_mii_02", "P_icon_mii_03", "P_icon_mii_04", "P_icon_mii_05", "P_icon_mii_06", "P_icon_mii_07", "P_icon_mii_08", "P_icon_mii_09"};
 
@@ -1259,51 +1259,51 @@ void Title::CMyLayoutF::updateSaveDisplay(s32 saveIndex) {
     nw4r::lyt::Pane *existingSavePane = getLayout()->GetRootPane()->FindPaneByName(sExistingSavePaneNames[saveIndex]);
     nw4r::lyt::Pane *newSavePane = getLayout()->GetRootPane()->FindPaneByName(sNewSavePaneNames[saveIndex]);
 
-    if (gSaveData->getSaveFile(saveIndex)->fn_80077D04()) {
+    if (gSaveData->getSaveFile(saveIndex)->isOccupied()) {
         existingSavePane->SetVisible(true);
         newSavePane->SetVisible(false);
 
-        nw4r::lyt::TextBox *noriTextBox = static_cast<nw4r::lyt::TextBox *>(getLayout()->GetRootPane()->FindPaneByName(sNoriTextBoxNames[saveIndex]));
+        nw4r::lyt::TextBox *flowTextBox = static_cast<nw4r::lyt::TextBox *>(getLayout()->GetRootPane()->FindPaneByName(sFlowTextBoxNames[saveIndex]));
         nw4r::lyt::TextBox *medalTextBox = static_cast<nw4r::lyt::TextBox *>(getLayout()->GetRootPane()->FindPaneByName(sMedalTextBoxNames[saveIndex]));
 
-        u32 nori = gSaveData->getSaveFile(saveIndex)->fn_80077F78();
-        u32 medals = gSaveData->getSaveFile(saveIndex)->fn_800780E0();
+        u32 flow = gSaveData->getSaveFile(saveIndex)->calculateFlow();
+        u32 medals = gSaveData->getSaveFile(saveIndex)->countMedals();
 
         wchar_t buffer[8];
-        swprintf(buffer, ARRAY_LENGTH(buffer), L"%d", nori);
-        noriTextBox->SetString(buffer);
+        swprintf(buffer, ARRAY_LENGTH(buffer), L"%d", flow);
+        flowTextBox->SetString(buffer);
         swprintf(buffer, ARRAY_LENGTH(buffer), L"%d", static_cast<u8>(medals));
         medalTextBox->SetString(buffer);
 
         nw4r::lyt::TexMap texture;
-        if (gSaveData->getSaveFile(saveIndex)->fn_80077D20()) {
-            bool baz = false;
-            bool qux = false;
+        if (gSaveData->getSaveFile(saveIndex)->isUsingProfileMii()) {
+            bool usesProfileMii = false;
+            bool isProfileMiiMissing = false;
 
-            if (gSaveData->getSaveFile(saveIndex)->fn_80077D04() && gSaveData->getSaveFile(saveIndex)->fn_80077D20())
-                baz = true;
+            if (gSaveData->getSaveFile(saveIndex)->isOccupied() && gSaveData->getSaveFile(saveIndex)->isUsingProfileMii())
+                usesProfileMii = true;
 
-            if (baz) {
-                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38());
+            if (usesProfileMii) {
+                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->getProfileMiiID());
                 if (texObj == NULL)
-                    qux = true;
+                    isProfileMiiMissing = true;
             }
 
-            if (qux) {
+            if (isProfileMiiMissing) {
                 texture = mDefaultMiiTexture;
             } else {
-                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->fn_80077D38());
+                GXTexObj *texObj = gRFLManager->fn_800C2FE0(gSaveData->getSaveFile(saveIndex)->getProfileMiiID());
                 texture = nw4r::lyt::TexMap(*texObj);
                 texture.SetImage(reinterpret_cast<void *>(reinterpret_cast<u32>(GXGetTexObjData(texObj)) + 0x80000000));
             }
         } else {
-            s8 index = gSaveData->getSaveFile(saveIndex)->fn_80077CFC();
+            s8 index = gSaveData->getSaveFile(saveIndex)->getProfileIconIndex();
             texture = getLayout()->GetRootPane()->FindPaneByName(sIconNamePaneNames[index])->GetMaterial()->GetTexMap(0);
         }
 
         nw4r::lyt::Pane *pane = setSaveIconTexture(getLayout(), saveIndex, texture);
 
-        fn_800C5F70(pane, saveIndex, gSaveData->getSaveFile(saveIndex)->fn_80077D20());
+        fn_800C5F70(pane, saveIndex, gSaveData->getSaveFile(saveIndex)->isUsingProfileMii());
     } else {
         existingSavePane->SetVisible(false);
         newSavePane->SetVisible(true);
@@ -1328,8 +1328,8 @@ void Title::CMyLayoutF::setupIconSelection(void) {
     }
 
     for (s32 saveIndex = 0; saveIndex < SAVE_COUNT; saveIndex++) {
-        if (gSaveData->getSaveFile(saveIndex)->fn_80077D04() && !gSaveData->getSaveFile(saveIndex)->fn_80077D20()) {
-            s8 index = gSaveData->getSaveFile(saveIndex)->fn_80077CFC();
+        if (gSaveData->getSaveFile(saveIndex)->isOccupied() && !gSaveData->getSaveFile(saveIndex)->isUsingProfileMii()) {
+            s8 index = gSaveData->getSaveFile(saveIndex)->getProfileIconIndex();
             mNameButtons[index].setActionSfxID(SE_ERROR);
 
             getAnimation(anim_fileSelect_name_activate_nameFramePane + index)->setIsPlaying(false);
@@ -1348,7 +1348,7 @@ void Title::CMyLayoutF::setupIconSelection(void) {
         fn_800C5F70(pane, mSelectedSaveIndex, false);
     }
 
-    const char *mesgID = gSaveData->getSaveFile(mSelectedSaveIndex)->fn_80077D04()
+    const char *mesgID = gSaveData->getSaveFile(mSelectedSaveIndex)->isOccupied()
         /*
         Which would you like?
         Choose one!
@@ -1365,12 +1365,12 @@ void Title::CMyLayoutF::setupIconSelection(void) {
 
 static inline bool isMiiUsed(RFLCreateID createID) {
     for (s32 saveIndex = 0; saveIndex < SAVE_COUNT; saveIndex++) {
-        if (!gSaveData->getSaveFile(saveIndex)->fn_80077D04())
+        if (!gSaveData->getSaveFile(saveIndex)->isOccupied())
             continue;
-        if (!gSaveData->getSaveFile(saveIndex)->fn_80077D20())
+        if (!gSaveData->getSaveFile(saveIndex)->isUsingProfileMii())
             continue;
 
-        RFLCreateID savedID = gSaveData->getSaveFile(saveIndex)->fn_80077D38();
+        RFLCreateID savedID = gSaveData->getSaveFile(saveIndex)->getProfileMiiID();
         if (memcmp(&savedID, &createID, sizeof(RFLCreateID)) == 0)
             return true;
     }

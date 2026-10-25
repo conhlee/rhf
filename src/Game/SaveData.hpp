@@ -26,16 +26,16 @@ enum ELevelState {
 #define SAVE_COUNT 4
 
 struct SaveDataFile {
-    s8 unk0;
-    RFLCreateID unk1;
+    s8 mProfileIconIndex;
+    RFLCreateID mProfileMiiID;
     s8 unk9;
-    s8 unkA;
+    s8 mSelectedGameIndex;
     u8 mLevelStates[50];
     u8 unk3D;
-    s16 unk3E[50];
-    u8 unkA2;
-    s8 unkA3;
-    s16 unkA4;
+    s16 mLevelScores[50];
+    bool mHasPendingResult;
+    s8 mPendingLevelState;
+    s16 mPendingLevelScore;
     u8 unkA6;
     s8 unkA7;
     s8 unkA8;
@@ -49,14 +49,10 @@ struct SaveDataFile {
     s8 unkEA;
     s8 _padEB;
     s32 unkEC[16];
-    s8 unk12C[1]; // TODO: size
-    u8 _pad12D[0xf];
-    s8 unk13C[1]; // TODO: size
-    u8 _pad13D[0xf];
-    SaveDataFile_Sub00 unk14C[1]; // TODO: size
-    u8 _pad14D[0x78];
-    SaveDataFile_Sub00 unk1CC[1]; // TODO: size
-    u8 _pad1CD[0x78];
+    s8 unk12C[16];
+    s8 unk13C[16];
+    SaveDataFile_Sub00 unk14C[16];
+    SaveDataFile_Sub00 unk1CC[16];
     u32 unk24C;
     u8 unk250;
     u8 unk251;
@@ -64,16 +60,42 @@ struct SaveDataFile {
     u8 unk253;
     u8 _pad254[0x2c];
 
-    void fn_80077908(void);
-    void fn_80077A74(s8 arg);
-    void fn_80077A7C(void);
-    void fn_80077A88(RFLCreateID createID);
-    void fn_80077A9C(s8 arg);
-    void fn_80077AA4(s8 arg);
-    void fn_80077AAC(u8 arg1, ELevelState levelState);
+    void reset(void);
+
+    s8 getProfileIconIndex(void);
+    void setProfileIconIndex(s8 index);
+    bool isOccupied(void);
+    bool isUsingProfileMii(void);
+
+    void useProfileMii(void);
+    RFLCreateID getProfileMiiID(void);
+    void setProfileMiiID(RFLCreateID createID);
+
+    s8 getUnk9(void);
+    void setUnk9(s8 arg);
+
+    s8 getSelectedGameIndex(void);
+    void setSelectedGameIndex(s8 index);
+
+    ELevelState getLevelState(s32 index);
+    void setLevelState(u8 index, ELevelState levelState);
+
+    s16 getLevelScore(u8 index);
+    void updateLevelScore(u8 index, s16 score);
+
+    u32 calculateFlow(void);
+    u32 countMedals(void);
+    u32 fn_8007819C(void);
+    u8 countPerfects(void);
+    u8 countRemainingPerfects(void);
+
+    bool hasPendingResult(void);
+    void setPendingResult(ELevelState levelState, s16 score);
+    void clearPendingResult(void);
+    s8 getPendingLevelState(void);
+    s16 getPendingLevelScore(void);
+
     void fn_80077BC0(s8 arg);
-    void fn_80077BC8(s32 arg1, s16 arg2);
-    void fn_80077BDC(void);
     void fn_80077BE8(s8 arg);
     void fn_80077C00(void);
     void fn_80077C0C(s8 arg);
@@ -94,18 +116,7 @@ struct SaveDataFile {
     void fn_80077CE4(s8 arg);
     void fn_80077CEC(bool arg);
     void fn_80077CF4(s8 arg);
-    s8 fn_80077CFC(void);
-    bool fn_80077D04(void);
-    bool fn_80077D20(void);
-    RFLCreateID fn_80077D38(void);
-    s8 fn_80077D48(void);
-    s8 fn_80077D50(void);
-    ELevelState fn_80077D58(s32 arg);
-    s16 fn_80077D64(u8 arg);
     bool fn_80077D74(void);
-    bool fn_80077D88(void);
-    s8 fn_80077D9C(void);
-    s16 fn_80077DA4(void);
     bool fn_80077DAC(void);
     bool fn_80077DC0(void);
     bool fn_80077DDC(void);
@@ -127,12 +138,6 @@ struct SaveDataFile {
     bool fn_80077EDC(void);
     bool fn_80077EF0(void);
     bool fn_80077F04(void);
-    void fn_80077F18(u8 arg, s16 value);
-    u32 fn_80077F78(void);
-    u32 fn_800780E0(void);
-    u32 fn_8007819C(void);
-    u8 fn_80078238(void);
-    u8 fn_800782F4(void);
     void fn_800783B4(void);
     s8 fn_80078548(void);
     void fn_800786E4(void);
@@ -164,8 +169,8 @@ public:
     u8 *getUnkA04(void);
     void updateSnapshot(void);
 
-    void do80077BC8(s32 param_1) {
-        getSelectedSaveFile()->fn_80077BC8(param_1, gInputCheckManager->fn_801E94D4());
+    void recordPendingResult(ELevelState levelState) {
+        getSelectedSaveFile()->setPendingResult(levelState, gInputCheckManager->fn_801E94D4());
     }
 
 private:
