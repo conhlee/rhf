@@ -13,6 +13,7 @@
 const char layoutFile_perfect[] = "perfect.brlyt";
 
 DECL_SECTION(".sdata") const char * const layoutFileTable[] = { layoutFile_perfect, NULL };
+// TODO: ^^ hack!
 
 enum {
     perfect_loop
@@ -42,65 +43,77 @@ void Perfect::CMyLayout::_10(void) {
     if (gameEnt->giftType == eGiftType_Music) {
         giftTitle = fn_800B4338(gameEnt->giftIndex)->titleFormatted;
     }
-    else { // eGiftType_ReadingMaterial
+    else /* if (gameEnt->giftType == eGiftType_ReadingMaterial) */ {
         giftTitle = fn_800B434C(gameEnt->giftIndex)->titleFormatted;
     }
 
-    gMessageManager->setFormatMesgID(giftTitle);
+    gMessageManager->setFormatIDBonus(giftTitle);
 
     u8 perfectsLeft = gSaveData->fn_80078F4C()->fn_800782F4() - 1;
 
     const char *perfectMesg;
     if (gameEnt->giftType == eGiftType_Music) {
         if (perfectsLeft == 0) {
-            perfectMesg = "0103003";        /*
-                "(Gift Title)"
-                You've earned a gift!
-                Listen to it at the café!
-                You finally got them all!
-                PERFECT!                    */
+            perfectMesg = "0103003";
+            /*
+             *  "(Gift Title)"
+             *  You've earned a gift!
+             *  Listen to it at the café!
+             *  You finally got them all!
+             *  PERFECT!
+             */
         }
         else if (perfectsLeft == 1) {
-            perfectMesg = "0103005";        /*
-                "(Gift Title)"
-                You've earned a gift!
-                Listen to it at the café!
-                There's now just 1 gift
-                left to get. Keep it up!    */
+            perfectMesg = "0103005";
+            /*
+             *  "(Gift Title)"
+             *  You've earned a gift!
+             *  Listen to it at the café!
+             *  There's now just 1 gift
+             *  left to get. Keep it up!
+             */
         }
         else {
-            perfectMesg = "0103001";        /*
-                "(Gift Title)"
-                You've earned a gift!
-                Listen to it at the café!
-                There are now (X) gifts left
-                to get. Keep going!         */
+            perfectMesg = "0103001";
+            /*
+             *  "(Gift Title)"
+             *  You've earned a gift!
+             *  Listen to it at the café!
+             *  There are now (X) gifts left
+             *  to get. Keep going!
+             */
         }
     }
-    else { // eGiftType_ReadingMaterial
+    else /* if (gameEnt->giftType == eGiftType_ReadingMaterial) */ {
         if (perfectsLeft == 0) {
-            perfectMesg = "0103002";        /*
-                "(Gift Title)"
-                You've earned a gift!
-                Read it at the café!
-                You finally got them all!
-                PERFECT!                    */
+            perfectMesg = "0103002";
+            /*
+             *  "(Gift Title)"
+             *  You've earned a gift!
+             *  Read it at the café!
+             *  You finally got them all!
+             *  PERFECT!
+             */
         }
         else if (perfectsLeft == 1) {
-            perfectMesg = "0103004";        /*
-                "(Gift Title)"
-                You've earned a gift!
-                Read it at the café!
-                There's now just 1 gift
-                left to get. Keep it up!    */
+            perfectMesg = "0103004";
+            /*
+             *  "(Gift Title)"
+             *  You've earned a gift!
+             *  Read it at the café!
+             *  There's now just 1 gift
+             *  left to get. Keep it up!
+             */
         }
         else {
-            perfectMesg = "0103000";        /*
-                "(Gift Title)"
-                You've earned a gift!
-                Read it at the café!
-                There are now (X) gifts left
-                to get. Keep going!         */
+            perfectMesg = "0103000";
+            /*
+             *  "(Gift Title)"
+             *  You've earned a gift!
+             *  Read it at the café!
+             *  There are now (X) gifts left
+             *  to get. Keep going!
+            */
         }
     }
 

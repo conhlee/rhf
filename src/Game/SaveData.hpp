@@ -71,6 +71,8 @@ struct SaveDataFile {
     u32 fn_80077F78(void);
     u32 fn_800780E0(void);
 
+    u32 fn_8007819C(void);
+
     void fn_800786E4(void);
 
     void fn_80078808(void);

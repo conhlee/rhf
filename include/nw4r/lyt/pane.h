@@ -120,6 +120,14 @@ public:
     PaneList &GetChildList() {
         return mChildList;
     }
+
+    const char *GetName() const {
+        return mName;
+    }
+
+    const char *GetUserData() const {
+        return mUserData;
+    }
     
 protected:
     virtual void LoadMtx(const DrawInfo &drawInfo);

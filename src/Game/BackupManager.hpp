@@ -29,11 +29,18 @@ public:
     s32 getUnk4C(void) const { return mUnk4C; }
     NANDResult getUnk50(void) const { return mUnk50; }
 
+    u32 getBlocksRequired(void) const { return mBlocksRequired; }
+    u32 getFilesRequired(void) const { return mFilesRequired; }
+
 private:
-    u8 _pad04[0x4C - 4];
+    void *mAlloc;
+    u8 _pad08[0x4C - 8];
     s32 mUnk4C;
     NANDResult mUnk50;
-    u8 _pad54[0x2B78 - 0x54];
+    s32 mUnk54;
+    u32 mBlocksRequired;
+    u32 mFilesRequired;
+    u8 _pad60[0x2B78 - 0x60];
 };
 
 extern CBackupManager *gBackupManager;

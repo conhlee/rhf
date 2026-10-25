@@ -6,6 +6,8 @@
 #include <nw4r/math.h>
 #include <nw4r/ut.h>
 
+#include <nw4r/db/assert.h>
+
 #include <revolution/GX.h>
 
 namespace nw4r {
@@ -90,8 +92,9 @@ inline u8 GetVerticalPosition(u8 packed) {
     return packed / HORIZONTALPOSITION_MAX;
 }
 
-inline void SetHorizontalPosition(u8* pPacked, u8 value) {
-    *pPacked = GetVerticalPosition(*pPacked) * HORIZONTALPOSITION_MAX + value;
+inline void SetHorizontalPosition(u8* pPacked, u8 newVal) {
+    NW4R_ASSERT(newVal < HORIZONTALPOSITION_MAX, 227);
+    *pPacked = GetVerticalPosition(*pPacked) * HORIZONTALPOSITION_MAX + newVal;
 }
 inline void SetVerticalPosition(u8* pPacked, u8 value) {
     *pPacked = value * HORIZONTALPOSITION_MAX + GetHorizontalPosition(*pPacked);

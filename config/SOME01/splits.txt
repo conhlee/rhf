@@ -595,6 +595,12 @@ Game/HBMManager.cpp:
 
 Game/MessageManager.cpp:
 	.text       start:0x80087534 end:0x80089DF0
+	.rodata     start:0x80255658 end:0x80255710
+	.data       start:0x802ECB70 end:0x802ECE20
+	.sdata      start:0x8031F4C8 end:0x8031F4F8
+	.sbss       start:0x80320450 end:0x80320470
+	.sdata2     start:0x80325130 end:0x803251B8
+	.bss        start:0x8034A5A0 end:0x8034A7A0
 
 Game/SceneManager.cpp:
 	.text       start:0x80089DF0 end:0x8008B844

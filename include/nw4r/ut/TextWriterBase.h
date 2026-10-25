@@ -99,8 +99,10 @@ public:
     TagProcessorBase<T>* GetTagProcessor() const {
         return mTagProcessor;
     }
-    void SetTagProcessor(TagProcessorBase<T>* pProcessor) {
-        mTagProcessor = pProcessor;
+    void SetTagProcessor(TagProcessorBase<T>* tagProcessor) {
+        NW4R_ASSERT_PTR(this, 151);
+        NW4R_ASSERT_PTR(tagProcessor, 152);
+        mTagProcessor = tagProcessor;
     }
     void ResetTagProcessor() {
         mTagProcessor = &mDefaultTagProcessor;
