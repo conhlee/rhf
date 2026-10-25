@@ -112,9 +112,11 @@ void CSceneAgbGhost::_14(void) {
     mDoorAnim->setPos(-146.0f, -69.0f);
     mDoorAnim->setLayer(2800);
 
-    mDoorMaskAnim = gCellAnimManager->createCellAnim(0, ghost_door_mask);
-    mDoorMaskAnim->setPosX(mDoorAnim->getPosX());
-    mDoorMaskAnim->setPosY(mDoorAnim->getPosY());
+    CCellAnim *doorMaskAnim = gCellAnimManager->createCellAnim(0, ghost_door_mask);
+    mDoorMaskAnim = doorMaskAnim;
+    CCellAnim *doorAnim = mDoorAnim;
+    doorMaskAnim->setPosX(doorAnim->getPosX());
+    doorMaskAnim->setPosY(doorAnim->getPosY());
     mDoorMaskAnim->setLayer(1500);
     mDoorMaskAnim->setEnabled(false);
 
