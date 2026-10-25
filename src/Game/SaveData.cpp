@@ -415,13 +415,7 @@ u8 SaveDataFile::countPerfects(void) {
 }
 
 u8 SaveDataFile::countRemainingPerfects(void) {
-    u8 count = 0;
-
-    for (u8 i = 0; i < ARRAY_LENGTH(mLevelStates); i++)
-        if (static_cast<ELevelState>(mLevelStates[i]) >= eLevelState_Perfect)
-            count++;
-
-    return 50 - count;
+    return 50 - countPerfects();
 }
 
 void SaveDataFile::fn_800783B4(void) {
