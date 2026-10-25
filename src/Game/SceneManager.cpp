@@ -38,8 +38,6 @@ void CSceneManager::_14(void) {
     }
 }
 
-extern "C" void fn_8008A8D8(void);
-
 void CSceneManager::_18(void) {
     if (mUnk404) {
         fn_8008A8D8();
@@ -1074,10 +1072,11 @@ TFD_EXTERN(lbl_80256F30)
 void CSceneManager::fn_8008A8D8(void) {
     gTickFlowManager->fn_801E1E4C();
 
-    bool temp_r31 = false;
-    bool temp_r30 = false;
-    bool temp_r29 = false;
-    bool temp_r28 = false;
+    bool goGameSelect = false;
+    bool goBonusSelect = false;
+    bool goCafe = false;
+
+    bool fail = false;
 
     if (mSceneHist[0] == eScene_Navi) {
         s32 gameSelectPosInHist = findSceneInHist(eScene_GameSelect);
@@ -1085,28 +1084,28 @@ void CSceneManager::fn_8008A8D8(void) {
 
         if ((gameSelectPosInHist >= 1) && (bonusSelectPosInHist >= 1)) {
             if (gameSelectPosInHist < bonusSelectPosInHist) {
-                temp_r31 = true;
+                goGameSelect = true;
             }
             else if (bonusSelectPosInHist < gameSelectPosInHist) {
-                temp_r29 = true;
+                goCafe = true;
             }
         }
         else if (gameSelectPosInHist >= 1) {
-            temp_r31 = true;
+            goGameSelect = true;
         }
         else if (bonusSelectPosInHist >= 1) {
-            temp_r29 = true;
+            goCafe = true;
         }
         else {
-            temp_r28 = true;
+            fail = true;
         }
     }
     else if ((mSceneHist[0] == eScene_Title) || (mSceneHist[0] == eScene_GameSelect)) {
-        temp_r28 = true;
+        fail = true;
     }
     else {
         if (CExScene::fn_80009FB4()) {
-            temp_r29 = true;
+            goCafe = true;
         }
         else {
             s32 gameSelectPosInHist = findSceneInHist(eScene_GameSelect);
@@ -1114,28 +1113,28 @@ void CSceneManager::fn_8008A8D8(void) {
 
             if ((gameSelectPosInHist >= 1) && (bonusSelectPosInHist >= 1)) {
                 if (gameSelectPosInHist < bonusSelectPosInHist) {
-                    temp_r31 = true;
+                    goGameSelect = true;
                 }
                 else if (bonusSelectPosInHist < gameSelectPosInHist) {
-                    temp_r30 = true;
+                    goBonusSelect = true;
                 }
             }
             else if (gameSelectPosInHist >= 1) {
-                temp_r31 = true;
+                goGameSelect = true;
             }
             else if (bonusSelectPosInHist >= 1) {
-                temp_r30 = true;
+                goBonusSelect = true;
             }
             else {
-                temp_r28 = true;
+                fail = true;
             }
         }
     }
 
-    if (temp_r31) {
+    if (goGameSelect) {
         gTickFlowManager->fn_801E1CC0(lbl_80253E18);
     }
-    else if (temp_r30) {
+    else if (goBonusSelect) {
         switch (lbl_803204F8) {
         case 0:
             gTickFlowManager->fn_801E1CC0(lbl_8027C3E8);
@@ -1151,10 +1150,10 @@ void CSceneManager::fn_8008A8D8(void) {
             break;
         }
     }
-    else if (temp_r29) {
+    else if (goCafe) {
         gTickFlowManager->fn_801E1CC0(lbl_80256F30);
     }
-    else if (temp_r28) {
+    else if (fail) {
         OSReport("Invalid Scene Change 0002\n");
     }
 }
@@ -1178,6 +1177,11 @@ bool CSceneManager::fn_8008B118(ESceneID sceneID) {
 }
 
 bool CSceneManager::fn_8008B27C(void) {
+    /*
+     * Must not be in 2P mode, must have visited Game Select, must have not
+     * been in Bonus Select, must have not been in Credit Scene
+     */
+
     if (lbl_80320274) {
         return false;
     }

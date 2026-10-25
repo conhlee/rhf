@@ -47,18 +47,7 @@ void CTickFlowManager::_10(u32 heapSize) {
 void CTickFlowManager::_08(void) {
     gSoundManager->fn_801E7954();
 
-    mTickFlowHead->removeAll();
-    mTickFlowHead = NULL;
-
-    if (mCurrentBGMType == eBGMType_Seq) {
-        stopSeq();
-    }
-    else if (mCurrentBGMType == eBGMType_Strm) {
-        stopStrm();
-    }
-    else if (mCurrentBGMType == eBGMType_Wave) {
-        stopWave();
-    }
+    fn_801E1E4C();
 
     MEMDestroyExpHeap(mHeap);
     delete[] mHeapStart;

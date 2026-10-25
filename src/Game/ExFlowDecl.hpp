@@ -70,7 +70,7 @@ enum {
     TF_130,
     TF_131,
     TF_CELLANIM_RENDER_EFF,
-    TF_133,
+    TF_SET_PAUSE_IGNORE,        ///< Set if pause inputs from the player should be ignored. Args: ignore flag
     TF_134,
     TF_135,
     TF_136,

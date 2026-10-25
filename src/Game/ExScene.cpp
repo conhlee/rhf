@@ -1,7 +1,6 @@
 #include "ExScene.hpp"
 
 #include <revolution/SC.h>
-
 #include <revolution/WPAD.h>
 
 #include "ExFlow.hpp"
@@ -41,6 +40,8 @@
 #include "TPL.hpp"
 
 #include "IconSelectLayout.hpp"
+
+#include "main.hpp"
 
 #include "cellanim/permanent/rcad_permanent_labels.h"
 #include "cellanim/remix/ver8/rcad_remix08_Mask_labels.h"
@@ -276,6 +277,8 @@ void CExScene::_1C(void) {
     if (!gHBMManager->getUnk414()) {
         // TODO: Hmmm .....
         cellAnimDoFrontDrw(gCellAnimManager);
+        // ^
+        // cellAnimManager->_20(0, fn_8009E204(), fn_8009E260());
 
         gLayoutManager->_1C();
 
@@ -431,7 +434,7 @@ void CExScene::fn_80008EF0(void) {
 void CExScene::fn_80008EFC(void) {
     gFileManager->waitAllArc();
 
-    for (u8 i = 2; i < CFileManager::DEFAULT_MAX_ARCHIVE_COUNT; i++) {
+    for (u8 i = 2; i < FILE_MGR_MAX_ARCHIVE_COUNT; i++) {
         if ((i != 54) && (i != 94) && gFileManager->getArcReady(i)) {
             gFileManager->endArchive(i);
         }

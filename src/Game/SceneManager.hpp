@@ -5,7 +5,7 @@
 
 #include "Singleton.hpp"
 
-#include "ExFlowDecl.hpp"
+#include "TickFlowDecl.hpp"
 
 enum ESceneID { // TODO: move this somewhere else
     eScene_Menu = 0,
@@ -88,16 +88,18 @@ public:
 
     CSceneManager(void);
 
-    void fn_80089FE0(ESceneID sceneID, const TickFlowCode *tickFlowCode);
-    void fn_8008A4DC(ESceneID sceneID, s32 ver);
-    void fn_8008A704(ESceneID sceneID);
-    void fn_8008A82C(ESceneID sceneID);
-    void fn_8008A8D8(void);
-    u32 fn_8008B058(s32 idx);
-    void fn_8008B068(void);
-    bool fn_8008B0FC(s32 idx, u32 sceneID);
-    bool fn_8008B118(ESceneID sceneID);
-    bool fn_8008B27C(void);
+    void fn_80089FE0(ESceneID sceneID, const TickFlowCode *tickFlowCode); // sceneSwitch
+    void fn_8008A4DC(ESceneID sceneID, s32 ver); // sceneSetVer
+    void fn_8008A704(ESceneID sceneID); // sceneLoadAssets
+    void fn_8008A82C(ESceneID sceneID); // sceneUnloadAssets
+
+    void fn_8008A8D8(void); // returnFromPlay (TODO Better name!!)
+
+    u32 fn_8008B058(s32 idx); // peekSceneHist
+    void fn_8008B068(void); // clearSceneHist
+    bool fn_8008B0FC(s32 idx, u32 sceneID); // sceneVisitedAtPos
+    bool fn_8008B118(ESceneID sceneID); // sceneVisited
+    bool fn_8008B27C(void); // 
 
     s32 findSceneInHist(ESceneID sceneID) {
         int i;

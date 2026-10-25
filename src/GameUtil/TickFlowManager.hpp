@@ -42,60 +42,62 @@ public:
         _1C(&T::create, sizeof(T));
     }
 
-    CTickFlow *fn_801E1CC0(const TickFlowCode *code, f32 initRest = 0.0f);
-    bool fn_801E1D9C(CTickFlow *tickFlow);
-    bool fn_801E1DC8(CTickFlow *tickFlow);
-    void fn_801E1E4C(void);
-    void fn_801E2490(s32 category);
-    void fn_801E2540(CTickFlow *tickFlow);
-    f32 fn_801E2698(void);
-    f32 fn_801E26A0(void);
-    void fn_801E26A8(void);
-    f32 fn_801E26B4(f32);
-    f32 fn_801E2928(f32);
-    void fn_801E2B9C(f32 tempo);
-    void fn_801E2C04(f32 speed);
-    f32 fn_801E2CA8(void);
+    CTickFlow *fn_801E1CC0(const TickFlowCode *code, f32 initRest = 0.0f); // create
+    bool fn_801E1D9C(CTickFlow *tickFlow); // checkContain
+    bool fn_801E1DC8(CTickFlow *tickFlow); // end
+    void fn_801E1E4C(void); // endAll
+    void fn_801E2490(s32 category); // endAboveCategory
+    void fn_801E2540(CTickFlow *tickFlow); // destroy
+    f32 fn_801E2698(void); // getTicksPerFrame
+    f32 fn_801E26A0(void); // getCurTickPass
+    void fn_801E26A8(void); // resetCurTickPass
+    f32 fn_801E26B4(f32 ticks); // calcTicksToFrames
+    f32 fn_801E2928(f32 frames); // calcFramesToTicks
+    void fn_801E2B9C(f32 tempo); // resetTempo
+    void fn_801E2C04(f32 speed); // setSpeed
+    f32 fn_801E2CA8(void); // calcTempoAdjusted
 
     void prepareSeq(u16 soundID);
     void playSeq(u16 soundID);
     void playPreparedSeq(void);
     void stopSeq(s32 fadeFrames = 0);
-    void fn_801E334C(f32 volume, s32 fadeFrames = 0);
-    void fn_801E335C(u32 trackBitFlag, bool mute);
+    void fn_801E334C(f32 volume, s32 fadeFrames = 0); // setVolSeq
+    void fn_801E335C(u32 trackBitFlag, bool mute); // setMuteSeq
     void fn_801E33C0(bool);
 
     void prepareStrm(u16 soundID);
     void playStrm(u16 soundID);
     void playPreparedStrm(void);
     void stopStrm(s32 fadeFrames = 0);
-    void fn_801E38BC(f32 volume, s32 fadeFrames = 0);
-    bool fn_801E38CC(void);
+    void fn_801E38BC(f32 volume, s32 fadeFrames = 0); // setVolStrm
+    bool fn_801E38CC(void); // getStrmPrepared
 
     void prepareWave(u16 soundID);
     void playWave(u16 soundID);
     void playPreparedWave(void);
     void stopWave(s32 fadeFrames = 0);
-    void fn_801E3E2C(f32 volume, s32 fadeFrames = 0);
-    bool fn_801E3E3C(void);
+    void fn_801E3E2C(f32 volume, s32 fadeFrames = 0); // setVolWave
+    bool fn_801E3E3C(void); // getWavePrepared
 
     f32 fn_801E3EA8(s32);
 
-    void fn_801E4048(bool paused);
-    bool fn_801E4078(void);
-    bool fn_801E40A8(void);
-    bool fn_801E40D8(void);
-    s32 fn_801E4124(void);
+    void fn_801E4048(bool paused); // setPaused
+
+    bool fn_801E4078(void); // getButtonPromptIsReleased
+    bool fn_801E40A8(void); // getButtonPromptIsPressed
+    bool fn_801E40D8(void); // getButtonPromptIsPressedOrReleased
+
+    s32 fn_801E4124(void); // nextTickFlowInstNum
     void fn_801E4134(s32, u16);
     u16 fn_801E4144(s32);
 
     void fn_801E4154(SNDHandle *soundHandle);
     SNDHandle *fn_801E415C(void);
 
-    void fn_801E4170(bool ntsc);
-    bool fn_801E4178(void);
+    void fn_801E4170(bool ntsc); // setNtsc
+    bool fn_801E4178(void); // getNtsc
 
-    u8 fn_801E4180(void);
+    u8 fn_801E4180(void); // getFPS
 
     EBGMType getCurrentBGMType(void) {
         return mCurrentBGMType;

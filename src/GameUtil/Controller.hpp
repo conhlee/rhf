@@ -96,10 +96,10 @@ public:
         return unk1368;
     }
 
-    bool unk136CCheck(void) {
+    bool unk136CCheck(void) { // trigger
         return unk136C && !unk136D;
     }
-    bool unk136CCheck1(void) {
+    bool unk136CCheck1(void) { // release
         return !unk136C && unk136D;
     }
 

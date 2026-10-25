@@ -45,7 +45,7 @@ public:
     void destroyCellAnim(CCellAnim *cellAnim);
     void loadChrForDraw(u8 bankID, CellAnim_CellOBJ *obj, BOOL linearFilter, s32 chrIndex);
     CCellAnim *createCellAnim(u8 bankID, u16 animID);
-    void DONT_INLINE endCellAnim(CCellAnim *cellAnim);
+    void endCellAnim(CCellAnim *cellAnim) DONT_INLINE;
     void endCellAnimByBank(u8 bankID);
     void layerReorder(CCellAnim *cellAnim);
     void setBaseDefault(CCellAnim *baseCell);

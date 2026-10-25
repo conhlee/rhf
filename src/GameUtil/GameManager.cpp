@@ -33,7 +33,7 @@ struct DVDMessageData {
     ~DVDMessageData(void);
 
     void fn_801D77A4();
-    void DONT_INLINE fn_801D7A74();
+    void fn_801D7A74() DONT_INLINE;
 };
 static DVDMessageData sDVDMessageData;
 

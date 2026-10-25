@@ -1,4 +1,4 @@
-#include <revolution/types.h>
+#include "main.hpp"
 
 #include <revolution/OS.h>
 #include <revolution/VI.h>
@@ -7,6 +7,7 @@
 
 #include <cstring>
 
+#include "ExChecker.hpp"
 #include "GameManager.hpp"
 #include "BackupManager.hpp"
 #include "FileManager.hpp"
@@ -39,8 +40,6 @@
 
 #include "rev_tengoku.rsid"
 
-#include "FaderFlash.hpp"
-
 #include "Strap/SceneStrap.hpp"
 #include "Error/SceneError.hpp"
 
@@ -49,6 +48,12 @@
 #include "Mem.hpp"
 
 #include "SoundData.inc"
+
+#ifdef __MWERKS__
+#define MAIN_RETTYPE void
+#else
+#define MAIN_RETTYPE int
+#endif // __MWERKS__
 
 struct FontInitData {
     const char *binName;
@@ -119,13 +124,26 @@ static const GXRenderModeObj sRenderModeEuRgb60Prog456 = {
     { 0, 0, 21, 22, 21, 0, 0 }
 };
 
-DONT_INLINE static void fn_80038350(void);
-DONT_INLINE static void fn_80038AE4(void);
-DONT_INLINE static void fn_800393DC(void);
-DONT_INLINE static void fn_80039900(void);
-
 // Used in DVD error functions to check if managers are up.
 static bool sInitIsDone = false;
+
+static GXRenderModeObj sRenderModeObj;
+static bool sIs60FPS;
+
+CDebugConsole *gDebugConsole = NULL;
+CDebugFont *gDebugFont = NULL;
+CPlayHistory *gPlayHistory = NULL;
+CRFLManager *gRFLManager = NULL;
+
+static void funcDVDErrorF(void);
+static void funcDVDErrorB(void);
+
+MAIN_RETTYPE main(int argc, char **argv);
+
+static void fn_80038350(void);
+static void fn_80038AE4(void);
+static void fn_800393DC(void);
+static void fn_80039900(void) DONT_INLINE;
 
 // DVD error has started (front)
 static void funcDVDErrorF(void) {
@@ -154,7 +172,7 @@ static void funcDVDErrorB(void) {
     }
 }
 
-void main(int argc, char **argv) {
+MAIN_RETTYPE main(int argc, char **argv) {
 #pragma unused(argc)
 #pragma unused(argv)
 
@@ -184,18 +202,13 @@ void main(int argc, char **argv) {
         gGameManager->startMainLoop<CSceneError>();
     }
 
+    // @bug fn_800393DC is called too early; the following calls will all crash!
     fn_800393DC();
 
-    // @bug gFileManager is destroyed by the call to fn_800393DC
     gFileManager->endArchive(0);
 
-    // @bug This call requires gCellAnimManager and gFileManager, which both have been
-    //      destroyed by the call to fn_800393DC
     CExScene::fn_8000966C();
 }
-
-static GXRenderModeObj sRenderModeObj;
-static bool sIs60FPS;
 
 static void fn_80038350(void) {
     VIInit();
@@ -274,7 +287,7 @@ static void fn_80038AE4(void) {
         gFileManager = new CFileManager;
     }
 
-    gFileManager->_10();
+    gFileManager->_10(FILE_MGR_MAX_FILE_COUNT, FILE_MGR_MAX_ARCHIVE_COUNT);
     gFileManager->_14();
     gFileManager->setDVDErrorFuncF(funcDVDErrorF);
     gFileManager->setDVDErrorFuncB(funcDVDErrorB);
@@ -356,7 +369,7 @@ static void fn_80038AE4(void) {
         gTickFlowManager = new CTickFlowManager;
     }
 
-    gTickFlowManager->_10(0x3F000);
+    gTickFlowManager->_10(1024 * sizeof(CExFlow));
     gTickFlowManager->registerFlowInitial<CExFlow>(NULL);
 
     gTickFlowManager->setUnkF8(lbl_802BAD10);
@@ -367,7 +380,7 @@ static void fn_80038AE4(void) {
         gInputCheckManager = new CInputCheckManager;
     }
 
-    gInputCheckManager->_10(0x1F000);
+    gInputCheckManager->_10(1024 * sizeof(CExChecker));
     gInputCheckManager->_14();
 
     gInputCheckManager->setUnk414(fn_8008E430);
@@ -399,17 +412,17 @@ static void fn_80038AE4(void) {
 
     gBackupManager->fn_80084054();
 
-    s32 curBakAttempt = gBackupManager->fn_800843E4();
-    if (curBakAttempt == 0) {
-        curBakAttempt = gBackupManager->fn_8008452C();
+    s32 result = gBackupManager->fn_800843E4();
+    if (result == NAND_RESULT_OK) {
+        result = gBackupManager->fn_8008452C();
     }
-    if (curBakAttempt == 0) {
-        curBakAttempt = gBackupManager->fn_80084A20();
+    if (result == NAND_RESULT_OK) {
+        result = gBackupManager->fn_80084A20();
     }
-    if (curBakAttempt == 0) {
-        curBakAttempt = gBackupManager->fn_8008516C();
+    if (result == NAND_RESULT_OK) {
+        result = gBackupManager->fn_8008516C();
     }
-    if (curBakAttempt == 0) {
+    if (result == NAND_RESULT_OK) {
         gBackupManager->fn_80084D1C();
     }
 
@@ -443,7 +456,7 @@ static void fn_80038AE4(void) {
         gVarParamManager = new CVarParamManager;
     }
 
-    gVarParamManager->_10(0x80);
+    gVarParamManager->_10(128);
     gVarParamManager->_14();
 
     if (gDebugFont == NULL) {
@@ -616,8 +629,3 @@ static void fn_80039900(void) {
 
     memPopGroup();
 }
-
-CDebugConsole *gDebugConsole = NULL;
-CDebugFont *gDebugFont = NULL;
-CPlayHistory *gPlayHistory = NULL;
-CRFLManager *gRFLManager = NULL;

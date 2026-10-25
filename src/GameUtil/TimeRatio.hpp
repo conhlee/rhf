@@ -37,15 +37,10 @@ public:
     }
 
     void fn_801E9DE8(BOOL); // Update.
-
-    void DONT_INLINE fn_801E9EBC(void); // Easing function; result is stored in mEasedT.
-
+    void fn_801E9EBC(void) DONT_INLINE; // Easing function; result is stored in mEasedT.
     void fn_801EA4D4(f32 addTime);
-
     void fn_801EA50C(f32 newTime);
-
     void fn_801EA514(f32 newTime, f32 newMaxTime);
-
     void fn_801EA550(f32 newTime, f32 newMaxTime, bool stopAtMaxTime);
 
     void setEasingType(s32 type) { mEasingType = type; }

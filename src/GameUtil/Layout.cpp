@@ -26,7 +26,7 @@ bool CBtnPane::fn_801D85BC(nw4r::lyt::Pane *pane, nw4r::lyt::DrawInfo *drawInfo)
 nw4r::math::VEC2 CBtnPane::fn_801D86D0(nw4r::lyt::Pane *pane, nw4r::lyt::DrawInfo *drawInfo) {
     nw4r::math::VEC2 vec (0.0f, 0.0f);
 
-    for (pane; pane != NULL; pane = pane->GetParent()) {
+    for (; pane != NULL; pane = pane->GetParent()) {
         nw4r::lyt::Pane *parent = pane->GetParent();
         if ((parent != NULL) && fn_801D85BC(parent, drawInfo)) {
             vec.x += pane->GetTranslate().x * drawInfo->GetLocationAdjustScale().x;
@@ -211,6 +211,9 @@ void CExBtnPane::_10(EBtnState state, bool arg1) {
             gSoundManager->play(mActionSfxID);
         }
     } break;
+
+    case eBtnState_Unk03:
+        break;
     }
 }
 
@@ -228,7 +231,7 @@ void CExBtnPane::_14(void) {
 void CExBtnPane::fn_801D9974(void) {
     nw4r::lyt::Pane *pane = mPane;
     s32 unk18 = mUnk18;
-    for (pane, unk18; (unk18 > 0) && (pane != NULL); pane = pane->GetParent()) {
+    for (; (unk18 > 0) && (pane != NULL); pane = pane->GetParent()) {
         nw4r::lyt::Pane::PaneList &parentChildList = pane->GetParent()->GetChildList();
         parentChildList.Erase(pane);
         parentChildList.PushBack(pane);

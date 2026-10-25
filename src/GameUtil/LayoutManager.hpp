@@ -24,21 +24,21 @@ public:
     virtual void _24(u16 arcIndex, const char *rootDir);
     virtual void _28(void);
 
-    void fn_801D6AEC(u8 layoutCount);
-    void fn_801D6B2C(CLayout *layout);
-    void fn_801D6BB0(void);
-    CLayout *fn_801D6C50(u8 index);
-    void fn_801D6D78(void);
-    void fn_801D6DAC(u8 fontCount);
-    bool fn_801D6E2C(void *resAddr, const char *resName);
-    void fn_801D705C(void);
-    void fn_801D717C(f32 x, f32 y);
-    f32 fn_801D7188(void);
-    f32 fn_801D7190(void);
-    void fn_801D7198(u32 size);
+    void fn_801D6AEC(u8 layoutCount); // startLayout
+    void fn_801D6B2C(CLayout *layout); // pushLayout
+    void fn_801D6BB0(void); // stopLayout
+    CLayout *fn_801D6C50(u8 index); // getLayout
+    void fn_801D6D78(void); // drawSetup
+    void fn_801D6DAC(u8 fontCount); // startFont
+    bool fn_801D6E2C(void *resAddr, const char *resName); // pushFont
+    void fn_801D705C(void); // endFont
+    void fn_801D717C(f32 x, f32 y); // setScale
+    f32 fn_801D7188(void); // getScaleX
+    f32 fn_801D7190(void); // getScaleY
+    void fn_801D7198(u32 heapSize); // startTempHeap
 
     template <typename T>
-    void registerLayout(void) {
+    void registerLayout(void) { // pushNewLayout
         fn_801D6B2C(new T);
     }
 

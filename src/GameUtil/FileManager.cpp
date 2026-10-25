@@ -365,7 +365,7 @@ bool CFileManager::expandSZSImpl(u8 *src, u8 *dst, u32 expandSize, u32 dstSize, 
             dst[dstIdx++] = src[srcIdx++];
         }
         else {
-            s32 packed = src[srcIdx] << 8 | src[srcIdx + 1];
+            s32 packed = (src[srcIdx] << 8) | src[srcIdx + 1];
             srcIdx += 2;
 
             s32 runIdx = dstIdx - (packed & 0x0FFF);
