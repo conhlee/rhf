@@ -259,7 +259,7 @@ static void fn_80038350(void) {
 TFD_EXTERN(lbl_802BAD10);
 
 static void fn_80038AE4(void) {
-    fn_801D3564();
+    memStub_801D3564();
     
     memInitHeap();
 

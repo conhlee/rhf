@@ -23,7 +23,7 @@ void CScene::fn_801D83DC(void) {
                 mUnk04 = false;
             }
             mState = eState_Ready;
-            fn_801D3634();
+            memStub_801D3634();
         }
         break;
     case eState_Ready:
@@ -42,6 +42,8 @@ void CScene::fn_801D83DC(void) {
     case eState_Down:
         _20();
         mState = eState_Dead;
+        break;
+    case eState_Dead:
         break;
     }
 

@@ -90,7 +90,7 @@ void operator delete[](void *ptr) {
     OSRestoreInterrupts(prevInterrupts);
 }
 
-void fn_801D3564(void) {}
+void memStub_801D3564(void) {}
 
 void memInitHeap(void) {
     if (!sHeapInitialized) {
@@ -125,9 +125,9 @@ void memInitHeap(void) {
     }
 }
 
-void fn_801D3634(void) {}
+void memStub_801D3634(void) {}
 
-void fn_801D3638(u32) {}
+void memStub_801D3638(u32) {}
 
 u16 memGetCurGroup(void) {
     return MEMGetGroupIDForExpHeap(gHeapMEM1);

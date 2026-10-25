@@ -6,8 +6,6 @@
 #include "List.hpp"
 #include "Singleton.hpp"
 
-#include "Mem.hpp"
-
 class CVarParam : public CList {
 public:
     CVarParam();

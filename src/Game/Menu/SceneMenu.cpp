@@ -102,7 +102,7 @@ void CSceneMenu::_14(void) {
     fn_800077A8(lbl_80320143);
     mUnkB4 = false;
 
-    fn_801D3638(300);
+    memStub_801D3638(300);
 }
 
 void CSceneMenu::_28(void) {

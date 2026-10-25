@@ -4,6 +4,8 @@
 
 #include "DebugPrint.hpp"
 
+#include "Mem.hpp"
+
 CVarParamManager::CVarParamManager(void) {
     mDisplayMode = 0;
     mUnk0C = 0;

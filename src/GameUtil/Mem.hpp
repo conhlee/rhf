@@ -30,10 +30,10 @@ void *operator new[](size_t size, EHeapMEM heap, s32 align);
 void operator delete(void *ptr);
 void operator delete[](void *ptr);
 
-void fn_801D3564(void); // (stub)
+void memStub_801D3564(void); // (stub)
 void memInitHeap(void);
-void fn_801D3634(void); // (stub)
-void fn_801D3638(u32); // (stub)
+void memStub_801D3634(void); // (stub)
+void memStub_801D3638(u32); // (stub)
 
 u16 memGetCurGroup(void);
 void memPopGroup(void);

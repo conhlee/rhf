@@ -11,7 +11,7 @@
 static const char layoutFile_P1_Def[] = "P1_Def.brlyt";
 
 DECL_SECTION(".sdata") static const char * const layoutFileTable[] = { layoutFile_P1_Def, NULL };
-// TODO: hack!
+// TODO: ^^ hack!
 
 void CCursorLayout::_10(void) {
     static char paneNameBuf[16];

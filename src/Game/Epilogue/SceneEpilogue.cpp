@@ -71,7 +71,7 @@ void CSceneEpilogue::_14(void) {
 
     gTickFlowManager->registerFlow<Epilogue::CMyFlow>();
 
-    fn_801D3638(300);
+    memStub_801D3638(300);
 }
 
 void CSceneEpilogue::_28(void) {}

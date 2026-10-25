@@ -24,6 +24,7 @@ static s32 lbl_8031F40C;
 static const char layoutFile_error[] = "error.brlyt";
 
 DECL_SECTION(".sdata") static const char * const layoutFileTable[] = { layoutFile_error, NULL };
+// TODO: ^^ hack!
 
 void Error::CMyLayout::fn_80079FA4(bool useCursor) {
     if ((lbl_80320498 != useCursor) && (lbl_8031F408 >= 0)) {

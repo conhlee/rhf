@@ -71,7 +71,7 @@ void CSceneGrading::_14(void) {
 
     gTickFlowManager->registerFlow<Grading::CMyFlow>();
 
-    fn_801D3638(300);
+    memStub_801D3638(300);
 }
 
 void CSceneGrading::_28(void) {}

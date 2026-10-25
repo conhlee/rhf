@@ -88,7 +88,7 @@ void CScenePrologue::_14(void) {
 
     gTickFlowManager->registerFlow<Prologue::CMyFlow>();
 
-    fn_801D3638(300);
+    memStub_801D3638(300);
 }
 
 void CScenePrologue::_28(void) {}
