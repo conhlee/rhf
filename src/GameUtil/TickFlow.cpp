@@ -303,16 +303,14 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         gTickFlowManager->fn_801E2B9C(tempo);
     } break;
     case TF_TEMPO_SEQ: {
-        f32 seqTempo = gSoundManager->calc_seq_tempo_sound_id(arg0);
-
-        u16 seqTempoInt = seqTempo; // NOTE: decimal precision is lost
-        if (seqTempoInt == 0) {
-            seqTempoInt = 120;
+        u16 tempo = gSoundManager->calc_seq_tempo_sound_id(arg0);
+        if (tempo == 0) {
+            tempo = 120;
             // "TFC_TEMPO_SEQ( %d ) : no tempo data was found\n"
             OSReport("TFC_TEMPO_SEQ( %d ) : テンポデータがありませんでした\n", arg0);
         }
 
-        gTickFlowManager->fn_801E2B9C(seqTempoInt);
+        gTickFlowManager->fn_801E2B9C(tempo);
     } break;
     case TF_TEMPO_WAVE: {
         gTickFlowManager->fn_801E2B9C(gSoundManager->get_wave_tempo(arg0));
@@ -321,7 +319,7 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
         gTickFlowManager->fn_801E2C04(arg0 / 256.0f);
     } break;
     case TF_01E: {
-        // regswap inside CLAMP
+        // TODO: regswap inside CLAMP
         f32 a2 = static_cast<u32>(args[2]) / 256.0f;
         f32 a1 = static_cast<u32>(args[1]) / 256.0f;
         f32 x = (gTickFlowManager->getSpeed() * static_cast<u32>(args[0])) / 256.0f;
@@ -434,17 +432,14 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     } break;
     case TF_SFX_PITCH: {
         SNDHandle *soundHandle = gTickFlowManager->fn_801E415C();
-
         gSoundManager->tune_pitch(static_cast<u32>(args[0]) / 256.0f, soundHandle);
     } break;
     case TF_SFX_PAN: {
         SNDHandle *soundHandle = gTickFlowManager->fn_801E415C();
-
         gSoundManager->tune_pan(args[0] / 256.0f, soundHandle);
     } break;
     case TF_SFX_TEMPO_RATIO: {
         SNDHandle *soundHandle = gTickFlowManager->fn_801E415C();
-
         gSoundManager->tune_tempo_ratio(static_cast<u32>(args[0]) / 256.0f, soundHandle);
     } break;
     case TF_SFX_TEMPO_REL: {
@@ -458,7 +453,6 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
     } break;
     case TF_SFX_STOP: {
         SNDHandle *soundHandle = gTickFlowManager->fn_801E415C();
-
         gSoundManager->tune_stop(gTickFlowManager->fn_801E26B4(arg0), soundHandle);
     } break;
     case TF_02A: {
@@ -641,13 +635,15 @@ bool CTickFlow::_1C(u32 opcode, u32 arg0, const s32 *args) {
             gInputCheckManager->fn_801E9D84();
         }
         else if (arg0 == 1) {
+            char buf[32];
             sprintf(buf, "%s_%d.ici", reinterpret_cast<char *>(args[0]), args[1]);
             gInputCheckManager->fn_801E9D80(buf);
         }
     } break;
 
     case TF_CONTROLLER_DO_MOTOR_SEQ: {
-        gControllerManager->fn_801D5FF0(args[0])->_40(reinterpret_cast<char *>(args[1]), false);
+        const char *seqText = reinterpret_cast<const char *>(args[1]);
+        gControllerManager->fn_801D5FF0(args[0])->_40(seqText, false);
     } break;
 
     case TF_RANDOM: {
