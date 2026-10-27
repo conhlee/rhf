@@ -12,15 +12,15 @@ void SaveDataFile::reset(void) {
     mSelectedGameIndex = -1;
 
     for (u8 i = 0; i < ARRAY_LENGTH(mLevelStates); i++) {
-        setLevelState(i, eLevelState_Locked);
+        setLevelState(i, eLevelState_Hidden);
         mLevelScores[i] = -1;
     }
 
     setLevelState(0, eLevelState_AttemptNG);
-    setLevelState(1, eLevelState_Unlocked);
-    setLevelState(2, eLevelState_Unlocked);
-    setLevelState(3, eLevelState_Unlocked);
-    setLevelState(4, eLevelState_Unlocked);
+    setLevelState(1, eLevelState_Locked);
+    setLevelState(2, eLevelState_Locked);
+    setLevelState(3, eLevelState_Locked);
+    setLevelState(4, eLevelState_Locked);
 
     unk3D = 0;
     mHasPendingResult = false;

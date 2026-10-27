@@ -15,8 +15,8 @@ struct SaveDataFile_Sub00 {
 };
 
 enum ELevelState {
-    eLevelState_Locked, // TODO: confirm
-    eLevelState_Unlocked, // TODO: confirm
+    eLevelState_Hidden,
+    eLevelState_Locked,
     eLevelState_AttemptNG,
     eLevelState_CompleteOK,
     eLevelState_CompleteHI,
