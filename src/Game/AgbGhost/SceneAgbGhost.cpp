@@ -327,8 +327,7 @@ void CSceneAgbGhost::fn_800A84A8(bool through) {
     ghostMissAnim->setLayer(mGhostAnim->getLayer());
     ghostMissAnim->setPos(0.0f, 0.0f);
 
-    // TODO: generate srawi instead of srwi
-    s16 animIndex = through ? 10 : 9;
+    s16 animIndex = through ? 8 : 9;
     ghostMissAnim->setAnimDestroy(animIndex);
 
     gSoundManager->play(SE_AGB_AIM_OSII);
