@@ -9,13 +9,9 @@
 
 #include "FileManager.hpp"
 
-#include "SceneManager.hpp"
-
 #include "InputCheckManager.hpp"
 
-#include "SaveData.hpp"
-
-#include "BackupManager.hpp"
+#include "CellAnimManager.hpp"
 
 #include "TickFlowManager.hpp"
 

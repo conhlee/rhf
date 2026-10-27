@@ -7,6 +7,8 @@
 
 #include "TimeRatio.hpp"
 
+#include "CellAnim.hpp"
+
 namespace Title {
 
 class CMyFlow; // Forward-declaration
