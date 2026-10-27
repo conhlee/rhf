@@ -3,6 +3,8 @@
 
 #include <revolution/types.h>
 
+#include <revolution/MEM.h>
+
 #include "List.hpp"
 #include "Singleton.hpp"
 
